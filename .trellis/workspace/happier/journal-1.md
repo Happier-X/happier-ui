@@ -105,3 +105,37 @@
 ### Next Steps
 
 - None - task complete
+
+
+## Session 4: 移除 legacy 组件，仅保留 HButton
+
+**Date**: 2026-07-22
+**Task**: 移除 legacy 组件，仅保留 HButton
+**Branch**: `master`
+
+### Summary
+
+按决策 C 删除 HEmptyState/HIconButton/HListRow/HListSection/HSettingRow 及 M* 别名；index 仅 HButton；playground/spec/README 同步；build 通过。
+
+### Main Changes
+
+- Detailed change bullets were not supplied; see the summary above.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `ac598a8` | (see git log) |
+| `21b6d74` | (see git log) |
+
+### Testing
+
+- Validation was not recorded for this session.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

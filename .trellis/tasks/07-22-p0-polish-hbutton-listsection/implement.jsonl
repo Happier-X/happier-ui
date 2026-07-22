@@ -1,0 +1,5 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "组件约定与导出"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "token 与 HeroUI Native"}
+{"file": ".trellis/spec/frontend/directory-structure.md", "reason": "文件放置"}
+{"file": ".trellis/spec/frontend/quality-guidelines.md", "reason": "完成定义与验证"}
+{"file": ".trellis/spec/frontend/type-safety.md", "reason": "props/emits 类型"}

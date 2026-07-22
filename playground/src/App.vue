@@ -3,7 +3,7 @@
     <header class="smoke__header">
       <h1 class="smoke__title">happier-ui 冒烟</h1>
       <p class="smoke__lead">
-        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code> 与
+        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code> 与
         <code>tokens.css</code>（纯 Vue，无 Ionic 壳）。
       </p>
       <div class="smoke__swatch" aria-hidden="true" />
@@ -104,12 +104,50 @@
         <h-button size="sm" @click="sheetNoOverlayClose = false">关闭</h-button>
       </h-bottom-sheet>
     </section>
+
+    <section class="smoke__section" aria-labelledby="dialog-heading">
+      <h2 id="dialog-heading" class="smoke__section-title">HDialog</h2>
+      <div class="smoke__row smoke__row--wrap">
+        <h-button @click="dialogOpen = true">打开对话框</h-button>
+        <h-button variant="outline" @click="dialogNoOverlayClose = true">
+          打开（遮罩不关）
+        </h-button>
+      </div>
+      <p v-if="dialogCloseCount > 0" class="smoke__ping">
+        dialog close 次数：{{ dialogCloseCount }}
+      </p>
+
+      <h-dialog
+        v-model="dialogOpen"
+        title="确认操作"
+        description="这是居中 Dialog 示例。遮罩或 Esc 可关闭。"
+        @close="onDialogClose"
+      >
+        <p class="smoke__sheet-copy">也可在内容区放自定义正文。</p>
+        <template #actions>
+          <h-button size="sm" variant="ghost" @click="dialogOpen = false">取消</h-button>
+          <h-button size="sm" @click="dialogOpen = false">确认</h-button>
+        </template>
+      </h-dialog>
+
+      <h-dialog
+        v-model="dialogNoOverlayClose"
+        :close-on-overlay="false"
+        title="遮罩不关闭"
+        description="请用 Esc 或按钮关闭。"
+        @close="onDialogClose"
+      >
+        <template #actions>
+          <h-button size="sm" @click="dialogNoOverlayClose = false">关闭</h-button>
+        </template>
+      </h-dialog>
+    </section>
   </main>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { HBottomSheet, HButton, HSwitch } from 'happier-ui'
+import { HBottomSheet, HButton, HDialog, HSwitch } from 'happier-ui'
 
 const buttonClicks = ref(0)
 const switchOn = ref(true)
@@ -119,6 +157,9 @@ const switchLg = ref(false)
 const sheetOpen = ref(false)
 const sheetNoOverlayClose = ref(false)
 const sheetCloseCount = ref(0)
+const dialogOpen = ref(false)
+const dialogNoOverlayClose = ref(false)
+const dialogCloseCount = ref(0)
 
 const buttonVariants = [
   'primary',
@@ -141,6 +182,10 @@ const openSheetNoOverlayClose = () => {
 
 const onSheetClose = () => {
   sheetCloseCount.value += 1
+}
+
+const onDialogClose = () => {
+  dialogCloseCount.value += 1
 }
 </script>
 

@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HButton` / `HSwitch` / `HBottomSheet` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -22,6 +22,7 @@
 export { default as HButton } from './components/HButton.vue'
 export { default as HSwitch } from './components/HSwitch.vue'
 export { default as HBottomSheet } from './components/HBottomSheet.vue'
+export { default as HDialog } from './components/HDialog.vue'
 ```
 
 ## SFC 结构（必须）
@@ -37,6 +38,7 @@ export { default as HBottomSheet } from './components/HBottomSheet.vue'
 - `src/components/HButton.vue` — 7 variants × sm/md/lg、leading/trailing、disabled、focus-visible
 - `src/components/HSwitch.vue` — `v-model`、size、disabled、`role="switch"`
 - `src/components/HBottomSheet.vue` — `v-model`、overlay/Esc 关闭、dialog 语义、标题/内容槽
+- `src/components/HDialog.vue` — 居中 dialog；title/description/actions slots
 
 ## API 约定
 
@@ -45,7 +47,8 @@ export { default as HBottomSheet } from './components/HBottomSheet.vue'
 | 文字按钮 | `variant` + `size` + default slot | `HButton` |
 | 开关 | `modelValue` + `update:modelValue`；`role="switch"` | `HSwitch` |
 | 底部面板 | `modelValue` + overlay/Esc 请求关闭；`role="dialog"` | `HBottomSheet` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；开关建议 `ariaLabel`；面板需标题或 `ariaLabel` | `HButton` / `HSwitch` / `HBottomSheet` |
+| 居中对话框 | `modelValue` + overlay/Esc；title/description/actions | `HDialog` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；开关建议 `ariaLabel`；面板/对话框需标题或 `ariaLabel` | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
@@ -55,6 +58,7 @@ export { default as HBottomSheet } from './components/HBottomSheet.vue'
 | `HButton` | `HButton.vue` | primary/secondary/tertiary/outline/ghost/danger/danger-soft；sm/md/lg |
 | `HSwitch` | `HSwitch.vue` | v-model；sm/md/lg；disabled；HeroUI Native 观感 |
 | `HBottomSheet` | `HBottomSheet.vue` | v-model；overlay/Esc；title/default slots；非 Portal MVP |
+| `HDialog` | `HDialog.vue` | 居中；title/description/default/actions；非 Portal MVP |
 | `tokens.css` | `src/tokens.css` | 经 `happier-ui/tokens.css` 导出 |
 
 ### 已移除（勿再导出）
@@ -63,7 +67,7 @@ export { default as HBottomSheet } from './components/HBottomSheet.vue'
 
 ## 路线图
 
-以 `HButton` / `HSwitch` / `HBottomSheet` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
+以 `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
 
 ## 反模式

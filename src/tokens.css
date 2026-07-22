@@ -130,15 +130,23 @@
   --h-bottom-sheet-handle-w: 36px;
   --h-bottom-sheet-handle-h: 4px;
 
+  /* 对话框（HDialog） */
+  --h-dialog-z: 1210;
+  --h-dialog-overlay-bg: var(--h-bottom-sheet-overlay-bg);
+  --h-dialog-radius: 20px;
+  --h-dialog-max-width: 420px;
+  --h-dialog-duration: 180ms;
+
   /* 列表行密度 */
   --h-list-row-height-comfortable: var(--h-song-row-height);
   --h-list-row-height-compact: 56px;
 
-  /* 层级：导航 < MiniPlayer < 沉浸页 < BottomSheet */
+  /* 层级：导航 < MiniPlayer < 沉浸页 < BottomSheet < Dialog */
   --h-z-tab: 30;
   --h-z-mini-player: 1000;
   --h-z-player: 1100;
   --h-z-bottom-sheet: var(--h-bottom-sheet-z);
+  --h-z-dialog: var(--h-dialog-z);
 
   /* —— 兼容：--muses-* → --h-* —— */
   --muses-primary-50: var(--h-primary-50);

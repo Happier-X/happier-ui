@@ -49,6 +49,7 @@ import 'happier-ui/tokens.css'
 | 按钮 | `--h-button-height-*`、`--h-button-pad-x-*`、`--h-button-font-*` |
 | 开关 | `--h-switch-track-*-w/h`、`--h-switch-thumb-*`、`--h-switch-pad` |
 | 底部面板 | `--h-bottom-sheet-z`、`--h-bottom-sheet-overlay-bg`、`--h-bottom-sheet-radius`、`--h-bottom-sheet-duration` |
+| 对话框 | `--h-dialog-z`、`--h-dialog-overlay-bg`、`--h-dialog-radius`、`--h-dialog-max-width`、`--h-dialog-duration` |
 | 触控 / 列表 | `--h-touch-target`、`--h-song-row-height`、`--h-list-row-height-compact`、`--h-cover-size-sm` |
 | 动效 | `--h-duration-press`、`--h-ease-standard` |
 | 层级 | `--h-z-tab`、`--h-z-mini-player`、`--h-z-player` |

@@ -173,3 +173,37 @@
 ### Next Steps
 
 - None - task complete
+
+
+## Session 6: 新增 HBottomSheet 底部面板
+
+**Date**: 2026-07-22
+**Task**: 新增 HBottomSheet 底部面板
+**Branch**: `master`
+
+### Summary
+
+实现 HBottomSheet：v-model、遮罩/Esc 关闭、title/内容槽、dialog 语义、--h-* tokens；playground 与 spec/README 同步；build 通过。
+
+### Main Changes
+
+- Detailed change bullets were not supplied; see the summary above.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `96b7ef9` | (see git log) |
+| `cb9b469` | (see git log) |
+
+### Testing
+
+- Validation was not recorded for this session.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

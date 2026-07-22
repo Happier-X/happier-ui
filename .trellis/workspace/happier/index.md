@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 5
+- **Total Sessions**: 6
 - **Last Active**: 2026-07-22
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~175 | Active |
+| `journal-1.md` | ~209 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 6 | 2026-07-22 | 新增 HBottomSheet 底部面板 | `96b7ef9`, `cb9b469` | `master` |
 | 5 | 2026-07-22 | 新增 HSwitch 开关组件 | `d395377`, `e4c90cb` | `master` |
 | 4 | 2026-07-22 | 移除 legacy 组件，仅保留 HButton | `ac598a8`, `21b6d74` | `master` |
 | 3 | 2026-07-22 | P0 组件打磨与 HButton/HListSection | `87609d8`, `dfa5959` | `master` |

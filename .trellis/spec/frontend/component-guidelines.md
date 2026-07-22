@@ -2,69 +2,59 @@
 
 ## 原则
 
-- **语义组件**：解决 UI 问题（列表行、图标按钮、设置行），不 1:1 镜像 Ionic 标签名。
+- **语义组件**：解决 UI 问题，不 1:1 镜像 Ionic 标签名。
 - **视觉直接抄 HeroUI Native 移动端**（色 / 圆角 / 间距 / 状态 / 变体观感）；Vue 自实现，不依赖 `@heroui/react-native`。
 - **无 elevation**；数值只走 `--h-*`（`src/tokens.css`）。
 - **不实现**导航栈、Modal / ActionSheet / Alert 引擎（宿主负责）。
 - **触控热区**默认 ≥ 48px（`--h-touch-target`）。
-- **图标优先 default slot**（内联 SVG）；`icon` path + `ion-icon` 仅可选，且不 import `@ionic/vue`。
+- 图标/装饰优先 **slot**（内联 SVG）；不 peer `@ionic/vue`。
 
 ## 命名与导出
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HEmptyState` → `src/components/HEmptyState.vue` |
+| 组件名 / 文件名 | `HButton` → `src/components/HButton.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
-| 兼容 Muses | 同文件再导出 `M*` 别名（过渡期） |
-| CSS 类前缀 | **一律 `h-*`**（P0 已收敛 SettingRow / EmptyState 的 `m-*`） |
+| CSS 类前缀 | **一律 `h-*`** |
 
 ```ts
-// src/index.ts 模式
-export { default as HIconButton } from './components/HIconButton.vue'
-export { default as MIconButton } from './components/HIconButton.vue' // 兼容
+// src/index.ts
+export { default as HButton } from './components/HButton.vue'
 ```
 
 ## SFC 结构（必须）
 
 1. `<template>` → 2. `<script setup lang="ts">` → 3. `<style scoped>`
-2. Props：`defineProps` + `withDefaults`；必填无默认值（如 `ariaLabel`、`title`）。
+2. Props：`defineProps` + `withDefaults`；必填无默认值。
 3. 事件：`defineEmits<{ click: [event: MouseEvent] }>()` 对象形式。
-4. 组合：用 **具名 slot**（`start` / `end` / default），不把业务子树写死进库。
-5. 样式：`scoped`；`var(--h-…, fallback)`；禁止硬编码主色/间距（fallback 仅兜底）。
+4. 组合：用 **具名 slot**，不把业务子树写死进库。
+5. 样式：`scoped`；`var(--h-…, fallback)`。
 
-参考实现：
-
-- `src/components/HIconButton.vue` — slot 图标、`variant` / `size`、focus-visible、disabled
-- `src/components/HListRow.vue` — `start`/`end` slot、`button` 键盘激活、`playing` 态
-- `src/components/HSettingRow.vue` — 壳 + `end` 槽放宿主控件
-- `src/components/HEmptyState.vue` — 标题/描述 + default 操作槽
+参考实现：`src/components/HButton.vue` — 7 variants × sm/md/lg、leading/trailing、disabled、focus-visible。
 
 ## API 约定
 
 | 主题 | 约定 | 例子 |
 |------|------|------|
-| 可点行 | `button` prop + `role="button"` + Enter/Space | `HListRow` |
-| 无障碍 | 图标按钮强制 `ariaLabel` | `HIconButton` |
-| 事件冒泡 | 可选 `stopPropagation` | `HIconButton` |
-| 领域 UI | **不进库** | 封面 `MCover`、播放器、WebDAV 逻辑 |
+| 文字按钮 | `variant` + `size` + default slot | `HButton` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；图标装饰 `aria-hidden` | `HButton` leading SVG |
+| 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
 
 | 导出 | 文件 | 备注 |
 |------|------|------|
-| `HEmptyState` | `HEmptyState.vue` | `h-empty-state`；`--h-*`；compact / icon 槽 |
-| `HIconButton` | `HIconButton.vue` | variants：default/ghost/subtle/danger/on-media；loading |
-| `HListRow` | `HListRow.vue` | selected + density；playing 语义独立 |
-| `HSettingRow` | `HSettingRow.vue` | `h-setting-row`；可选 interactive |
-| `HButton` | `HButton.vue` | 7 variants × sm/md/lg；leading/trailing 槽 |
-| `HListSection` | `HListSection.vue` | title/header；inset / flat |
+| `HButton` | `HButton.vue` | primary/secondary/tertiary/outline/ghost/danger/danger-soft；sm/md/lg |
 | `tokens.css` | `src/tokens.css` | 经 `happier-ui/tokens.css` 导出 |
-| `MEmptyState` 等 | 同上 | 兼容别名（过渡期） |
+
+### 已移除（勿再导出）
+
+`HEmptyState`、`HIconButton`、`HListRow`、`HListSection`、`HSettingRow` 及全部 `M*` 兼容别名。宿主若仍依赖请自实现或改 import。
 
 ## 路线图
 
-P0 已交付 `HButton` / `HListSection` 与既有组件打磨 → Form/Notice/Surface。详见  
-`.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`。
+以 `HButton` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
+`.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
 
 ## 反模式
 
@@ -75,10 +65,11 @@ P0 已交付 `HButton` / `HListSection` 与既有组件打磨 → Form/Notice/Su
 | Material 阴影 elevation | 与 HeroUI Native / 项目定位冲突 |
 | 把音乐封面、队列、播放手势做进库 | 领域语义属 Muses |
 | 只写组件不上 playground | 消费方与 AI 无法目视回归 |
+| 恢复已删除的 M* 别名而不经任务评审 | 破坏性 API 需显式决策 |
 
 ## 新组件清单
 
 1. 在 `src/components/HXxx.vue` 实现（HeroUI Native 观感 + `--h-*`）。
-2. `src/index.ts` 导出 `HXxx`（需要时再 `MXxx`）。
+2. `src/index.ts` 导出 `HXxx`。
 3. `playground/src/App.vue` 增加演示段。
-4. 需要时更新本文件「当前导出」表。
+4. 更新本文件「当前导出」表。

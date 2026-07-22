@@ -9,41 +9,34 @@
 ## Props / Emits
 
 ```ts
-// 推荐：泛型 props + withDefaults；事件用对象类型
 const props = withDefaults(defineProps<{
-  title: string
-  subtitle?: string
-  playing?: boolean
-  button?: boolean
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'danger-soft' | 'tertiary'
+  size?: 'sm' | 'md' | 'lg'
+  disabled?: boolean
 }>(), {
-  subtitle: undefined,
-  playing: false,
-  button: true,
+  variant: 'primary',
+  size: 'md',
+  disabled: false,
 })
 
 const emit = defineEmits<{
-  click: [event: MouseEvent | KeyboardEvent]
+  click: [event: MouseEvent]
 }>()
 ```
 
-参考：`HListRow.vue`、`HIconButton.vue`。
+参考：`HButton.vue`。
 
 ## 约定
 
 | 项 | 约定 |
 |----|------|
-| 可选 prop | `?` + `withDefaults`；对象/字符串默认可用 `undefined` |
-| 联合字面量 | `'md' \| 'lg'`、`'default' \| 'on-media'` 等，避免宽 `string` 装变体 |
-| 插槽 | 运行时 `useSlots()`；不为每个 slot 强行写复杂类型，除非公共 API 需要 |
+| 可选 prop | `?` + `withDefaults` |
+| 联合字面量 | 变体/尺寸用字面量联合，避免宽 `string` |
+| 插槽 | 运行时槽位；不为每个 slot 强行写复杂类型除非公共 API 需要 |
 | 外部类型文件 | 暂无 `src/types/`；跨组件类型出现 ≥2 次再抽 |
 | `any` | 禁止在公共 props/emits 使用 |
 
-## ion-icon 与宿主类型
-
-`HIconButton` 模板中可选 `<ion-icon>`。无 Ionic 类型包时可能触发模板类型告警——**可接受**：不为此把 `@ionic/vue` 加进 peer。宿主若用 Ionic，自备类型。
-
 ## 反模式
 
-- 为图省事把 `color` / `variant` 收成无文档的自由 `string` 且无 CSS 映射说明。
+- 为图省事把 `variant` 收成无文档的自由 `string`。
 - 在库内引用 Muses 的业务类型（`Track`、`Playlist` 等）。
-- 新增 `.d.ts` 全局污染 `Window` 除非 Web Component 注册必需。

@@ -137,6 +137,22 @@
   --h-dialog-max-width: 420px;
   --h-dialog-duration: 180ms;
 
+  /* 输入框（HInput） */
+  --h-input-height-sm: 32px;
+  --h-input-height-md: 40px;
+  --h-input-height-lg: 48px;
+  --h-input-pad-x-sm: 10px;
+  --h-input-pad-x-md: 12px;
+  --h-input-pad-x-lg: 14px;
+  --h-input-font-sm: 13px;
+  --h-input-font-md: 14px;
+  --h-input-font-lg: 16px;
+  --h-input-radius: var(--h-radius-control);
+  --h-input-bg: var(--h-color-surface);
+  --h-input-border: var(--h-color-border-subtle);
+  --h-input-border-invalid: var(--h-color-danger);
+  --h-input-placeholder: var(--h-color-ink-muted);
+
   /* 列表行密度 */
   --h-list-row-height-comfortable: var(--h-song-row-height);
   --h-list-row-height-compact: 56px;

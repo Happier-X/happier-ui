@@ -27,6 +27,7 @@ npm run build:playground
 | `HSwitch` | `role="switch"` + `aria-checked`；建议 `ariaLabel`；disabled 不切换 |
 | `HBottomSheet` | `role="dialog"` + `aria-modal`；标题关联或 `ariaLabel`；Esc 可关闭 |
 | `HDialog` | `role="dialog"` + `aria-modal`；title/description 关联或 `ariaLabel`；Esc 可关闭 |
+| `HInput` | label 关联；`aria-invalid` / `aria-describedby`（description/error） |
 | 图标-only 控件（若新增） | 必填可访问名称（`aria-label` 等） |
 
 ## 禁止

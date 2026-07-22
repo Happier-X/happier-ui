@@ -9,6 +9,7 @@
 - **`HSwitch`** — 开关（`v-model`、sizes、disabled）
 - **`HBottomSheet`** — 底部面板（`v-model`、遮罩关闭、标题/内容槽）
 - **`HDialog`** — 居中对话框（`v-model`、遮罩/Esc、标题/描述/操作槽）
+- **`HInput`** — 文本输入（`v-model`、label/error；可对接 TanStack Vue Form Field）
 - **`happier-ui/tokens.css`** — `--h-*` 设计 token
 
 ## 布局
@@ -48,8 +49,26 @@ npm run dev
 ### 接入示例
 
 ```ts
-import { HBottomSheet, HButton, HDialog, HSwitch } from 'happier-ui'
+import { HBottomSheet, HButton, HDialog, HInput, HSwitch } from 'happier-ui'
 import 'happier-ui/tokens.css'
+```
+
+### HInput + TanStack Vue Form
+
+库 **不** peer 依赖 `@tanstack/vue-form`。在宿主用 Field 绑定：
+
+```vue
+<form.Field name="email">
+  <template #default="{ field }">
+    <h-input
+      label="Email"
+      :name="field.name"
+      :model-value="String(field.state.value ?? '')"
+      @update:model-value="field.handleChange"
+      @blur="field.handleBlur"
+    />
+  </template>
+</form.Field>
 ```
 
 领域组件（封面、播放器、`MPage`）永远留 Muses。

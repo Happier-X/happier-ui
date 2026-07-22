@@ -3,7 +3,7 @@
     <header class="smoke__header">
       <h1 class="smoke__title">happier-ui 冒烟</h1>
       <p class="smoke__lead">
-        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code> 与
+        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code> 与
         <code>tokens.css</code>（纯 Vue，无 Ionic 壳）。
       </p>
       <div class="smoke__swatch" aria-hidden="true" />
@@ -142,12 +142,73 @@
         </template>
       </h-dialog>
     </section>
+
+    <section class="smoke__section" aria-labelledby="input-heading">
+      <h2 id="input-heading" class="smoke__section-title">HInput</h2>
+      <div class="smoke__field-stack">
+        <h-input
+          v-model="simpleName"
+          label="v-model 示例"
+          description="标准受控输入"
+          placeholder="输入名称"
+        />
+        <p class="smoke__hint smoke__hint--inline">当前值：{{ simpleName || '（空）' }}</p>
+        <h-input
+          model-value="bad"
+          label="错误态"
+          error="请输入有效内容"
+          size="sm"
+        />
+        <h-input
+          model-value="disabled"
+          label="禁用"
+          disabled
+          size="lg"
+        />
+      </div>
+
+      <p class="smoke__hint smoke__hint--spaced">TanStack Vue Form 对接</p>
+      <form class="smoke__field-stack" @submit.prevent.stop="onTanstackSubmit">
+        <form.Field name="email">
+          <template #default="{ field }">
+            <h-input
+              label="Email"
+              type="email"
+              placeholder="you@example.com"
+              :name="field.name"
+              :model-value="String(field.state.value ?? '')"
+              :error="fieldError(field.state.meta.errors)"
+              @update:model-value="field.handleChange"
+              @blur="field.handleBlur"
+            />
+          </template>
+        </form.Field>
+        <form.Field name="password">
+          <template #default="{ field }">
+            <h-input
+              label="Password"
+              type="password"
+              :name="field.name"
+              :model-value="String(field.state.value ?? '')"
+              :error="fieldError(field.state.meta.errors)"
+              @update:model-value="field.handleChange"
+              @blur="field.handleBlur"
+            />
+          </template>
+        </form.Field>
+        <div class="smoke__row smoke__row--wrap">
+          <h-button type="submit" size="sm">提交 TanStack 表单</h-button>
+        </div>
+        <p v-if="tanstackSubmitMsg" class="smoke__ping">{{ tanstackSubmitMsg }}</p>
+      </form>
+    </section>
   </main>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { HBottomSheet, HButton, HDialog, HSwitch } from 'happier-ui'
+import { useForm } from '@tanstack/vue-form'
+import { HBottomSheet, HButton, HDialog, HInput, HSwitch } from 'happier-ui'
 
 const buttonClicks = ref(0)
 const switchOn = ref(true)
@@ -160,6 +221,39 @@ const sheetCloseCount = ref(0)
 const dialogOpen = ref(false)
 const dialogNoOverlayClose = ref(false)
 const dialogCloseCount = ref(0)
+const simpleName = ref('')
+const tanstackSubmitMsg = ref('')
+
+type DemoForm = {
+  email: string
+  password: string
+}
+
+const form = useForm({
+  defaultValues: {
+    email: '',
+    password: '',
+  } satisfies DemoForm,
+  onSubmit: async ({ value }) => {
+    tanstackSubmitMsg.value = `已提交：${value.email} / ${'*'.repeat(value.password.length || 0)}`
+  },
+})
+
+const fieldError = (errors: unknown[]) => {
+  const first = errors[0]
+  if (first == null) return undefined
+  if (typeof first === 'string') return first
+  if (typeof first === 'object' && first !== null && 'message' in first) {
+    return String((first as { message: unknown }).message)
+  }
+  return String(first)
+}
+
+const onTanstackSubmit = (event: Event) => {
+  event.preventDefault()
+  event.stopPropagation()
+  void form.handleSubmit()
+}
 
 const buttonVariants = [
   'primary',
@@ -280,5 +374,16 @@ const onDialogClose = () => {
   font-size: var(--h-font-body-sm, 13px);
   color: var(--h-color-ink-muted, #666);
   text-wrap: pretty;
+}
+
+.smoke__field-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--h-space-md, 12px);
+  margin-bottom: var(--h-space-md, 12px);
+}
+
+.smoke__hint--spaced {
+  margin-top: var(--h-space-md, 12px);
 }
 </style>

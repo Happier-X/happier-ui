@@ -6,3 +6,6 @@ playground/dist
 .idea
 .vscode/*
 !.vscode/extensions.json
+
+# Trellis runtime
+.trellis/.runtime/

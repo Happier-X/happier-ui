@@ -1,0 +1,2 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "验收导出表与删除一致"}
+{"file": ".trellis/spec/frontend/quality-guidelines.md", "reason": "build 与无残留依赖"}

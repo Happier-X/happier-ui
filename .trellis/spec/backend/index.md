@@ -1,38 +1,11 @@
-# Backend Development Guidelines
+# Backend Layer — 不适用
 
-> Best practices for backend development in this project.
+**happier-ui 是前端组件库，没有服务端、数据库或 API 路由。**
 
----
+| 模板文件 | 处理 |
+|----------|------|
+| directory-structure / database / error-handling / logging / quality | **已移除**（避免 AI 按空模板写后端） |
 
-## Overview
+若未来在本 monorepo 增加服务端包，再重建 `backend/` 子指南并更新根 `../index.md`。
 
-This directory contains guidelines for backend development. Fill in each file with your project's specific conventions.
-
----
-
-## Guidelines Index
-
-| Guide | Description | Status |
-|-------|-------------|--------|
-| [Directory Structure](./directory-structure.md) | Module organization and file layout | To fill |
-| [Database Guidelines](./database-guidelines.md) | ORM patterns, queries, migrations | To fill |
-| [Error Handling](./error-handling.md) | Error types, handling strategies | To fill |
-| [Quality Guidelines](./quality-guidelines.md) | Code standards, forbidden patterns | To fill |
-| [Logging Guidelines](./logging-guidelines.md) | Structured logging, log levels | To fill |
-
----
-
-## How to Fill These Guidelines
-
-For each guideline file:
-
-1. Document your project's **actual conventions** (not ideals)
-2. Include **code examples** from your codebase
-3. List **forbidden patterns** and why
-4. Add **common mistakes** your team has made
-
-The goal is to help AI assistants and new team members understand how YOUR project works.
-
----
-
-**Language**: All documentation should be written in **English**.
+实现与检查任务请只引用 **frontend** spec。

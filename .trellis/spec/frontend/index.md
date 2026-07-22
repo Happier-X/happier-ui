@@ -1,39 +1,30 @@
 # Frontend Development Guidelines
 
-> Best practices for frontend development in this project.
-
----
-
-## Overview
-
-This directory contains guidelines for frontend development. Fill in each file with your project's specific conventions.
-
----
+happier-ui：**纯 Vue 语义 UI 组件库** + `--h-*` token。无应用路由、无全局业务 store。
 
 ## Guidelines Index
 
 | Guide | Description | Status |
 |-------|-------------|--------|
-| [Directory Structure](./directory-structure.md) | Module organization and file layout | To fill |
-| [Component Guidelines](./component-guidelines.md) | Component patterns, props, composition | To fill |
-| [Hook Guidelines](./hook-guidelines.md) | Custom hooks, data fetching patterns | To fill |
-| [State Management](./state-management.md) | Local state, global state, server state | To fill |
-| [Quality Guidelines](./quality-guidelines.md) | Code standards, forbidden patterns | To fill |
-| [Type Safety](./type-safety.md) | Type patterns, validation | To fill |
+| [Directory Structure](./directory-structure.md) | 仓库布局与依赖边界 | Filled |
+| [Component Guidelines](./component-guidelines.md) | 组件模式、导出、slot、反模式 | Filled |
+| [Design Tokens](./tokens.md) | `--h-*` / 兼容别名 / HeroUI Native | Filled |
+| [Hook Guidelines](./hook-guidelines.md) | 当前无 composable；抽取条件 | Filled |
+| [State Management](./state-management.md) | 无全局 store；props/emit | Filled |
+| [Type Safety](./type-safety.md) | props/emits 与 TS 约定 | Filled |
+| [Quality Guidelines](./quality-guidelines.md) | 完成定义、验证、a11y | Filled |
 
----
+## 快速规则
 
-## How to Fill These Guidelines
+1. 新 UI 只加 `src/components/H*.vue`，导出走 `src/index.ts`。
+2. 视觉抄 **HeroUI Native**；数值只进 `src/tokens.css`。
+3. 先 `playground`，再给 Muses `file:` 消费。
+4. 音乐领域与 Ionic 引擎不进库。
 
-For each guideline file:
+## Quality Check（实现后）
 
-1. Document your project's **actual conventions** (not ideals)
-2. Include **code examples** from your codebase
-3. List **forbidden patterns** and why
-4. Add **common mistakes** your team has made
-
-The goal is to help AI assistants and new team members understand how YOUR project works.
-
----
-
-**Language**: All documentation should be written in **English**.
+- [ ] 组件使用 `--h-*`，无新增 `m-*` 类前缀债务
+- [ ] playground 可演示
+- [ ] 无 `@ionic/vue` import
+- [ ] `npm run build:playground` 通过
+- [ ] 未引入业务实体类型或全局 store

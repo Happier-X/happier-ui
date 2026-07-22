@@ -139,3 +139,37 @@
 ### Next Steps
 
 - None - task complete
+
+
+## Session 5: 新增 HSwitch 开关组件
+
+**Date**: 2026-07-22
+**Task**: 新增 HSwitch 开关组件
+**Branch**: `master`
+
+### Summary
+
+实现 HSwitch：v-model、disabled、sm/md/lg、role=switch、--h-* tokens；playground 与 spec/README 同步；build 通过。
+
+### Main Changes
+
+- Detailed change bullets were not supplied; see the summary above.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `d395377` | (see git log) |
+| `e4c90cb` | (see git log) |
+
+### Testing
+
+- Validation was not recorded for this session.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

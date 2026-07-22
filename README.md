@@ -7,6 +7,7 @@
 
 - **`HButton`** — 文字按钮（HeroUI Native 风格 variants / sizes）
 - **`HSwitch`** — 开关（`v-model`、sizes、disabled）
+- **`HBottomSheet`** — 底部面板（`v-model`、遮罩关闭、标题/内容槽）
 - **`happier-ui/tokens.css`** — `--h-*` 设计 token
 
 ## 布局
@@ -46,7 +47,7 @@ npm run dev
 ### 接入示例
 
 ```ts
-import { HButton, HSwitch } from 'happier-ui'
+import { HBottomSheet, HButton, HSwitch } from 'happier-ui'
 import 'happier-ui/tokens.css'
 ```
 

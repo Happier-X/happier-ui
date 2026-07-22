@@ -14,10 +14,22 @@
 ## 原则
 
 1. **happier-ui 提供通用移动 UI 原语**，不提供 Muses 音乐业务。
-2. **首版样式参照 HeroUI Native 移动端**，token 为 `--h-*`。
-3. **不复刻 Ionic 全家桶**：导航栈、Modal 生命周期、ActionSheet/Alert 引擎可先留宿主。
-4. **优先做能替换 ≥2 处的通用组件**，单点业务先留 Muses。
-5. **组件命名用 H***；Muses 中 `M*` 可以作为过渡包装。
+2. **视觉直接抄 HeroUI Native 移动端**：颜色角色、圆角、间距、控件尺寸与状态反馈以 HeroUI Native 为准，落到 `--h-*`；不自创 Material / Ionic 默认皮。
+3. **实现是 Vue 语义组件，不是 RN 依赖**：抄的是 **样式与交互观感**，不引入 `@heroui/react-native` 运行时；API 用 `H*` 语义命名，不必 1:1 镜像 HeroUI 组件名。
+4. **不复刻 Ionic 全家桶**：导航栈、Modal 生命周期、ActionSheet/Alert 引擎可先留宿主。
+5. **优先做能替换 ≥2 处的通用组件**，单点业务先留 Muses。
+6. **组件命名用 H***；Muses 中 `M*` 可以作为过渡包装。
+
+## 视觉源（HeroUI Native）
+
+| 抄什么 | 不抄什么 |
+|--------|----------|
+| surface / accent / muted / separator 语义色 | React Native 组件实现与依赖树 |
+| soft radius、列表/按钮/字段的密度与触控尺寸 | 业务主题或音乐领域控件 |
+| pressed / disabled / selected 等状态观感 | Material elevation / 重阴影 |
+| 控件变体（如 solid / soft / ghost / danger 一类） | Ionic 默认 CSS variables 当设计系统 |
+
+Token 权威文件：`src/tokens.css`（已部分对齐 HeroUI blue primary + Native 语义角色）。后续组件实现以该文件 + HeroUI Native 对照为准。
 
 ## 当前已有组件
 
@@ -106,6 +118,7 @@
 - [x] 明确不进库的 Muses 业务组件
 - [x] 给出 Muses 替换优先级
 - [x] 记录 ion 使用扫描依据
+- [x] 明确视觉策略：直接对齐 HeroUI Native 移动端样式（非自创皮）
 
 ## Notes
 

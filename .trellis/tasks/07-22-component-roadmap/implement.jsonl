@@ -1,1 +1,4 @@
-{"_example": "Fill with {\"file\": \"<path>\", \"reason\": \"<why>\"}. Put spec/research files only — no code paths. Run `python .trellis/scripts/get_context.py --mode packages` to list available specs. Delete this line once real entries are added."}
+{"file": ".trellis/spec/index.md", "reason": "库定位、token 与组件边界总览"}
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "已有组件导出、不进库边界与路线图入口"}
+{"file": ".trellis/spec/frontend/directory-structure.md", "reason": "src/components 与 playground 目录约定"}
+{"file": ".trellis/spec/guides/code-reuse-thinking-guide.md", "reason": "通用原语优先、避免单点业务进库"}

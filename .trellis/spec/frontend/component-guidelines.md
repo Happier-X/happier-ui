@@ -3,6 +3,7 @@
 ## 原则
 
 - 语义组件，不 1:1 镜像 Ionic 标签。
+- **视觉直接抄 HeroUI Native 移动端**（色/圆角/间距/状态/变体观感）；实现是 Vue，不依赖 HeroUI RN。
 - 不实现导航栈 / Modal / ActionSheet 引擎。
 - 图标优先 **slot**；`icon` path + `ion-icon` 仅宿主可选能力。
 - 无 elevation；主色与间距来自 `--h-*`。

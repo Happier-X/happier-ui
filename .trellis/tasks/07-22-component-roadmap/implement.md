@@ -4,6 +4,13 @@
 
 规划/路线图任务，不改代码。完成标准是 `prd.md` 中清单可执行。
 
+## 视觉执行约定（所有后续实现任务共用）
+
+- **直接抄 HeroUI Native 移动端样式**（色、圆角、间距、状态、变体观感）。
+- 数值进 `src/tokens.css` 的 `--h-*`；组件样式只消费 token，不散落魔法数。
+- 不引入 HeroUI RN 包；Vue 组件自实现，观感对齐即可。
+- 禁止 Material elevation；Ionic 仅作宿主壳，不当设计源。
+
 ## 后续建议任务拆分
 
 ### 任务 1：P0 打磨已有组件
@@ -42,4 +49,4 @@
 
 ## 当前结论
 
-先实现：**P0 打磨 + `HButton` + `HListSection`**。
+先实现：**P0 打磨 + `HButton` + `HListSection`**，样式一律按 HeroUI Native 移动端抄。

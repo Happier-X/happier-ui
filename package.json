@@ -1,0 +1,28 @@
+{
+  "name": "happier-ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "跨 Capacitor/Vue 的语义 UI 与 --h-* token（纯 Vue 优先）",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w happier-ui-playground",
+    "build:playground": "npm run build -w happier-ui-playground",
+    "dev:playground": "npm run dev -w happier-ui-playground"
+  },
+  "workspaces": [
+    "playground"
+  ],
+  "devDependencies": {
+    "vue": "^3.5.40"
+  }
+}

@@ -1,0 +1,4 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "组件约定与导出表"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "token 约定"}
+{"file": ".trellis/spec/frontend/type-safety.md", "reason": "props/emits"}
+{"file": ".trellis/spec/frontend/quality-guidelines.md", "reason": "完成定义与 a11y"}

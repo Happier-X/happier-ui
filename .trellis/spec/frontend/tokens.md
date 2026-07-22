@@ -43,17 +43,18 @@ import 'happier-ui/tokens.css'
 | 组 | 示例 |
 |----|------|
 | 主色阶 | `--h-primary-500` |
-| 语义色 | `--h-color-primary`、`--h-color-surface`、`--h-color-danger` |
+| 语义色 | `--h-color-primary`、`--h-color-surface`、`--h-color-danger`、`--h-color-success` / `warning`、`--h-color-focus-ring` |
 | 沉浸播放 | `--h-immersive-*`（播放器宿主可用，库组件按需） |
 | 间距 / 圆角 / 字号 | `--h-space-*`、`--h-radius-*`、`--h-font-*` |
-| 触控 / 列表 | `--h-touch-target`、`--h-song-row-height`、`--h-cover-size-sm` |
+| 按钮 | `--h-button-height-*`、`--h-button-pad-x-*`、`--h-button-font-*` |
+| 触控 / 列表 | `--h-touch-target`、`--h-song-row-height`、`--h-list-row-height-compact`、`--h-cover-size-sm` |
 | 动效 | `--h-duration-press`、`--h-ease-standard` |
 | 层级 | `--h-z-tab`、`--h-z-mini-player`、`--h-z-player` |
 
 ## 已知债
 
-- `HEmptyState` 样式仍直接引用 `--muses-*`（依赖别名链路）。
 - 部分 token 仍 fallback 到 `--ion-*`（历史宿主耦合）；长期应收敛为纯 `--h-*` 默认值。
+- `--muses-*` 别名仍保留供 Muses 存量字符串过渡；新代码只写 `--h-*`。
 
 ## 反模式
 

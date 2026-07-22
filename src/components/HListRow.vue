@@ -3,11 +3,13 @@
     class="h-list-row"
     :class="{
       'h-list-row--playing': playing,
+      'h-list-row--selected': selected && !playing,
       'h-list-row--button': button,
+      [`h-list-row--${density}`]: true,
     }"
     :role="button ? 'button' : undefined"
     :tabindex="button ? 0 : undefined"
-    :aria-current="playing ? 'true' : undefined"
+    :aria-current="playing || selected ? 'true' : undefined"
     @click="onClick"
     @keydown.enter.prevent="onActivate"
     @keydown.space.prevent="onActivate"
@@ -33,6 +35,9 @@
 <script setup lang="ts">
 /**
  * happier-ui：纯 Vue 列表行。无默认封面（由宿主 start 槽提供）。
+ * - playing：正在播放语义（优先于 selected 背景）
+ * - selected：选中态（非播放）
+ * - density：comfortable（默认 72px）/ compact
  */
 import { computed, useSlots } from 'vue'
 
@@ -40,6 +45,8 @@ const props = withDefaults(defineProps<{
   title: string
   subtitle?: string
   playing?: boolean
+  selected?: boolean
+  density?: 'comfortable' | 'compact'
   button?: boolean
   /** 无 start 槽时是否仍预留起始区（一般 false） */
   showStartWhenEmpty?: boolean
@@ -47,6 +54,8 @@ const props = withDefaults(defineProps<{
 }>(), {
   subtitle: undefined,
   playing: false,
+  selected: false,
+  density: 'comfortable',
   button: true,
   showStartWhenEmpty: false,
   showPlayingIndicator: false,
@@ -77,7 +86,7 @@ const onActivate = (event: KeyboardEvent) => {
   display: flex;
   align-items: center;
   width: 100%;
-  min-height: var(--h-song-row-height, 72px);
+  min-height: var(--h-list-row-height-comfortable, var(--h-song-row-height, 72px));
   margin: 0;
   padding: var(--h-space-sm, 8px) var(--h-space-sm, 8px) var(--h-space-sm, 8px)
     var(--h-space-md, 12px);
@@ -89,17 +98,26 @@ const onActivate = (event: KeyboardEvent) => {
   -webkit-tap-highlight-color: transparent;
 }
 
+.h-list-row--compact {
+  min-height: var(--h-list-row-height-compact, 56px);
+  padding-block: var(--h-space-xs, 2px);
+}
+
 .h-list-row--button {
   cursor: pointer;
 }
 
 .h-list-row--button:focus-visible {
-  outline: 2px solid var(--h-color-primary, #006fee);
+  outline: 2px solid var(--h-color-focus-ring, var(--h-color-primary, #006fee));
   outline-offset: -2px;
 }
 
 .h-list-row--button:active {
   background: var(--h-color-playing-bg-soft, rgba(0, 111, 238, 0.08));
+}
+
+.h-list-row--selected {
+  background: var(--h-color-selected-bg, var(--h-color-playing-bg-soft, rgba(0, 111, 238, 0.08)));
 }
 
 .h-list-row--playing {

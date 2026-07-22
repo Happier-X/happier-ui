@@ -16,7 +16,7 @@
 | 组件名 / 文件名 | `HEmptyState` → `src/components/HEmptyState.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | 兼容 Muses | 同文件再导出 `M*` 别名（过渡期） |
-| CSS 类前缀 | **新代码用 `h-*`**；存量 `m-*`（如 `HSettingRow`、`HEmptyState`）为迁移债，改样式时顺手收敛 |
+| CSS 类前缀 | **一律 `h-*`**（P0 已收敛 SettingRow / EmptyState 的 `m-*`） |
 
 ```ts
 // src/index.ts 模式
@@ -52,15 +52,18 @@ export { default as MIconButton } from './components/HIconButton.vue' // 兼容
 
 | 导出 | 文件 | 备注 |
 |------|------|------|
-| `HEmptyState` | `HEmptyState.vue` | 样式仍多用 `--muses-*`，P0 应改 `--h-*` |
-| `HIconButton` | `HIconButton.vue` | 较完整的 `--h-*` 范本 |
-| `HListRow` | `HListRow.vue` | 无默认封面 |
-| `HSettingRow` | `HSettingRow.vue` | 类名仍 `m-setting-row` |
+| `HEmptyState` | `HEmptyState.vue` | `h-empty-state`；`--h-*`；compact / icon 槽 |
+| `HIconButton` | `HIconButton.vue` | variants：default/ghost/subtle/danger/on-media；loading |
+| `HListRow` | `HListRow.vue` | selected + density；playing 语义独立 |
+| `HSettingRow` | `HSettingRow.vue` | `h-setting-row`；可选 interactive |
+| `HButton` | `HButton.vue` | 7 variants × sm/md/lg；leading/trailing 槽 |
+| `HListSection` | `HListSection.vue` | title/header；inset / flat |
 | `tokens.css` | `src/tokens.css` | 经 `happier-ui/tokens.css` 导出 |
+| `MEmptyState` 等 | 同上 | 兼容别名（过渡期） |
 
 ## 路线图
 
-P0 打磨 → `HButton` / `HListSection` → Form/Notice/Surface。详见  
+P0 已交付 `HButton` / `HListSection` 与既有组件打磨 → Form/Notice/Surface。详见  
 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`。
 
 ## 反模式

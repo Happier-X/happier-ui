@@ -37,6 +37,11 @@
   --h-color-playing-bg-soft: rgba(var(--h-color-primary-rgb), 0.08);
   --h-color-jump-highlight: rgba(var(--h-color-primary-rgb), 0.22);
   --h-color-danger: var(--ion-color-danger, #eb445a);
+  --h-color-danger-rgb: 235, 68, 90;
+  --h-color-success: #17c964;
+  --h-color-warning: #f5a524;
+  --h-color-focus-ring: var(--h-color-primary);
+  --h-color-selected-bg: var(--h-color-playing-bg-soft);
 
   /* 沉浸播放页 */
   --h-immersive-void: #05070d;
@@ -88,7 +93,24 @@
   --h-icon-size-md: 22px;
   --h-icon-size-lg: 24px;
   --h-empty-state-min-height: 60vh;
+  --h-empty-state-min-height-compact: 40vh;
   --h-empty-state-max-width: 34rem;
+
+  /* 按钮（HButton） */
+  --h-button-height-sm: 32px;
+  --h-button-height-md: 40px;
+  --h-button-height-lg: 48px;
+  --h-button-pad-x-sm: 12px;
+  --h-button-pad-x-md: 16px;
+  --h-button-pad-x-lg: 20px;
+  --h-button-font-sm: 13px;
+  --h-button-font-md: 14px;
+  --h-button-font-lg: 16px;
+  --h-button-gap: 8px;
+
+  /* 列表行密度 */
+  --h-list-row-height-comfortable: var(--h-song-row-height);
+  --h-list-row-height-compact: 56px;
 
   /* 层级：导航 < MiniPlayer < 沉浸页 */
   --h-z-tab: 30;

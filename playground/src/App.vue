@@ -3,7 +3,7 @@
     <header class="smoke__header">
       <h1 class="smoke__title">happier-ui 冒烟</h1>
       <p class="smoke__lead">
-        当前库仅导出 <code>HButton</code> 与 <code>tokens.css</code>（纯 Vue，无 Ionic 壳）。
+        导出 <code>HButton</code>、<code>HSwitch</code> 与 <code>tokens.css</code>（纯 Vue，无 Ionic 壳）。
       </p>
       <div class="smoke__swatch" aria-hidden="true" />
     </header>
@@ -39,14 +39,43 @@
       </div>
       <p v-if="buttonClicks > 0" class="smoke__ping">Button 点击：{{ buttonClicks }}</p>
     </section>
+
+    <section class="smoke__section" aria-labelledby="switch-heading">
+      <h2 id="switch-heading" class="smoke__section-title">HSwitch</h2>
+      <div class="smoke__row smoke__row--wrap smoke__switch-row">
+        <label class="smoke__switch-item">
+          <span class="smoke__hint smoke__hint--inline">md v-model</span>
+          <h-switch v-model="switchOn" aria-label="示例开关" />
+          <span class="smoke__hint smoke__hint--inline">{{ switchOn ? 'on' : 'off' }}</span>
+        </label>
+        <label class="smoke__switch-item">
+          <span class="smoke__hint smoke__hint--inline">disabled on</span>
+          <h-switch :model-value="true" disabled aria-label="禁用开" />
+        </label>
+        <label class="smoke__switch-item">
+          <span class="smoke__hint smoke__hint--inline">disabled off</span>
+          <h-switch :model-value="false" disabled aria-label="禁用关" />
+        </label>
+      </div>
+      <p class="smoke__hint">sizes</p>
+      <div class="smoke__row smoke__row--wrap">
+        <h-switch v-model="switchSm" size="sm" aria-label="小开关" />
+        <h-switch v-model="switchMd" size="md" aria-label="中开关" />
+        <h-switch v-model="switchLg" size="lg" aria-label="大开关" />
+      </div>
+    </section>
   </main>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { HButton } from 'happier-ui'
+import { HButton, HSwitch } from 'happier-ui'
 
 const buttonClicks = ref(0)
+const switchOn = ref(true)
+const switchSm = ref(false)
+const switchMd = ref(true)
+const switchLg = ref(false)
 
 const buttonVariants = [
   'primary',
@@ -134,5 +163,19 @@ const onButtonClick = () => {
 
 .smoke__button-block {
   margin-bottom: var(--h-space-sm, 8px);
+}
+
+.smoke__switch-row {
+  margin-bottom: var(--h-space-md, 12px);
+}
+
+.smoke__switch-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--h-space-sm, 8px);
+}
+
+.smoke__hint--inline {
+  margin: 0;
 }
 </style>

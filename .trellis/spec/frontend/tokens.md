@@ -47,6 +47,7 @@ import 'happier-ui/tokens.css'
 | 沉浸播放 | `--h-immersive-*`（播放器宿主可用，库组件按需） |
 | 间距 / 圆角 / 字号 | `--h-space-*`、`--h-radius-*`、`--h-font-*` |
 | 按钮 | `--h-button-height-*`、`--h-button-pad-x-*`、`--h-button-font-*` |
+| 开关 | `--h-switch-track-*-w/h`、`--h-switch-thumb-*`、`--h-switch-pad` |
 | 触控 / 列表 | `--h-touch-target`、`--h-song-row-height`、`--h-list-row-height-compact`、`--h-cover-size-sm` |
 | 动效 | `--h-duration-press`、`--h-ease-standard` |
 | 层级 | `--h-z-tab`、`--h-z-mini-player`、`--h-z-player` |

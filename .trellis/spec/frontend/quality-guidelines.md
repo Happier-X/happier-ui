@@ -24,6 +24,7 @@ npm run build:playground
 | 控件 | 要求 |
 |------|------|
 | `HButton` | 原生 `<button>`；disabled 时不可点；装饰 SVG `aria-hidden` |
+| `HSwitch` | `role="switch"` + `aria-checked`；建议 `ariaLabel`；disabled 不切换 |
 | 图标-only 控件（若新增） | 必填可访问名称（`aria-label` 等） |
 
 ## 禁止

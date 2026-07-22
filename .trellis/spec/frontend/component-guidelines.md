@@ -13,13 +13,14 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HButton` → `src/components/HButton.vue` |
+| 组件名 / 文件名 | `HButton` / `HSwitch` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
 ```ts
 // src/index.ts
 export { default as HButton } from './components/HButton.vue'
+export { default as HSwitch } from './components/HSwitch.vue'
 ```
 
 ## SFC 结构（必须）
@@ -30,14 +31,18 @@ export { default as HButton } from './components/HButton.vue'
 4. 组合：用 **具名 slot**，不把业务子树写死进库。
 5. 样式：`scoped`；`var(--h-…, fallback)`。
 
-参考实现：`src/components/HButton.vue` — 7 variants × sm/md/lg、leading/trailing、disabled、focus-visible。
+参考实现：
+
+- `src/components/HButton.vue` — 7 variants × sm/md/lg、leading/trailing、disabled、focus-visible
+- `src/components/HSwitch.vue` — `v-model`、size、disabled、`role="switch"`
 
 ## API 约定
 
 | 主题 | 约定 | 例子 |
 |------|------|------|
 | 文字按钮 | `variant` + `size` + default slot | `HButton` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；图标装饰 `aria-hidden` | `HButton` leading SVG |
+| 开关 | `modelValue` + `update:modelValue`；`role="switch"` | `HSwitch` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；图标装饰 `aria-hidden`；开关建议 `ariaLabel` | `HButton` / `HSwitch` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
@@ -45,6 +50,7 @@ export { default as HButton } from './components/HButton.vue'
 | 导出 | 文件 | 备注 |
 |------|------|------|
 | `HButton` | `HButton.vue` | primary/secondary/tertiary/outline/ghost/danger/danger-soft；sm/md/lg |
+| `HSwitch` | `HSwitch.vue` | v-model；sm/md/lg；disabled；HeroUI Native 观感 |
 | `tokens.css` | `src/tokens.css` | 经 `happier-ui/tokens.css` 导出 |
 
 ### 已移除（勿再导出）
@@ -53,7 +59,7 @@ export { default as HButton } from './components/HButton.vue'
 
 ## 路线图
 
-以 `HButton` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
+以 `HButton` / `HSwitch` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
 
 ## 反模式

@@ -6,6 +6,7 @@
 ## 当前导出
 
 - **`HButton`** — 文字按钮（HeroUI Native 风格 variants / sizes）
+- **`HSwitch`** — 开关（`v-model`、sizes、disabled）
 - **`happier-ui/tokens.css`** — `--h-*` 设计 token
 
 ## 布局
@@ -45,7 +46,7 @@ npm run dev
 ### 接入示例
 
 ```ts
-import { HButton } from 'happier-ui'
+import { HButton, HSwitch } from 'happier-ui'
 import 'happier-ui/tokens.css'
 ```
 

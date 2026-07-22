@@ -108,6 +108,19 @@
   --h-button-font-lg: 16px;
   --h-button-gap: 8px;
 
+  /* 开关（HSwitch） */
+  --h-switch-pad: 2px;
+  --h-switch-track-sm-w: 36px;
+  --h-switch-track-sm-h: 20px;
+  --h-switch-thumb-sm: 16px;
+  --h-switch-track-md-w: 44px;
+  --h-switch-track-md-h: 26px;
+  --h-switch-thumb-md: 22px;
+  --h-switch-track-lg-w: 52px;
+  --h-switch-track-lg-h: 32px;
+  --h-switch-thumb-lg: 28px;
+  --h-switch-duration: 180ms;
+
   /* 列表行密度 */
   --h-list-row-height-comfortable: var(--h-song-row-height);
   --h-list-row-height-compact: 56px;

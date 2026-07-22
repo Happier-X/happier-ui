@@ -207,3 +207,37 @@
 ### Next Steps
 
 - None - task complete
+
+
+## Session 7: 新增 HDialog 对话框组件
+
+**Date**: 2026-07-22
+**Task**: 新增 HDialog 对话框组件
+**Branch**: `master`
+
+### Summary
+
+实现 HDialog：居中 modal、v-model、遮罩/Esc 关闭、title/description/actions 槽、dialog 语义、--h-* tokens；playground 与 spec/README 同步；build 通过。
+
+### Main Changes
+
+- Detailed change bullets were not supplied; see the summary above.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `71eaba4` | (see git log) |
+| `24340ef` | (see git log) |
+
+### Testing
+
+- Validation was not recorded for this session.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

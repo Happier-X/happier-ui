@@ -241,3 +241,37 @@
 ### Next Steps
 
 - None - task complete
+
+
+## Session 8: HInput + TanStack Form 适配
+
+**Date**: 2026-07-22
+**Task**: HInput + TanStack Form 适配
+**Branch**: `master`
+
+### Summary
+
+新增 HInput：v-model/label/error/a11y 与 --h-input-*；库不 peer tanstack；playground 用真实 @tanstack/vue-form Field 演示；README 与 frontend specs 更新；build:playground 通过并归档任务。
+
+### Main Changes
+
+- Detailed change bullets were not supplied; see the summary above.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `16f6cd2` | (see git log) |
+| `2def9af` | (see git log) |
+
+### Testing
+
+- Validation was not recorded for this session.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

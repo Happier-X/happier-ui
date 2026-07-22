@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 7
+- **Total Sessions**: 8
 - **Last Active**: 2026-07-22
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~243 | Active |
+| `journal-1.md` | ~277 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 8 | 2026-07-22 | HInput + TanStack Form 适配 | `16f6cd2`, `2def9af` | `master` |
 | 7 | 2026-07-22 | 新增 HDialog 对话框组件 | `71eaba4`, `24340ef` | `master` |
 | 6 | 2026-07-22 | 新增 HBottomSheet 底部面板 | `96b7ef9`, `cb9b469` | `master` |
 | 5 | 2026-07-22 | 新增 HSwitch 开关组件 | `d395377`, `e4c90cb` | `master` |

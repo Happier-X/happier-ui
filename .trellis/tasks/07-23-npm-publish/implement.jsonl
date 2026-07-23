@@ -1,0 +1,7 @@
+{"path":".trellis/spec/frontend/index.md","reason":"前端包和组件范围约定"}
+{"path":"package.json","reason":"发布元数据、exports、scripts、peer dependencies"}
+{"path":"src/index.ts","reason":"库公共入口与类型导出"}
+{"path":"src/tokens.css","reason":"tokens 静态 CSS 子路径"}
+{"path":"README.md","reason":"安装与公共消费文档"}
+{"path":"playground/package.json","reason":"现有 workspace 构建与本地消费关系"}
+{"path":".gitignore","reason":"dist 与发布临时文件管理"}

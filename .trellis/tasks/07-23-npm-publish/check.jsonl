@@ -1,0 +1,7 @@
+{"path":".trellis/tasks/07-23-npm-publish/prd.md","reason":"发布需求与验收"}
+{"path":".trellis/tasks/07-23-npm-publish/design.md","reason":"包结构、构建和发布边界"}
+{"path":"package.json","reason":"npm metadata and exports"}
+{"path":"vite.config.ts","reason":"library build configuration"}
+{"path":"LICENSE","reason":"license completeness"}
+{"path":"dist","reason":"build artifacts"}
+{"path":"README.md","reason":"public installation documentation"}

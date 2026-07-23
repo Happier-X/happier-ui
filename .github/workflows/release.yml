@@ -6,6 +6,12 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'package.json version to publish (e.g. 0.0.1); must match package.json'
+        required: true
+        type: string
 
 jobs:
   publish:
@@ -27,21 +33,26 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Extract version from tag
+      - name: Resolve expected version
         id: version
         run: |
-          TAG=${GITHUB_REF#refs/tags/}
-          VERSION=${TAG#v}
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION="${{ inputs.version }}"
+            TAG="v${VERSION}"
+          else
+            TAG=${GITHUB_REF#refs/tags/}
+            VERSION=${TAG#v}
+          fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "tag=$TAG" >> $GITHUB_OUTPUT
-          echo "Tag: $TAG → package version expected: $VERSION"
+          echo "Tag/source: $TAG → package version expected: $VERSION"
 
       - name: Verify package.json version matches tag
         run: |
           PKG_VERSION=$(node -p "require('./package.json').version")
           EXPECTED="${{ steps.version.outputs.version }}"
           if [ "$PKG_VERSION" != "$EXPECTED" ]; then
-            echo "::error::package.json version ($PKG_VERSION) != tag version ($EXPECTED). Bump package.json before tagging."
+            echo "::error::package.json version ($PKG_VERSION) != expected ($EXPECTED). Bump package.json before publishing."
             exit 1
           fi
 

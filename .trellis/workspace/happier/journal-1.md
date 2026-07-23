@@ -445,3 +445,37 @@
 ### Next Steps
 
 - None - task complete
+
+
+## Session 14: HNavBar 顶部导航栏
+
+**Date**: 2026-07-23
+**Task**: HNavBar 顶部导航栏
+**Branch**: `master`
+
+### Summary
+
+完成 HNavBar 纯 Vue 顶部导航栏：支持 title 与 title/left/right 插槽、showBack 和 backAriaLabel、Vue 规范左右点击事件、fixed 与 safeArea 默认开启且可独立关闭、顶部安全区、标题视觉居中与单行省略；同步 tokens、playground、README 和前端 specs，build:playground 通过并归档任务。
+
+### Main Changes
+
+- Detailed change bullets were not supplied; see the summary above.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `d7647f6` | (see git log) |
+| `efcb948` | (see git log) |
+
+### Testing
+
+- Validation was not recorded for this session.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

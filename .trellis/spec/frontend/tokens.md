@@ -52,6 +52,7 @@ import 'happier-ui/tokens.css'
 | 对话框 | `--h-dialog-z`、`--h-dialog-overlay-bg`、`--h-dialog-radius`、`--h-dialog-max-width`、`--h-dialog-duration` |
 | 输入框 | `--h-input-height-*`、`--h-input-pad-x-*`、`--h-input-border`、`--h-input-border-invalid` |
 | 复选框 | `--h-checkbox-size-*`、`--h-checkbox-radius`、`--h-checkbox-border`、`--h-checkbox-bg-checked` |
+| 空状态 | `--h-empty-min-height`、`--h-empty-max-width`、`--h-empty-pad` |
 | 触控 / 列表 | `--h-touch-target`、`--h-song-row-height`、`--h-list-row-height-compact`、`--h-cover-size-sm` |
 | 动效 | `--h-duration-press`、`--h-ease-standard` |
 | 层级 | `--h-z-tab`、`--h-z-mini-player`、`--h-z-player` |

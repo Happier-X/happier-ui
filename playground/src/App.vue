@@ -3,7 +3,7 @@
     <header class="smoke__header">
       <h1 class="smoke__title">happier-ui 冒烟</h1>
       <p class="smoke__lead">
-        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code> 与
+        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code>、<code>HEmpty</code> 与
         <code>tokens.css</code>（纯 Vue，无 Ionic 壳）。
       </p>
       <div class="smoke__swatch" aria-hidden="true" />
@@ -245,13 +245,60 @@
         />
       </div>
     </section>
+
+    <section class="smoke__section" aria-labelledby="empty-heading">
+      <h2 id="empty-heading" class="smoke__section-title">HEmpty</h2>
+      <div class="smoke__empty-frame">
+        <h-empty
+          title="暂无内容"
+          description="这里还没有任何项目。可添加数据或调整筛选条件。"
+        >
+          <template #icon>
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <rect
+                x="3"
+                y="5"
+                width="18"
+                height="14"
+                rx="2"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M3 9h18"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+            </svg>
+          </template>
+          <h-button size="sm" @click="emptyActionClicks += 1">添加项目</h-button>
+          <h-button size="sm" variant="ghost">了解更多</h-button>
+        </h-empty>
+      </div>
+      <p v-if="emptyActionClicks > 0" class="smoke__ping">
+        empty action 点击：{{ emptyActionClicks }}
+      </p>
+      <p class="smoke__hint smoke__hint--spaced">仅标题 + 描述</p>
+      <div class="smoke__empty-frame smoke__empty-frame--short">
+        <h-empty
+          title="搜索无结果"
+          description="试试其他关键词。"
+        />
+      </div>
+    </section>
   </main>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
-import { HBottomSheet, HButton, HCheckbox, HDialog, HInput, HSwitch } from 'happier-ui'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HInput, HSwitch } from 'happier-ui'
 
 const buttonClicks = ref(0)
 const switchOn = ref(true)
@@ -267,6 +314,7 @@ const dialogCloseCount = ref(0)
 const simpleName = ref('')
 const tanstackSubmitMsg = ref('')
 const checkOn = ref(false)
+const emptyActionClicks = ref(0)
 const checkSm = ref(false)
 const checkMd = ref(true)
 const checkLg = ref(false)
@@ -453,5 +501,20 @@ const onDialogClose = () => {
 .smoke__field-stack--indent {
   margin-left: var(--h-space-lg, 16px);
   margin-bottom: 0;
+}
+
+.smoke__empty-frame {
+  overflow: hidden;
+  border: 1px solid var(--h-color-border-subtle, #e0e0e0);
+  border-radius: var(--h-radius-control, 12px);
+  background: var(--h-color-surface, #ffffff);
+}
+
+.smoke__empty-frame .h-empty {
+  min-height: 22rem;
+}
+
+.smoke__empty-frame--short .h-empty {
+  min-height: 12rem;
 }
 </style>

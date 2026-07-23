@@ -164,6 +164,11 @@
   --h-checkbox-mark: var(--h-color-primary-contrast);
   --h-checkbox-duration: 120ms;
 
+  /* 空状态（HEmpty） */
+  --h-empty-min-height: 60vh;
+  --h-empty-max-width: 34rem;
+  --h-empty-pad: var(--h-space-xl, 24px);
+
   /* 列表行密度 */
   --h-list-row-height-comfortable: var(--h-song-row-height);
   --h-list-row-height-compact: 56px;

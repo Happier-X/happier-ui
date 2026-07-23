@@ -11,6 +11,7 @@
 - **`HDialog`** — 居中对话框（`v-model`、遮罩/Esc、标题/描述/操作槽）
 - **`HInput`** — 文本输入（`v-model`、label/error；可对接 TanStack Vue Form Field）
 - **`HCheckbox`** — 复选框（`v-model`、label、`indeterminate` 半选）
+- **`HEmpty`** — 空状态（title/description、icon 与操作槽）
 - **`happier-ui/tokens.css`** — `--h-*` 设计 token
 
 ## 布局
@@ -50,7 +51,7 @@ npm run dev
 ### 接入示例
 
 ```ts
-import { HBottomSheet, HButton, HCheckbox, HDialog, HInput, HSwitch } from 'happier-ui'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HInput, HSwitch } from 'happier-ui'
 import 'happier-ui/tokens.css'
 ```
 
@@ -71,6 +72,19 @@ import 'happier-ui/tokens.css'
   </template>
 </form.Field>
 ```
+
+### HEmpty
+
+```vue
+<h-empty title="暂无内容" description="这里还没有数据。">
+  <template #icon>
+    <span aria-hidden="true">◎</span>
+  </template>
+  <h-button size="sm">添加内容</h-button>
+</h-empty>
+```
+
+`HEmpty` 不提供 `compact` 或历史 `HEmptyState` / `MEmptyState` 别名；宿主可通过外层布局控制高度。
 
 领域组件（封面、播放器、`MPage`）永远留 Muses。
 

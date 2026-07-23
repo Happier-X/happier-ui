@@ -343,3 +343,37 @@
 ### Next Steps
 
 - None - task complete
+
+
+## Session 11: HImage 图片组件
+
+**Date**: 2026-07-23
+**Task**: HImage 图片组件
+**Branch**: `master`
+
+### Summary
+
+新增 HImage：src/alt、fit/radius/loading、默认 fallback + #fallback；--h-image-* tokens；playground 演示 + README/frontend specs；build:playground 通过并归档。
+
+### Main Changes
+
+- Detailed change bullets were not supplied; see the summary above.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `b2fbf15` | (see git log) |
+| `50cc562` | (see git log) |
+
+### Testing
+
+- Validation was not recorded for this session.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

@@ -13,6 +13,7 @@
 - **`HCheckbox`** — 复选框（`v-model`、label、`indeterminate` 半选）
 - **`HEmpty`** — 空状态（title/description、icon 与操作槽）
 - **`HImage`** — 图片（fit/radius/loading、失败 fallback）
+- **`HIcon`** — 图标（Lucide 组件、`variant` stroke/fill）
 - **`happier-ui/tokens.css`** — `--h-*` 设计 token
 
 ## 布局
@@ -52,7 +53,7 @@ npm run dev
 ### 接入示例
 
 ```ts
-import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HImage, HInput, HSwitch } from 'happier-ui'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HSwitch } from 'happier-ui'
 import 'happier-ui/tokens.css'
 ```
 
@@ -104,11 +105,29 @@ import 'happier-ui/tokens.css'
 </h-image>
 ```
 
+### HIcon + Lucide
+
+库 **peer** 依赖 `@lucide/vue`（旧包名 `lucide-vue-next` 已弃用）。宿主自行按需 import 图标：
+
+```vue
+<script setup lang="ts">
+import { Search, Star } from '@lucide/vue'
+</script>
+
+<template>
+  <h-icon :icon="Search" size="md" />
+  <h-icon :icon="Star" variant="fill" color="var(--h-color-primary)" aria-label="收藏" />
+</template>
+```
+
+`variant="fill"` 会设置 `fill=currentColor` 与 `stroke=none`。Lucide **不正式**提供 filled 图标集，仅部分图标（如 star/heart）效果较好。
+
 领域组件（封面、播放器、`MPage`）永远留 Muses。
 
 ## Peer
 
-- **必选**：`vue` ^3.5  
+- **必选**：`vue` ^3.5
+- **使用 `HIcon` 时**：`@lucide/vue` >= 0.400  
 
 ## 不做
 

@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -27,6 +27,7 @@ export { default as HInput } from './components/HInput.vue'
 export { default as HCheckbox } from './components/HCheckbox.vue'
 export { default as HEmpty } from './components/HEmpty.vue'
 export { default as HImage } from './components/HImage.vue'
+export { default as HIcon } from './components/HIcon.vue'
 ```
 
 ## SFC 结构（必须）
@@ -47,6 +48,7 @@ export { default as HImage } from './components/HImage.vue'
 - `src/components/HCheckbox.vue` — v-model；label；indeterminate 半选（无 group）
 - `src/components/HEmpty.vue` — title/description；icon 与 default 操作槽；无 compact
 - `src/components/HImage.vue` — src/alt；fit/radius/loading；默认 fallback + `#fallback`
+- `src/components/HIcon.vue` — Lucide `:icon`；variant stroke/fill；size sm/md/lg/number
 
 ## API 约定
 
@@ -60,7 +62,8 @@ export { default as HImage } from './components/HImage.vue'
 | 复选框 | `modelValue` + `update:modelValue`；`indeterminate`；label | `HCheckbox` |
 | 空状态 | `title`；可选 `description`、`#icon`、default 操作槽；无 compact | `HEmpty` |
 | 图片 | `src`/`alt`；fit/radius/loading；失败 fallback | `HImage` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；空状态标题语义；图片需 `alt`；面板/对话框需标题或 `ariaLabel` | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` |
+| 图标 | Lucide `:icon`；`variant` stroke/fill；size | `HIcon` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；面板/对话框需标题或 `ariaLabel` | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
@@ -75,6 +78,7 @@ export { default as HImage } from './components/HImage.vue'
 | `HCheckbox` | `HCheckbox.vue` | v-model；label；indeterminate 半选；宿主清半选 |
 | `HEmpty` | `HEmpty.vue` | title/description；icon 与 default 操作槽；无旧别名 |
 | `HImage` | `HImage.vue` | src/alt；fit/radius/loading；失败 fallback |
+| `HIcon` | `HIcon.vue` | Lucide 组件；stroke/fill；peer `@lucide/vue` |
 | `tokens.css` | `src/tokens.css` | 经 `happier-ui/tokens.css` 导出 |
 
 ### 已移除（勿再导出）
@@ -83,7 +87,7 @@ export { default as HImage } from './components/HImage.vue'
 
 ## 路线图
 
-以 `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
+以 `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
 
 ## 反模式

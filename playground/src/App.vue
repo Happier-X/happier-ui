@@ -3,7 +3,7 @@
     <header class="smoke__header">
       <h1 class="smoke__title">happier-ui 冒烟</h1>
       <p class="smoke__lead">
-        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code>、<code>HEmpty</code>、<code>HImage</code> 与
+        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code>、<code>HEmpty</code>、<code>HImage</code>、<code>HIcon</code> 与
         <code>tokens.css</code>（纯 Vue，无 Ionic 壳）。
       </p>
       <div class="smoke__swatch" aria-hidden="true" />
@@ -323,13 +323,34 @@
         </h-image>
       </div>
     </section>
+
+    <section class="smoke__section" aria-labelledby="icon-heading">
+      <h2 id="icon-heading" class="smoke__section-title">HIcon</h2>
+      <p class="smoke__hint">sizes</p>
+      <div class="smoke__row smoke__row--wrap smoke__icon-row">
+        <h-icon :icon="Search" size="sm" />
+        <h-icon :icon="Search" size="md" />
+        <h-icon :icon="Search" size="lg" />
+        <h-icon :icon="Search" :size="32" />
+      </div>
+      <p class="smoke__hint smoke__hint--spaced">stroke vs fill（Lucide 非正式 filled 集）</p>
+      <div class="smoke__row smoke__row--wrap smoke__icon-row">
+        <h-icon :icon="Star" size="lg" aria-label="描边星标" />
+        <h-icon :icon="Star" size="lg" variant="fill" color="var(--h-color-primary)" aria-label="填充星标" />
+        <h-icon :icon="Heart" size="lg" />
+        <h-icon :icon="Heart" size="lg" variant="fill" color="var(--h-color-danger)" />
+        <h-icon :icon="Play" size="lg" />
+        <h-icon :icon="Play" size="lg" variant="fill" color="var(--h-color-primary)" />
+      </div>
+    </section>
   </main>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
-import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HImage, HInput, HSwitch } from 'happier-ui'
+import { Heart, Play, Search, Star } from '@lucide/vue'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HSwitch } from 'happier-ui'
 
 const buttonClicks = ref(0)
 const switchOn = ref(true)
@@ -552,5 +573,11 @@ const onDialogClose = () => {
 .smoke__image-fallback {
   font-size: 1.5rem;
   line-height: 1;
+}
+
+.smoke__icon-row {
+  align-items: center;
+  gap: var(--h-space-md, 12px);
+  color: var(--h-color-ink, #000000);
 }
 </style>

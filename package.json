@@ -9,7 +9,8 @@
     "./tokens.css": "./src/tokens.css"
   },
   "peerDependencies": {
-    "vue": "^3.5.0"
+    "vue": "^3.5.0",
+    "@lucide/vue": ">=0.400.0"
   },
   "files": [
     "src"

@@ -90,8 +90,6 @@
   --h-cover-size-md: 52px;
   --h-song-row-height: 72px;
   --h-touch-target: 48px;
-  --h-icon-size-md: 22px;
-  --h-icon-size-lg: 24px;
   --h-empty-state-min-height: 60vh;
   --h-empty-state-min-height-compact: 40vh;
   --h-empty-state-max-width: 34rem;
@@ -176,6 +174,11 @@
   --h-image-radius-md: 12px;
   --h-image-radius-lg: 16px;
   --h-image-radius-full: 999px;
+
+  /* 图标（HIcon） */
+  --h-icon-size-sm: 16px;
+  --h-icon-size-md: 20px;
+  --h-icon-size-lg: 24px;
 
   /* 列表行密度 */
   --h-list-row-height-comfortable: var(--h-song-row-height);

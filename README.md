@@ -14,6 +14,7 @@
 - **`HEmpty`** — 空状态（title/description、icon 与操作槽）
 - **`HImage`** — 图片（fit/radius/loading、失败 fallback）
 - **`HIcon`** — 图标（Lucide 组件、`variant` stroke/fill）
+- **`HTabBar`** — 底部导航（`v-model` key、`items` 图标+文案、safe-area）
 - **`happier-ui/tokens.css`** — `--h-*` 设计 token
 
 ## 布局
@@ -53,7 +54,7 @@ npm run dev
 ### 接入示例
 
 ```ts
-import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HSwitch } from 'happier-ui'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HSwitch, HTabBar } from 'happier-ui'
 import 'happier-ui/tokens.css'
 ```
 
@@ -121,6 +122,31 @@ import { Search, Star } from '@lucide/vue'
 ```
 
 `variant="fill"` 会设置 `fill=currentColor` 与 `stroke=none`。Lucide **不正式**提供 filled 图标集，仅部分图标（如 star/heart）效果较好。
+
+### HTabBar
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { Home, Search, User } from '@lucide/vue'
+import { HTabBar } from 'happier-ui'
+
+const tab = ref('home')
+const items = [
+  { key: 'home', label: '首页', icon: Home },
+  { key: 'search', label: '搜索', icon: Search },
+  { key: 'me', label: '我的', icon: User },
+]
+</script>
+
+<template>
+  <h-tab-bar v-model="tab" :items="items" />
+</template>
+```
+
+不内置路由：宿主监听 `v-model` 自行跳转。图标为 Vue 组件，内部用 `HIcon` 渲染。
+
+`fixed` 与 `safe-area` 两个 prop **默认都为 `true`**：默认固定在视口底部，并用 `padding-bottom: env(safe-area-inset-bottom)` 让背景延伸进 Home Indicator。两者可独立关闭：`<h-tab-bar :fixed="false" :safe-area="false" … />`。
 
 领域组件（封面、播放器、`MPage`）永远留 Muses。
 

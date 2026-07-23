@@ -85,6 +85,9 @@
   --h-content-max-width: 720px;
   --h-sidebar-width: 240px;
   --h-tab-bar-height: 64px;
+  --h-tab-bar-bg: var(--h-color-surface);
+  --h-tab-bar-border: var(--h-color-border-subtle);
+  --h-tab-bar-label-font: 11px;
   --h-mini-player-height: 64px;
   --h-cover-size-sm: 48px;
   --h-cover-size-md: 52px;

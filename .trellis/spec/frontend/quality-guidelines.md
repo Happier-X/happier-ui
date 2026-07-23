@@ -32,6 +32,7 @@ npm run build:playground
 | `HEmpty` | `section` + 标题；icon 为装饰时由宿主提供 `aria-hidden`；操作槽可放可交互控件 |
 | `HImage` | `alt` 必填；fallback 不应覆盖真实 alt 语义 |
 | `HIcon` | 装饰默认 `aria-hidden`；有意义时 `ariaLabel` |
+| `HTabBar` | `nav` + `aria-label`；项为 button；选中 `aria-current="page"`；fixed/safe-area 默认开 |
 | 图标-only 控件（若新增） | 必填可访问名称（`aria-label` 等） |
 
 ## 禁止

@@ -3,7 +3,7 @@
     <header class="smoke__header">
       <h1 class="smoke__title">happier-ui 冒烟</h1>
       <p class="smoke__lead">
-        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code>、<code>HEmpty</code>、<code>HImage</code>、<code>HIcon</code> 与
+        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code>、<code>HEmpty</code>、<code>HImage</code>、<code>HIcon</code>、<code>HTabBar</code> 与
         <code>tokens.css</code>（纯 Vue，无 Ionic 壳）。
       </p>
       <div class="smoke__swatch" aria-hidden="true" />
@@ -343,14 +343,25 @@
         <h-icon :icon="Play" size="lg" variant="fill" color="var(--h-color-primary)" />
       </div>
     </section>
+
+    <section class="smoke__section" aria-labelledby="tabbar-heading">
+      <h2 id="tabbar-heading" class="smoke__section-title">HTabBar</h2>
+      <p class="smoke__hint">当前 key：{{ activeTab }}</p>
+      <p class="smoke__lead">
+        底栏固定在视口底部（见页面最下方）。点击切换 <code>v-model</code>。
+      </p>
+    </section>
+
+    <h-tab-bar v-model="activeTab" :items="tabItems" />
   </main>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
-import { Heart, Play, Search, Star } from '@lucide/vue'
-import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HSwitch } from 'happier-ui'
+import { Heart, Home, Library, Play, Search, Star, User } from '@lucide/vue'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HSwitch, HTabBar } from 'happier-ui'
+import type { HTabBarItem } from 'happier-ui'
 
 const buttonClicks = ref(0)
 const switchOn = ref(true)
@@ -367,6 +378,14 @@ const simpleName = ref('')
 const tanstackSubmitMsg = ref('')
 const checkOn = ref(false)
 const emptyActionClicks = ref(0)
+const activeTab = ref('home')
+
+const tabItems: HTabBarItem[] = [
+  { key: 'home', label: '首页', icon: Home },
+  { key: 'search', label: '搜索', icon: Search },
+  { key: 'library', label: '曲库', icon: Library },
+  { key: 'me', label: '我的', icon: User },
+]
 const checkSm = ref(false)
 const checkMd = ref(true)
 const checkLg = ref(false)
@@ -451,7 +470,9 @@ const onDialogClose = () => {
   max-width: 36rem;
   margin: 0 auto;
   padding: var(--h-space-lg, 16px);
-  padding-bottom: calc(var(--h-space-xl, 24px) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(
+    var(--h-tab-bar-height, 64px) + var(--h-space-xl, 24px) + env(safe-area-inset-bottom, 0px)
+  );
 }
 
 .smoke__header {

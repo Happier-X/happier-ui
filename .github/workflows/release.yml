@@ -62,6 +62,15 @@ jobs:
       - name: Pack dry-run
         run: npm pack --dry-run
 
+      - name: Require NPM_TOKEN secret
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "::error::Missing repository secret NPM_TOKEN. Create an npm Granular Access Token (publish + bypass 2FA) and add it as Actions secret NPM_TOKEN."
+            exit 1
+          fi
+
       - name: Publish to npm
         run: npm publish --access public
         env:

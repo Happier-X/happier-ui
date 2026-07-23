@@ -15,6 +15,7 @@
 - **`HImage`** — 图片（fit/radius/loading、失败 fallback）
 - **`HIcon`** — 图标（Lucide 组件、`variant` stroke/fill）
 - **`HTabBar`** — 底部导航（`v-model` key、`items` 图标+文案、safe-area）
+- **`HNavBar`** — 顶部标题栏（左右/标题插槽、默认返回按钮、safe-area；无路由）
 - **`happier-ui/tokens.css`** — `--h-*` 设计 token
 
 ## 布局
@@ -54,7 +55,7 @@ npm run dev
 ### 接入示例
 
 ```ts
-import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HSwitch, HTabBar } from 'happier-ui'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HNavBar, HSwitch, HTabBar } from 'happier-ui'
 import 'happier-ui/tokens.css'
 ```
 
@@ -147,6 +148,23 @@ const items = [
 不内置路由：宿主监听 `v-model` 自行跳转。图标为 Vue 组件，内部用 `HIcon` 渲染。
 
 `fixed` 与 `safe-area` 两个 prop **默认都为 `true`**：默认固定在视口底部，并用 `padding-bottom: env(safe-area-inset-bottom)` 让背景延伸进 Home Indicator。两者可独立关闭：`<h-tab-bar :fixed="false" :safe-area="false" … />`。
+
+### HNavBar
+
+```vue
+<h-nav-bar
+  title="播放列表"
+  show-back
+  @handle-left-click="onBack"
+  @handle-right-click="onSave"
+>
+  <template #right><button type="button">保存</button></template>
+</h-nav-bar>
+```
+
+`#left` 会覆盖 `showBack` 的默认返回按钮，`#title` 会覆盖 `title` 文本，`#right` 无默认内容。左右区域点击分别透传 `MouseEvent`。组件**不内置 Vue Router、导航栈或 `history.back()`**，实际导航由宿主处理。
+
+`fixed` 与 `safe-area` 默认均为 `true` 且可独立关闭；安全区通过顶部 `env(safe-area-inset-top)` 叠加在 `--h-nav-bar-height`（默认 `56px`）之外。
 
 领域组件（封面、播放器、`MPage`）永远留 Muses。
 

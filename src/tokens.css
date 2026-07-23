@@ -88,6 +88,9 @@
   --h-tab-bar-bg: var(--h-color-surface);
   --h-tab-bar-border: var(--h-color-border-subtle);
   --h-tab-bar-label-font: 11px;
+  --h-nav-bar-height: 56px;
+  --h-nav-bar-bg: var(--h-color-surface);
+  --h-nav-bar-border: var(--h-color-border-subtle);
   --h-mini-player-height: 64px;
   --h-cover-size-sm: 48px;
   --h-cover-size-md: 52px;
@@ -187,7 +190,8 @@
   --h-list-row-height-comfortable: var(--h-song-row-height);
   --h-list-row-height-compact: 56px;
 
-  /* 层级：导航 < MiniPlayer < 沉浸页 < BottomSheet < Dialog */
+  /* 层级：顶栏/底栏 < MiniPlayer < 沉浸页 < BottomSheet < Dialog */
+  --h-z-nav: 30;
   --h-z-tab: 30;
   --h-z-mini-player: 1000;
   --h-z-player: 1100;
@@ -252,6 +256,7 @@
   --muses-content-max-width: var(--h-content-max-width);
   --muses-sidebar-width: var(--h-sidebar-width);
   --muses-tab-bar-height: var(--h-tab-bar-height);
+  --muses-nav-bar-height: var(--h-nav-bar-height);
   --muses-mini-player-height: var(--h-mini-player-height);
   --muses-cover-size-sm: var(--h-cover-size-sm);
   --muses-cover-size-md: var(--h-cover-size-md);
@@ -262,6 +267,7 @@
   --muses-empty-state-min-height: var(--h-empty-state-min-height);
   --muses-empty-state-max-width: var(--h-empty-state-max-width);
 
+  --muses-z-nav: var(--h-z-nav);
   --muses-z-tab: var(--h-z-tab);
   --muses-z-mini-player: var(--h-z-mini-player);
   --muses-z-player: var(--h-z-player);

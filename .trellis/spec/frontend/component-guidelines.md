@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -29,6 +29,7 @@ export { default as HEmpty } from './components/HEmpty.vue'
 export { default as HImage } from './components/HImage.vue'
 export { default as HIcon } from './components/HIcon.vue'
 export { default as HTabBar } from './components/HTabBar.vue'
+export { default as HNavBar } from './components/HNavBar.vue'
 ```
 
 ## SFC 结构（必须）
@@ -51,6 +52,7 @@ export { default as HTabBar } from './components/HTabBar.vue'
 - `src/components/HImage.vue` — src/alt；fit/radius/loading；默认 fallback + `#fallback`
 - `src/components/HIcon.vue` — Lucide `:icon`；variant stroke/fill；size sm/md/lg/number
 - `src/components/HTabBar.vue` — items + v-model key；内部 HIcon；safe-area
+- `src/components/HNavBar.vue` — header 标题栏；左右/标题插槽；默认返回按钮；无路由
 
 ## API 约定
 
@@ -66,7 +68,8 @@ export { default as HTabBar } from './components/HTabBar.vue'
 | 图片 | `src`/`alt`；fit/radius/loading；失败 fallback | `HImage` |
 | 图标 | Lucide `:icon`；`variant` stroke/fill；size | `HIcon` |
 | 底部导航 | `items` + `modelValue`（string key）；内部 HIcon；`fixed` / `safeArea` 默认 true | `HTabBar` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；面板/对话框需标题或 `ariaLabel` | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` |
+| 顶部标题栏 | `title` / `#title`；`#left` / `#right`；`showBack`；左右点击事件；`fixed` / `safeArea` 默认 true；无路由 | `HNavBar` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel` | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
@@ -83,6 +86,7 @@ export { default as HTabBar } from './components/HTabBar.vue'
 | `HImage` | `HImage.vue` | src/alt；fit/radius/loading；失败 fallback |
 | `HIcon` | `HIcon.vue` | Lucide 组件；stroke/fill；peer `@lucide/vue` |
 | `HTabBar` | `HTabBar.vue` | items + v-model key；fixed/safeArea 默认开且可独立关；无路由 |
+| `HNavBar` | `HNavBar.vue` | header；title/left/right slots；showBack；fixed/safeArea；无路由 |
 | `tokens.css` | `src/tokens.css` | 经 `happier-ui/tokens.css` 导出 |
 
 ### 已移除（勿再导出）
@@ -91,8 +95,7 @@ export { default as HTabBar } from './components/HTabBar.vue'
 
 ## 路线图
 
-以 `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
-`.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
+以 `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
 
 ## 反模式
 

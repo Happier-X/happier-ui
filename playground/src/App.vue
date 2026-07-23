@@ -1,13 +1,52 @@
 <template>
+  <h-nav-bar
+    title="happier-ui Playground"
+    show-back
+    @handle-left-click="onNavLeftClick"
+    @handle-right-click="onNavRightClick"
+  >
+    <template #right>
+      <button type="button" class="smoke__nav-action">完成</button>
+    </template>
+  </h-nav-bar>
+
   <main class="smoke">
     <header class="smoke__header">
       <h1 class="smoke__title">happier-ui 冒烟</h1>
       <p class="smoke__lead">
-        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code>、<code>HEmpty</code>、<code>HImage</code>、<code>HIcon</code>、<code>HTabBar</code> 与
+        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code>、<code>HEmpty</code>、<code>HImage</code>、<code>HIcon</code>、<code>HTabBar</code>、<code>HNavBar</code> 与
         <code>tokens.css</code>（纯 Vue，无 Ionic 壳）。
       </p>
       <div class="smoke__swatch" aria-hidden="true" />
     </header>
+
+    <section class="smoke__section" aria-labelledby="navbar-heading">
+      <h2 id="navbar-heading" class="smoke__section-title">HNavBar</h2>
+      <p class="smoke__lead">
+        页面顶部演示默认返回按钮、标题和右侧操作；组件只抛出事件，不执行路由或历史返回。
+      </p>
+      <p class="smoke__ping">最近操作：{{ navAction }}</p>
+      <div class="smoke__nav-frame">
+        <h-nav-bar
+          title="此 prop 标题会被插槽覆盖"
+          show-back
+          :fixed="false"
+          :safe-area="false"
+          @handle-left-click="onNavLeftClick"
+          @handle-right-click="onNavRightClick"
+        >
+          <template #left>
+            <button type="button" class="smoke__nav-action">取消</button>
+          </template>
+          <template #title>
+            <h2 class="smoke__nav-title">自定义标题插槽</h2>
+          </template>
+          <template #right>
+            <button type="button" class="smoke__nav-action">保存</button>
+          </template>
+        </h-nav-bar>
+      </div>
+    </section>
 
     <section class="smoke__section" aria-labelledby="button-heading">
       <h2 id="button-heading" class="smoke__section-title">HButton variants × sizes</h2>
@@ -360,7 +399,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Heart, Home, Library, Play, Search, Star, User } from '@lucide/vue'
-import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HSwitch, HTabBar } from 'happier-ui'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HNavBar, HSwitch, HTabBar } from 'happier-ui'
 import type { HTabBarItem } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -379,6 +418,7 @@ const tanstackSubmitMsg = ref('')
 const checkOn = ref(false)
 const emptyActionClicks = ref(0)
 const activeTab = ref('home')
+const navAction = ref('尚未点击')
 
 const tabItems: HTabBarItem[] = [
   { key: 'home', label: '首页', icon: Home },
@@ -452,6 +492,14 @@ const onButtonClick = () => {
   buttonClicks.value += 1
 }
 
+const onNavLeftClick = (event: MouseEvent) => {
+  navAction.value = `左侧（${event.type}）`
+}
+
+const onNavRightClick = (event: MouseEvent) => {
+  navAction.value = `右侧（${event.type}）`
+}
+
 const openSheetNoOverlayClose = () => {
   sheetNoOverlayClose.value = true
 }
@@ -469,7 +517,9 @@ const onDialogClose = () => {
 .smoke {
   max-width: 36rem;
   margin: 0 auto;
-  padding: var(--h-space-lg, 16px);
+  padding: calc(
+    var(--h-nav-bar-height, 56px) + var(--h-space-xl, 24px) + env(safe-area-inset-top, 0px)
+  ) var(--h-space-lg, 16px) 0;
   padding-bottom: calc(
     var(--h-tab-bar-height, 64px) + var(--h-space-xl, 24px) + env(safe-area-inset-bottom, 0px)
   );
@@ -477,6 +527,38 @@ const onDialogClose = () => {
 
 .smoke__header {
   margin-bottom: var(--h-space-xl, 24px);
+}
+
+.smoke__nav-frame {
+  overflow: hidden;
+  border: 1px solid var(--h-color-border-subtle, #e0e0e0);
+  border-radius: var(--h-radius-control, 12px);
+}
+
+.smoke__nav-action {
+  min-height: var(--h-touch-target, 48px);
+  margin: 0;
+  padding: 0 var(--h-space-sm, 8px);
+  border: 0;
+  border-radius: var(--h-radius-control, 12px);
+  background: transparent;
+  color: var(--h-color-primary, #006fee);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.smoke__nav-action:focus-visible {
+  outline: 2px solid var(--h-color-focus-ring, #006fee);
+  outline-offset: -2px;
+}
+
+.smoke__nav-title {
+  margin: 0;
+  overflow: hidden;
+  font-size: var(--h-font-title, 15px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .smoke__title {

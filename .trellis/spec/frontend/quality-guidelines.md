@@ -33,6 +33,7 @@ npm run build:playground
 | `HImage` | `alt` 必填；fallback 不应覆盖真实 alt 语义 |
 | `HIcon` | 装饰默认 `aria-hidden`；有意义时 `ariaLabel` |
 | `HTabBar` | `nav` + `aria-label`；项为 button；选中 `aria-current="page"`；fixed/safe-area 默认开 |
+| `HNavBar` | 语义 `header`；默认标题为 `h1`；返回为原生 button 且由 `backAriaLabel` 命名；fixed/safe-area 默认开；不执行实际导航 |
 | 图标-only 控件（若新增） | 必填可访问名称（`aria-label` 等） |
 
 ## 禁止

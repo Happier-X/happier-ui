@@ -16,7 +16,7 @@ happier-ui：**纯 Vue 语义 UI 组件库** + `--h-*` token。无应用路由�
 
 ## 快速规则
 
-1. 新 UI 只加 `src/components/H*.vue`，导出走 `src/index.ts`。
+1. 新 UI 只加 `src/components/H*.vue`，导出走 `src/index.ts`；导航栏只提供语义 UI 与事件，不内置路由。
 2. 视觉抄 **HeroUI Native**；数值只进 `src/tokens.css`。
 3. 先 `playground`，再给 Muses `file:` 消费。
 4. 音乐领域与 Ionic 引擎不进库。

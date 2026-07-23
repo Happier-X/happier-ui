@@ -56,9 +56,10 @@ import 'happier-ui/tokens.css'
 | 图片 | `--h-image-bg`、`--h-image-fallback-ink`、`--h-image-radius-*` |
 | 图标 | `--h-icon-size-sm/md/lg` |
 | 底部导航 | `--h-tab-bar-height`、`--h-tab-bar-bg`、`--h-tab-bar-border`、`--h-tab-bar-label-font`、`--h-z-tab` |
+| 顶部标题栏 | `--h-nav-bar-height`（内容高度 56px）、`--h-nav-bar-bg`、`--h-nav-bar-border`、`--h-z-nav`；顶部 safe-area 额外叠加 |
 | 触控 / 列表 | `--h-touch-target`、`--h-song-row-height`、`--h-list-row-height-compact`、`--h-cover-size-sm` |
 | 动效 | `--h-duration-press`、`--h-ease-standard` |
-| 层级 | `--h-z-tab`、`--h-z-mini-player`、`--h-z-player` |
+| 层级 | `--h-z-nav`、`--h-z-tab`、`--h-z-mini-player`、`--h-z-player` |
 
 ## 已知债
 

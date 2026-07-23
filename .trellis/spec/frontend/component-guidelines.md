@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -24,6 +24,7 @@ export { default as HSwitch } from './components/HSwitch.vue'
 export { default as HBottomSheet } from './components/HBottomSheet.vue'
 export { default as HDialog } from './components/HDialog.vue'
 export { default as HInput } from './components/HInput.vue'
+export { default as HCheckbox } from './components/HCheckbox.vue'
 ```
 
 ## SFC 结构（必须）
@@ -41,6 +42,7 @@ export { default as HInput } from './components/HInput.vue'
 - `src/components/HBottomSheet.vue` — `v-model`、overlay/Esc 关闭、dialog 语义、标题/内容槽
 - `src/components/HDialog.vue` — 居中 dialog；title/description/actions slots
 - `src/components/HInput.vue` — v-model；label/error；可对接 TanStack Field（不 peer tanstack）
+- `src/components/HCheckbox.vue` — v-model；label；indeterminate 半选（无 group）
 
 ## API 约定
 
@@ -51,7 +53,8 @@ export { default as HInput } from './components/HInput.vue'
 | 底部面板 | `modelValue` + overlay/Esc 请求关闭；`role="dialog"` | `HBottomSheet` |
 | 居中对话框 | `modelValue` + overlay/Esc；title/description/actions | `HDialog` |
 | 文本输入 | `modelValue` + `update:modelValue` + `blur`；label/error | `HInput` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；输入关联 label；面板/对话框需标题或 `ariaLabel` | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` |
+| 复选框 | `modelValue` + `update:modelValue`；`indeterminate`；label | `HCheckbox` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；面板/对话框需标题或 `ariaLabel` | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
@@ -63,6 +66,7 @@ export { default as HInput } from './components/HInput.vue'
 | `HBottomSheet` | `HBottomSheet.vue` | v-model；overlay/Esc；title/default slots；非 Portal MVP |
 | `HDialog` | `HDialog.vue` | 居中；title/description/default/actions；非 Portal MVP |
 | `HInput` | `HInput.vue` | v-model；label/description/error；TanStack Field 友好绑定 |
+| `HCheckbox` | `HCheckbox.vue` | v-model；label；indeterminate 半选；宿主清半选 |
 | `tokens.css` | `src/tokens.css` | 经 `happier-ui/tokens.css` 导出 |
 
 ### 已移除（勿再导出）
@@ -71,7 +75,7 @@ export { default as HInput } from './components/HInput.vue'
 
 ## 路线图
 
-以 `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
+以 `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
 
 ## 反模式

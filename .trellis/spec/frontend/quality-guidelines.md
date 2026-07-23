@@ -28,6 +28,7 @@ npm run build:playground
 | `HBottomSheet` | `role="dialog"` + `aria-modal`；标题关联或 `ariaLabel`；Esc 可关闭 |
 | `HDialog` | `role="dialog"` + `aria-modal`；title/description 关联或 `ariaLabel`；Esc 可关闭 |
 | `HInput` | label 关联；`aria-invalid` / `aria-describedby`（description/error） |
+| `HCheckbox` | 原生 checkbox；label 或 `ariaLabel`；`indeterminate` 半选 |
 | 图标-only 控件（若新增） | 必填可访问名称（`aria-label` 等） |
 
 ## 禁止

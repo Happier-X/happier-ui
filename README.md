@@ -10,6 +10,7 @@
 - **`HBottomSheet`** — 底部面板（`v-model`、遮罩关闭、标题/内容槽）
 - **`HDialog`** — 居中对话框（`v-model`、遮罩/Esc、标题/描述/操作槽）
 - **`HInput`** — 文本输入（`v-model`、label/error；可对接 TanStack Vue Form Field）
+- **`HCheckbox`** — 复选框（`v-model`、label、`indeterminate` 半选）
 - **`happier-ui/tokens.css`** — `--h-*` 设计 token
 
 ## 布局
@@ -49,7 +50,7 @@ npm run dev
 ### 接入示例
 
 ```ts
-import { HBottomSheet, HButton, HDialog, HInput, HSwitch } from 'happier-ui'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HInput, HSwitch } from 'happier-ui'
 import 'happier-ui/tokens.css'
 ```
 

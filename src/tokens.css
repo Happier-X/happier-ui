@@ -153,6 +153,17 @@
   --h-input-border-invalid: var(--h-color-danger);
   --h-input-placeholder: var(--h-color-ink-muted);
 
+  /* 复选框（HCheckbox） */
+  --h-checkbox-size-sm: 16px;
+  --h-checkbox-size-md: 20px;
+  --h-checkbox-size-lg: 24px;
+  --h-checkbox-radius: 6px;
+  --h-checkbox-border: var(--h-color-border-subtle);
+  --h-checkbox-bg: var(--h-color-surface);
+  --h-checkbox-bg-checked: var(--h-color-primary);
+  --h-checkbox-mark: var(--h-color-primary-contrast);
+  --h-checkbox-duration: 120ms;
+
   /* 列表行密度 */
   --h-list-row-height-comfortable: var(--h-song-row-height);
   --h-list-row-height-compact: 56px;

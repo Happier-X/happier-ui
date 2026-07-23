@@ -3,7 +3,7 @@
     <header class="smoke__header">
       <h1 class="smoke__title">happier-ui 冒烟</h1>
       <p class="smoke__lead">
-        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code> 与
+        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code> 与
         <code>tokens.css</code>（纯 Vue，无 Ionic 壳）。
       </p>
       <div class="smoke__swatch" aria-hidden="true" />
@@ -202,13 +202,56 @@
         <p v-if="tanstackSubmitMsg" class="smoke__ping">{{ tanstackSubmitMsg }}</p>
       </form>
     </section>
+
+    <section class="smoke__section" aria-labelledby="checkbox-heading">
+      <h2 id="checkbox-heading" class="smoke__section-title">HCheckbox</h2>
+      <div class="smoke__field-stack">
+        <h-checkbox
+          v-model="checkOn"
+          label="接受条款"
+        />
+        <p class="smoke__hint smoke__hint--inline">
+          v-model：{{ checkOn ? 'checked' : 'unchecked' }}
+        </p>
+        <h-checkbox
+          :model-value="true"
+          disabled
+          label="禁用（已选）"
+        />
+        <h-checkbox
+          :model-value="false"
+          disabled
+          label="禁用（未选）"
+        />
+        <div class="smoke__row smoke__row--wrap">
+          <h-checkbox v-model="checkSm" size="sm" label="sm" />
+          <h-checkbox v-model="checkMd" size="md" label="md" />
+          <h-checkbox v-model="checkLg" size="lg" label="lg" />
+        </div>
+        <h-checkbox
+          :model-value="selectAll"
+          :indeterminate="selectIndeterminate"
+          label="全选（半选演示）"
+          @update:model-value="onSelectAll"
+        />
+        <div class="smoke__field-stack smoke__field-stack--indent">
+          <h-checkbox v-model="itemA" label="子项 A" />
+          <h-checkbox v-model="itemB" label="子项 B" />
+          <h-checkbox v-model="itemC" label="子项 C" />
+        </div>
+        <h-checkbox
+          v-model="checkAriaOnly"
+          aria-label="无文案复选框"
+        />
+      </div>
+    </section>
   </main>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
-import { HBottomSheet, HButton, HDialog, HInput, HSwitch } from 'happier-ui'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HInput, HSwitch } from 'happier-ui'
 
 const buttonClicks = ref(0)
 const switchOn = ref(true)
@@ -223,6 +266,26 @@ const dialogNoOverlayClose = ref(false)
 const dialogCloseCount = ref(0)
 const simpleName = ref('')
 const tanstackSubmitMsg = ref('')
+const checkOn = ref(false)
+const checkSm = ref(false)
+const checkMd = ref(true)
+const checkLg = ref(false)
+const checkAriaOnly = ref(false)
+const itemA = ref(true)
+const itemB = ref(false)
+const itemC = ref(false)
+
+const selectAll = computed(() => itemA.value && itemB.value && itemC.value)
+const selectIndeterminate = computed(() => {
+  const n = [itemA.value, itemB.value, itemC.value].filter(Boolean).length
+  return n > 0 && n < 3
+})
+
+const onSelectAll = (value: boolean) => {
+  itemA.value = value
+  itemB.value = value
+  itemC.value = value
+}
 
 type DemoForm = {
   email: string
@@ -385,5 +448,10 @@ const onDialogClose = () => {
 
 .smoke__hint--spaced {
   margin-top: var(--h-space-md, 12px);
+}
+
+.smoke__field-stack--indent {
+  margin-left: var(--h-space-lg, 16px);
+  margin-bottom: 0;
 }
 </style>

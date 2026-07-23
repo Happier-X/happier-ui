@@ -275,3 +275,37 @@
 ### Next Steps
 
 - None - task complete
+
+
+## Session 9: HCheckbox 复选框（含半选）
+
+**Date**: 2026-07-23
+**Task**: HCheckbox 复选框（含半选）
+**Branch**: `master`
+
+### Summary
+
+新增 HCheckbox：v-model/label/sizes/disabled、indeterminate 半选（宿主清半选、无 Group）；原生 checkbox + --h-checkbox-*；playground 全选演示；README 与 frontend specs 更新；build:playground 通过并归档。
+
+### Main Changes
+
+- Detailed change bullets were not supplied; see the summary above.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `423913e` | (see git log) |
+| `12382ad` | (see git log) |
+
+### Testing
+
+- Validation was not recorded for this session.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

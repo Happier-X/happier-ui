@@ -20,7 +20,7 @@ import 'happier-ui/tokens.css'
 
 ## 视觉源
 
-- 直接对齐 **HeroUI Native** 移动端角色（surface / accent / muted / separator、soft radius、状态观感）。
+- 对齐 **HeroUI Native** 的角色语义（surface / accent / muted / separator、soft radius、状态观感）；token 同时服务 Web 与移动端。
 - Primary 色阶对齐 HeroUI common.blue（`--h-primary-50` … `--h-primary-900`，主色 `--h-color-primary`）。
 - **禁止** Material elevation / 重阴影。
 

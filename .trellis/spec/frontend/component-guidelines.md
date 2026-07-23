@@ -3,7 +3,7 @@
 ## 原则
 
 - **语义组件**：解决 UI 问题，不 1:1 镜像 Ionic 标签名。
-- **视觉直接抄 HeroUI Native 移动端**（色 / 圆角 / 间距 / 状态 / 变体观感）；Vue 自实现，不依赖 `@heroui/react-native`。
+- **视觉参考 HeroUI Native**（色 / 圆角 / 间距 / 状态 / 变体观感）；组件交付面向 **Web 与移动端**；Vue 自实现，不依赖 `@heroui/react-native`。
 - **无 elevation**；数值只走 `--h-*`（`src/tokens.css`）。
 - **不实现**导航栈、Modal / ActionSheet / Alert 引擎（宿主负责）。
 - **触控热区**默认 ≥ 48px（`--h-touch-target`）。

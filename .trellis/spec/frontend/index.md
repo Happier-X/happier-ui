@@ -1,6 +1,6 @@
 # Frontend Development Guidelines
 
-happier-ui：**纯 Vue 语义 UI 组件库** + `--h-*` token。无应用路由、无全局业务 store。
+happier-ui：**纯 Vue 语义 UI 组件库** + `--h-*` token，适用于 **Web 与移动端**。无应用路由、无全局业务 store。
 
 ## Guidelines Index
 
@@ -17,7 +17,7 @@ happier-ui：**纯 Vue 语义 UI 组件库** + `--h-*` token。无应用路由�
 ## 快速规则
 
 1. 新 UI 只加 `src/components/H*.vue`，导出走 `src/index.ts`；导航栏只提供语义 UI 与事件，不内置路由。
-2. 视觉抄 **HeroUI Native**；数值只进 `src/tokens.css`。
+2. 视觉参考 **HeroUI Native**（Web/移动端通用交付）；数值只进 `src/tokens.css`。
 3. 先 `playground`，再给 Muses `file:` 消费。
 4. 音乐领域与 Ionic 引擎不进库。
 
@@ -28,3 +28,4 @@ happier-ui：**纯 Vue 语义 UI 组件库** + `--h-*` token。无应用路由�
 - [ ] 无 `@ionic/vue` import
 - [ ] `npm run build:playground` 通过
 - [ ] 未引入业务实体类型或全局 store
+- [ ] 发版相关改动：`npm run build:lib` + `npm pack --dry-run` 通过；exports 仍指向 dist；不把源码/任务目录打进包

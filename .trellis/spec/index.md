@@ -9,9 +9,9 @@
 ## 项目定位
 
 - **包名**：`happier-ui`
-- **形态**：跨 Capacitor / Vue 的语义 UI + `--h-*` token
+- **形态**：Web 与移动端通用的 Vue 语义 UI + `--h-*` token
 - **实现**：纯 Vue 优先；不 peer 强制 `@ionic/vue`
-- **视觉**：直接对齐 HeroUI Native 移动端（抄样式/观感，不引 RN 依赖）；flat，无 Material elevation
+- **视觉**：参考 HeroUI Native（抄样式/观感，不引 RN 依赖）；flat，无 Material elevation
 - **消费方**：Muses 等应用通过 `file:` / 后续发布版本依赖
 
 ## 开发约定

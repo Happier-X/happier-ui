@@ -3,7 +3,7 @@
     <header class="smoke__header">
       <h1 class="smoke__title">happier-ui 冒烟</h1>
       <p class="smoke__lead">
-        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code>、<code>HEmpty</code> 与
+        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code>、<code>HEmpty</code>、<code>HImage</code> 与
         <code>tokens.css</code>（纯 Vue，无 Ionic 壳）。
       </p>
       <div class="smoke__swatch" aria-hidden="true" />
@@ -292,13 +292,44 @@
         />
       </div>
     </section>
+
+    <section class="smoke__section" aria-labelledby="image-heading">
+      <h2 id="image-heading" class="smoke__section-title">HImage</h2>
+      <div class="smoke__row smoke__row--wrap">
+        <h-image
+          src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=400&q=80"
+          alt="耳机与唱片机"
+          :width="160"
+          :height="160"
+        />
+        <h-image
+          src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=400&q=80"
+          alt="现场演出"
+          :width="160"
+          :height="160"
+          fit="contain"
+          radius="lg"
+        />
+        <h-image
+          src="https://invalid.example.com/image.jpg"
+          alt="失败占位示例"
+          :width="96"
+          :height="96"
+          radius="full"
+        >
+          <template #fallback>
+            <span class="smoke__image-fallback" aria-hidden="true">♫</span>
+          </template>
+        </h-image>
+      </div>
+    </section>
   </main>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
-import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HInput, HSwitch } from 'happier-ui'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HImage, HInput, HSwitch } from 'happier-ui'
 
 const buttonClicks = ref(0)
 const switchOn = ref(true)
@@ -516,5 +547,10 @@ const onDialogClose = () => {
 
 .smoke__empty-frame--short .h-empty {
   min-height: 12rem;
+}
+
+.smoke__image-fallback {
+  font-size: 1.5rem;
+  line-height: 1;
 }
 </style>

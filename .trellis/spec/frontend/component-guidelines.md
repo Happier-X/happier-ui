@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -26,6 +26,7 @@ export { default as HDialog } from './components/HDialog.vue'
 export { default as HInput } from './components/HInput.vue'
 export { default as HCheckbox } from './components/HCheckbox.vue'
 export { default as HEmpty } from './components/HEmpty.vue'
+export { default as HImage } from './components/HImage.vue'
 ```
 
 ## SFC 结构（必须）
@@ -45,6 +46,7 @@ export { default as HEmpty } from './components/HEmpty.vue'
 - `src/components/HInput.vue` — v-model；label/error；可对接 TanStack Field（不 peer tanstack）
 - `src/components/HCheckbox.vue` — v-model；label；indeterminate 半选（无 group）
 - `src/components/HEmpty.vue` — title/description；icon 与 default 操作槽；无 compact
+- `src/components/HImage.vue` — src/alt；fit/radius/loading；默认 fallback + `#fallback`
 
 ## API 约定
 
@@ -57,7 +59,8 @@ export { default as HEmpty } from './components/HEmpty.vue'
 | 文本输入 | `modelValue` + `update:modelValue` + `blur`；label/error | `HInput` |
 | 复选框 | `modelValue` + `update:modelValue`；`indeterminate`；label | `HCheckbox` |
 | 空状态 | `title`；可选 `description`、`#icon`、default 操作槽；无 compact | `HEmpty` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；空状态标题语义；面板/对话框需标题或 `ariaLabel` | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` |
+| 图片 | `src`/`alt`；fit/radius/loading；失败 fallback | `HImage` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；空状态标题语义；图片需 `alt`；面板/对话框需标题或 `ariaLabel` | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
@@ -71,6 +74,7 @@ export { default as HEmpty } from './components/HEmpty.vue'
 | `HInput` | `HInput.vue` | v-model；label/description/error；TanStack Field 友好绑定 |
 | `HCheckbox` | `HCheckbox.vue` | v-model；label；indeterminate 半选；宿主清半选 |
 | `HEmpty` | `HEmpty.vue` | title/description；icon 与 default 操作槽；无旧别名 |
+| `HImage` | `HImage.vue` | src/alt；fit/radius/loading；失败 fallback |
 | `tokens.css` | `src/tokens.css` | 经 `happier-ui/tokens.css` 导出 |
 
 ### 已移除（勿再导出）
@@ -79,7 +83,7 @@ export { default as HEmpty } from './components/HEmpty.vue'
 
 ## 路线图
 
-以 `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
+以 `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见  
 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
 
 ## 反模式

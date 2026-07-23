@@ -169,6 +169,14 @@
   --h-empty-max-width: 34rem;
   --h-empty-pad: var(--h-space-xl, 24px);
 
+  /* 图片（HImage） */
+  --h-image-bg: var(--h-color-surface-secondary);
+  --h-image-fallback-ink: var(--h-color-ink-muted);
+  --h-image-radius-sm: 8px;
+  --h-image-radius-md: 12px;
+  --h-image-radius-lg: 16px;
+  --h-image-radius-full: 999px;
+
   /* 列表行密度 */
   --h-list-row-height-comfortable: var(--h-song-row-height);
   --h-list-row-height-compact: 56px;

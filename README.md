@@ -201,6 +201,21 @@ const items = [
 - 本仓库不塞 Muses 业务
 - 不内置 Vue Router / Ionic 导航栈
 
+## 发版（GitHub Actions）
+
+与 Muses 类似：推送 `v*` tag 触发 `.github/workflows/release.yml`，构建 `dist` 后 `npm publish`。
+
+1. 仓库 Secrets 配置 **`NPM_TOKEN`**（npm automation token，需 publish 权限）。
+2. 将 `package.json` 的 `version` 与即将打的 tag 对齐（`v0.0.2` → `0.0.2`）。
+3. 推送代码后打 tag 并推送：
+
+```bash
+git tag v0.0.2
+git push origin v0.0.2
+```
+
+Workflow 会校验 tag 版本与 `package.json` 一致，不一致则失败（避免误发旧版本）。
+
 ## License
 
 [MIT](./LICENSE) © 2026 Happier

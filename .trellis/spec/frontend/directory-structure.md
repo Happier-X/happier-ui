@@ -44,7 +44,10 @@ happier-ui/
 - **构建**：`npm run build:lib`（Vite lib + `vite-plugin-dts`）；`vue` 与 `@lucide/vue` external。
 - **宿主安装**：`npm install happier-ui vue @lucide/vue`，并显式 `import 'happier-ui/style.css'` 与 `import 'happier-ui/tokens.css'`。
 - **本地联调**：仍可用 `file:../happier-ui`；改组件后刷新 playground/宿主。
-- **真正 `npm publish`**：必须用户二次确认；`npm pack` 不等于授权发布。
+- **发布路径**：
+  - 本地首次/紧急：`npm run build:lib` 后 `npm publish --access public`（需登录账号确认）。
+  - 常规：推送 **`v*` tag** → `.github/workflows/release.yml` 自动 `build:lib` + `npm publish`（需 Secret **`NPM_TOKEN`**）；tag 去掉 `v` 后须与 `package.json` version 一致。
+  - `npm pack` 不等于授权发布。
 
 ## 不做的目录
 

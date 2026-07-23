@@ -47,7 +47,7 @@
 - 不自动发布到 GitHub Packages（除非另选）
 - 不做 monorepo 拆分 / 多包
 - 不改组件 API
-- 不强制 CI 自动发布（可作为后续）
+- ~~不强制 CI 自动发布~~ → **已做**：tag `v*` 触发 GitHub Actions npm publish（对齐 Muses 的 tag 发版形态，产物改为 npm 而非 APK）
 
 ## Acceptance Criteria
 

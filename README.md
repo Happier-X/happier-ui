@@ -1,7 +1,27 @@
 # happier-ui
 
-跨 Capacitor + Vue 的语义 UI 与设计 token（`--h-*`）。  
-**独立仓库**，与 `muses` 同级开发；消费方用本地 `file:` 依赖接入。
+适用于 **Web 端与移动端** 的 Vue 语义 UI 与设计 token（`--h-*`）。纯 Vue 实现；视觉参考 HeroUI Native。
+
+## 安装
+
+```bash
+npm install happier-ui vue @lucide/vue
+```
+
+在应用入口导入组件样式与设计 token：
+
+```ts
+import 'happier-ui/style.css'
+import 'happier-ui/tokens.css'
+```
+
+然后按需导入组件：
+
+```ts
+import { HButton, HNavBar, HTabBar } from 'happier-ui'
+```
+
+`vue` 与 `@lucide/vue` 是 peer dependencies，由宿主应用提供。
 
 ## 当前导出
 
@@ -23,6 +43,7 @@
 ```text
 happier-ui/
   src/                 # 库源码（tokens + H* 组件）
+  dist/                # npm 发布产物（JS / CSS / 类型声明）
   playground/          # 纯 Vue 冒烟 / 开发预览
   package.json
 ```
@@ -34,11 +55,12 @@ cd C:\code\happier-ui
 npm install
 npm run dev:playground   # http://localhost:5174
 npm run build:playground
+npm run build:lib         # 构建 dist 发布产物
 ```
 
-## 被 Muses 引用
+## 本地联调（Muses）
 
-Muses 根 `package.json`：
+同级仓库开发时，Muses 根 `package.json` 可继续使用：
 
 ```json
 "happier-ui": "file:../happier-ui"
@@ -56,6 +78,7 @@ npm run dev
 
 ```ts
 import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HNavBar, HSwitch, HTabBar } from 'happier-ui'
+import 'happier-ui/style.css'
 import 'happier-ui/tokens.css'
 ```
 
@@ -109,7 +132,7 @@ import 'happier-ui/tokens.css'
 
 ### HIcon + Lucide
 
-库 **peer** 依赖 `@lucide/vue`（旧包名 `lucide-vue-next` 已弃用）。宿主自行按需 import 图标：
+库 **peer** 依赖 `@lucide/vue`（当前发布行建议 `^1.25.0`；旧包名 `lucide-vue-next` 已弃用）。宿主自行按需 import 图标：
 
 ```vue
 <script setup lang="ts">
@@ -175,5 +198,10 @@ const items = [
 
 ## 不做
 
-- 本仓库不塞 Muses 业务  
-- 默认不 npm 公网发布（`private: true`）  
+- 本仓库不塞 Muses 业务
+- 不内置 Vue Router / Ionic 导航栈
+
+## License
+
+[MIT](./LICENSE) © 2026 Happier
+

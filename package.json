@@ -1,21 +1,58 @@
 {
   "name": "happier-ui",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.1",
   "type": "module",
-  "description": "跨 Capacitor/Vue 的语义 UI 与 --h-* token（纯 Vue 优先）",
-  "exports": {
-    ".": "./src/index.ts",
-    "./tokens.css": "./src/tokens.css"
+  "description": "Web 与移动端通用的 Vue 语义 UI 与 --h-* token",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Happier-X/happier-ui.git"
   },
-  "peerDependencies": {
-    "vue": "^3.5.0",
-    "@lucide/vue": ">=0.400.0"
+  "homepage": "https://github.com/Happier-X/happier-ui#readme",
+  "bugs": {
+    "url": "https://github.com/Happier-X/happier-ui/issues"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "ui",
+    "components",
+    "web",
+    "mobile",
+    "design-tokens"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css",
+    "./tokens.css": "./dist/tokens.css",
+    "./package.json": "./package.json"
   },
   "files": [
-    "src"
+    "dist",
+    "LICENSE",
+    "README.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "peerDependencies": {
+    "vue": "^3.5.0",
+    "@lucide/vue": "^1.25.0"
+  },
   "scripts": {
+    "build:lib": "vite build",
     "dev": "npm run dev -w happier-ui-playground",
     "build:playground": "npm run build -w happier-ui-playground",
     "dev:playground": "npm run dev -w happier-ui-playground"
@@ -24,6 +61,11 @@
     "playground"
   ],
   "devDependencies": {
-    "vue": "^3.5.40"
+    "@vitejs/plugin-vue": "^6.0.8",
+    "typescript": "^5.9.3",
+    "vite": "^8.1.5",
+    "vite-plugin-dts": "^5.0.3",
+    "vue": "^3.5.40",
+    "vue-tsc": "^2.2.12"
   }
 }

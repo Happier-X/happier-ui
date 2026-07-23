@@ -22,8 +22,8 @@ Managed by Trellis. Edits outside this block are preserved; edits inside may be 
 
 ## 项目要点
 
-- 跨 Capacitor/Vue 的 **语义 UI 库**；主色与 token 为 **`--h-*`**。
-- 视觉 **直接抄 HeroUI Native 移动端**（Vue 自实现，不引 RN）；**非 Material**；不复刻 Ionic 全家桶。
+- **Web 端与移动端通用** 的 Vue **语义 UI 库**；主色与 token 为 **`--h-*`**。
+- 视觉 **参考 HeroUI Native**（Vue 自实现，不引 RN）；**非 Material**；不复刻 Ionic 全家桶。
 - 组件在本仓库 **逐个实现**；Muses 通过 `file:../happier-ui` 消费并逐步替换。
 - 开发：`npm run dev:playground`；实现前读 `.trellis/spec/` 与当前任务 `prd.md`。
 - 回答与任务文档默认使用 **简体中文**（除非用户另有要求）。

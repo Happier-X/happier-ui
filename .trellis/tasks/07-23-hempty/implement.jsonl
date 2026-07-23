@@ -1,0 +1,4 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "组件与导出"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "token"}
+{"file": ".trellis/spec/frontend/type-safety.md", "reason": "props"}
+{"file": ".trellis/spec/frontend/quality-guidelines.md", "reason": "a11y/build"}

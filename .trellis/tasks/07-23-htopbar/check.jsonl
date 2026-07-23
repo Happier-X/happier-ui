@@ -1,0 +1,6 @@
+{"path":".trellis/tasks/07-23-htopbar/prd.md","reason":"HNavBar 需求与验收标准"}
+{"path":".trellis/tasks/07-23-htopbar/design.md","reason":"API、结构与边界设计"}
+{"path":".trellis/spec/frontend/component-guidelines.md","reason":"组件实现规范检查"}
+{"path":".trellis/spec/frontend/quality-guidelines.md","reason":"a11y、token、构建检查"}
+{"path":"src/components/HNavBar.vue","reason":"实现代码审查"}
+{"path":"playground/src/App.vue","reason":"交互演示检查"}

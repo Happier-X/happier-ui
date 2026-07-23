@@ -1,0 +1,10 @@
+{"path":".trellis/spec/frontend/component-guidelines.md","reason":"组件命名、SFC、导出与 token 约定"}
+{"path":".trellis/spec/frontend/tokens.md","reason":"新增导航栏 token 与 safe-area 约定"}
+{"path":".trellis/spec/frontend/type-safety.md","reason":"Vue props/emits 类型写法"}
+{"path":".trellis/spec/frontend/quality-guidelines.md","reason":"无障碍、构建与质量验收"}
+{"path":"src/components/HTabBar.vue","reason":"fixed/safeArea、HIcon 与导航组件既有模式"}
+{"path":"src/components/HButton.vue","reason":"按钮与 click emit 实现模式"}
+{"path":"src/components/HIcon.vue","reason":"Lucide 图标包装方式"}
+{"path":"src/tokens.css","reason":"现有 token 分组与层级"}
+{"path":"src/index.ts","reason":"公共组件导出"}
+{"path":"playground/src/App.vue","reason":"playground 演示结构"}

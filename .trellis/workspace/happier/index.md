@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 15
+- **Total Sessions**: 16
 - **Last Active**: 2026-07-24
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~514 | Active |
+| `journal-1.md` | ~547 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 16 | 2026-07-24 | VitePress 组件文档站 + GitHub Pages | `aa6fd18` | `master` |
 | 15 | 2026-07-24 | Tailwind v4 / HeroUI 式样式迁移（0.0.2） | `d996d30` | `master` |
 | 14 | 2026-07-23 | HNavBar 顶部导航栏 | `d7647f6`, `efcb948` | `master` |
 | 13 | 2026-07-23 | HTabBar 底部导航栏 | `50d1d3c`, `44d7a38` | `master` |

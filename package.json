@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/Happier-X/happier-ui.git"
   },
-  "homepage": "https://github.com/Happier-X/happier-ui#readme",
+  "homepage": "https://happier-x.github.io/happier-ui/",
   "bugs": {
     "url": "https://github.com/Happier-X/happier-ui/issues"
   },
@@ -50,26 +50,31 @@
     "**/*.css"
   ],
   "peerDependencies": {
-    "vue": "^3.5.0",
     "@lucide/vue": "^1.25.0",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "vue": "^3.5.0"
   },
   "scripts": {
     "build:lib": "vite build",
     "dev": "npm run dev -w happier-ui-playground",
     "build:playground": "npm run build -w happier-ui-playground",
-    "dev:playground": "npm run dev -w happier-ui-playground"
+    "dev:playground": "npm run dev -w happier-ui-playground",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "workspaces": [
     "playground"
   ],
   "devDependencies": {
+    "@lucide/vue": "^1.26.0",
     "@tailwindcss/vite": "^4.1.18",
     "@vitejs/plugin-vue": "^6.0.8",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "vite": "^8.1.5",
     "vite-plugin-dts": "^5.0.3",
+    "vitepress": "^1.6.4",
     "vue": "^3.5.40",
     "vue-tsc": "^2.2.12"
   }

@@ -1,6 +1,8 @@
 node_modules
 dist
 playground/dist
+docs/.vitepress/dist
+docs/.vitepress/cache
 *.tgz
 .DS_Store
 *.log

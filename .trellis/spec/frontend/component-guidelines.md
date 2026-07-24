@@ -40,6 +40,8 @@ export { default as HNavBar } from './components/HNavBar.vue'
 4. 组合：用 **具名 slot**，不把业务子树写死进库。
 5. 样式：模板使用 **`h-*` BEM**；视觉规则写在 `src/styles/components/*.css` 的 `@layer components` 中，用 `var(--h-…, fallback)`（或 token utility）。
 
+文档：每个公共 `H*` 在 `docs/components/` 有对应页（示例 + API 表）；指南在 `docs/guide/`。文档主路径为 TW4 + `happier-ui/styles`。
+
 参考实现：
 
 - `src/components/HButton.vue` — 7 variants × sm/md/lg、leading/trailing、disabled、focus-visible

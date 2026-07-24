@@ -5,6 +5,15 @@
 
 视觉参考 HeroUI Native；Vue 自实现，不依赖 `@heroui/*` 或 Ionic。
 
+## 文档
+
+| 入口 | 说明 |
+|------|------|
+| **在线** | [https://happier-x.github.io/happier-ui/](https://happier-x.github.io/happier-ui/) |
+| **本地** | `npm run docs:dev`（VitePress） |
+
+首次部署后请在 GitHub 仓库 **Settings → Pages → Source** 选择 **GitHub Actions**。
+
 ## 安装
 
 ```bash
@@ -109,6 +118,7 @@ happier-ui/
     styles/              # tokens / theme(@theme) / components
     index.ts
   dist/                  # npm 发布产物
+  docs/                  # VitePress 文档站（不进 npm）
   playground/            # Vite 冒烟（TW4）
 ```
 
@@ -117,9 +127,11 @@ happier-ui/
 ```bash
 cd C:\code\happier-ui
 npm install
-npm run dev:playground   # http://localhost:5174
+npm run docs:dev          # 文档站（指南 + 组件 API）
+npm run dev:playground   # 冒烟 http://localhost:5174
 npm run build:playground
 npm run build:lib         # 构建 dist（含 styles.css / tokens.css）
+npm run docs:build        # 静态文档（GitHub Pages 同源）
 ```
 
 ## 本地联调（Muses）

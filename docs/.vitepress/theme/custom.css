@@ -1,0 +1,45 @@
+@import "tailwindcss";
+@import "happier-ui/styles";
+
+/* 文档演示区 */
+.vp-doc .h-demo {
+  margin: 1rem 0;
+  padding: 1.25rem;
+  border: 1px solid var(--h-color-border-subtle, #e0e0e0);
+  border-radius: var(--h-radius-control, 12px);
+  background: var(--h-color-surface, #fff);
+}
+
+.vp-doc .h-demo--stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--h-space-md, 12px);
+}
+
+.vp-doc .h-demo--row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--h-space-sm, 8px);
+}
+
+.vp-doc .h-demo__hint {
+  margin: 0;
+  font-size: var(--h-font-body-sm, 13px);
+  color: var(--h-color-ink-muted, #666);
+}
+
+.vp-doc .h-demo__frame {
+  overflow: hidden;
+  border: 1px solid var(--h-color-border-subtle, #e0e0e0);
+  border-radius: var(--h-radius-control, 12px);
+}
+
+.vp-doc .h-demo .h-empty {
+  min-height: 16rem;
+}
+
+/* VitePress 内容区：组件演示不被文档字体过度干扰 */
+.vp-doc .h-demo button {
+  font-family: inherit;
+}

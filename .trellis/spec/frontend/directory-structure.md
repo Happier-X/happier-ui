@@ -15,6 +15,11 @@ happier-ui/
       components/*.css       # @layer components 内 h-* BEM
     components/H*.vue        # 语义 UI（逻辑 + BEM 类名；无大块 scoped 视觉）
   dist/                      # npm 发布产物（gitignore；build:lib 生成）
+  docs/                      # VitePress 文档站（不进 npm tarball）
+    .vitepress/              # config + theme（TW4 + happier-ui/styles alias）
+    guide/                   # 快速开始 / 安装 / token / 主题 / migration
+    components/              # 11 个 H* 文档页（示例 + API）
+    index.md
   playground/                # Vite 冒烟宿主（workspace 包；@tailwindcss/vite）
     src/App.vue
     src/main.ts
@@ -39,13 +44,14 @@ happier-ui/
 | `@theme` 映射 | `src/styles/theme.css` | h- utility 桥接 |
 | 库构建配置 | `vite.config.ts` / `tsconfig.lib.json` | 不把 playground 配置当库配置 |
 | 演示 / 冒烟 | `playground/` | 新组件必须先能在此看见 |
+| 组件库文档 | `docs/` | VitePress；`docs:dev` / `docs:build`；GitHub Pages |
 | 任务与规范 | `.trellis/` | 不放业务代码；**不进** npm tarball |
 
 ## npm 包边界
 
 - **包名**：`happier-ui`（unscoped）；`publishConfig.access: public`。
 - **发布内容**（`files`）：仅 `dist/`、`LICENSE`、`README.md`（外加根 `package.json`）。
-- **不发布**：`src/`、`playground/`、`.trellis/`、token/secret、本地 `*.tgz`。
+- **不发布**：`src/`、`playground/`、`docs/`、`.trellis/`、token/secret、本地 `*.tgz`。
 - **exports**（0.0.2+）：
   - `.` → `dist/index.js` + `dist/index.d.ts`
   - `./styles` / `./styles.css` → `dist/styles.css`（主推）
@@ -72,6 +78,7 @@ happier-ui/
 - **peer**：`vue` ^3.5、`@lucide/vue` ^1.25、`tailwindcss` ^4；不打进 dist。
 - **不 peer** `@ionic/vue`；不依赖 `@heroui/*`。
 - **playground**：workspace 包 + `@tailwindcss/vite`；开发期 alias 库 styles。
+- **docs**：根 devDependency `vitepress`；Vite alias 同 playground（`happier-ui` → `src`）；theme 内 `@import tailwindcss` + `happier-ui/styles`；**不**进 npm 包。
 
 ## 参考
 

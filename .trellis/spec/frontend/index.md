@@ -19,15 +19,17 @@ happier-ui：**纯 Vue 语义 UI 组件库** + `--h-*` token / `h-` utility，�
 1. 新 UI：`src/components/H*.vue` + `src/styles/components/*.css`；导出走 `src/index.ts`；导航栏只提供语义 UI 与事件，不内置路由。
 2. 视觉参考 **HeroUI Native**；数值只进 `src/styles/tokens.css`；utility 用 `h-` 命名空间。
 3. 消费方需 Tailwind v4 + `@import "happier-ui/styles"`。
-4. 先 `playground`，再给 Muses `file:` / npm 消费。
+4. 先 `playground`，再补 `docs/components` 文档页，再给 Muses `file:` / npm 消费。
 5. 音乐领域与 Ionic / `@heroui/*` 不进库。
+6. 文档站 `docs/`（VitePress + GitHub Pages）与 playground 并存；**不**进 npm tarball。
 
 ## Quality Check（实现后）
 
 - [ ] 组件使用 `--h-*` / BEM，无新增 `m-*` 类前缀债务
 - [ ] 无大块 scoped 视觉 CSS 与 styles 双源
 - [ ] playground 可演示（TW4 + styles）
+- [ ] 新/改公共 `H*` 有对应 `docs/components` 页（API 与源码一致）
 - [ ] 无 `@ionic/vue` / `@heroui/*` import
-- [ ] `npm run build:playground` 通过
+- [ ] `npm run build:playground` 通过；改 docs 时 `npm run docs:build` 通过
 - [ ] 未引入业务实体类型或全局 store
-- [ ] 发版：`npm run build:lib` + `npm pack --dry-run`；exports 含 styles/tokens；无 `style.css` 旧路径；不把源码/任务目录打进包
+- [ ] 发版：`npm run build:lib` + `npm pack --dry-run`；exports 含 styles/tokens；无 `style.css` 旧路径；不把源码/docs/任务目录打进包

@@ -199,6 +199,15 @@
   --h-range-thumb-border: var(--h-color-surface);
   --h-range-duration: 160ms;
 
+  /* 进度条（HProgress） */
+  --h-progress-height-sm: 4px;
+  --h-progress-height-md: 6px;
+  --h-progress-height-lg: 8px;
+  --h-progress-track-bg: var(--h-color-surface-secondary);
+  --h-progress-fill: var(--h-color-primary);
+  --h-progress-transition-duration: 200ms;
+  --h-progress-indeterminate-duration: 1.4s;
+
   /* Toast（HToast） */
   --h-toast-z: 1220;
   --h-toast-max-width: 480px;

@@ -189,6 +189,45 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="progress-heading">
+      <h2 id="progress-heading" class="smoke__section-title">HProgress</h2>
+      <div class="smoke__field-stack">
+        <div>
+          <p class="smoke__hint">确定进度：{{ progressValue }}%</p>
+          <h-progress :value="progressValue" aria-label="安装进度" />
+          <div class="smoke__row smoke__row--tight">
+            <h-button size="sm" variant="outline" @click="progressValue = Math.max(progressValue - 10, 0)">减少</h-button>
+            <h-button size="sm" @click="progressValue = Math.min(progressValue + 10, 100)">增加</h-button>
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">自定义 max + 越界夹取：value=140 max=120</p>
+          <h-progress :value="140" :max="120" variant="success" aria-label="同步进度" />
+        </div>
+        <div>
+          <p class="smoke__hint">不确定进度</p>
+          <h-progress indeterminate variant="warning" aria-label="加载中" />
+        </div>
+        <div>
+          <p class="smoke__hint">sizes</p>
+          <div class="smoke__field-stack smoke__field-stack--compact">
+            <h-progress :value="30" size="sm" aria-label="小进度条" />
+            <h-progress :value="55" size="md" aria-label="中进度条" />
+            <h-progress :value="80" size="lg" aria-label="大进度条" />
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">variants + rounded=false</p>
+          <div class="smoke__field-stack smoke__field-stack--compact">
+            <h-progress :value="25" variant="primary" aria-label="Primary 进度" />
+            <h-progress :value="50" variant="success" aria-label="Success 进度" />
+            <h-progress :value="75" variant="warning" aria-label="Warning 进度" />
+            <h-progress :value="90" variant="danger" :rounded="false" aria-label="Danger 进度" />
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="sheet-heading">
       <h2 id="sheet-heading" class="smoke__section-title">HBottomSheet</h2>
       <div class="smoke__row smoke__row--wrap">
@@ -576,7 +615,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Heart, Home, Library, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBottomSheet, HButton, HCard, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HRange, HSwitch, HTabBar, HToast } from 'happier-ui'
+import { HBottomSheet, HButton, HCard, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSwitch, HTabBar, HToast } from 'happier-ui'
 import type { HTabBarItem } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -591,6 +630,7 @@ const rangeCustom = ref(0)
 const rangeSm = ref(30)
 const rangeMd = ref(50)
 const rangeLg = ref(70)
+const progressValue = ref(40)
 const sheetOpen = ref(false)
 const sheetNoOverlayClose = ref(false)
 const sheetCloseCount = ref(0)
@@ -817,6 +857,10 @@ const onToastClose = () => {
   margin-bottom: var(--h-space-md, 12px);
 }
 
+.smoke__row--tight {
+  margin-top: var(--h-space-sm, 8px);
+}
+
 .smoke__button-block {
   margin-bottom: var(--h-space-sm, 8px);
 }
@@ -855,6 +899,11 @@ const onToastClose = () => {
 
 .smoke__field-stack--indent {
   margin-left: var(--h-space-lg, 16px);
+  margin-bottom: 0;
+}
+
+.smoke__field-stack--compact {
+  gap: var(--h-space-sm, 8px);
   margin-bottom: 0;
 }
 

@@ -57,6 +57,7 @@ export default defineConfig({
             { text: 'Checkbox', link: '/components/checkbox' },
             { text: 'Switch', link: '/components/switch' },
             { text: 'Range', link: '/components/range' },
+            { text: 'Progress', link: '/components/progress' },
             { text: 'NavBar', link: '/components/nav-bar' },
             { text: 'TabBar', link: '/components/tab-bar' },
             { text: 'Dialog', link: '/components/dialog' },

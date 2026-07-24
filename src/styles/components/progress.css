@@ -1,0 +1,96 @@
+@layer components {
+  /**
+   * HProgress：只读线形进度条。
+   * 确定进度由 --h-progress-value（0–100%）驱动 indicator 宽度。
+   * 不确定进度使用 transform 位移动画；尊重 prefers-reduced-motion。
+   */
+  .h-progress {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background: var(--h-progress-track-bg, var(--h-color-surface-secondary, #f4f4f5));
+    /* 默认 md 尺寸与 primary 填充 */
+    --h-progress-height: var(--h-progress-height-md, 6px);
+    --h-progress-fill: var(--h-color-primary, #006fee);
+    --h-progress-value: 0%;
+    height: var(--h-progress-height);
+    border-radius: 0;
+  }
+
+  .h-progress--sm {
+    --h-progress-height: var(--h-progress-height-sm, 4px);
+  }
+
+  .h-progress--md {
+    --h-progress-height: var(--h-progress-height-md, 6px);
+  }
+
+  .h-progress--lg {
+    --h-progress-height: var(--h-progress-height-lg, 8px);
+  }
+
+  .h-progress--primary {
+    --h-progress-fill: var(--h-color-primary, #006fee);
+  }
+
+  .h-progress--success {
+    --h-progress-fill: var(--h-color-success, #17c964);
+  }
+
+  .h-progress--warning {
+    --h-progress-fill: var(--h-color-warning, #f5a524);
+  }
+
+  .h-progress--danger {
+    --h-progress-fill: var(--h-color-danger, #eb445a);
+  }
+
+  .h-progress--rounded {
+    border-radius: var(--h-radius-pill, 999px);
+  }
+
+  .h-progress--rounded .h-progress__indicator {
+    border-radius: var(--h-radius-pill, 999px);
+  }
+
+  .h-progress__indicator {
+    box-sizing: border-box;
+    height: 100%;
+    width: var(--h-progress-value);
+    background: var(--h-progress-fill, var(--h-color-primary, #006fee));
+    border-radius: 0;
+    transition: width var(--h-progress-transition-duration, 200ms) var(--h-ease-standard, ease);
+  }
+
+  /* 不确定进度：固定比例宽度 + 水平循环位移 */
+  .h-progress--indeterminate .h-progress__indicator {
+    width: 40%;
+    transition: none;
+    animation: h-progress-indeterminate var(--h-progress-indeterminate-duration, 1.4s)
+      var(--h-ease-standard, ease) infinite;
+  }
+
+  @keyframes h-progress-indeterminate {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(350%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .h-progress__indicator {
+      transition: none;
+    }
+
+    .h-progress--indeterminate .h-progress__indicator {
+      animation: none;
+      /* 静态居中，确保不确定状态仍可见 */
+      width: 40%;
+      margin-inline: auto;
+      transform: none;
+    }
+  }
+}

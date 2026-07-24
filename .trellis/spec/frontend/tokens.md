@@ -87,7 +87,8 @@ playground：
 | 触控 / 列表 | `--h-touch-target`、`--h-song-row-height`、`--h-list-row-height-compact`、`--h-cover-size-sm` |
 | 设置行 / 分组 | `--h-cell-min-height`、`--h-cell-pad-x/y`、`--h-cell-gap`、`--h-cell-bg`、`--h-cell-pressed-bg`、`--h-cell-chevron-color`、`--h-cell-group-radius`、`--h-cell-group-header-gap`（HCell / HCellGroup） |
 | 动效 | `--h-duration-press`、`--h-ease-standard` |
-| 层级 | `--h-z-nav`、`--h-z-tab`、`--h-z-mini-player`、`--h-z-player` |
+| 浮动气泡 | `--h-floating-bubble-size`、`--h-floating-bubble-icon-size`、`--h-floating-bubble-gap`、`--h-floating-bubble-bg/color`、`--h-floating-bubble-radius`、`--h-floating-bubble-transition`、`--h-z-floating-bubble` |
+| 层级 | `--h-z-nav`、`--h-z-tab`、`--h-z-mini-player`、`--h-z-player`、`--h-z-floating-bubble` |
 
 ## 已知债
 

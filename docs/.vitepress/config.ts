@@ -64,6 +64,7 @@ export default defineConfig({
             { text: 'Dialog', link: '/components/dialog' },
             { text: 'BottomSheet', link: '/components/bottom-sheet' },
             { text: 'Toast', link: '/components/toast' },
+            { text: 'FloatingBubble', link: '/components/floating-bubble' },
           ],
         },
       ],

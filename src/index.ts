@@ -16,4 +16,11 @@ export { default as HImage } from './components/HImage.vue'
 export { default as HIcon } from './components/HIcon.vue'
 export { default as HTabBar } from './components/HTabBar.vue'
 export { default as HNavBar } from './components/HNavBar.vue'
+export { default as HFloatingBubble } from './components/HFloatingBubble.vue'
 export type { HTabBarItem } from './components/HTabBar.vue'
+export type {
+  HFloatingBubbleOffset,
+  HFloatingBubbleAxis,
+  HFloatingBubbleMagnetic,
+  HFloatingBubbleGap,
+} from './components/HFloatingBubble.vue'

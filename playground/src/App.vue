@@ -605,6 +605,38 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="floating-bubble-heading">
+      <h2 id="floating-bubble-heading" class="smoke__section-title">HFloatingBubble</h2>
+      <p class="smoke__hint">默认 y 轴拖拽（右下角气泡）：{{ floatingBubbleClicks }} 次点击</p>
+      <div class="smoke__row smoke__row--wrap">
+        <h-button size="sm" variant="outline" @click="floatingBubbleOffset = { x: 160, y: 180 }">设置受控位置</h-button>
+        <h-button size="sm" variant="ghost" @click="floatingBubbleOffset = null">恢复默认</h-button>
+      </div>
+      <h-floating-bubble
+        v-model:offset="floatingBubbleOffset"
+        :icon="MessageCircle"
+        ariaLabel="打开消息"
+        @click="onFloatingBubbleClick"
+      />
+      <h-floating-bubble
+        :offset="{ x: 120, y: 240 }"
+        axis="xy"
+        magnetic="x"
+        :icon="Star"
+        ariaLabel="自由拖拽并吸附"
+        @offset-change="onFloatingBubbleOffsetChange"
+      />
+      <h-floating-bubble
+        :offset="{ x: 240, y: 360 }"
+        axis="lock"
+        :teleport="false"
+        ariaLabel="锁定的快捷操作"
+      >
+        <span aria-hidden="true">+</span>
+      </h-floating-bubble>
+      <p class="smoke__ping">最近位置变化：{{ floatingBubbleLastOffset }}</p>
+    </section>
+
     <section class="smoke__section" aria-labelledby="toast-heading">
       <h2 id="toast-heading" class="smoke__section-title">HToast</h2>
       <div class="smoke__row smoke__row--wrap">
@@ -653,8 +685,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
-import { Bell, Heart, Home, Languages, Library, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSwitch, HTabBar, HToast } from 'happier-ui'
+import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
+import { HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSwitch, HTabBar, HToast } from 'happier-ui'
 import type { HTabBarItem } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -688,6 +720,10 @@ const emptyActionClicks = ref(0)
 const activeTab = ref('home')
 const navAction = ref('尚未点击')
 const cellNotifications = ref(true)
+const floatingBubbleOffset = ref<{ x: number, y: number } | null>(null)
+const floatingBubbleClicks = ref(0)
+const floatingBubbleLastOffset = ref('默认')
+
 const cellAction = ref('')
 
 const tabItems: HTabBarItem[] = [
@@ -780,6 +816,15 @@ const onNavLeftClick = (event: MouseEvent) => {
 const onNavRightClick = (event: MouseEvent) => {
   navAction.value = `右侧（${event.type}）`
 }
+
+const onFloatingBubbleClick = () => {
+  floatingBubbleClicks.value += 1
+}
+
+const onFloatingBubbleOffsetChange = (offset: { x: number, y: number }) => {
+  floatingBubbleLastOffset.value = `x: ${Math.round(offset.x)}, y: ${Math.round(offset.y)}`
+}
+
 
 const openSheetNoOverlayClose = () => {
   sheetNoOverlayClose.value = true

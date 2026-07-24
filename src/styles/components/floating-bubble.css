@@ -1,0 +1,72 @@
+@layer components {
+  .h-floating-bubble {
+    position: fixed;
+    z-index: var(--h-z-floating-bubble, 999);
+    display: inline-flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    width: max(var(--h-floating-bubble-size, 48px), var(--h-touch-target, 48px));
+    height: max(var(--h-floating-bubble-size, 48px), var(--h-touch-target, 48px));
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--h-floating-bubble-radius, var(--h-radius-pill, 999px));
+    background: var(--h-floating-bubble-bg, var(--h-color-primary, #006fee));
+    color: var(--h-floating-bubble-color, var(--h-color-primary-contrast, #ffffff));
+    font: inherit;
+    line-height: 1;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      left var(--h-floating-bubble-transition, 220ms var(--h-ease-standard, ease)),
+      top var(--h-floating-bubble-transition, 220ms var(--h-ease-standard, ease)),
+      transform var(--h-duration-press, 120ms) var(--h-ease-standard, ease),
+      opacity var(--h-duration-press, 120ms) var(--h-ease-standard, ease);
+  }
+
+  .h-floating-bubble:hover {
+    opacity: 0.94;
+  }
+
+  .h-floating-bubble:active {
+    transform: scale(0.96);
+  }
+
+  .h-floating-bubble:focus-visible {
+    outline: 2px solid var(--h-color-focus-ring, #006fee);
+    outline-offset: 3px;
+  }
+
+  .h-floating-bubble--dragging {
+    cursor: grabbing;
+    transition: none;
+  }
+
+  .h-floating-bubble__content {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .h-floating-bubble__icon {
+    width: var(--h-floating-bubble-icon-size, 24px);
+    height: var(--h-floating-bubble-icon-size, 24px);
+    pointer-events: none;
+  }
+
+  .h-floating-bubble__icon .h-icon__svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .h-floating-bubble {
+      transition: none;
+    }
+  }
+}

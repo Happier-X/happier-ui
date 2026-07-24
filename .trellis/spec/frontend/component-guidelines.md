@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -26,6 +26,7 @@ export { default as HBottomSheet } from './components/HBottomSheet.vue'
 export { default as HDialog } from './components/HDialog.vue'
 export { default as HInput } from './components/HInput.vue'
 export { default as HCheckbox } from './components/HCheckbox.vue'
+export { default as HCard } from './components/HCard.vue'
 export { default as HEmpty } from './components/HEmpty.vue'
 export { default as HImage } from './components/HImage.vue'
 export { default as HIcon } from './components/HIcon.vue'
@@ -57,6 +58,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 - `src/components/HIcon.vue` — Lucide `:icon`；variant stroke/fill；size sm/md/lg/number
 - `src/components/HTabBar.vue` — items + v-model key；内部 HIcon；safe-area
 - `src/components/HNavBar.vue` — header 标题栏；左右/标题插槽；默认返回按钮；无路由
+- `src/components/HCard.vue` — 内容分组容器；outlined/filled/flat variant、padding none/sm/md/lg、radius sm/md；header/body/footer 具名 slot；无 elevation、无整卡交互
 
 ## API 约定
 
@@ -74,6 +76,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | 图标 | Lucide `:icon`；`variant` stroke/fill；size | `HIcon` |
 | 底部导航 | `items` + `modelValue`（string key）；内部 HIcon；`fixed` / `safeArea` 默认 true | `HTabBar` |
 | 顶部标题栏 | `title` / `#title`；`#left` / `#right`；`showBack`；左右点击事件；`fixed` / `safeArea` 默认 true；无路由 | `HNavBar` |
+| 卡片容器 | `variant` outlined/filled/flat + `padding` none/sm/md/lg + `radius` sm/md；`#header` / default / `#footer` 具名 slot；纯展示无整卡可点击；无 Emits | `HCard` |
 | 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；图标按钮 `ariaLabel` 必填 | `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
@@ -93,6 +96,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | `HIcon` | `HIcon.vue` | Lucide 组件；stroke/fill；peer `@lucide/vue` |
 | `HTabBar` | `HTabBar.vue` | items + v-model key；fixed/safeArea 默认开且可独立关；无路由 |
 | `HNavBar` | `HNavBar.vue` | header；title/left/right slots；showBack；fixed/safeArea；无路由 |
+| `HCard` | `HCard.vue` | 内容分组容器；outlined/filled/flat；padding none/sm/md/lg；radius sm/md；header/body/footer slot；无 elevation |
 | `styles` | `src/styles/` | 经 `happier-ui/styles` 导出（tokens + theme + components） |
 | `tokens.css` | `src/styles/tokens.css` | 经 `happier-ui/tokens.css` 导出（可选） |
 

@@ -388,6 +388,66 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="card-heading">
+      <h2 id="card-heading" class="smoke__section-title">HCard</h2>
+
+      <p class="smoke__hint">variant 三态</p>
+      <div class="smoke__card-grid">
+        <h-card
+          v-for="variant in cardVariants"
+          :key="variant"
+          :variant="variant"
+        >
+          <strong class="smoke__card-title">{{ variant }}</strong>
+          <p class="smoke__card-copy">表面、边框与圆角均由 happier-ui token 驱动。</p>
+        </h-card>
+      </div>
+
+      <p class="smoke__hint smoke__hint--spaced">padding / radius</p>
+      <div class="smoke__card-grid">
+        <h-card
+          v-for="padding in cardPaddings"
+          :key="`padding-${padding}`"
+          :padding="padding"
+        >
+          padding={{ padding }}
+        </h-card>
+        <h-card
+          v-for="radius in cardRadii"
+          :key="`radius-${radius}`"
+          :radius="radius"
+          variant="filled"
+        >
+          radius={{ radius }}
+        </h-card>
+      </div>
+
+      <p class="smoke__hint smoke__hint--spaced">header / footer 组合</p>
+      <div class="smoke__card-grid">
+        <h-card>
+          只有 body
+        </h-card>
+        <h-card>
+          <template #header>
+            <strong class="smoke__card-title">Header</strong>
+          </template>
+          header + body
+        </h-card>
+        <h-card variant="filled">
+          <template #header>
+            <strong class="smoke__card-title">完整卡片</strong>
+          </template>
+          header + body + footer
+          <template #footer>
+            <div class="smoke__row">
+              <h-button size="sm">确认</h-button>
+              <h-button size="sm" variant="ghost">取消</h-button>
+            </div>
+          </template>
+        </h-card>
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="image-heading">
       <h2 id="image-heading" class="smoke__section-title">HImage</h2>
       <div class="smoke__row smoke__row--wrap">
@@ -455,7 +515,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Heart, Home, Library, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HSwitch, HTabBar } from 'happier-ui'
+import { HBottomSheet, HButton, HCard, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HSwitch, HTabBar } from 'happier-ui'
 import type { HTabBarItem } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -544,6 +604,9 @@ const buttonVariants = [
   'danger-soft',
 ] as const
 const buttonSizes = ['sm', 'md', 'lg'] as const
+const cardVariants = ['outlined', 'filled', 'flat'] as const
+const cardPaddings = ['none', 'sm', 'md', 'lg'] as const
+const cardRadii = ['sm', 'md'] as const
 
 const onButtonClick = () => {
   buttonClicks.value += 1
@@ -732,6 +795,23 @@ const onDialogClose = () => {
 
 .smoke__empty-frame--short .h-empty {
   min-height: 12rem;
+}
+
+.smoke__card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  gap: var(--h-space-md, 12px);
+}
+
+.smoke__card-title {
+  display: block;
+  font-size: var(--h-font-title, 15px);
+}
+
+.smoke__card-copy {
+  margin: var(--h-space-sm, 8px) 0 0;
+  color: var(--h-color-ink-muted, #666);
+  font-size: var(--h-font-body-sm, 13px);
 }
 
 .smoke__image-fallback {

@@ -50,6 +50,7 @@ export default defineConfig({
             { text: 'Button', link: '/components/button' },
             { text: 'IconButton', link: '/components/icon-button' },
             { text: 'Icon', link: '/components/icon' },
+            { text: 'Card', link: '/components/card' },
             { text: 'Empty', link: '/components/empty' },
             { text: 'Image', link: '/components/image' },
             { text: 'Input', link: '/components/input' },

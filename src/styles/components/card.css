@@ -1,0 +1,81 @@
+@layer components {
+  .h-card {
+    --h-card-pad: var(--h-space-md);
+    --h-card-radius: var(--h-radius-md);
+    --h-card-bg: var(--h-color-surface);
+    --h-card-border: var(--h-color-border-subtle);
+    --h-card-separator: var(--h-color-separator);
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    overflow: hidden;
+    color: var(--h-color-ink);
+    background: var(--h-card-bg);
+    border: 0;
+    border-radius: var(--h-card-radius);
+  }
+
+  /* —— variant —— */
+  .h-card--outlined {
+    --h-card-bg: var(--h-color-surface);
+    --h-card-border: var(--h-color-border-subtle);
+
+    border: 1px solid var(--h-card-border);
+  }
+
+  .h-card--filled {
+    --h-card-bg: var(--h-color-surface-secondary);
+  }
+
+  .h-card--flat {
+    --h-card-bg: transparent;
+  }
+
+  /* —— padding（作用于各分区） —— */
+  .h-card--pad-none {
+    --h-card-pad: 0;
+  }
+
+  .h-card--pad-sm {
+    --h-card-pad: var(--h-space-sm);
+  }
+
+  .h-card--pad-md {
+    --h-card-pad: var(--h-space-md);
+  }
+
+  .h-card--pad-lg {
+    --h-card-pad: var(--h-space-lg);
+  }
+
+  /* —— radius —— */
+  .h-card--radius-sm {
+    --h-card-radius: var(--h-radius-sm);
+  }
+
+  .h-card--radius-md {
+    --h-card-radius: var(--h-radius-md);
+  }
+
+  /* —— regions —— */
+  .h-card__header,
+  .h-card__body,
+  .h-card__footer {
+    box-sizing: border-box;
+    padding: var(--h-card-pad);
+  }
+
+  /* outlined / filled：header 与 body、body 与 footer 之间画分隔线（仅对应 slot 存在时才有该节点） */
+  .h-card--outlined .h-card__header + .h-card__body,
+  .h-card--filled .h-card__header + .h-card__body {
+    border-top: 1px solid var(--h-card-separator);
+  }
+
+  .h-card--outlined .h-card__footer,
+  .h-card--filled .h-card__footer {
+    border-top: 1px solid var(--h-card-separator);
+  }
+
+}

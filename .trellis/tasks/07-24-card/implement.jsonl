@@ -1,0 +1,3 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "组件命名/导出/SFC 结构/新组件清单 5 步/反模式（禁 elevation、禁 scoped 大块视觉 CSS）的权威规范，HCard 必须遵循"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "token 命名与复用规则；HCard 配色/间距/圆角必须复用 --h-* token，新增 --h-card-* 时值须引用现有 token"}
+{"file": ".trellis/spec/frontend/type-safety.md", "reason": "defineProps + withDefaults 类型约定，variant/padding/radius 联合类型定义"}

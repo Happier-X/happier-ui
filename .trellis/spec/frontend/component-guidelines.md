@@ -4,7 +4,7 @@
 
 - **语义组件**：解决 UI 问题，不 1:1 镜像 Ionic 标签名。
 - **视觉参考 HeroUI Native**（色 / 圆角 / 间距 / 状态 / 变体观感）；组件交付面向 **Web 与移动端**；Vue 自实现，不依赖 `@heroui/react-native`。
-- **无 elevation**；数值只走 `--h-*`（`src/tokens.css`）。
+- **无 elevation**；数值只走 `--h-*`（`src/styles/tokens.css`）。
 - **不实现**导航栈、Modal / ActionSheet / Alert 引擎（宿主负责）。
 - **触控热区**默认 ≥ 48px（`--h-touch-target`）。
 - 图标/装饰优先 **slot**（内联 SVG）；不 peer `@ionic/vue`。
@@ -34,11 +34,11 @@ export { default as HNavBar } from './components/HNavBar.vue'
 
 ## SFC 结构（必须）
 
-1. `<template>` → 2. `<script setup lang="ts">` → 3. `<style scoped>`
+1. `<template>` → 2. `<script setup lang="ts">`（**无**大块视觉 `<style scoped>`）
 2. Props：`defineProps` + `withDefaults`；必填无默认值。
 3. 事件：`defineEmits<{ click: [event: MouseEvent] }>()` 对象形式。
 4. 组合：用 **具名 slot**，不把业务子树写死进库。
-5. 样式：`scoped`；`var(--h-…, fallback)`。
+5. 样式：模板使用 **`h-*` BEM**；视觉规则写在 `src/styles/components/*.css` 的 `@layer components` 中，用 `var(--h-…, fallback)`（或 token utility）。
 
 参考实现：
 
@@ -87,7 +87,8 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | `HIcon` | `HIcon.vue` | Lucide 组件；stroke/fill；peer `@lucide/vue` |
 | `HTabBar` | `HTabBar.vue` | items + v-model key；fixed/safeArea 默认开且可独立关；无路由 |
 | `HNavBar` | `HNavBar.vue` | header；title/left/right slots；showBack；fixed/safeArea；无路由 |
-| `tokens.css` | `src/tokens.css` | 经 `happier-ui/tokens.css` 导出 |
+| `styles` | `src/styles/` | 经 `happier-ui/styles` 导出（tokens + theme + components） |
+| `tokens.css` | `src/styles/tokens.css` | 经 `happier-ui/tokens.css` 导出（可选） |
 
 ### 已移除（勿再导出）
 
@@ -106,11 +107,13 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | Material 阴影 elevation | 与 HeroUI Native / 项目定位冲突 |
 | 把音乐封面、队列、播放手势做进库 | 领域语义属 Muses |
 | 只写组件不上 playground | 消费方与 AI 无法目视回归 |
+| 在 SFC 大块 scoped 视觉 CSS 与 styles/components 双源 | 与 Tailwind/HeroUI 式分发冲突 |
 | 恢复已删除的 M* 别名而不经任务评审 | 破坏性 API 需显式决策 |
 
 ## 新组件清单
 
-1. 在 `src/components/HXxx.vue` 实现（HeroUI Native 观感 + `--h-*`）。
-2. `src/index.ts` 导出 `HXxx`。
-3. `playground/src/App.vue` 增加演示段。
-4. 更新本文件「当前导出」表。
+1. 在 `src/components/HXxx.vue` 实现逻辑与 BEM 类（HeroUI Native 观感）。
+2. 在 `src/styles/components/xxx.css` 写 `@layer components` 视觉规则；`components.css` 增加 `@import`。
+3. `src/index.ts` 导出 `HXxx`。
+4. `playground/src/App.vue` 增加演示段（宿主已 `@import "happier-ui/styles"`）。
+5. 更新本文件「当前导出」表。

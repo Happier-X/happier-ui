@@ -6,17 +6,24 @@
 happier-ui/
   src/
     index.ts                 # 公共导出源（H*）
-    tokens.css               # --h-* 权威 token；--muses-* 别名
-    components/H*.vue        # 语义 UI 组件（唯一组件目录）
+    tokens.css               # re-export → styles/tokens.css（避免旧路径双源）
+    styles/
+      index.css              # 公共 styles 入口（tokens + theme + components）
+      tokens.css             # --h-* 权威 token；--muses-* 别名
+      theme.css              # Tailwind v4 @theme → h- utility
+      components.css         # 汇总 @import 各组件层
+      components/*.css       # @layer components 内 h-* BEM
+    components/H*.vue        # 语义 UI（逻辑 + BEM 类名；无大块 scoped 视觉）
   dist/                      # npm 发布产物（gitignore；build:lib 生成）
-  playground/                # Vite 冒烟宿主（workspace 包）
-    src/App.vue              # 组件演示
+  playground/                # Vite 冒烟宿主（workspace 包；@tailwindcss/vite）
+    src/App.vue
     src/main.ts
-  vite.config.ts             # library mode（ESM + style.css + dts + copy tokens）
-  tsconfig.lib.json          # vite-plugin-dts / 声明生成
-  package.json               # 公共包 metadata；exports 指向 dist
-  LICENSE                    # MIT © Happier
-  .trellis/                  # 任务 / spec / workflow
+    src/style.css            # @import tailwindcss + happier-ui/styles
+  vite.config.ts             # library mode（ESM + dts + emit styles/tokens）
+  tsconfig.lib.json
+  package.json               # exports 指向 dist；peer 含 tailwindcss ^4
+  LICENSE
+  .trellis/
   AGENTS.md
   README.md
 ```
@@ -26,10 +33,12 @@ happier-ui/
 | 类型 | 路径 | 说明 |
 |------|------|------|
 | 新组件 | `src/components/HXxx.vue` | 文件名与导出名一致，`H` 前缀 |
+| 组件视觉 | `src/styles/components/*.css` | BEM + `@layer components` |
 | 公共导出 | `src/index.ts` | 先 `H*`；npm 消费走 `dist` |
-| 设计 token | `src/tokens.css` | 只改这里的视觉数值；构建复制到 `dist/tokens.css` |
+| 设计 token | `src/styles/tokens.css` | 只改这里的视觉数值 |
+| `@theme` 映射 | `src/styles/theme.css` | h- utility 桥接 |
 | 库构建配置 | `vite.config.ts` / `tsconfig.lib.json` | 不把 playground 配置当库配置 |
-| 演示 / 冒烟 | `playground/src/App.vue` | 新组件必须先能在此看见 |
+| 演示 / 冒烟 | `playground/` | 新组件必须先能在此看见 |
 | 任务与规范 | `.trellis/` | 不放业务代码；**不进** npm tarball |
 
 ## npm 包边界
@@ -37,16 +46,19 @@ happier-ui/
 - **包名**：`happier-ui`（unscoped）；`publishConfig.access: public`。
 - **发布内容**（`files`）：仅 `dist/`、`LICENSE`、`README.md`（外加根 `package.json`）。
 - **不发布**：`src/`、`playground/`、`.trellis/`、token/secret、本地 `*.tgz`。
-- **exports**：
+- **exports**（0.0.2+）：
   - `.` → `dist/index.js` + `dist/index.d.ts`
-  - `./style.css` → `dist/style.css`（组件样式，不自动注入）
-  - `./tokens.css` → `dist/tokens.css`
-- **构建**：`npm run build:lib`（Vite lib + `vite-plugin-dts`）；`vue` 与 `@lucide/vue` external。
-- **宿主安装**：`npm install happier-ui vue @lucide/vue`，并显式 `import 'happier-ui/style.css'` 与 `import 'happier-ui/tokens.css'`。
-- **本地联调**：仍可用 `file:../happier-ui`；改组件后刷新 playground/宿主。
+  - `./styles` / `./styles.css` → `dist/styles.css`（主推）
+  - `./tokens.css` → `dist/tokens.css`（可选）
+  - **无** `./style.css`（0.0.1 路径已移除）
+- **构建**：`npm run build:lib` 合并 `src/styles` → `dist/styles.css` + copy tokens；`vue` / `@lucide/vue` external。
+- **宿主安装**：`npm install happier-ui vue @lucide/vue tailwindcss@^4`，全局 CSS：
+  - `@import "tailwindcss";`
+  - `@import "happier-ui/styles";`
+- **本地联调**：playground alias 到 `src/styles/index.css`；发布验证以 dist/tarball 为准。
 - **发布路径**：
-  - 本地首次/紧急：`npm run build:lib` 后 `npm publish --access public`（需登录账号确认）。
-  - 常规：推送 **`v*` tag** → `.github/workflows/release.yml` 自动 `build:lib` + `npm publish`（需 Secret **`NPM_TOKEN`**）；tag 去掉 `v` 后须与 `package.json` version 一致。
+  - 本地：`npm run build:lib` 后 `npm publish --access public`（需用户确认）。
+  - 常规：推送 **`v*` tag** → release workflow（Secret **`NPM_TOKEN`**）；tag 去掉 `v` 后须与 version 一致。
   - `npm pack` 不等于授权发布。
 
 ## 不做的目录
@@ -57,13 +69,13 @@ happier-ui/
 
 ## 依赖边界
 
-- **peer**：`vue` ^3.5、`@lucide/vue` ^1.25（见根 `package.json`）；不打进 dist。
-- **不 peer** `@ionic/vue`：组件用原生 `<button>` / 布局 div。
-- **playground**：workspace 包，独立 Vite；开发期可 alias 到 `src`，发布验证以 dist/tarball 为准。
+- **peer**：`vue` ^3.5、`@lucide/vue` ^1.25、`tailwindcss` ^4；不打进 dist。
+- **不 peer** `@ionic/vue`；不依赖 `@heroui/*`。
+- **playground**：workspace 包 + `@tailwindcss/vite`；开发期 alias 库 styles。
 
 ## 参考
 
-- `src/index.ts`
+- `src/index.ts` / `src/styles/index.css`
 - `vite.config.ts` / `tsconfig.lib.json`
-- `playground/src/main.ts`（`import 'happier-ui/tokens.css'`）
+- `playground/src/style.css`
 - `README.md`

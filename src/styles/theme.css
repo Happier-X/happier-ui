@@ -1,0 +1,57 @@
+/**
+ * Tailwind v4 @theme bridge：--h-* CSS 变量 → h- 命名空间 utility
+ * 权威 token 仍在 tokens.css；本文件只做映射，不重新发明色板。
+ */
+@theme {
+  /* 主色阶 */
+  --color-h-primary-50: var(--h-primary-50);
+  --color-h-primary-100: var(--h-primary-100);
+  --color-h-primary-200: var(--h-primary-200);
+  --color-h-primary-300: var(--h-primary-300);
+  --color-h-primary-400: var(--h-primary-400);
+  --color-h-primary-500: var(--h-primary-500);
+  --color-h-primary-600: var(--h-primary-600);
+  --color-h-primary-700: var(--h-primary-700);
+  --color-h-primary-800: var(--h-primary-800);
+  --color-h-primary-900: var(--h-primary-900);
+
+  /* 语义色 */
+  --color-h-primary: var(--h-color-primary);
+  --color-h-primary-contrast: var(--h-color-primary-contrast);
+  --color-h-accent: var(--h-color-accent);
+  --color-h-surface: var(--h-color-surface);
+  --color-h-surface-secondary: var(--h-color-surface-secondary);
+  --color-h-surface-dark: var(--h-color-surface-dark);
+  --color-h-ink: var(--h-color-ink);
+  --color-h-ink-muted: var(--h-color-ink-muted);
+  --color-h-border-subtle: var(--h-color-border-subtle);
+  --color-h-separator: var(--h-color-separator);
+  --color-h-danger: var(--h-color-danger);
+  --color-h-success: var(--h-color-success);
+  --color-h-warning: var(--h-color-warning);
+  --color-h-focus-ring: var(--h-color-focus-ring);
+  --color-h-playing-bg: var(--h-color-playing-bg);
+  --color-h-playing-bg-soft: var(--h-color-playing-bg-soft);
+  --color-h-selected-bg: var(--h-color-selected-bg);
+  --color-h-cover-placeholder: var(--h-color-cover-placeholder);
+
+  /* 间距 → p-h-md / gap-h-md 等 */
+  --spacing-h-xs: var(--h-space-xs);
+  --spacing-h-sm: var(--h-space-sm);
+  --spacing-h-md: var(--h-space-md);
+  --spacing-h-lg: var(--h-space-lg);
+  --spacing-h-xl: var(--h-space-xl);
+
+  /* 圆角 → rounded-h-control */
+  --radius-h-sm: var(--h-radius-sm);
+  --radius-h-md: var(--h-radius-md);
+  --radius-h-control: var(--h-radius-control);
+  --radius-h-pill: var(--h-radius-pill);
+  --radius-h-cover-sm: var(--h-radius-cover-sm);
+  --radius-h-cover: var(--h-radius-cover);
+
+  /* 字号 */
+  --text-h-title: var(--h-font-title);
+  --text-h-body-sm: var(--h-font-body-sm);
+  --text-h-label: var(--h-font-label);
+}

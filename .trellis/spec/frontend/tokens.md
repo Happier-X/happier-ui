@@ -2,16 +2,36 @@
 
 ## 权威
 
-- 文件：`src/tokens.css`
+- 文件：`src/styles/tokens.css`（`src/tokens.css` 仅为 re-export，避免双源）
 - 前缀：`--h-*`
-- 包导出：`happier-ui/tokens.css`（见根 `package.json` `exports`）
+- 包导出：
+  - **`happier-ui/styles`**（主推）：tokens + `@theme` + 组件 BEM
+  - **`happier-ui/tokens.css`**：仅变量（可选）
 
-宿主入口必须导入一次，例如 playground：
+宿主（Tailwind v4）入口：
 
-```ts
-// playground/src/main.ts
-import 'happier-ui/tokens.css'
+```css
+@import "tailwindcss";
+@import "happier-ui/styles";
 ```
+
+playground：
+
+```css
+/* playground/src/style.css */
+@import "tailwindcss";
+@import "happier-ui/styles";
+```
+
+## `@theme` / `h-` utility
+
+- 映射文件：`src/styles/theme.css`
+- 公共 utility **带 `h-` 命名空间**，与 `--h-*` 对应，例如：
+  - `--h-color-primary` → `bg-h-primary` / `text-h-primary`
+  - `--h-space-md` → `p-h-md` / `gap-h-md`
+  - `--h-radius-control` → `rounded-h-control`
+- **不**把无前缀 `bg-primary` 作为库公共契约
+- 组件级尺寸 token（如 `--h-button-height-md`）可只做 CSS 变量，不必全部 utility 化
 
 ## 兼容别名
 
@@ -27,7 +47,7 @@ import 'happier-ui/tokens.css'
 ## 使用方式
 
 ```css
-/* 组件 scoped 样式 */
+/* 组件层 BEM 或业务 CSS */
 .color {
   color: var(--h-color-ink-muted, #92949c);
   border-radius: var(--h-radius-control, 12px);
@@ -35,7 +55,11 @@ import 'happier-ui/tokens.css'
 }
 ```
 
-- 必须带合理 **fallback**（宿主未加载 tokens 时不至于完全崩）。
+```html
+<div class="bg-h-surface text-h-ink rounded-h-control p-h-md">…</div>
+```
+
+- 组件 CSS 中 `var(--h-…, fallback)` 推荐带 fallback。
 - 禁止在组件里重新定义一套全局 `:root` 色板。
 
 ## 分组（文件内）
@@ -71,3 +95,5 @@ import 'happier-ui/tokens.css'
 - 在 Muses 与本库各维护一份分叉色板且不别名。
 - 组件内写死 `#006fee` 而不走 `--h-color-primary`。
 - 新增 elevation shadow token「看起来更立体」。
+- 把无前缀 `bg-primary` 等写成库公共 utility 契约（易与宿主冲突）。
+- 继续文档化 `0.0.1` 的「只引 style.css、无需 Tailwind」路径。

@@ -1,0 +1,12 @@
+/**
+ * happier-ui 公共 styles 入口（HeroUI v3 / Tailwind v4 CSS-first）
+ *
+ * 消费方：
+ *   @import "tailwindcss";
+ *   @import "happier-ui/styles";
+ *
+ * 本入口不含 Tailwind preflight；由宿主 @import "tailwindcss" 提供。
+ */
+@import "./tokens.css";
+@import "./theme.css";
+@import "./components.css";

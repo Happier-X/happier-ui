@@ -1,0 +1,94 @@
+@layer components {
+  .h-input {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--h-space-xs, 2px);
+    width: 100%;
+    min-width: 0;
+  }
+
+  .h-input__label {
+    font-size: var(--h-font-label, 12px);
+    font-weight: 600;
+    color: var(--h-color-ink, #000000);
+  }
+
+  .h-input__control {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    border: 1px solid var(--h-input-border, var(--h-color-border-subtle, #e0e0e0));
+    border-radius: var(--h-input-radius, var(--h-radius-control, 12px));
+    background: var(--h-input-bg, var(--h-color-surface, #ffffff));
+    color: var(--h-color-ink, #000000);
+    font: inherit;
+    line-height: 1.25;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-color var(--h-duration-press, 120ms) var(--h-ease-standard, ease),
+      box-shadow var(--h-duration-press, 120ms) var(--h-ease-standard, ease);
+  }
+
+  .h-input__control::placeholder {
+    color: var(--h-input-placeholder, var(--h-color-ink-muted, #92949c));
+  }
+
+  .h-input__control:focus {
+    outline: none;
+  }
+
+  .h-input__control:focus-visible {
+    border-color: var(--h-color-focus-ring, var(--h-color-primary, #006fee));
+    box-shadow: 0 0 0 2px rgba(var(--h-color-primary-rgb, 0, 111, 238), 0.2);
+  }
+
+  .h-input--invalid .h-input__control {
+    border-color: var(--h-input-border-invalid, var(--h-color-danger, #eb445a));
+  }
+
+  .h-input--invalid .h-input__control:focus-visible {
+    box-shadow: 0 0 0 2px rgba(var(--h-color-danger-rgb, 235, 68, 90), 0.2);
+  }
+
+  .h-input--disabled {
+    opacity: 0.55;
+  }
+
+  .h-input__control:disabled {
+    cursor: not-allowed;
+  }
+
+  .h-input--sm .h-input__control {
+    height: var(--h-input-height-sm, 32px);
+    padding: 0 var(--h-input-pad-x-sm, 10px);
+    font-size: var(--h-input-font-sm, 13px);
+  }
+
+  .h-input--md .h-input__control {
+    height: var(--h-input-height-md, 40px);
+    padding: 0 var(--h-input-pad-x-md, 12px);
+    font-size: var(--h-input-font-md, 14px);
+  }
+
+  .h-input--lg .h-input__control {
+    height: var(--h-input-height-lg, 48px);
+    padding: 0 var(--h-input-pad-x-lg, 14px);
+    font-size: var(--h-input-font-lg, 16px);
+  }
+
+  .h-input__description {
+    margin: 0;
+    font-size: var(--h-font-body-sm, 13px);
+    color: var(--h-color-ink-muted, #666);
+    text-wrap: pretty;
+  }
+
+  .h-input__error {
+    margin: 0;
+    font-size: var(--h-font-body-sm, 13px);
+    color: var(--h-color-danger, #eb445a);
+    text-wrap: pretty;
+  }
+}

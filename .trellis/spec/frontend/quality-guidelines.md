@@ -2,12 +2,12 @@
 
 ## 完成定义（单个组件）
 
-1. **实现**在 `src/components/H*.vue`，样式消费 `--h-*`。
+1. **实现**在 `src/components/H*.vue`（BEM 类）+ `src/styles/components/*.css`（`@layer components`），样式消费 `--h-*`。
 2. **导出**于 `src/index.ts`。
-3. **playground** 有可点击/可看见的演示（`playground/src/App.vue`）。
+3. **playground** 有可点击/可看见的演示（`playground/src/App.vue`；TW4 + `happier-ui/styles`）。
 4. 视觉对照 **HeroUI Native**（交付面向 Web 与移动端；无 Material 阴影）。
 5. 键盘与焦点：可交互控件有 `:focus-visible`。
-6. 不引入业务与 Ionic Vue 运行时依赖。
+6. 不引入业务、Ionic Vue 或 `@heroui/*` 运行时依赖。
 
 ## 验证命令
 
@@ -19,7 +19,7 @@ npm run build:lib
 npm pack --dry-run
 ```
 
-本库根脚本目前 **无** `lint` / `test` / `typecheck` 独立入口；以 playground build + 目视为准。发版前额外：`build:lib` 产物齐全（`index.js` / `index.d.ts` / `style.css` / `tokens.css`），`npm pack --dry-run` 不含 `src` / `playground` / `.trellis`。
+本库根脚本目前 **无** `lint` / `test` / `typecheck` 独立入口；以 playground build + 目视为准。发版前额外：`build:lib` 产物齐全（`index.js` / `index.d.ts` / `styles.css` / `tokens.css`），`npm pack --dry-run` 不含 `src` / `playground` / `.trellis`。
 
 ## 无障碍最低线
 

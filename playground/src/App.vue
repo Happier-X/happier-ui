@@ -14,10 +14,14 @@
     <header class="smoke__header">
       <h1 class="smoke__title">happier-ui 冒烟</h1>
       <p class="smoke__lead">
-        导出 <code>HButton</code>、<code>HSwitch</code>、<code>HBottomSheet</code>、<code>HDialog</code>、<code>HInput</code>、<code>HCheckbox</code>、<code>HEmpty</code>、<code>HImage</code>、<code>HIcon</code>、<code>HTabBar</code>、<code>HNavBar</code> 与
-        <code>tokens.css</code>（纯 Vue，无 Ionic 壳）。
+        导出 <code>H*</code> 组件与 <code>happier-ui/styles</code>（Tailwind v4 + <code>--h-*</code> / <code>h-</code> utility；纯 Vue，无 Ionic）。
       </p>
       <div class="smoke__swatch" aria-hidden="true" />
+      <div class="mt-h-md flex flex-wrap gap-h-sm">
+        <span class="rounded-h-control bg-h-primary px-h-md py-h-sm text-h-primary-contrast text-h-label">bg-h-primary</span>
+        <span class="rounded-h-control bg-h-surface-secondary px-h-md py-h-sm text-h-ink text-h-label">bg-h-surface-secondary</span>
+        <span class="rounded-h-control border border-h-border-subtle px-h-md py-h-sm text-h-ink-muted text-h-label">text-h-ink-muted</span>
+      </div>
     </header>
 
     <section class="smoke__section" aria-labelledby="navbar-heading">

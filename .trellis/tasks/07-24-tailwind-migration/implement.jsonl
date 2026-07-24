@@ -1,0 +1,12 @@
+{"path": ".trellis/tasks/07-24-tailwind-migration/prd.md", "title": "PRD"}
+{"path": ".trellis/tasks/07-24-tailwind-migration/design.md", "title": "Design"}
+{"path": ".trellis/tasks/07-24-tailwind-migration/implement.md", "title": "Implement plan"}
+{"path": ".trellis/spec/frontend/component-guidelines.md", "title": "Component guidelines"}
+{"path": ".trellis/spec/frontend/tokens.md", "title": "Tokens guidelines"}
+{"path": ".trellis/spec/frontend/directory-structure.md", "title": "Directory structure"}
+{"path": ".trellis/spec/frontend/quality-guidelines.md", "title": "Quality guidelines"}
+{"path": "package.json", "title": "Package metadata"}
+{"path": "vite.config.ts", "title": "Lib Vite config"}
+{"path": "src/tokens.css", "title": "Current tokens"}
+{"path": "src/index.ts", "title": "Public exports"}
+{"path": "playground/src/main.ts", "title": "Playground entry"}

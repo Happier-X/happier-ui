@@ -1,0 +1,35 @@
+@layer components {
+  .h-icon {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    color: inherit;
+    vertical-align: middle;
+  }
+
+  .h-icon__svg {
+    display: block;
+  }
+
+  .h-icon--sm {
+    width: var(--h-icon-size-sm, 16px);
+    height: var(--h-icon-size-sm, 16px);
+  }
+
+  .h-icon--md {
+    width: var(--h-icon-size-md, 20px);
+    height: var(--h-icon-size-md, 20px);
+  }
+
+  .h-icon--lg {
+    width: var(--h-icon-size-lg, 24px);
+    height: var(--h-icon-size-lg, 24px);
+  }
+
+  .h-icon--custom {
+    /* 尺寸由 inline style 控制 */
+  }
+}

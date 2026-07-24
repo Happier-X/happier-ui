@@ -28,7 +28,7 @@ import { HIcon } from 'happier-ui'
 </template>
 ```
 
-## Stroke vs fill
+## 描边与填充
 
 Lucide 非正式 filled 集，`variant="fill"` 效果因图标而异。
 

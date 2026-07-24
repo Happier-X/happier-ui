@@ -34,7 +34,7 @@ import { HButton } from 'happier-ui'
 </template>
 ```
 
-## Variants × sizes
+## 变体 × 尺寸
 
 <div v-for="size in sizes" :key="size" class="h-demo h-demo--stack">
   <p class="h-demo__hint">size={{ size }}</p>
@@ -50,7 +50,7 @@ import { HButton } from 'happier-ui'
   </div>
 </div>
 
-## Leading / trailing
+## 前置 / 后置图标
 
 <div class="h-demo h-demo--row">
   <h-button variant="outline">

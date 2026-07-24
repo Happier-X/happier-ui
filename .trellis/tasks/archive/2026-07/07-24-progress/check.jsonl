@@ -1,0 +1,3 @@
+{"file": ".trellis/spec/frontend/quality-guidelines.md", "reason": "完成定义、验证命令（build:playground / docs:build）、a11y 最低线，检查以此为准"}
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "核对导出表、当前导出、反模式（无 scoped 大块视觉 CSS、类前缀 h-*）"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "核对新增 token 命名与分组、无魔法数、只写 --h-*"}

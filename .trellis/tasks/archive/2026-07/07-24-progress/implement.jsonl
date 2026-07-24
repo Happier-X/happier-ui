@@ -1,0 +1,4 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "H* 组件 SFC 结构、命名/导出约定、新组件清单五步，进度条须严格遵循"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "--h-* token 规则；新增 HProgress 尺寸/语义色 token 只进 tokens.css，禁止魔法数"}
+{"file": ".trellis/spec/frontend/directory-structure.md", "reason": "components / styles/components / index.ts / playground / docs 布局边界"}
+{"file": ".trellis/spec/frontend/type-safety.md", "reason": "props/emits 与 TS 约定（withDefaults、可选 prop 默认值）"}

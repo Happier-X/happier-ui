@@ -39,7 +39,18 @@
   min-height: 16rem;
 }
 
-/* VitePress 内容区：组件演示不被文档字体过度干扰 */
-.vp-doc .h-demo button {
-  font-family: inherit;
+/*
+ * VitePress 默认主题 base.css 带有「无 layer」的 button / input / select / textarea reset
+ * （background-color:transparent、padding:0 等）。按 CSS 层叠层规则，无 layer 样式优先级
+ * 高于任何 @layer，会盖掉 happier-ui 定义在 @layer components 里的 .h-button 等组件样式，
+ * 导致文档里组件「没样式」。
+ *
+ * 这里用 revert-layer 把 happier 组件用到的原生控件回滚到层内值：
+ *   - 忽略 VitePress 的无 layer reset
+ *   - 落回 @layer utilities / components（因此仍保留 h- utility 覆盖能力）
+ * 仅作用于文档站，不影响库本身的 layer 设计。
+ */
+.vp-doc :is(button, input, select, textarea)[class*="h-"],
+.vp-doc :is([class*="h-"]) :is(button, input, select, textarea) {
+  all: revert-layer;
 }

@@ -32,6 +32,7 @@ npm pack --dry-run
 | `HSwitch` | `role="switch"` + `aria-checked`；建议 `ariaLabel`；disabled 不切换 |
 | `HBottomSheet` | `role="dialog"` + `aria-modal`；标题关联或 `ariaLabel`；Esc 可关闭 |
 | `HDialog` | `role="dialog"` + `aria-modal`；title/description 关联或 `ariaLabel`；Esc 可关闭 |
+| `HToast` | live-region：default/success 用 `role="status"`+`aria-live="polite"`，warning/danger 用 `role="alert"`+`aria-live="assertive"`；`aria-atomic`；不抢占焦点；icon 槽装饰 `aria-hidden` |
 | `HInput` | label 关联；`aria-invalid` / `aria-describedby`（description/error） |
 | `HCheckbox` | 原生 checkbox；label 或 `ariaLabel`；`indeterminate` 半选 |
 | `HEmpty` | `section` + 标题；icon 为装饰时由宿主提供 `aria-hidden`；操作槽可放可交互控件 |

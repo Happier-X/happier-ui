@@ -74,6 +74,7 @@ playground：
 | 开关 | `--h-switch-track-*-w/h`、`--h-switch-thumb-*`、`--h-switch-pad` |
 | 底部面板 | `--h-bottom-sheet-z`、`--h-bottom-sheet-overlay-bg`、`--h-bottom-sheet-radius`、`--h-bottom-sheet-duration` |
 | 对话框 | `--h-dialog-z`、`--h-dialog-overlay-bg`、`--h-dialog-radius`、`--h-dialog-max-width`、`--h-dialog-duration` |
+| 轻提示 | `--h-toast-z`、`--h-toast-max-width`、`--h-toast-pad-x/y`、`--h-toast-radius`、`--h-toast-offset`、`--h-toast-duration` |
 | 输入框 | `--h-input-height-*`、`--h-input-pad-x-*`、`--h-input-border`、`--h-input-border-invalid` |
 | 复选框 | `--h-checkbox-size-*`、`--h-checkbox-radius`、`--h-checkbox-border`、`--h-checkbox-bg-checked` |
 | 空状态 | `--h-empty-min-height`、`--h-empty-max-width`、`--h-empty-pad` |

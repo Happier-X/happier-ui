@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -24,6 +24,7 @@ export { default as HIconButton } from './components/HIconButton.vue'
 export { default as HSwitch } from './components/HSwitch.vue'
 export { default as HBottomSheet } from './components/HBottomSheet.vue'
 export { default as HDialog } from './components/HDialog.vue'
+export { default as HToast } from './components/HToast.vue'
 export { default as HInput } from './components/HInput.vue'
 export { default as HCheckbox } from './components/HCheckbox.vue'
 export { default as HCard } from './components/HCard.vue'
@@ -51,6 +52,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 - `src/components/HSwitch.vue` — `v-model`、size、disabled、`role="switch"`
 - `src/components/HBottomSheet.vue` — `v-model`、overlay/Esc 关闭、dialog 语义、标题/内容槽
 - `src/components/HDialog.vue` — 居中 dialog；title/description/actions slots
+- `src/components/HToast.vue` — 声明式单条轻提示；v-model；variant/position/duration；live-region；无队列
 - `src/components/HInput.vue` — v-model；label/error；可对接 TanStack Field（不 peer tanstack）
 - `src/components/HCheckbox.vue` — v-model；label；indeterminate 半选（无 group）
 - `src/components/HEmpty.vue` — title/description；icon 与 default 操作槽；无 compact
@@ -69,6 +71,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | 开关 | `modelValue` + `update:modelValue`；`role="switch"` | `HSwitch` |
 | 底部面板 | `modelValue` + overlay/Esc 请求关闭；`role="dialog"` | `HBottomSheet` |
 | 居中对话框 | `modelValue` + overlay/Esc；title/description/actions | `HDialog` |
+| 轻提示 | `modelValue` + `duration` 自动关闭；variant/position；live-region；无队列 | `HToast` |
 | 文本输入 | `modelValue` + `update:modelValue` + `blur`；label/error | `HInput` |
 | 复选框 | `modelValue` + `update:modelValue`；`indeterminate`；label | `HCheckbox` |
 | 空状态 | `title`；可选 `description`、`#icon`、default 操作槽；无 compact | `HEmpty` |
@@ -77,7 +80,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | 底部导航 | `items` + `modelValue`（string key）；内部 HIcon；`fixed` / `safeArea` 默认 true | `HTabBar` |
 | 顶部标题栏 | `title` / `#title`；`#left` / `#right`；`showBack`；左右点击事件；`fixed` / `safeArea` 默认 true；无路由 | `HNavBar` |
 | 卡片容器 | `variant` outlined/filled/flat + `padding` none/sm/md/lg + `radius` sm/md；`#header` / default / `#footer` 具名 slot；纯展示无整卡可点击；无 Emits | `HCard` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；图标按钮 `ariaLabel` 必填 | `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；图标按钮 `ariaLabel` 必填；Toast live-region 不抢焦点 | `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
@@ -89,6 +92,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | `HSwitch` | `HSwitch.vue` | v-model；sm/md/lg；disabled；HeroUI Native 观感 |
 | `HBottomSheet` | `HBottomSheet.vue` | v-model；overlay/Esc；title/default slots；非 Portal MVP |
 | `HDialog` | `HDialog.vue` | 居中；title/description/default/actions；非 Portal MVP |
+| `HToast` | `HToast.vue` | 声明式单条轻提示；v-model；default/success/warning/danger；top/bottom；duration 自动关闭；live-region |
 | `HInput` | `HInput.vue` | v-model；label/description/error；TanStack Field 友好绑定 |
 | `HCheckbox` | `HCheckbox.vue` | v-model；label；indeterminate 半选；宿主清半选 |
 | `HEmpty` | `HEmpty.vue` | title/description；icon 与 default 操作槽；无旧别名 |
@@ -106,7 +110,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 
 ## 路线图
 
-以 `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
+以 `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
 
 ## 反模式
 

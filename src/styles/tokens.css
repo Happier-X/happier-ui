@@ -186,17 +186,27 @@
   --h-icon-size-md: 20px;
   --h-icon-size-lg: 24px;
 
+  /* Toast（HToast） */
+  --h-toast-z: 1220;
+  --h-toast-max-width: 480px;
+  --h-toast-pad-x: 16px;
+  --h-toast-pad-y: 10px;
+  --h-toast-radius: var(--h-radius-md);
+  --h-toast-offset: var(--h-space-lg);
+  --h-toast-duration: 200ms;
+
   /* 列表行密度 */
   --h-list-row-height-comfortable: var(--h-song-row-height);
   --h-list-row-height-compact: 56px;
 
-  /* 层级：顶栏/底栏 < MiniPlayer < 沉浸页 < BottomSheet < Dialog */
+  /* 层级：顶栏/底栏 < MiniPlayer < 沉浸页 < BottomSheet < Dialog < Toast */
   --h-z-nav: 30;
   --h-z-tab: 30;
   --h-z-mini-player: 1000;
   --h-z-player: 1100;
   --h-z-bottom-sheet: var(--h-bottom-sheet-z);
   --h-z-dialog: var(--h-dialog-z);
+  --h-z-toast: var(--h-toast-z);
 
   /* —— 兼容：--muses-* → --h-* —— */
   --muses-primary-50: var(--h-primary-50);

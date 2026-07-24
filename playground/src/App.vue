@@ -499,6 +499,39 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="toast-heading">
+      <h2 id="toast-heading" class="smoke__section-title">HToast</h2>
+      <div class="smoke__row smoke__row--wrap">
+        <h-button @click="toastSuccess = true">成功（底部）</h-button>
+        <h-button variant="outline" @click="toastTop = true">默认（顶部）</h-button>
+        <h-button variant="danger-soft" @click="toastDanger = true">错误</h-button>
+        <h-button variant="ghost" @click="toastPersist = true">不自动关闭</h-button>
+        <h-button size="sm" variant="outline" @click="toastPersist = false">隐藏持续提示</h-button>
+      </div>
+      <p v-if="toastCloseCount > 0" class="smoke__ping">
+        toast close 次数：{{ toastCloseCount }}
+      </p>
+
+      <h-toast v-model="toastSuccess" variant="success" @close="onToastClose">
+        <template #icon>
+          <h-icon :icon="Star" size="sm" />
+        </template>
+        已保存更改
+      </h-toast>
+
+      <h-toast v-model="toastTop" position="top" @close="onToastClose">
+        顶部提示，3 秒后自动关闭
+      </h-toast>
+
+      <h-toast v-model="toastDanger" variant="danger" @close="onToastClose">
+        操作失败，请重试
+      </h-toast>
+
+      <h-toast v-model="toastPersist" variant="warning" :duration="0">
+        持续提示，由宿主在外部控制隐藏
+      </h-toast>
+    </section>
+
     <section class="smoke__section" aria-labelledby="tabbar-heading">
       <h2 id="tabbar-heading" class="smoke__section-title">HTabBar</h2>
       <p class="smoke__hint">当前 key：{{ activeTab }}</p>
@@ -515,7 +548,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Heart, Home, Library, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBottomSheet, HButton, HCard, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HSwitch, HTabBar } from 'happier-ui'
+import { HBottomSheet, HButton, HCard, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HSwitch, HTabBar, HToast } from 'happier-ui'
 import type { HTabBarItem } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -530,6 +563,11 @@ const sheetCloseCount = ref(0)
 const dialogOpen = ref(false)
 const dialogNoOverlayClose = ref(false)
 const dialogCloseCount = ref(0)
+const toastSuccess = ref(false)
+const toastTop = ref(false)
+const toastDanger = ref(false)
+const toastPersist = ref(false)
+const toastCloseCount = ref(0)
 const simpleName = ref('')
 const tanstackSubmitMsg = ref('')
 const checkOn = ref(false)
@@ -634,6 +672,10 @@ const onSheetClose = () => {
 
 const onDialogClose = () => {
   dialogCloseCount.value += 1
+}
+
+const onToastClose = () => {
+  toastCloseCount.value += 1
 }
 </script>
 

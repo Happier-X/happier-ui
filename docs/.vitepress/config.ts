@@ -60,6 +60,7 @@ export default defineConfig({
             { text: 'TabBar', link: '/components/tab-bar' },
             { text: 'Dialog', link: '/components/dialog' },
             { text: 'BottomSheet', link: '/components/bottom-sheet' },
+            { text: 'Toast', link: '/components/toast' },
           ],
         },
       ],

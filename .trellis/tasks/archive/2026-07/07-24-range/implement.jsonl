@@ -1,0 +1,4 @@
+{"_example": "Fill with {\"file\": \"<path>\", \"reason\": \"<why>\"}. Put spec/research files only — no code paths. Run `python .trellis/scripts/get_context.py --mode packages` to list available specs. Delete this line once real entries are added."}
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "HRange 命名、SFC、样式拆分、导出、playground 和文档交付规范"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "Range 轨道、thumb、尺寸、焦点与动效必须使用 --h-* token"}
+{"file": ".trellis/spec/frontend/type-safety.md", "reason": "数值 Props、Emits 与联合字面量类型约束"}

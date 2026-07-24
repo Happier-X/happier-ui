@@ -1,0 +1,4 @@
+{"_example": "Fill with {\"file\": \"<path>\", \"reason\": \"<why>\"}. Put spec/research files only — no code paths. Run `python .trellis/scripts/get_context.py --mode packages` to list available specs. Delete this line once real entries are added."}
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "验收 HRange 公共 API、命名、样式拆分与完整交付项"}
+{"file": ".trellis/spec/frontend/quality-guidelines.md", "reason": "检查原生 range 无障碍、交互、构建与消费侧质量"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "检查视觉值与新增 token 符合 --h-* 约定"}

@@ -253,6 +253,14 @@
   /* 层级：浮动气泡低于全屏反馈层，高于页面导航 */
   --h-z-floating-bubble: 999;
 
+  /* 侧边栏（HSidebar） */
+  --h-sidebar-collapsed-width: 72px;
+  --h-sidebar-bg: var(--h-color-surface);
+  --h-sidebar-border: var(--h-color-border-subtle);
+  --h-sidebar-item-radius: var(--h-radius-control);
+  --h-sidebar-item-gap: var(--h-space-xs);
+  --h-sidebar-transition: 200ms var(--h-ease-standard);
+
   /* —— 兼容：--muses-* → --h-* —— */
   --muses-primary-50: var(--h-primary-50);
   --muses-primary-100: var(--h-primary-100);
@@ -310,6 +318,7 @@
   --muses-breakpoint-tablet: var(--h-breakpoint-tablet);
   --muses-content-max-width: var(--h-content-max-width);
   --muses-sidebar-width: var(--h-sidebar-width);
+  --muses-sidebar-collapsed-width: var(--h-sidebar-collapsed-width);
   --muses-tab-bar-height: var(--h-tab-bar-height);
   --muses-nav-bar-height: var(--h-nav-bar-height);
   --muses-mini-player-height: var(--h-mini-player-height);

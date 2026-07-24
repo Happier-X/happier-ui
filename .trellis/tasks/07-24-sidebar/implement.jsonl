@@ -1,0 +1,4 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "组件命名/导出/SFC 结构/BEM/无障碍与新组件清单的权威约定，HSidebar 必须对齐"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "token 命名与分组登记规范；HSidebar 需复用 --h-sidebar-width 并新增 --h-sidebar-* 分组"}
+{"file": ".trellis/spec/frontend/state-management.md", "reason": "非受控优先/受控可覆盖与 v-model 契约（collapsed 双向绑定沿用此约定）"}
+{"file": ".trellis/spec/frontend/type-safety.md", "reason": "props/emits 类型与 ariaLabel 必填相关的 vue-tsc 约束"}

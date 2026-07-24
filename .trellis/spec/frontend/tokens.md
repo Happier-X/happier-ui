@@ -88,6 +88,7 @@ playground：
 | 设置行 / 分组 | `--h-cell-min-height`、`--h-cell-pad-x/y`、`--h-cell-gap`、`--h-cell-bg`、`--h-cell-pressed-bg`、`--h-cell-chevron-color`、`--h-cell-group-radius`、`--h-cell-group-header-gap`（HCell / HCellGroup） |
 | 动效 | `--h-duration-press`、`--h-ease-standard` |
 | 浮动气泡 | `--h-floating-bubble-size`、`--h-floating-bubble-icon-size`、`--h-floating-bubble-gap`、`--h-floating-bubble-bg/color`、`--h-floating-bubble-radius`、`--h-floating-bubble-transition`、`--h-z-floating-bubble` |
+| 侧边栏 | `--h-sidebar-width`（展开 240px，布局分组已有）、`--h-sidebar-collapsed-width`、`--h-sidebar-bg`、`--h-sidebar-border`、`--h-sidebar-item-radius`、`--h-sidebar-item-gap`、`--h-sidebar-transition`（HSidebar） |
 | 层级 | `--h-z-nav`、`--h-z-tab`、`--h-z-mini-player`、`--h-z-player`、`--h-z-floating-bubble` |
 
 ## 已知债

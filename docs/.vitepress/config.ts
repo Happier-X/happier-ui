@@ -65,6 +65,7 @@ export default defineConfig({
             { text: 'BottomSheet', link: '/components/bottom-sheet' },
             { text: 'Toast', link: '/components/toast' },
             { text: 'FloatingBubble', link: '/components/floating-bubble' },
+            { text: 'Sidebar', link: '/components/sidebar' },
           ],
         },
       ],

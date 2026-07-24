@@ -1,0 +1,3 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "核验 HSidebar 是否符合命名/导出/SFC/无障碍/新组件清单全部约定"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "核验新增 --h-sidebar-* token 登记与复用 --h-sidebar-width 是否符合规范"}
+{"file": ".trellis/spec/frontend/quality-guidelines.md", "reason": "核验质量基线：构建/类型检查/playground 目视回归覆盖"}

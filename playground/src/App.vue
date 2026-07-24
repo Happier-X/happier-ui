@@ -670,6 +670,31 @@
       </h-toast>
     </section>
 
+    <section class="smoke__section" aria-labelledby="sidebar-heading">
+      <h2 id="sidebar-heading" class="smoke__section-title">HSidebar</h2>
+      <p class="smoke__hint">当前 key：{{ sidebarActive }}；{{ sidebarCollapsed ? '已折叠' : '展开' }}</p>
+      <div class="smoke__row smoke__row--wrap">
+        <h-button size="sm" variant="outline" @click="sidebarCollapsed = !sidebarCollapsed">外部切换折叠</h-button>
+      </div>
+      <div class="smoke__sidebar-frame">
+        <h-sidebar
+          v-model="sidebarActive"
+          v-model:collapsed="sidebarCollapsed"
+          :items="sidebarItems"
+        >
+          <template #header>
+            <strong class="smoke__sidebar-brand">happier</strong>
+          </template>
+          <template #footer>
+            <h-icon-button :icon="User" ariaLabel="账户" variant="ghost" />
+          </template>
+        </h-sidebar>
+        <div class="smoke__sidebar-body">
+          <p class="smoke__lead">主内容区：侧栏为常驻列，不遮挡此区域。</p>
+        </div>
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="tabbar-heading">
       <h2 id="tabbar-heading" class="smoke__section-title">HTabBar</h2>
       <p class="smoke__hint">当前 key：{{ activeTab }}</p>
@@ -686,8 +711,8 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSwitch, HTabBar, HToast } from 'happier-ui'
-import type { HTabBarItem } from 'happier-ui'
+import { HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSidebar, HSwitch, HTabBar, HToast } from 'happier-ui'
+import type { HSidebarItem, HTabBarItem } from 'happier-ui'
 
 const buttonClicks = ref(0)
 const iconButtonClicks = ref(0)
@@ -731,6 +756,14 @@ const tabItems: HTabBarItem[] = [
   { key: 'search', label: '搜索', icon: Search },
   { key: 'library', label: '曲库', icon: Library },
   { key: 'me', label: '我的', icon: User },
+]
+const sidebarActive = ref('home')
+const sidebarCollapsed = ref(false)
+const sidebarItems: HSidebarItem[] = [
+  { key: 'home', label: '首页', icon: Home },
+  { key: 'search', label: '搜索', icon: Search },
+  { key: 'library', label: '曲库', icon: Library },
+  { key: 'settings', label: '设置', icon: Bell, disabled: true },
 ]
 const checkSm = ref(false)
 const checkMd = ref(true)
@@ -934,6 +967,25 @@ const onToastClose = () => {
   margin: var(--h-space-sm, 8px) 0 0;
   font-size: var(--h-font-body-sm, 13px);
   color: var(--h-color-primary, #006fee);
+}
+
+.smoke__sidebar-frame {
+  display: flex;
+  height: 320px;
+  overflow: hidden;
+  border: 1px solid var(--h-color-border-subtle, #e0e0e0);
+  border-radius: var(--h-radius-md, 12px);
+}
+
+.smoke__sidebar-brand {
+  font-size: var(--h-font-title, 15px);
+  color: var(--h-color-ink, #000);
+}
+
+.smoke__sidebar-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: var(--h-space-lg, 16px);
 }
 
 .smoke__row {

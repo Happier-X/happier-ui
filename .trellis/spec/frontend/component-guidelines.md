@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -30,6 +30,8 @@ export { default as HToast } from './components/HToast.vue'
 export { default as HInput } from './components/HInput.vue'
 export { default as HCheckbox } from './components/HCheckbox.vue'
 export { default as HCard } from './components/HCard.vue'
+export { default as HCell } from './components/HCell.vue'
+export { default as HCellGroup } from './components/HCellGroup.vue'
 export { default as HEmpty } from './components/HEmpty.vue'
 export { default as HImage } from './components/HImage.vue'
 export { default as HIcon } from './components/HIcon.vue'
@@ -65,6 +67,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 - `src/components/HTabBar.vue` — items + v-model key；内部 HIcon；safe-area
 - `src/components/HNavBar.vue` — header 标题栏；左右/标题插槽；默认返回按钮；无路由
 - `src/components/HCard.vue` — 内容分组容器；outlined/filled/flat variant、padding none/sm/md/lg、radius sm/md；header/body/footer 具名 slot；无 elevation、无整卡交互
+- `src/components/HCell.vue` / `HCellGroup.vue` — 设置行与分组；title/description、prefix/suffix、clickable 键盘激活、默认 chevron、Surface/flat 分组与直接子 Cell 分隔线
 
 ## API 约定
 
@@ -86,7 +89,9 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | 底部导航 | `items` + `modelValue`（string key）；内部 HIcon；`fixed` / `safeArea` 默认 true | `HTabBar` |
 | 顶部标题栏 | `title` / `#title`；`#left` / `#right`；`showBack`；左右点击事件；`fixed` / `safeArea` 默认 true；无路由 | `HNavBar` |
 | 卡片容器 | `variant` outlined/filled/flat + `padding` none/sm/md/lg + `radius` sm/md；`#header` / default / `#footer` 具名 slot；纯展示无整卡可点击；无 Emits | `HCard` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；Range 无可见标签时传 `ariaLabel`；Progress 用 `role="progressbar"` + `aria-value*`（indeterminate 省 valuenow）且无可见标签时传 `ariaLabel`；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；图标按钮 `ariaLabel` 必填；Toast live-region 不抢焦点 | `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` |
+| 设置行 | `title` 必填、可选 `description`；`#prefix` / `#suffix`；`clickable` 默认 false；`showChevron` 默认跟随 clickable；click emit 原始 MouseEvent/KeyboardEvent | `HCell` |
+| 设置分组 | `title` 可选；`inset` 默认 true；`#header` 覆盖默认标题，default 直接放 `HCell`；相邻直接子 Cell 自动分隔 | `HCellGroup` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；Range 无可见标签时传 `ariaLabel`；Progress 用 `role="progressbar"` + `aria-value*`（indeterminate 省 valuenow）且无可见标签时传 `ariaLabel`；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；图标按钮 `ariaLabel` 必填；Toast live-region 不抢焦点；Cell 交互行 `role="button"`+`tabindex="0"`+Enter/Space，chevron `aria-hidden`，Group 默认标题 `aria-labelledby` | `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCell` / `HCellGroup` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
@@ -109,6 +114,8 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | `HTabBar` | `HTabBar.vue` | items + v-model key；fixed/safeArea 默认开且可独立关；无路由 |
 | `HNavBar` | `HNavBar.vue` | header；title/left/right slots；showBack；fixed/safeArea；无路由 |
 | `HCard` | `HCard.vue` | 内容分组容器；outlined/filled/flat；padding none/sm/md/lg；radius sm/md；header/body/footer slot；无 elevation |
+| `HCell` | `HCell.vue` | 设置行；title/description；prefix/suffix；clickable 与 Enter/Space；默认 chevron |
+| `HCellGroup` | `HCellGroup.vue` | section 分组；默认标题 aria-labelledby；inset/flat；直接子 Cell 分隔线 |
 | `styles` | `src/styles/` | 经 `happier-ui/styles` 导出（tokens + theme + components） |
 | `tokens.css` | `src/styles/tokens.css` | 经 `happier-ui/tokens.css` 导出（可选） |
 
@@ -118,7 +125,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 
 ## 路线图
 
-以 `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
+以 `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
 
 ## 反模式
 

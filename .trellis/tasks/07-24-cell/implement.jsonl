@@ -1,0 +1,5 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "H* 命名/导出、SFC props+slots、h-* BEM、组件 CSS 分层与已删除列表组件不得恢复的公共契约"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "--h-* token 权威、HeroUI Native surface/spacing/radius 角色、禁止魔法数和 elevation"}
+{"file": ".trellis/spec/frontend/directory-structure.md", "reason": "两个组件 SFC、cell.css、styles 汇总、playground、docs 与 npm 包边界"}
+{"file": ".trellis/spec/frontend/type-safety.md", "reason": "withDefaults、字面量 props、对象形式 emits 与 slot 类型约定"}
+{"file": ".trellis/tasks/07-24-cell/design.md", "reason": "HCell/HCellGroup DOM、clickable 键盘语义、showChevron 默认、直接子分隔线、嵌套交互约束与回滚设计"}

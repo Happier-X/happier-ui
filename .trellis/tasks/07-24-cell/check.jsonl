@@ -1,0 +1,5 @@
+{"file": ".trellis/spec/frontend/quality-guidelines.md", "reason": "组件完成定义、构建/打包验证、focus-visible 与无障碍最低线"}
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "核对 HCell/HCellGroup 公共导出、props+slots、h-* 类、无 scoped 大块视觉与旧名不恢复"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "核对 cell token 最小集合、fallback、只写 --h-*、无阴影和魔法数"}
+{"file": ".trellis/tasks/07-24-cell/prd.md", "reason": "逐项核对可观察验收条件、inset/flat、clickable、separator、docs/playground/spec 范围"}
+{"file": ".trellis/tasks/07-24-cell/design.md", "reason": "重点审查嵌套交互防护、showChevron 计算、标题 ARIA 关联、直接子 Cell 分隔线与长文本布局"}

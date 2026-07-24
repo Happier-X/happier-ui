@@ -85,6 +85,7 @@ playground：
 | 底部导航 | `--h-tab-bar-height`、`--h-tab-bar-bg`、`--h-tab-bar-border`、`--h-tab-bar-label-font`、`--h-z-tab` |
 | 顶部标题栏 | `--h-nav-bar-height`（内容高度 56px）、`--h-nav-bar-bg`、`--h-nav-bar-border`、`--h-z-nav`；顶部 safe-area 额外叠加 |
 | 触控 / 列表 | `--h-touch-target`、`--h-song-row-height`、`--h-list-row-height-compact`、`--h-cover-size-sm` |
+| 设置行 / 分组 | `--h-cell-min-height`、`--h-cell-pad-x/y`、`--h-cell-gap`、`--h-cell-bg`、`--h-cell-pressed-bg`、`--h-cell-chevron-color`、`--h-cell-group-radius`、`--h-cell-group-header-gap`（HCell / HCellGroup） |
 | 动效 | `--h-duration-press`、`--h-ease-standard` |
 | 层级 | `--h-z-nav`、`--h-z-tab`、`--h-z-mini-player`、`--h-z-player` |
 

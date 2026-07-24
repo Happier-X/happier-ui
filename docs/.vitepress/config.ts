@@ -51,6 +51,7 @@ export default defineConfig({
             { text: 'IconButton', link: '/components/icon-button' },
             { text: 'Icon', link: '/components/icon' },
             { text: 'Card', link: '/components/card' },
+            { text: 'Cell', link: '/components/cell' },
             { text: 'Empty', link: '/components/empty' },
             { text: 'Image', link: '/components/image' },
             { text: 'Input', link: '/components/input' },

@@ -186,6 +186,17 @@
   --h-icon-size-md: 20px;
   --h-icon-size-lg: 24px;
 
+  /* 设置行与分组（HCell / HCellGroup） */
+  --h-cell-min-height: 56px;
+  --h-cell-pad-x: 16px;
+  --h-cell-pad-y: 10px;
+  --h-cell-gap: 12px;
+  --h-cell-bg: var(--h-color-surface);
+  --h-cell-pressed-bg: var(--h-color-surface-secondary);
+  --h-cell-chevron-color: var(--h-color-ink-muted);
+  --h-cell-group-radius: var(--h-radius-control);
+  --h-cell-group-header-gap: 8px;
+
   /* 滑块（HRange） */
   --h-range-track-sm-h: 4px;
   --h-range-track-md-h: 6px;

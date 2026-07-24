@@ -455,6 +455,45 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="cell-heading">
+      <h2 id="cell-heading" class="smoke__section-title">HCell / HCellGroup</h2>
+      <h-cell-group title="通用">
+        <h-cell
+          title="语言"
+          description="用于界面与内容显示"
+          clickable
+          @click="onCellClick('语言')"
+        >
+          <template #prefix>
+            <h-icon :icon="Languages" />
+          </template>
+          <template #suffix>简体中文</template>
+        </h-cell>
+        <h-cell
+          title="通知"
+          description="允许重要提醒"
+        >
+          <template #prefix>
+            <h-icon :icon="Bell" />
+          </template>
+          <template #suffix>
+            <h-switch v-model="cellNotifications" ariaLabel="允许通知" />
+          </template>
+        </h-cell>
+        <h-cell title="应用版本" description="稳定版" ariaLabel="应用版本 0.0.2">
+          <template #suffix>0.0.2</template>
+        </h-cell>
+      </h-cell-group>
+      <p v-if="cellAction" class="smoke__ping">最近激活：{{ cellAction }}</p>
+
+      <p class="smoke__hint smoke__hint--spaced">flat 分组</p>
+      <h-cell-group :inset="false">
+        <h-cell title="存储空间" description="已使用 1.2 GB" />
+        <h-cell title="关于" clickable :show-chevron="false" @click="onCellClick('关于')" />
+        <h-cell title="装饰导航指示" show-chevron />
+      </h-cell-group>
+    </section>
+
     <section class="smoke__section" aria-labelledby="card-heading">
       <h2 id="card-heading" class="smoke__section-title">HCard</h2>
 
@@ -614,8 +653,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
-import { Heart, Home, Library, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBottomSheet, HButton, HCard, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSwitch, HTabBar, HToast } from 'happier-ui'
+import { Bell, Heart, Home, Languages, Library, Play, Search, Star, User, X } from '@lucide/vue'
+import { HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSwitch, HTabBar, HToast } from 'happier-ui'
 import type { HTabBarItem } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -648,6 +687,8 @@ const checkOn = ref(false)
 const emptyActionClicks = ref(0)
 const activeTab = ref('home')
 const navAction = ref('尚未点击')
+const cellNotifications = ref(true)
+const cellAction = ref('')
 
 const tabItems: HTabBarItem[] = [
   { key: 'home', label: '首页', icon: Home },
@@ -726,6 +767,10 @@ const onButtonClick = () => {
 
 const onIconButtonClick = () => {
   iconButtonClicks.value += 1
+}
+
+const onCellClick = (title: string) => {
+  cellAction.value = title
 }
 
 const onNavLeftClick = (event: MouseEvent) => {

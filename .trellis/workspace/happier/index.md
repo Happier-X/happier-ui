@@ -8,8 +8,8 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 14
-- **Last Active**: 2026-07-23
+- **Total Sessions**: 15
+- **Last Active**: 2026-07-24
 <!-- @@@/auto:current-status -->
 
 ---
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~481 | Active |
+| `journal-1.md` | ~514 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 15 | 2026-07-24 | Tailwind v4 / HeroUI 式样式迁移（0.0.2） | `d996d30` | `master` |
 | 14 | 2026-07-23 | HNavBar 顶部导航栏 | `d7647f6`, `efcb948` | `master` |
 | 13 | 2026-07-23 | HTabBar 底部导航栏 | `50d1d3c`, `44d7a38` | `master` |
 | 12 | 2026-07-23 | HIcon 图标组件（Lucide） | `b9c0dc4`, `84b4dd8` | `master` |

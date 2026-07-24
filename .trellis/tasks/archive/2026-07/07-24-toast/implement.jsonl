@@ -1,0 +1,4 @@
+{"_example": "Fill with {\"file\": \"<path>\", \"reason\": \"<why>\"}. Put spec/research files only — no code paths. Run `python .trellis/scripts/get_context.py --mode packages` to list available specs. Delete this line once real entries are added."}
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "HToast 命名、SFC、样式拆分、导出、playground 和文档交付规范"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "Toast 颜色、位置、动效与层级必须使用 --h-* token"}
+{"file": ".trellis/spec/frontend/type-safety.md", "reason": "Vue Props、Emits 与计时器类型约束"}

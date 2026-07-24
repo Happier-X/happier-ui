@@ -3,6 +3,7 @@
  * 由 styles/index.css 引入；消费方经 happier-ui/styles 加载。
  */
 @import "./components/button.css";
+@import "./components/icon-button.css";
 @import "./components/icon.css";
 @import "./components/empty.css";
 @import "./components/image.css";

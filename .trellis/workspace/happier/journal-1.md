@@ -545,3 +545,41 @@
 ### Next Steps
 
 - None - task complete
+
+---
+
+**Date**: 2026-07-24
+**Task**: 图标按钮 HIconButton（07-24-icon-button）
+**Branch**: `master`
+
+### Summary
+
+新增独立组件 HIconButton：结构与无障碍独立于 HButton，variant 配色与状态复用同一 CSS 规则源（button.css 合并 `.h-button--*` / `.h-icon-button--*` selector，icon-button.css 只保留结构/尺寸/形状）。icon 必填、ariaLabel 类型层面必填并输出原生 aria-label，内部图标 aria-hidden。7 variant × sm/md/lg（32/40/48 正方形）× square/circle 形状。导出 + playground 演示段 + docs/components/icon-button.md + 侧栏 + frontend spec（当前导出/API/a11y/反模式/路线图）同步；从「已移除」清单移出。
+
+### Main Changes
+
+- `src/components/HIconButton.vue` 新增：props(icon 必填/ariaLabel 必填/variant/size/shape/disabled/type)，emit click，内部经 HIcon 渲染，iconSize 透传 size。
+- `src/styles/components/icon-button.css` 新增：结构/尺寸(复用 --h-button-height-*)/形状(square=--h-radius-control, circle=--h-image-radius-full)；variant/disabled/focus-visible 合并进 button.css 单一来源。
+- `src/index.ts` 导出 HIconButton；`src/styles/components.css` 追加 @import。
+- `playground/src/App.vue` 演示段：variant×size×shape 矩阵 + disabled + X 关闭示例。
+- `docs/components/icon-button.md` + 侧栏；`.trellis/spec/frontend/component-guidelines.md` 多表同步。
+
+### Key Decision / Gotcha
+
+- 独立组件而非 HButton iconOnly：ariaLabel 类型必填是核心价值。
+- vue-tsc 会把模板里的 `aria-label` 当原生 ARIA 属性、不满足必填 camelCase prop；TS 项目须用 `ariaLabel` / `:ariaLabel` 传入（组件内部仍输出原生 aria-label）。已记入 spec 反模式。
+- variant 配色合并单一 selector 源，避免两份颜色定义漂移；CSS 产物 37.18→36.18kB。
+
+### Testing
+
+- `npm run build:playground`（vue-tsc + vite）通过。
+- `npm run docs:build` 通过。
+- `npm run build:lib` 通过；dist .d.ts 含 HIconButton.ariaLabel 必填。
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- 提交本任务改动；archive 07-24-icon-button。

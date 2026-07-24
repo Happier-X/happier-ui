@@ -84,6 +84,58 @@
       <p v-if="buttonClicks > 0" class="smoke__ping">Button 点击：{{ buttonClicks }}</p>
     </section>
 
+    <section class="smoke__section" aria-labelledby="icon-button-heading">
+      <h2 id="icon-button-heading" class="smoke__section-title">HIconButton variants × sizes × shapes</h2>
+      <div
+        v-for="size in buttonSizes"
+        :key="`icon-btn-${size}`"
+        class="smoke__button-block"
+      >
+        <p class="smoke__hint">size={{ size }} · square</p>
+        <div class="smoke__row smoke__row--wrap">
+          <h-icon-button
+            v-for="variant in buttonVariants"
+            :key="`icon-square-${size}-${variant}`"
+            :icon="Star"
+            :variant="variant"
+            :size="size"
+            shape="square"
+            :ariaLabel="`${variant} square ${size}`"
+            @click="onIconButtonClick"
+          />
+          <h-icon-button
+            :icon="Star"
+            :size="size"
+            shape="square"
+            disabled
+            ariaLabel="disabled square"
+          />
+        </div>
+        <p class="smoke__hint">size={{ size }} · circle</p>
+        <div class="smoke__row smoke__row--wrap">
+          <h-icon-button
+            v-for="variant in buttonVariants"
+            :key="`icon-circle-${size}-${variant}`"
+            :icon="Heart"
+            :variant="variant"
+            :size="size"
+            shape="circle"
+            :ariaLabel="`${variant} circle ${size}`"
+            @click="onIconButtonClick"
+          />
+          <h-icon-button
+            :icon="X"
+            :size="size"
+            shape="circle"
+            variant="ghost"
+            ariaLabel="close"
+            @click="onIconButtonClick"
+          />
+        </div>
+      </div>
+      <p v-if="iconButtonClicks > 0" class="smoke__ping">IconButton 点击：{{ iconButtonClicks }}</p>
+    </section>
+
     <section class="smoke__section" aria-labelledby="switch-heading">
       <h2 id="switch-heading" class="smoke__section-title">HSwitch</h2>
       <div class="smoke__row smoke__row--wrap smoke__switch-row">
@@ -402,11 +454,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
-import { Heart, Home, Library, Play, Search, Star, User } from '@lucide/vue'
-import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HImage, HInput, HNavBar, HSwitch, HTabBar } from 'happier-ui'
+import { Heart, Home, Library, Play, Search, Star, User, X } from '@lucide/vue'
+import { HBottomSheet, HButton, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HSwitch, HTabBar } from 'happier-ui'
 import type { HTabBarItem } from 'happier-ui'
 
 const buttonClicks = ref(0)
+const iconButtonClicks = ref(0)
 const switchOn = ref(true)
 const switchSm = ref(false)
 const switchMd = ref(true)
@@ -494,6 +547,10 @@ const buttonSizes = ['sm', 'md', 'lg'] as const
 
 const onButtonClick = () => {
   buttonClicks.value += 1
+}
+
+const onIconButtonClick = () => {
+  iconButtonClicks.value += 1
 }
 
 const onNavLeftClick = (event: MouseEvent) => {

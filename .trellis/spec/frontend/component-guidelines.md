@@ -13,13 +13,14 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
 ```ts
 // src/index.ts
 export { default as HButton } from './components/HButton.vue'
+export { default as HIconButton } from './components/HIconButton.vue'
 export { default as HSwitch } from './components/HSwitch.vue'
 export { default as HBottomSheet } from './components/HBottomSheet.vue'
 export { default as HDialog } from './components/HDialog.vue'
@@ -45,6 +46,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 参考实现：
 
 - `src/components/HButton.vue` — 7 variants × sm/md/lg、leading/trailing、disabled、focus-visible
+- `src/components/HIconButton.vue` — 纯图标按钮；7 variants × sm/md/lg、square/circle 形状、ariaLabel 必填、disabled、focus-visible；配色与 token 复用 HButton
 - `src/components/HSwitch.vue` — `v-model`、size、disabled、`role="switch"`
 - `src/components/HBottomSheet.vue` — `v-model`、overlay/Esc 关闭、dialog 语义、标题/内容槽
 - `src/components/HDialog.vue` — 居中 dialog；title/description/actions slots
@@ -61,6 +63,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | 主题 | 约定 | 例子 |
 |------|------|------|
 | 文字按钮 | `variant` + `size` + default slot | `HButton` |
+| 图标按钮 | `icon` + `ariaLabel`(必填) + `variant` + `size` + `shape` square/circle；TS 项目用 `ariaLabel`/`:ariaLabel` 传入（见反模式） | `HIconButton` |
 | 开关 | `modelValue` + `update:modelValue`；`role="switch"` | `HSwitch` |
 | 底部面板 | `modelValue` + overlay/Esc 请求关闭；`role="dialog"` | `HBottomSheet` |
 | 居中对话框 | `modelValue` + overlay/Esc；title/description/actions | `HDialog` |
@@ -71,7 +74,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | 图标 | Lucide `:icon`；`variant` stroke/fill；size | `HIcon` |
 | 底部导航 | `items` + `modelValue`（string key）；内部 HIcon；`fixed` / `safeArea` 默认 true | `HTabBar` |
 | 顶部标题栏 | `title` / `#title`；`#left` / `#right`；`showBack`；左右点击事件；`fixed` / `safeArea` 默认 true；无路由 | `HNavBar` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel` | `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；图标按钮 `ariaLabel` 必填 | `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
@@ -79,6 +82,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | 导出 | 文件 | 备注 |
 |------|------|------|
 | `HButton` | `HButton.vue` | primary/secondary/tertiary/outline/ghost/danger/danger-soft；sm/md/lg |
+| `HIconButton` | `HIconButton.vue` | 纯图标按钮；同 HButton 7 variant；sm/md/lg；square/circle；ariaLabel 必填 |
 | `HSwitch` | `HSwitch.vue` | v-model；sm/md/lg；disabled；HeroUI Native 观感 |
 | `HBottomSheet` | `HBottomSheet.vue` | v-model；overlay/Esc；title/default slots；非 Portal MVP |
 | `HDialog` | `HDialog.vue` | 居中；title/description/default/actions；非 Portal MVP |
@@ -94,11 +98,11 @@ export { default as HNavBar } from './components/HNavBar.vue'
 
 ### 已移除（勿再导出）
 
-`HEmptyState`、`HIconButton`、`HListRow`、`HListSection`、`HSettingRow` 及全部 `M*` 兼容别名。宿主若仍依赖请自实现或改 import。
+`HEmptyState`、`HListRow`、`HListSection`、`HSettingRow` 及全部 `M*` 兼容别名。宿主若仍依赖请自实现或改 import。
 
 ## 路线图
 
-以 `HButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
+以 `HButton` / `HIconButton` / `HSwitch` / `HBottomSheet` / `HDialog` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
 
 ## 反模式
 
@@ -110,6 +114,7 @@ export { default as HNavBar } from './components/HNavBar.vue'
 | 把音乐封面、队列、播放手势做进库 | 领域语义属 Muses |
 | 只写组件不上 playground | 消费方与 AI 无法目视回归 |
 | 在 SFC 大块 scoped 视觉 CSS 与 styles/components 双源 | 与 Tailwind/HeroUI 式分发冲突 |
+| `HIconButton` 示例写 `aria-label` 而不是 `ariaLabel` | `vue-tsc` 会把 `aria-label` 当原生 ARIA 属性，不满足必填 prop；组件内部仍输出原生 `aria-label` |
 | 恢复已删除的 M* 别名而不经任务评审 | 破坏性 API 需显式决策 |
 
 ## 新组件清单

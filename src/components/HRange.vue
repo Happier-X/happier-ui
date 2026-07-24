@@ -18,6 +18,11 @@
     :aria-valuemax="max"
     :aria-valuenow="normalized"
     @input="onInput"
+    @change="onChange"
+    @pointerdown="onPointerDown"
+    @pointerup="onPointerUp"
+    @keydown="onKeyDown"
+    @blur="onBlur"
   >
 </template>
 
@@ -28,7 +33,7 @@
  * - min/max/step 定义区间与步进；越界值夹取、非步进值对齐
  * - 已填充轨道由 CSS 自定义属性 --h-range-progress 驱动
  */
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const props = withDefaults(defineProps<{
   modelValue?: number
@@ -52,6 +57,9 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{
   'update:modelValue': [value: number]
+  'change': [value: number]
+  'drag-start': [value: number]
+  'drag-end': [value: number]
 }>()
 
 /** 夹取到 [min, max] 并按 step 对齐（step<=0 时不对齐） */
@@ -94,5 +102,49 @@ const onInput = (event: Event) => {
     target.value = String(next)
   }
   emit('update:modelValue', next)
+}
+
+/** 拖动生命周期追踪 */
+const isDragging = ref(false)
+
+const onChange = (event: Event) => {
+  if (props.disabled) return
+  const target = event.target as HTMLInputElement
+  emit('change', normalize(Number(target.value)))
+}
+
+const onPointerDown = (event: PointerEvent) => {
+  if (props.disabled) return
+  isDragging.value = true
+  const target = event.target as HTMLInputElement
+  emit('drag-start', normalize(Number(target.value)))
+}
+
+const onPointerUp = (event: PointerEvent) => {
+  if (props.disabled) return
+  if (!isDragging.value) return
+  isDragging.value = false
+  const target = event.target as HTMLInputElement
+  emit('drag-end', normalize(Number(target.value)))
+}
+
+/** 键盘方向键/Home/End 开始改值时触发 drag-start */
+const onKeyDown = (event: KeyboardEvent) => {
+  if (props.disabled) return
+  if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+    if (!isDragging.value) {
+      isDragging.value = true
+      const target = event.target as HTMLInputElement
+      emit('drag-start', normalize(Number(target.value)))
+    }
+  }
+}
+
+/** 键盘交互失焦时触发 drag-end */
+const onBlur = (event: FocusEvent) => {
+  if (!isDragging.value) return
+  isDragging.value = false
+  const target = event.target as HTMLInputElement
+  emit('drag-end', normalize(Number(target.value)))
 }
 </script>

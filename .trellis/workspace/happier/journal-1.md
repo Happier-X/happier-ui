@@ -583,3 +583,31 @@
 ### Next Steps
 
 - 提交本任务改动；archive 07-24-icon-button。
+
+---
+
+## 07-25 HRange 事件契约完善
+
+### Changed
+
+- `src/components/HRange.vue`：新增 `change`、`drag-start`、`drag-end` emit。
+  - `change`：用户完成交互（松手/回车/失焦/点击轨道）时触发一次；programmatic 写入不触发；disabled 态不触发。
+  - `drag-start`：pointerdown / 键盘方向键（Arrow*/Home/End）按下时触发。
+  - `drag-end`：pointerup / 键盘失焦（blur）时触发；时序上先于或与 change 一致。
+  - 所有事件 payload 走 `normalize()` 统一归一化（夹取 + step 对齐 + 浮点修约）。
+  - 新增 `isDragging` ref 追踪交互状态，防止键盘+pointer 交叉重复触发。
+- `docs/components/range.md`：更新 Emits 表，新增 `change`/`drag-start`/`drag-end` 说明。
+- `.trellis/spec/frontend/component-guidelines.md`：同步 API 约定表。
+
+### Build Verification
+
+- `npm run build:lib` ✓（dist/components/HRange.vue.d.ts 自动生成 4 个 emit）
+- `npm run build:playground` ✓
+- `npm run docs:build` ✓
+- `npm pack --dry-run` ✓（不含 src/docs/playground/.trellis）
+
+### Notes
+
+- Prev npm published: 0.0.2。已准备好发 0.0.3。
+- 提案来自 Muses 项目 `07-24-replace-player-range`。
+- 建议发版后 Muses 可正式从 onChange fallthrough 升级到 emit 绑定。

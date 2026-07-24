@@ -91,7 +91,10 @@ const value = ref(40)
 
 | 事件 | 载荷 | 说明 |
 |------|------|------|
-| `update:modelValue` | `number` | 归一化后的数值 |
+| `update:modelValue` | `number` | 用户拖动/键盘操作过程中连续触发，payload 为归一化后的当前值 |
+| `change` | `number` | 用户完成一次值改变时触发（松手 / 回车 / 失焦），payload 为释放时的归一化值（programmatic 写入不触发） |
+| `drag-start` | `number` | 用户开始交互时触发（pointerdown / 键盘方向键或 Home/End 按下），payload 为进入时的当前值 |
+| `drag-end` | `number` | 用户结束交互时触发（pointerup / 键盘失焦），payload 为结束时的最终值；时序上先于 `change` 或与之一致 |
 
 ### Slots
 
@@ -99,7 +102,7 @@ const value = ref(40)
 
 ## 行为说明
 
-- 外部传入越界或非步进值时，UI 展示归一化后的值；用户交互后 `emit` 归一化结果。
+- 外部传入越界或非步进值时，UI 展示归一化后的值；用户交互后所有事件 `emit` 归一化结果。
 - 夹取区间为 `[min, max]`（若 `max < min` 则以较大者为上界，progress 视为 0）。
 - 已填充轨道由 CSS 自定义属性 `--h-range-progress` 驱动。
 

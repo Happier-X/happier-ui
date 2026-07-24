@@ -80,7 +80,7 @@ export { default as HSidebar } from './components/HSidebar.vue'
 | 文字按钮 | `variant` + `size` + default slot | `HButton` |
 | 图标按钮 | `icon` + `ariaLabel`(必填) + `variant` + `size` + `shape` square/circle；TS 项目用 `ariaLabel`/`:ariaLabel` 传入（见反模式） | `HIconButton` |
 | 开关 | `modelValue` + `update:modelValue`；`role="switch"` | `HSwitch` |
-| 滑块 | `modelValue` number + `min`/`max`/`step`；单值横向；原生 `input[type=range]` | `HRange` |
+| 滑块 | `modelValue` number + `min`/`max`/`step`；`change`/`drag-start`/`drag-end` emits；单值横向；原生 `input[type=range]` | `HRange` |
 | 进度条 | `value` + `max`（默认 100）；`indeterminate`；`size`/`variant`/`rounded`；`role="progressbar"`；只读无 emits/slots | `HProgress` |
 | 底部面板 | `modelValue` + overlay/Esc 请求关闭；`role="dialog"` | `HBottomSheet` |
 | 居中对话框 | `modelValue` + overlay/Esc；title/description/actions | `HDialog` |

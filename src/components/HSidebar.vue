@@ -69,7 +69,7 @@
  * - showCollapseToggle 默认 true，内置折叠按钮（复用 HIconButton）
  * - header / footer 具名 slot；不内置路由
  */
-import type { Component } from 'vue'
+import { watch, type Component } from 'vue'
 import { PanelLeftClose, PanelLeftOpen } from '@lucide/vue'
 import HIcon from './HIcon.vue'
 import HIconButton from './HIconButton.vue'
@@ -106,6 +106,21 @@ const emit = defineEmits<{
 const itemAriaLabel = (item: HSidebarItem): string | undefined => {
   if (props.collapsed) return item.ariaLabel ?? item.label
   return item.label ? undefined : item.ariaLabel
+}
+
+// 开发期校验：item 既无可见 label 又无 ariaLabel 时缺可访问名。
+// 仅提醒不阻塞（保持契约层约定的宽松度）；按 key 去重避免重渲染刷屏；生产零开销。
+if (import.meta.env.DEV) {
+  const warnedKeys = new Set<string>()
+  watch(() => props.items, (items) => {
+    for (const item of items) {
+      if (item.label || item.ariaLabel || warnedKeys.has(item.key)) continue
+      warnedKeys.add(item.key)
+      console.warn(
+        `[HSidebar] item "${item.key}" 缺少可访问名：请提供 label 或 ariaLabel，否则纯图标项对辅助技术不可读。`,
+      )
+    }
+  }, { immediate: true, deep: true })
 }
 
 const onSelect = (item: HSidebarItem) => {

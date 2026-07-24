@@ -44,6 +44,7 @@ npm pack --dry-run
 | `HNavBar` | 语义 `header`；默认标题为 `h1`；返回为原生 button 且由 `backAriaLabel` 命名；fixed/safe-area 默认开；不执行实际导航 |
 | `HCell` | 非交互行不输出 button role/tabindex；交互行 `role="button"` + `tabindex="0"`，点击、Enter、Space 各 emit 一次；chevron 装饰并 `aria-hidden`；控件 suffix 必须保持 Cell 非 clickable |
 | `HCellGroup` | 语义 `section`；默认 `title` 通过稳定 id 关联 `aria-labelledby`；自定义 `header` 不输出错误引用；分隔线只作用于直接子 `HCell` 且最后一行无分隔线 |
+| `HSidebar` | `nav` + `aria-label`；项为原生 button；选中 `aria-current="page"`；disabled 用原生 `disabled`；折叠态 label 视觉隐藏但 button 输出 `aria-label` 兜底可访问名；无可见 label 项需 `ariaLabel`（开发期缺失会 `console.warn`）；内置折叠按钮可访问名随折叠态切换 |
 | 图标-only 控件（若新增） | 必填可访问名称（`aria-label` 等） |
 
 ## 禁止

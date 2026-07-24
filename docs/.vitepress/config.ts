@@ -56,6 +56,7 @@ export default defineConfig({
             { text: 'Input', link: '/components/input' },
             { text: 'Checkbox', link: '/components/checkbox' },
             { text: 'Switch', link: '/components/switch' },
+            { text: 'Range', link: '/components/range' },
             { text: 'NavBar', link: '/components/nav-bar' },
             { text: 'TabBar', link: '/components/tab-bar' },
             { text: 'Dialog', link: '/components/dialog' },

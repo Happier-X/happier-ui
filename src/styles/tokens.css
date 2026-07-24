@@ -186,6 +186,19 @@
   --h-icon-size-md: 20px;
   --h-icon-size-lg: 24px;
 
+  /* 滑块（HRange） */
+  --h-range-track-sm-h: 4px;
+  --h-range-track-md-h: 6px;
+  --h-range-track-lg-h: 8px;
+  --h-range-thumb-sm: 16px;
+  --h-range-thumb-md: 20px;
+  --h-range-thumb-lg: 24px;
+  --h-range-fill: var(--h-color-primary);
+  --h-range-track-bg: var(--h-color-surface-secondary);
+  --h-range-thumb-bg: var(--h-color-primary);
+  --h-range-thumb-border: var(--h-color-surface);
+  --h-range-duration: 160ms;
+
   /* Toast（HToast） */
   --h-toast-z: 1220;
   --h-toast-max-width: 480px;

@@ -1,0 +1,147 @@
+@layer components {
+  /**
+   * HRange：原生 input[type="range"] 语义滑块。
+   * 已填充轨道由 --h-range-progress（0–100%）驱动。
+   * 视觉对齐 HeroUI Native：pill 轨道 + 圆形 thumb；无 Material elevation。
+   */
+  .h-range {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    /* 触控热区：占位高度 >= 48px，视觉轨道居中 */
+    min-height: var(--h-touch-target, 48px);
+    /* 默认 md 尺寸变量 */
+    --h-range-track-h: var(--h-range-track-md-h, 6px);
+    --h-range-thumb: var(--h-range-thumb-md, 20px);
+    --h-range-progress: 0%;
+  }
+
+  .h-range--sm {
+    --h-range-track-h: var(--h-range-track-sm-h, 4px);
+    --h-range-thumb: var(--h-range-thumb-sm, 16px);
+  }
+
+  .h-range--md {
+    --h-range-track-h: var(--h-range-track-md-h, 6px);
+    --h-range-thumb: var(--h-range-thumb-md, 20px);
+  }
+
+  .h-range--lg {
+    --h-range-track-h: var(--h-range-track-lg-h, 8px);
+    --h-range-thumb: var(--h-range-thumb-lg, 24px);
+  }
+
+  /* 已填充 + 未填充轨道，用渐变一次绘制 */
+  .h-range::-webkit-slider-runnable-track {
+    box-sizing: border-box;
+    height: var(--h-range-track-h);
+    border-radius: var(--h-radius-pill, 999px);
+    background: linear-gradient(
+      to right,
+      var(--h-range-fill, var(--h-color-primary, #006fee)) 0%,
+      var(--h-range-fill, var(--h-color-primary, #006fee)) var(--h-range-progress),
+      var(--h-range-track-bg, var(--h-color-surface-secondary, #f4f4f5)) var(--h-range-progress),
+      var(--h-range-track-bg, var(--h-color-surface-secondary, #f4f4f5)) 100%
+    );
+  }
+
+  .h-range::-moz-range-track {
+    box-sizing: border-box;
+    height: var(--h-range-track-h);
+    border-radius: var(--h-radius-pill, 999px);
+    background: var(--h-range-track-bg, var(--h-color-surface-secondary, #f4f4f5));
+  }
+
+  .h-range::-moz-range-progress {
+    height: var(--h-range-track-h);
+    border-radius: var(--h-radius-pill, 999px);
+    background: var(--h-range-fill, var(--h-color-primary, #006fee));
+  }
+
+  /* thumb */
+  .h-range::-webkit-slider-thumb {
+    box-sizing: border-box;
+    width: var(--h-range-thumb);
+    height: var(--h-range-thumb);
+    /* 让 thumb 垂直居中于轨道 */
+    margin-top: calc((var(--h-range-track-h) - var(--h-range-thumb)) / 2);
+    border: 2px solid var(--h-range-thumb-border, var(--h-color-surface, #ffffff));
+    border-radius: var(--h-radius-pill, 999px);
+    background: var(--h-range-thumb-bg, var(--h-color-primary, #006fee));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: transform var(--h-range-duration, 160ms) var(--h-ease-standard, ease);
+  }
+
+  .h-range::-moz-range-thumb {
+    box-sizing: border-box;
+    width: var(--h-range-thumb);
+    height: var(--h-range-thumb);
+    border: 2px solid var(--h-range-thumb-border, var(--h-color-surface, #ffffff));
+    border-radius: var(--h-radius-pill, 999px);
+    background: var(--h-range-thumb-bg, var(--h-color-primary, #006fee));
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    transition: transform var(--h-range-duration, 160ms) var(--h-ease-standard, ease);
+  }
+
+  /* 拖动/激活时 thumb 略放大 */
+  .h-range:active::-webkit-slider-thumb {
+    transform: scale(1.1);
+  }
+
+  .h-range:active::-moz-range-thumb {
+    transform: scale(1.1);
+  }
+
+  /* 焦点态 */
+  .h-range:focus-visible {
+    outline: none;
+  }
+
+  .h-range:focus-visible::-webkit-slider-thumb {
+    outline: 2px solid var(--h-color-focus-ring, var(--h-color-primary, #006fee));
+    outline-offset: 2px;
+  }
+
+  .h-range:focus-visible::-moz-range-thumb {
+    outline: 2px solid var(--h-color-focus-ring, var(--h-color-primary, #006fee));
+    outline-offset: 2px;
+  }
+
+  /* disabled */
+  .h-range:disabled,
+  .h-range--disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .h-range:disabled::-webkit-slider-thumb {
+    cursor: not-allowed;
+  }
+
+  .h-range:disabled::-moz-range-thumb {
+    cursor: not-allowed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .h-range::-webkit-slider-thumb,
+    .h-range::-moz-range-thumb {
+      transition: none;
+    }
+
+    .h-range:active::-webkit-slider-thumb,
+    .h-range:active::-moz-range-thumb {
+      transform: none;
+    }
+  }
+}

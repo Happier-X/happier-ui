@@ -161,6 +161,34 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="range-heading">
+      <h2 id="range-heading" class="smoke__section-title">HRange</h2>
+      <div class="smoke__field-stack">
+        <div>
+          <p class="smoke__hint">基础 v-model：{{ rangeValue }}</p>
+          <h-range v-model="rangeValue" aria-label="基础滑块" />
+        </div>
+        <div>
+          <p class="smoke__hint">步进 step=10（0–100）：{{ rangeStep }}</p>
+          <h-range v-model="rangeStep" :step="10" aria-label="步进滑块" />
+        </div>
+        <div>
+          <p class="smoke__hint">自定义区间 min=-50 max=50 step=5：{{ rangeCustom }}</p>
+          <h-range v-model="rangeCustom" :min="-50" :max="50" :step="5" aria-label="自定义区间滑块" />
+        </div>
+        <div>
+          <p class="smoke__hint">disabled</p>
+          <h-range :model-value="40" disabled aria-label="禁用滑块" />
+        </div>
+      </div>
+      <p class="smoke__hint">sizes</p>
+      <div class="smoke__field-stack">
+        <h-range v-model="rangeSm" size="sm" aria-label="小滑块" />
+        <h-range v-model="rangeMd" size="md" aria-label="中滑块" />
+        <h-range v-model="rangeLg" size="lg" aria-label="大滑块" />
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="sheet-heading">
       <h2 id="sheet-heading" class="smoke__section-title">HBottomSheet</h2>
       <div class="smoke__row smoke__row--wrap">
@@ -548,7 +576,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Heart, Home, Library, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBottomSheet, HButton, HCard, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HSwitch, HTabBar, HToast } from 'happier-ui'
+import { HBottomSheet, HButton, HCard, HCheckbox, HDialog, HEmpty, HIcon, HIconButton, HImage, HInput, HNavBar, HRange, HSwitch, HTabBar, HToast } from 'happier-ui'
 import type { HTabBarItem } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -557,6 +585,12 @@ const switchOn = ref(true)
 const switchSm = ref(false)
 const switchMd = ref(true)
 const switchLg = ref(false)
+const rangeValue = ref(40)
+const rangeStep = ref(50)
+const rangeCustom = ref(0)
+const rangeSm = ref(30)
+const rangeMd = ref(50)
+const rangeLg = ref(70)
 const sheetOpen = ref(false)
 const sheetNoOverlayClose = ref(false)
 const sheetCloseCount = ref(0)

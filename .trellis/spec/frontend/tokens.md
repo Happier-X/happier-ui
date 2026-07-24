@@ -72,6 +72,7 @@ playground：
 | 间距 / 圆角 / 字号 | `--h-space-*`、`--h-radius-*`、`--h-font-*` |
 | 按钮 | `--h-button-height-*`、`--h-button-pad-x-*`、`--h-button-font-*` |
 | 开关 | `--h-switch-track-*-w/h`、`--h-switch-thumb-*`、`--h-switch-pad` |
+| 滑块 | `--h-range-track-*-h`、`--h-range-thumb-*`、`--h-range-fill`、`--h-range-track-bg`、`--h-range-thumb-bg/border`、`--h-range-duration` |
 | 底部面板 | `--h-bottom-sheet-z`、`--h-bottom-sheet-overlay-bg`、`--h-bottom-sheet-radius`、`--h-bottom-sheet-duration` |
 | 对话框 | `--h-dialog-z`、`--h-dialog-overlay-bg`、`--h-dialog-radius`、`--h-dialog-max-width`、`--h-dialog-duration` |
 | 轻提示 | `--h-toast-z`、`--h-toast-max-width`、`--h-toast-pad-x/y`、`--h-toast-radius`、`--h-toast-offset`、`--h-toast-duration` |

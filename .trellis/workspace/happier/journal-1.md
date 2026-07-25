@@ -647,3 +647,36 @@
 
 - ghost 现与 HeroUI Native 一致：静态透明底墨色字，按下中性灰底。
 - 迁移：宿主 `<h-icon-button :icon="X" ariaLabel="…">` → `<h-button is-icon-only aria-label="…"><h-icon :icon="X" /></h-button>`。
+
+
+## Session 17: HButton 合并 isIconOnly 并修正 ghost 配色
+
+**Date**: 2026-07-25
+**Task**: HButton 合并 isIconOnly 并修正 ghost 配色
+**Branch**: `master`
+
+### Summary
+
+对齐 HeroUI Native：图标按钮不再独立组件，改为 HButton 的 isIconOnly(+shape square/circle +ariaLabel)，图标走默认 slot；删除 HIconButton.vue 与 icon-button.css，尺寸/形状规则并入 button.css，配色 selector 收敛为仅 .h-button。修正 ghost 配色：文字 --h-color-primary→--h-color-ink，按下态主色柔光→中性 --h-color-surface-secondary，改回透明底+墨色字。同步 HSidebar/index.ts/HCard 注释/playground/docs/spec。build:lib 与 build:playground(vue-tsc)均通过。
+
+### Main Changes
+
+- Detailed change bullets were not supplied; see the summary above.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `8be6b02` | (see git log) |
+
+### Testing
+
+- Validation was not recorded for this session.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

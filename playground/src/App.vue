@@ -900,6 +900,47 @@
       </h-toast>
     </section>
 
+    <section class="smoke__section" aria-labelledby="pagination-heading">
+      <h2 id="pagination-heading" class="smoke__section-title">HPagination</h2>
+      <div class="smoke__field-stack">
+        <div>
+          <p class="smoke__hint">simple 模式：当前 {{ paginationCurrent }}，每页 {{ paginationPageSize }} 条</p>
+          <h-pagination
+            v-model:current="paginationCurrent"
+            v-model:page-size="paginationPageSize"
+            :total="256"
+            simple
+            show-total
+          />
+        </div>
+        <div>
+          <p class="smoke__hint">完整模式</p>
+          <h-pagination
+            v-model:current="paginationCurrent"
+            :total="256"
+          />
+        </div>
+        <div>
+          <p class="smoke__hint">showTotal + showSizeChanger</p>
+          <h-pagination
+            v-model:current="paginationCurrent"
+            v-model:page-size="paginationPageSize"
+            :total="256"
+            show-total
+            show-size-changer
+          />
+        </div>
+        <div>
+          <p class="smoke__hint">disabled</p>
+          <h-pagination
+            v-model:current="paginationCurrent"
+            :total="256"
+            disabled
+          />
+        </div>
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="sidebar-heading">
       <h2 id="sidebar-heading" class="smoke__section-title">HSidebar</h2>
       <p class="smoke__hint">当前 key：{{ sidebarActive }}；{{ sidebarCollapsed ? '已折叠' : '展开' }}</p>
@@ -941,7 +982,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag } from 'happier-ui'
+import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HPagination, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag } from 'happier-ui'
 import type { HSelectOption, HSidebarItem, HTabBarItem, HTableColumn } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -1032,6 +1073,8 @@ const sidebarItems: HSidebarItem[] = [
 const checkSm = ref(false)
 const checkMd = ref(true)
 const checkLg = ref(false)
+const paginationCurrent = ref(1)
+const paginationPageSize = ref(20)
 const checkAriaOnly = ref(false)
 const itemA = ref(true)
 const itemB = ref(false)

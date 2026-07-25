@@ -20,9 +20,9 @@
 ```ts
 // src/index.ts
 export { default as HBadge } from './components/HBadge.vue'
-export { default as HBadge } from './components/HBadge.vue'
 export { default as HButton } from './components/HButton.vue'
 export { default as HIconButton } from './components/HIconButton.vue'
+export { default as HPagination } from './components/HPagination.vue'
 export { default as HSwitch } from './components/HSwitch.vue'
 export { default as HRange } from './components/HRange.vue'
 export { default as HProgress } from './components/HProgress.vue'

@@ -1,0 +1,102 @@
+@layer components {
+  .h-pagination {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .h-pagination--disabled {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .h-pagination__total {
+    font-size: var(--h-font-body-sm, 13px);
+    color: var(--h-color-ink-muted, #666);
+    white-space: nowrap;
+  }
+
+  .h-pagination__controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .h-pagination__info {
+    font-size: var(--h-font-body-sm, 13px);
+    color: var(--h-color-ink-muted, #666);
+    white-space: nowrap;
+    padding: 0 8px;
+  }
+
+  /* ========== page buttons ========== */
+  .h-pagination__btn {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0 6px;
+    border: 1px solid transparent;
+    border-radius: var(--h-radius-control, 12px);
+    background: transparent;
+    color: var(--h-color-ink, #000000);
+    font-size: var(--h-font-body-sm, 13px);
+    font-weight: 500;
+    line-height: 1;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--h-duration-press, 120ms) ease,
+      border-color var(--h-duration-press, 120ms) ease,
+      color var(--h-duration-press, 120ms) ease;
+  }
+
+  .h-pagination__btn:hover:not(:disabled) {
+    background: var(--h-color-bg-hover, #f0f0f0);
+  }
+
+  .h-pagination__btn:active:not(:disabled) {
+    background: var(--h-color-bg-muted, #e8e8e8);
+  }
+
+  .h-pagination__btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+
+  .h-pagination__btn--active {
+    background: var(--h-color-primary, #006fee);
+    color: #ffffff;
+    border-color: var(--h-color-primary, #006fee);
+    font-weight: 600;
+  }
+
+  .h-pagination__btn--active:hover {
+    background: var(--h-color-primary, #006fee);
+    opacity: 0.9;
+  }
+
+  .h-pagination__ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 32px;
+    font-size: 13px;
+    color: var(--h-color-ink-muted, #92949c);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* ========== sizer ========== */
+  .h-pagination__sizer {
+    min-width: 100px;
+  }
+}

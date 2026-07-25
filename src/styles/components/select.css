@@ -1,0 +1,149 @@
+@layer components {
+  .h-select {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--h-space-xs, 2px);
+    width: 100%;
+    min-width: 0;
+  }
+
+  .h-select__label {
+    font-size: var(--h-font-label, 12px);
+    font-weight: 600;
+    color: var(--h-color-ink, #000000);
+  }
+
+  .h-select__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .h-select__control {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    border: 1px solid var(--h-select-border, var(--h-color-border-subtle, #e0e0e0));
+    border-radius: var(--h-select-radius, var(--h-radius-control, 12px));
+    background: var(--h-select-bg, var(--h-color-surface, #ffffff));
+    color: var(--h-color-ink, #000000);
+    font: inherit;
+    line-height: 1.25;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    transition:
+      border-color var(--h-duration-press, 120ms) var(--h-ease-standard, ease),
+      box-shadow var(--h-duration-press, 120ms) var(--h-ease-standard, ease);
+
+    /* 为 clear button + arrow 留出右侧空间 */
+    padding-right: calc(var(--h-select-pad-x, 12px) + 32px);
+  }
+
+  .h-select__control:focus {
+    outline: none;
+  }
+
+  .h-select__control:focus-visible {
+    border-color: var(--h-color-focus-ring, var(--h-color-primary, #006fee));
+    box-shadow: 0 0 0 2px rgba(var(--h-color-primary-rgb, 0, 111, 238), 0.2);
+  }
+
+  .h-select--disabled {
+    opacity: 0.55;
+  }
+
+  .h-select__control:disabled {
+    cursor: not-allowed;
+  }
+
+  /* 尺寸：对齐 HInput */
+  .h-select--sm .h-select__control {
+    height: var(--h-select-height-sm, var(--h-input-height-sm, 32px));
+    padding: 0 var(--h-select-pad-x-sm, 10px);
+    padding-right: calc(var(--h-select-pad-x-sm, 10px) + 32px);
+    font-size: max(var(--h-select-font-sm, 13px), 16px);
+  }
+
+  .h-select--md .h-select__control {
+    height: var(--h-select-height-md, var(--h-input-height-md, 40px));
+    padding: 0 var(--h-select-pad-x-md, 12px);
+    padding-right: calc(var(--h-select-pad-x-md, 12px) + 32px);
+    font-size: max(var(--h-select-font-md, 14px), 16px);
+  }
+
+  .h-select--lg .h-select__control {
+    height: var(--h-select-height-lg, var(--h-input-height-lg, 48px));
+    padding: 0 var(--h-select-pad-x-lg, 14px);
+    padding-right: calc(var(--h-select-pad-x-lg, 14px) + 32px);
+    font-size: var(--h-select-font-lg, 16px);
+  }
+
+  /* 下拉箭头 */
+  .h-select__arrow {
+    position: absolute;
+    right: var(--h-select-pad-x, 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--h-color-ink-muted, #92949c);
+    transition: transform var(--h-duration-press, 120ms) var(--h-ease-standard, ease);
+  }
+
+  .h-select--sm .h-select__arrow {
+    right: var(--h-select-pad-x-sm, 10px);
+  }
+
+  .h-select--lg .h-select__arrow {
+    right: var(--h-select-pad-x-lg, 14px);
+  }
+
+  /* 清空按钮 */
+  .h-select__clear {
+    position: absolute;
+    right: var(--h-select-pad-x, 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--h-color-ink-muted, #92949c);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      opacity var(--h-duration-press, 120ms) var(--h-ease-standard, ease),
+      background-color var(--h-duration-press, 120ms) var(--h-ease-standard, ease);
+  }
+
+  .h-select__clear:hover {
+    background-color: var(--h-color-bg-muted, #f4f4f4);
+  }
+
+  .h-select__clear:active {
+    opacity: 0.6;
+  }
+
+  .h-select--sm .h-select__clear {
+    right: var(--h-select-pad-x-sm, 10px);
+  }
+
+  .h-select--lg .h-select__clear {
+    right: var(--h-select-pad-x-lg, 14px);
+  }
+
+  /* 有 clearable 时箭头隐藏（clear 按钮占据） */
+  .h-select--clearable.h-select--has-value .h-select__arrow {
+    display: none;
+  }
+}

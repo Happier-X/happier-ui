@@ -365,6 +365,56 @@
       </form>
     </section>
 
+    <section class="smoke__section" aria-labelledby="select-heading">
+      <h2 id="select-heading" class="smoke__section-title">HSelect</h2>
+      <div class="smoke__field-stack">
+        <div>
+          <p class="smoke__hint">基础 v-model + label：{{ selectValue || '（空）' }}</p>
+          <h-select
+            v-model="selectValue"
+            :options="selectOptions"
+            label="水果"
+            placeholder="请选择水果"
+            @change="selectLabel = String($event)"
+          />
+        </div>
+        <div>
+          <p class="smoke__hint smoke__hint--inline">change: {{ selectLabel }}</p>
+        </div>
+        <div>
+          <p class="smoke__hint">sizes</p>
+          <div class="smoke__field-stack">
+            <h-select :options="selectOptions" size="sm" placeholder="sm" aria-label="小号" />
+            <h-select :options="selectOptions" size="md" placeholder="md" aria-label="中号" />
+            <h-select :options="selectOptions" size="lg" placeholder="lg" aria-label="大号" />
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">disabled</p>
+          <h-select :options="selectOptions" disabled placeholder="禁用" aria-label="禁用" />
+        </div>
+        <div>
+          <p class="smoke__hint">clearable</p>
+          <h-select
+            :options="selectOptions"
+            clearable
+            placeholder="可选清除"
+            aria-label="可选清除"
+          />
+        </div>
+        <div>
+          <p class="smoke__hint">自定义 option slot</p>
+          <h-select :options="selectOptions" placeholder="选择水果" aria-label="自定义选项">
+            <template #option="{ option }">
+              <option :value="option.value" :disabled="option.disabled">
+                🍉 {{ option.label }}
+              </option>
+            </template>
+          </h-select>
+        </div>
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="checkbox-heading">
       <h2 id="checkbox-heading" class="smoke__section-title">HCheckbox</h2>
       <div class="smoke__field-stack">
@@ -711,8 +761,8 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSidebar, HSwitch, HTabBar, HToast } from 'happier-ui'
-import type { HSidebarItem, HTabBarItem } from 'happier-ui'
+import { HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HToast } from 'happier-ui'
+import type { HSelectOption, HSidebarItem, HTabBarItem } from 'happier-ui'
 
 const buttonClicks = ref(0)
 const iconButtonClicks = ref(0)
@@ -740,6 +790,14 @@ const toastPersist = ref(false)
 const toastCloseCount = ref(0)
 const simpleName = ref('')
 const tanstackSubmitMsg = ref('')
+const selectValue = ref('')
+const selectLabel = ref('')
+const selectOptions: HSelectOption[] = [
+  { value: 'apple', label: '苹果' },
+  { value: 'banana', label: '香蕉' },
+  { value: 'cherry', label: '樱桃', disabled: true },
+  { value: 'durian', label: '榴莲' },
+]
 const checkOn = ref(false)
 const emptyActionClicks = ref(0)
 const activeTab = ref('home')

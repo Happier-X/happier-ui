@@ -1,4 +1,5 @@
 export { default as HBadge } from './components/HBadge.vue'
+export { default as HTextarea } from './components/HTextarea.vue'
 export { default as HTag } from './components/HTag.vue'
 export { default as HButton } from './components/HButton.vue'
 export { default as HIconButton } from './components/HIconButton.vue'

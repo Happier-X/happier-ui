@@ -1,0 +1,136 @@
+@layer components {
+  .h-textarea {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--h-space-xs, 2px);
+    width: 100%;
+    min-width: 0;
+  }
+
+  .h-textarea__label {
+    font-size: var(--h-font-label, 12px);
+    font-weight: 600;
+    color: var(--h-color-ink, #000000);
+  }
+
+  .h-textarea__wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+  }
+
+  .h-textarea__control {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    border: 1px solid var(--h-textarea-border, var(--h-color-border-subtle, #e0e0e0));
+    border-radius: var(--h-textarea-radius, var(--h-radius-control, 12px));
+    background: var(--h-textarea-bg, var(--h-color-surface, #ffffff));
+    color: var(--h-color-ink, #000000);
+    font: inherit;
+    line-height: 1.5;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-color var(--h-duration-press, 120ms) var(--h-ease-standard, ease),
+      box-shadow var(--h-duration-press, 120ms) var(--h-ease-standard, ease);
+  }
+
+  .h-textarea__control::placeholder {
+    color: var(--h-textarea-placeholder, var(--h-color-ink-muted, #92949c));
+  }
+
+  .h-textarea__control:focus {
+    outline: none;
+  }
+
+  .h-textarea__control:focus-visible {
+    border-color: var(--h-color-focus-ring, var(--h-color-primary, #006fee));
+    box-shadow: 0 0 0 2px rgba(var(--h-color-primary-rgb, 0, 111, 238), 0.2);
+  }
+
+  .h-textarea--invalid .h-textarea__control {
+    border-color: var(--h-textarea-border-invalid, var(--h-color-danger, #eb445a));
+  }
+
+  .h-textarea--invalid .h-textarea__control:focus-visible {
+    box-shadow: 0 0 0 2px rgba(var(--h-color-danger-rgb, 235, 68, 90), 0.2);
+  }
+
+  .h-textarea--disabled {
+    opacity: 0.55;
+  }
+
+  .h-textarea__control:disabled {
+    cursor: not-allowed;
+  }
+
+  /* ========== resize ========== */
+  .h-textarea--resize-none .h-textarea__control {
+    resize: none;
+  }
+
+  .h-textarea--resize-vertical .h-textarea__control {
+    resize: vertical;
+  }
+
+  .h-textarea--resize-both .h-textarea__control {
+    resize: both;
+  }
+
+  .h-textarea--resize-auto .h-textarea__control {
+    resize: none;
+    overflow: hidden;
+  }
+
+  /* ========== sizes (align HInput) ========== */
+  .h-textarea--sm .h-textarea__control {
+    padding: var(--h-input-pad-x-sm, 10px);
+    font-size: max(var(--h-textarea-font-sm, 13px), 16px);
+    min-height: var(--h-input-height-sm, 32px);
+  }
+
+  .h-textarea--md .h-textarea__control {
+    padding: var(--h-input-pad-x-md, 12px);
+    font-size: max(var(--h-textarea-font-md, 14px), 16px);
+    min-height: var(--h-input-height-md, 40px);
+  }
+
+  .h-textarea--lg .h-textarea__control {
+    padding: var(--h-input-pad-x-lg, 14px);
+    font-size: var(--h-textarea-font-lg, 16px);
+    min-height: var(--h-input-height-lg, 48px);
+  }
+
+  /* ========== description / error ========== */
+  .h-textarea__description {
+    margin: 0;
+    font-size: var(--h-font-body-sm, 13px);
+    color: var(--h-color-ink-muted, #666);
+    text-wrap: pretty;
+  }
+
+  .h-textarea__error {
+    margin: 0;
+    font-size: var(--h-font-body-sm, 13px);
+    color: var(--h-color-danger, #eb445a);
+    text-wrap: pretty;
+  }
+
+  /* ========== char count ========== */
+  .h-textarea__count {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    font-size: 11px;
+    color: var(--h-color-ink-muted, #92949c);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .h-textarea__count--over {
+    color: var(--h-color-danger, #eb445a);
+    font-weight: 600;
+  }
+}

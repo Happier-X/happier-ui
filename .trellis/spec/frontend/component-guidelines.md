@@ -13,12 +13,13 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HBadge` / `HTag` / `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` / `HFloatingBubble` / `HSidebar` / `HSelect` / `HTable` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HBadge` / `HTag` / `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HTextarea` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` / `HFloatingBubble` / `HSidebar` / `HSelect` / `HTable` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
 ```ts
 // src/index.ts
+export { default as HBadge } from './components/HBadge.vue'
 export { default as HBadge } from './components/HBadge.vue'
 export { default as HButton } from './components/HButton.vue'
 export { default as HIconButton } from './components/HIconButton.vue'
@@ -29,6 +30,7 @@ export { default as HBottomSheet } from './components/HBottomSheet.vue'
 export { default as HDialog } from './components/HDialog.vue'
 export { default as HToast } from './components/HToast.vue'
 export { default as HInput } from './components/HInput.vue'
+export { default as HTextarea } from './components/HTextarea.vue'
 export { default as HCheckbox } from './components/HCheckbox.vue'
 export { default as HCard } from './components/HCard.vue'
 export { default as HCell } from './components/HCell.vue'
@@ -75,6 +77,7 @@ export { default as HTag } from './components/HTag.vue'
 - `src/components/HCard.vue` — 内容分组容器；outlined/filled/flat variant、padding none/sm/md/lg、radius sm/md；header/body/footer 具名 slot；无 elevation、无整卡交互
 - `src/components/HCell.vue` / `HCellGroup.vue` — 设置行与分组；title/description、prefix/suffix、clickable 键盘激活、默认 chevron、Surface/flat 分组与直接子 Cell 分隔线
 - `src/components/HBadge.vue` — 状态徽章；variant/default/success/warning/danger/info、size sm/md、dot 模式
+- `src/components/HTextarea.vue` — 多行文本输入；v-model string；label/error/description、size sm/md/lg、rows、resize auto/none/vertical/both、maxLength+showCount
 - `src/components/HTag.vue` — 可关闭标签；variant/default/primary/success/warning/danger、size sm/md、closable、disabled；close emit
 - `src/components/HSelect.vue` — 下拉选择框；options(HSelectOption[])、v-model string|number；label/placeholder/size/disabled/clearable；change emit；#option slot
 - `src/components/HTable.vue` — 数据表格；columns + data、sortable/striped/bordered/stickyHeader/loading/empty；sort emit；#cell/#empty/#loading slot
@@ -106,10 +109,11 @@ export { default as HTag } from './components/HTag.vue'
 | 浮动气泡 | `v-model:offset`(`{x,y}`) + `axis` x/y/xy/lock + `gap` number/{x,y} + `magnetic` x/y；`icon` 或 default slot；`ariaLabel` 必填；`teleport` 默认 body；`click`/`offset-change`/`drag-start`/`drag-end` | `HFloatingBubble` |
 | 侧边栏 | `items`(必填) + `modelValue`(string key) + `v-model:collapsed`；`showCollapseToggle` 默认 true；`#header` / `#footer` slot；`update:modelValue`/`update:collapsed`；常驻占位、无路由、无 overlay | `HSidebar` |
 | 状态徽章 | `variant` default/success/warning/danger/info + `size` sm/md + `dot` 纯圆点模式；default slot | `HBadge` |
+| 文本输入(多行) | `modelValue` string + `rows`/`resize`/`maxLength`/`showCount`；`label`/`error`/`description`/`size` sm/md/lg；`update:modelValue`/`focus`/`blur` | `HTextarea` |
 | 标签 | `variant` default/primary/success/warning/danger + `size` sm/md + `closable` + `disabled`；`close` emit；default slot | `HTag` |
 | 下拉选择框 | `options`(HSelectOption[]) + `modelValue` string|number；`label`/`placeholder`/`size`/`disabled`/`clearable`；`change` emit；`#option` slot | `HSelect` |
 | 数据表格 | `columns`(HTableColumn[]) + `data`(Record[]) + `rowKey`；`sortable`/`striped`/`bordered`/`stickyHeader`/`loading`/`emptyText`；`sort` emit；`#cell`/`#empty`/`#loading` slot | `HTable` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；Range 无可见标签时传 `ariaLabel`；Progress 用 `role="progressbar"` + `aria-value*`（indeterminate 省 valuenow）且无可见标签时传 `ariaLabel`；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；图标按钮 `ariaLabel` 必填；Toast live-region 不抢焦点；Cell 交互行 `role="button"`+`tabindex="0"`+Enter/Space，chevron `aria-hidden`，Group 默认标题 `aria-labelledby` | `HBadge` / `HTag` / `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCell` / `HCellGroup` / `HSelect` / `HTable` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；Range 无可见标签时传 `ariaLabel`；Progress 用 `role="progressbar"` + `aria-value*`（indeterminate 省 valuenow）且无可见标签时传 `ariaLabel`；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；图标按钮 `ariaLabel` 必填；Toast live-region 不抢焦点；Cell 交互行 `role="button"`+`tabindex="0"`+Enter/Space，chevron `aria-hidden`，Group 默认标题 `aria-labelledby` | `HBadge` / `HTextarea` / `HTag` / `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCell` / `HCellGroup` / `HSelect` / `HTable` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
@@ -137,6 +141,7 @@ export { default as HTag } from './components/HTag.vue'
 | `HFloatingBubble` | `HFloatingBubble.vue` | 浮动气泡；v-model:offset；axis x/y/xy/lock；gap；magnetic x/y 磁吸；Teleport 默认 body；icon/default slot；ariaLabel 必填；Pointer 拖拽 |
 | `HSidebar` | `HSidebar.vue` | 常驻式左侧边栏；items + v-model(key)；v-model:collapsed 受控折叠；showCollapseToggle 内置折叠按钮；header/footer slot；nav + aria-current；无路由/无 overlay |
 | `HBadge` | `HBadge.vue` | 状态徽章；variant+size+dot；default slot |
+| `HTextarea` | `HTextarea.vue` | 多行文本输入；v-model + rows/resize/maxLength/showCount + label/error/description/size；focus/blur |
 | `HTag` | `HTag.vue` | 可关闭标签；variant+size+closable+disabled；close emit；default slot |
 | `HSelect` | `HSelect.vue` | <select> 下拉选择框；options + v-model(string\|number)；label/placeholder/size/disabled/clearable；change emit；#option slot |
 | `HTable` | `HTable.vue` | 数据表格；columns + data + rowKey；sortable/striped/bordered/stickyHeader/loading/emptyText；sort emit；#cell/#empty/#loading slot |

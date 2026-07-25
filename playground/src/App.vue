@@ -365,6 +365,38 @@
       </form>
     </section>
 
+    <section class="smoke__section" aria-labelledby="textarea-heading">
+      <h2 id="textarea-heading" class="smoke__section-title">HTextarea</h2>
+      <div class="smoke__field-stack">
+        <div>
+          <p class="smoke__hint">基础 v-model：{{ textareaValue || '（空）' }}</p>
+          <h-textarea v-model="textareaValue" label="备注" placeholder="输入多行文本..." />
+        </div>
+        <div>
+          <p class="smoke__hint">sizes + rows</p>
+          <h-textarea v-model="textareaSm" size="sm" label="sm" placeholder="小号" :rows="2" />
+          <h-textarea v-model="textareaValue" size="md" label="md" placeholder="中号" :rows="3" />
+          <h-textarea v-model="textareaLg" size="lg" label="lg" placeholder="大号" :rows="4" />
+        </div>
+        <div>
+          <p class="smoke__hint">resize auto（自动撑高）</p>
+          <h-textarea v-model="textareaAuto" label="自动撑高" placeholder="输入文字看效果..." resize="auto" />
+        </div>
+        <div>
+          <p class="smoke__hint">maxLength + showCount</p>
+          <h-textarea v-model="textareaCount" label="限 50 字" :max-length="50" show-count placeholder="最多 50 字..." />
+        </div>
+        <div>
+          <p class="smoke__hint">error</p>
+          <h-textarea v-model="textareaValue" label="反馈" error="内容不得为空" />
+        </div>
+        <div>
+          <p class="smoke__hint">disabled</p>
+          <h-textarea model-value="禁用的内容" label="禁用" disabled />
+        </div>
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="select-heading">
       <h2 id="select-heading" class="smoke__section-title">HSelect</h2>
       <div class="smoke__field-stack">
@@ -909,7 +941,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HToast, HTag } from 'happier-ui'
+import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag } from 'happier-ui'
 import type { HSelectOption, HSidebarItem, HTabBarItem, HTableColumn } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -967,6 +999,11 @@ const tableColumns: HTableColumn[] = [
   { key: 'status', title: '状态码', width: 80, align: 'right', sortable: true },
   { key: 'time', title: '耗时', width: 80, align: 'right', sortable: true },
 ]
+const textareaValue = ref('')
+const textareaSm = ref('')
+const textareaLg = ref('')
+const textareaAuto = ref('')
+const textareaCount = ref('')
 const checkOn = ref(false)
 const emptyActionClicks = ref(0)
 const activeTab = ref('home')

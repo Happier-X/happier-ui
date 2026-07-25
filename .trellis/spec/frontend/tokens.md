@@ -76,7 +76,7 @@ playground：
   2. `@media (prefers-color-scheme: dark) { :root:not(.light) { … } }` 跟随系统偏好翻暗；
   3. `:root.dark, .dark { … }` 手动强制暗色（无视系统偏好）。
 - **class 覆盖 media**：`:root.dark`（0,2,0）赢过 base `:root`；`.light` 类使 media 块 `:not(.light)` 不命中 → 系统暗色下强制回浅。`:root.dark` 供全局（`<html>`，如 VitePress）、`.dark` 供局部容器。
-- 只覆盖**决定明暗观感的中性色**：`--h-color-surface`/`surface-secondary`/`ink`/`ink-muted`/`border-subtle`/`cover-placeholder`。主色阶 / `success` / `warning` / `danger` / 间距 / 圆角**不随明暗变**。
+- 只覆盖**决定明暗观感的中性色**：`--h-color-surface`/`surface-secondary`/`ink`/`ink-muted`/`border-subtle`/`cover-placeholder`/`bg-muted`/`bg-hover`。主色阶 / `success` / `warning` / `danger` / 间距 / 圆角**不随明暗变**。
 - 派生 token（`--h-color-separator`、各 `--h-*-bg` 引用 surface）与 `--muses-*` 别名通过 `var()` 自动继承暗色，无需单独覆盖。
 - media 块与 class 块两组暗色值须**逐字一致**，避免漂移。
 - `--h-color-surface-dark`（`#1f1f1f`，沉浸播放态专用）不参与本主题，保持不动。
@@ -87,7 +87,7 @@ playground：
 | 组 | 示例 |
 |----|------|
 | 主色阶 | `--h-primary-500` |
-| 语义色 | `--h-color-primary`、`--h-color-surface`、`--h-color-danger`、`--h-color-success` / `warning`、`--h-color-focus-ring` |
+| 语义色 | `--h-color-primary`、`--h-color-surface`、`--h-color-danger`、`--h-color-success` / `warning`、`--h-color-focus-ring`、`--h-color-bg-muted` / `bg-hover`（组件灰底/悬停底；明 `#f4f4f5`/`#f0f0f0`，暗 `#2a2a2a`/`#333333`） |
 | 沉浸播放 | `--h-immersive-*`（播放器宿主可用，库组件按需） |
 | 间距 / 圆角 / 字号 | `--h-space-*`、`--h-radius-*`、`--h-font-*` |
 | 按钮 | `--h-button-height-*`、`--h-button-pad-x-*`、`--h-button-font-*` |

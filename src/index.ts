@@ -20,6 +20,8 @@ export { default as HFloatingBubble } from './components/HFloatingBubble.vue'
 export { default as HSidebar } from './components/HSidebar.vue'
 export { default as HSelect } from './components/HSelect.vue'
 export type { HSelectOption } from './components/HSelect.vue'
+export { default as HTable } from './components/HTable.vue'
+export type { HTableColumn, HTableSort } from './components/HTable.vue'
 export type { HTabBarItem } from './components/HTabBar.vue'
 export type { HSidebarItem } from './components/HSidebar.vue'
 export type {

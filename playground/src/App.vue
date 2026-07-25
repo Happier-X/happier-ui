@@ -415,6 +415,83 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="table-heading">
+      <h2 id="table-heading" class="smoke__section-title">HTable</h2>
+      <div class="smoke__field-stack">
+        <div>
+          <p class="smoke__hint">基础</p>
+          <h-table
+            :columns="tableColumns"
+            :data="tableData"
+          />
+        </div>
+        <div>
+          <p class="smoke__hint">bordered + striped</p>
+          <h-table
+            :columns="tableColumns"
+            :data="tableData"
+            bordered
+            striped
+          />
+        </div>
+        <div>
+          <p class="smoke__hint">stickyHeader（滚动容器 240px）</p>
+          <div style="max-height: 240px; overflow-y: auto;">
+            <h-table
+              :columns="tableColumns"
+              :data="tableLongData"
+              sticky-header
+            />
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">sortable（当前: {{ tableSort }}）</p>
+          <h-table
+            :columns="tableColumns"
+            :data="tableData"
+            @sort="tableSort = $event"
+          />
+        </div>
+        <div>
+          <p class="smoke__hint">loading</p>
+          <h-table
+            :columns="tableColumns"
+            :data="tableData"
+            loading
+          />
+        </div>
+        <div>
+          <p class="smoke__hint">空数据</p>
+          <h-table
+            :columns="tableColumns"
+            :data="[]"
+          />
+        </div>
+        <div>
+          <p class="smoke__hint">自定义 cell slot（状态码着色）</p>
+          <h-table
+            :columns="tableColumns"
+            :data="tableData"
+            bordered
+            striped
+          >
+            <template #cell="{ column, row }">
+              <span
+                v-if="column.key === 'status'"
+                :style="{
+                  color: (row.status as number) >= 400 ? 'var(--h-color-danger, #eb445a)' :
+                         (row.status as number) >= 300 ? 'var(--h-color-warning, #f5a623)' :
+                         'var(--h-color-success, #22c55e)',
+                  fontWeight: 600,
+                }"
+              >{{ row.status }}</span>
+              <template v-else>{{ row[column.key] }}</template>
+            </template>
+          </h-table>
+        </div>
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="checkbox-heading">
       <h2 id="checkbox-heading" class="smoke__section-title">HCheckbox</h2>
       <div class="smoke__field-stack">
@@ -761,8 +838,8 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HToast } from 'happier-ui'
-import type { HSelectOption, HSidebarItem, HTabBarItem } from 'happier-ui'
+import { HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HToast } from 'happier-ui'
+import type { HSelectOption, HSidebarItem, HTabBarItem, HTableColumn } from 'happier-ui'
 
 const buttonClicks = ref(0)
 const iconButtonClicks = ref(0)
@@ -797,6 +874,27 @@ const selectOptions: HSelectOption[] = [
   { value: 'banana', label: '香蕉' },
   { value: 'cherry', label: '樱桃', disabled: true },
   { value: 'durian', label: '榴莲' },
+]
+const tableSort = ref<{ key: string; order: 'asc' | 'desc' } | null>(null)
+const tableData = ref<Record<string, unknown>[]>([
+  { id: '1', name: 'GET /api/users', status: 200, method: 'GET', time: '12ms' },
+  { id: '2', name: 'POST /api/orders', status: 201, method: 'POST', time: '45ms' },
+  { id: '3', name: 'GET /api/products', status: 200, method: 'GET', time: '8ms' },
+  { id: '4', name: 'PUT /api/users/1', status: 500, method: 'PUT', time: '230ms' },
+  { id: '5', name: 'GET /api/not-found', status: 404, method: 'GET', time: '3ms' },
+])
+const tableLongData: Record<string, unknown>[] = Array.from({ length: 15 }, (_, i) => ({
+  id: String(i + 1),
+  name: `GET /api/items/${i + 1}`,
+  status: [200, 201, 404, 500, 200][i % 5],
+  method: ['GET', 'POST', 'GET', 'PUT', 'GET'][i % 5],
+  time: `${[12, 45, 8, 230, 3][i % 5]}ms`,
+}))
+const tableColumns: HTableColumn[] = [
+  { key: 'name', title: '路径', sortable: true },
+  { key: 'method', title: '方法', width: 80, align: 'center' },
+  { key: 'status', title: '状态码', width: 80, align: 'right', sortable: true },
+  { key: 'time', title: '耗时', width: 80, align: 'right', sortable: true },
 ]
 const checkOn = ref(false)
 const emptyActionClicks = ref(0)

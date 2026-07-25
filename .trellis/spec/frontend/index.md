@@ -19,7 +19,7 @@ happier-ui：**纯 Vue 语义 UI 组件库** + `--h-*` token / `h-` utility，�
 1. 新 UI：`src/components/H*.vue` + `src/styles/components/*.css`；导出走 `src/index.ts`；导航栏只提供语义 UI 与事件，不内置路由。
 2. 视觉参考 **HeroUI Native**；数值只进 `src/styles/tokens.css`；utility 用 `h-` 命名空间。
 3. 消费方需 Tailwind v4 + `@import "happier-ui/styles"`。
-4. 先 `playground`，再补 `docs/components` 文档页，再给 Muses `file:` / npm 消费。
+4. 先 `playground`，再补 `docs/components` 文档页，再给 Muses 通过 npm 消费。
 5. 音乐领域与 Ionic / `@heroui/*` 不进库。
 6. 文档站 `docs/`（VitePress + GitHub Pages）与 playground 并存；**不**进 npm tarball。
 

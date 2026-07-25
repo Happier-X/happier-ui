@@ -12,7 +12,7 @@
 - **形态**：Web 与移动端通用的 Vue 语义 UI + `--h-*` token / `h-` utility
 - **实现**：纯 Vue 优先；样式 **Tailwind v4 CSS-first**（HeroUI v3 式）；不 peer 强制 `@ionic/vue`
 - **视觉**：参考 HeroUI Native（抄样式/观感，不引 RN / `@heroui/*`）；flat，无 Material elevation
-- **消费方**：Muses 等通过 `file:` / npm；宿主需 `tailwindcss` ^4 + `@import "happier-ui/styles"`
+- **消费方**：Muses 等通过 npm；宿主需 `tailwindcss` ^4 + `@import "happier-ui/styles"`
 
 ## 开发约定
 

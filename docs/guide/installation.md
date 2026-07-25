@@ -63,18 +63,6 @@ export default defineConfig({
 
 组件样式依赖宿主 **Tailwind v4 管道** 解析 `@import "happier-ui/styles"`；不要再使用 0.0.1 的「只引预编译 style.css、无 Tailwind」路径。
 
-## 本地 file: 联调（如 Muses）
-
-```json
-{
-  "dependencies": {
-    "happier-ui": "file:../happier-ui"
-  }
-}
-```
-
-宿主仍须接入 **TW4 + `happier-ui/styles`**。库源码开发时，playground 通过 alias 指向 `src/`；正式消费以 npm `dist` 为准。
-
 ## 不进 npm 包的内容
 
 发布 tarball **仅**含 `dist/`、`LICENSE`、`README.md`。不含 `docs/`、`src/`、`playground/`、`.trellis/`。

@@ -6,7 +6,14 @@
  *   @import "happier-ui/styles";
  *
  * 本入口不含 Tailwind preflight；由宿主 @import "tailwindcss" 提供。
+ *
+ * 顶部前置声明 CSS 层叠层顺序（layer statement form，允许位于 @import 之前）：
+ * 锁定 components 相对 base 的位置，使库对消费方 CSS 引入顺序不敏感——
+ * 无论 happier-ui/styles 先于还是后于 @import "tailwindcss" 加载，
+ * Tailwind 的 base(preflight) 始终排在 components 之前，不再覆盖组件样式。
  */
+@layer theme, base, components, utilities;
+
 @import "./tokens.css";
 @import "./theme.css";
 @import "./components.css";

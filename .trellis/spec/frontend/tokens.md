@@ -15,6 +15,12 @@
 @import "happier-ui/styles";
 ```
 
+## Cascade layer 顺序（防引入顺序敏感）
+
+- `src/styles/index.css` 顶部（注释后、首个 `@import` 前）须前置声明 `@layer theme, base, components, utilities;`；`emitHappierUiStyles` 内联组装后该行保留在 `dist/styles.css` 首行。
+- 组件 BEM 裸包在 `@layer components { ... }`；层的相对顺序由**首次出现顺序**决定。不前置声明时，消费方若先 `@import "happier-ui/styles"` 再 `@import "tailwindcss"`，Tailwind 的 `base`（preflight reset）会排在 `components` 之后并覆盖组件样式（`.h-button` 等呈裸样式）。前置声明锁定 `components` 相对 `base` 的位置，库对引入顺序不再敏感。
+- 层名取 Tailwind v4 默认约定 `theme, base, components, utilities`。修改 styles 入口时勿删这行。
+
 playground：
 
 ```css

@@ -75,7 +75,7 @@ export { default as HTag } from './components/HTag.vue'
 - `src/components/HCard.vue` — 内容分组容器；outlined/filled/flat variant、padding none/sm/md/lg、radius sm/md；header/body/footer 具名 slot；无 elevation、无整卡交互
 - `src/components/HCell.vue` / `HCellGroup.vue` — 设置行与分组；title/description、prefix/suffix、clickable 键盘激活、默认 chevron、Surface/flat 分组与直接子 Cell 分隔线
 - `src/components/HBadge.vue` — 状态徽章；variant/default/success/warning/danger/info、size sm/md、dot 模式
-- `src/components/HTextarea.vue` — 多行文本输入；v-model string；label/error/description、size sm/md/lg、rows、resize auto/none/vertical/both、maxLength+showCount
+- `src/components/HTextarea.vue` — 多行文本输入；v-model string；label/error/description、size sm/md/lg、rows、resize auto/none/vertical/both、maxLength+showCount、mono 等宽字体（var(--h-font-mono)）
 - `src/components/HTag.vue` — 可关闭标签；variant/default/primary/success/warning/danger、size sm/md、closable、disabled；close emit
 - `src/components/HSelect.vue` — 下拉选择框；options(HSelectOption[])、v-model string|number；label/placeholder/size/disabled/clearable；change emit；#option slot
 - `src/components/HTable.vue` — 数据表格；columns + data、sortable/striped/bordered/stickyHeader/loading/empty；sort emit；#cell/#empty/#loading slot
@@ -107,7 +107,7 @@ export { default as HTag } from './components/HTag.vue'
 | 浮动气泡 | `v-model:offset`(`{x,y}`) + `axis` x/y/xy/lock + `gap` number/{x,y} + `magnetic` x/y；`icon` 或 default slot；`ariaLabel` 必填；`teleport` 默认 body；`click`/`offset-change`/`drag-start`/`drag-end` | `HFloatingBubble` |
 | 侧边栏 | `items`(必填) + `modelValue`(string key) + `v-model:collapsed`；`showCollapseToggle` 默认 true；`#header` / `#footer` slot；`update:modelValue`/`update:collapsed`；常驻占位、无路由、无 overlay | `HSidebar` |
 | 状态徽章 | `variant` default/success/warning/danger/info + `size` sm/md + `dot` 纯圆点模式；default slot | `HBadge` |
-| 文本输入(多行) | `modelValue` string + `rows`/`resize`/`maxLength`/`showCount`；`label`/`error`/`description`/`size` sm/md/lg；`update:modelValue`/`focus`/`blur` | `HTextarea` |
+| 文本输入(多行) | `modelValue` string + `rows`/`resize`/`maxLength`/`showCount`/`mono`；`label`/`error`/`description`/`size` sm/md/lg；`update:modelValue`/`focus`/`blur` | `HTextarea` |
 | 标签 | `variant` default/primary/success/warning/danger + `size` sm/md + `closable` + `disabled`；`close` emit；default slot | `HTag` |
 | 下拉选择框 | `options`(HSelectOption[]) + `modelValue` string|number；`label`/`placeholder`/`size`/`disabled`/`clearable`；`change` emit；`#option` slot | `HSelect` |
 | 数据表格 | `columns`(HTableColumn[]) + `data`(Record[]) + `rowKey`；`sortable`/`striped`/`bordered`/`stickyHeader`/`loading`/`emptyText`；`sort` emit；`#cell`/`#empty`/`#loading` slot | `HTable` |
@@ -138,7 +138,7 @@ export { default as HTag } from './components/HTag.vue'
 | `HFloatingBubble` | `HFloatingBubble.vue` | 浮动气泡；v-model:offset；axis x/y/xy/lock；gap；magnetic x/y 磁吸；Teleport 默认 body；icon/default slot；ariaLabel 必填；Pointer 拖拽 |
 | `HSidebar` | `HSidebar.vue` | 常驻式左侧边栏；items + v-model(key)；v-model:collapsed 受控折叠；showCollapseToggle 内置折叠按钮；header/footer slot；nav + aria-current；无路由/无 overlay |
 | `HBadge` | `HBadge.vue` | 状态徽章；variant+size+dot；default slot |
-| `HTextarea` | `HTextarea.vue` | 多行文本输入；v-model + rows/resize/maxLength/showCount + label/error/description/size；focus/blur |
+| `HTextarea` | `HTextarea.vue` | 多行文本输入；v-model + rows/resize/maxLength/showCount/mono(等宽) + label/error/description/size；focus/blur |
 | `HTag` | `HTag.vue` | 可关闭标签；variant+size+closable+disabled；close emit；default slot |
 | `HSelect` | `HSelect.vue` | <select> 下拉选择框；options + v-model(string\|number)；label/placeholder/size/disabled/clearable；change emit；#option slot |
 | `HTable` | `HTable.vue` | 数据表格；columns + data + rowKey；sortable/striped/bordered/stickyHeader/loading/emptyText；sort emit；#cell/#empty/#loading slot |

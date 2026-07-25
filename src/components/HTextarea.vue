@@ -6,6 +6,7 @@
       {
         'h-textarea--invalid': isInvalid,
         'h-textarea--disabled': disabled,
+        'h-textarea--mono': mono,
         [`h-textarea--resize-${resize}`]: true,
       },
     ]"
@@ -72,6 +73,7 @@
  * happier-ui：多行文本输入。基于原生 <textarea>，对标 HInput label/error/size 体系。
  * - v-model: modelValue / update:modelValue (string)
  * - resize: none / vertical / both / auto（auto = 根据内容撑高）
+ * - mono: 为内部 <textarea> 应用等宽字体族（var(--h-font-mono)），适合代码 / JSON / curl 输入
  */
 import { computed, nextTick, ref, useId, watch } from 'vue'
 
@@ -90,6 +92,7 @@ const props = withDefaults(defineProps<{
   maxLength?: number
   showCount?: boolean
   size?: 'sm' | 'md' | 'lg'
+  mono?: boolean
   name?: string
 }>(), {
   modelValue: '',
@@ -106,6 +109,7 @@ const props = withDefaults(defineProps<{
   maxLength: undefined,
   showCount: false,
   size: 'md',
+  mono: false,
   name: undefined,
 })
 

@@ -103,6 +103,7 @@ const value = ref('')
 | `maxLength` | `number` | — | 最大字符数 |
 | `showCount` | `boolean` | `false` | 显示字数统计 |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | 尺寸（对齐 HInput） |
+| `mono` | `boolean` | `false` | 内部 `<textarea>` 使用等宽字体（`var(--h-font-mono)`），适合代码 / JSON / curl 输入 |
 | `name` | `string` | — | 原生 name |
 
 ### Emits

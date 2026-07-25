@@ -74,6 +74,9 @@
   --h-font-label: 12px;
   --h-line-height-title: 1.25;
 
+  /* 等宽字体族（代码 / JSON / curl 输入） */
+  --h-font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
   /* 动效 */
   --h-duration-overlay: 220ms;
   --h-duration-fab: 180ms;

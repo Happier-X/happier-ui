@@ -402,6 +402,10 @@
           <p class="smoke__hint">disabled</p>
           <h-textarea model-value="禁用的内容" label="禁用" disabled />
         </div>
+        <div>
+          <p class="smoke__hint">mono（等宽字体，适合 JSON / curl）</p>
+          <h-textarea v-model="textareaMono" label="JSON" mono :rows="3" placeholder='{"key":"sk-...","url":"https://..."}' />
+        </div>
       </div>
     </section>
 
@@ -1074,6 +1078,7 @@ const textareaSm = ref('')
 const textareaLg = ref('')
 const textareaAuto = ref('')
 const textareaCount = ref('')
+const textareaMono = ref('{"_type":"newapi_channel_conn","key":"sk-abc123","url":"https://api.example.com"}')
 const checkOn = ref(false)
 const emptyActionClicks = ref(0)
 const activeTab = ref('home')

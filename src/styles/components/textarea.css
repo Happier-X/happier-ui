@@ -103,6 +103,20 @@
     min-height: var(--h-input-height-lg, 48px);
   }
 
+  /* ========== mono ========== */
+  .h-textarea--mono .h-textarea__control {
+    font-family: var(
+      --h-font-mono,
+      ui-monospace,
+      SFMono-Regular,
+      "SF Mono",
+      Menlo,
+      Consolas,
+      "Liberation Mono",
+      monospace
+    );
+  }
+
   /* ========== description / error ========== */
   .h-textarea__description {
     margin: 0;

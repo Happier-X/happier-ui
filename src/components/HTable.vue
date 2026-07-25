@@ -102,9 +102,11 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends object = Record<string, unknown>">
 /**
  * happier-ui：数据表格。基于原生 <table>，列定义驱动渲染。
+ * - 泛型组件：按行类型 T 参数化，data: T[]、cell slot 的 row 推断为 T、col.key 约束为 keyof T。
+ *   裸用法（不标注 T）等价于 Record<string, unknown>，向后兼容。
  * - columns 定义表头与数据字段映射
  * - sortable 列点击后触发 sort emit，由父组件处理排序
  * - loading/empty 态通过 overlay 与独立空状态展示
@@ -112,13 +114,13 @@
 import { ref } from 'vue'
 import HEmpty from './HEmpty.vue'
 
-export interface HTableColumn {
-  key: string
+export interface HTableColumn<T extends object = Record<string, unknown>> {
+  key: keyof T & string
   title: string
   width?: string | number
   align?: 'left' | 'center' | 'right'
   sortable?: boolean
-  render?: (row: Record<string, unknown>, index: number) => string | number
+  render?: (row: T, index: number) => string | number
 }
 
 export interface HTableSort {
@@ -127,9 +129,9 @@ export interface HTableSort {
 }
 
 const props = withDefaults(defineProps<{
-  columns: HTableColumn[]
-  data: Record<string, unknown>[]
-  rowKey?: string | ((row: Record<string, unknown>) => string)
+  columns: HTableColumn<T>[]
+  data: T[]
+  rowKey?: string | ((row: T) => string)
   bordered?: boolean
   striped?: boolean
   stickyHeader?: boolean
@@ -146,25 +148,32 @@ const props = withDefaults(defineProps<{
   loading: false,
 })
 
+defineSlots<{
+  cell(props: { column: HTableColumn<T>, row: T, index: number }): unknown
+  empty(): unknown
+  loading(): unknown
+}>()
+
 const emit = defineEmits<{
   sort: [sort: HTableSort | null]
 }>()
 
 const sortState = ref<HTableSort | null>(null)
 
-const resolveRowKey = (row: Record<string, unknown>, index: number): string => {
+const resolveRowKey = (row: T, index: number): string => {
   if (typeof props.rowKey === 'function') return props.rowKey(row)
-  const val = row[props.rowKey]
+  // rowKey 可为任意字段名（默认 'id'），T 无索引签名时用一次内部断言取值，不外泄给消费方
+  const val = (row as Record<string, unknown>)[props.rowKey]
   return val != null ? String(val) : String(index)
 }
 
-const colStyle = (col: HTableColumn): Record<string, string> | undefined => {
+const colStyle = (col: HTableColumn<T>): Record<string, string> | undefined => {
   if (col.width == null) return undefined
   const w = typeof col.width === 'number' ? `${col.width}px` : col.width
   return { width: w }
 }
 
-const onHeaderClick = (col: HTableColumn) => {
+const onHeaderClick = (col: HTableColumn<T>) => {
   if (!col.sortable) return
   if (sortState.value?.key === col.key) {
     if (sortState.value.order === 'asc') {

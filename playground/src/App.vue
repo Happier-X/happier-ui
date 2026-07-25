@@ -523,8 +523,8 @@
               <span
                 v-if="column.key === 'status'"
                 :style="{
-                  color: (row.status as number) >= 400 ? 'var(--h-color-danger, #eb445a)' :
-                         (row.status as number) >= 300 ? 'var(--h-color-warning, #f5a623)' :
+                  color: row.status >= 400 ? 'var(--h-color-danger, #eb445a)' :
+                         row.status >= 300 ? 'var(--h-color-warning, #f5a623)' :
                          'var(--h-color-success, #22c55e)',
                   fontWeight: 600,
                 }"
@@ -1053,21 +1053,29 @@ const selectOptions: HSelectOption[] = [
   { value: 'durian', label: '榴莲' },
 ]
 const tableSort = ref<{ key: string; order: 'asc' | 'desc' } | null>(null)
-const tableData = ref<Record<string, unknown>[]>([
+/** 演示用具体行类型：普通 interface（无索引签），验证 HTable 泛型推断无需 as 断言 */
+interface DemoRequestLog {
+  id: string
+  name: string
+  status: number
+  method: string
+  time: string
+}
+const tableData = ref<DemoRequestLog[]>([
   { id: '1', name: 'GET /api/users', status: 200, method: 'GET', time: '12ms' },
   { id: '2', name: 'POST /api/orders', status: 201, method: 'POST', time: '45ms' },
   { id: '3', name: 'GET /api/products', status: 200, method: 'GET', time: '8ms' },
   { id: '4', name: 'PUT /api/users/1', status: 500, method: 'PUT', time: '230ms' },
   { id: '5', name: 'GET /api/not-found', status: 404, method: 'GET', time: '3ms' },
 ])
-const tableLongData: Record<string, unknown>[] = Array.from({ length: 15 }, (_, i) => ({
+const tableLongData: DemoRequestLog[] = Array.from({ length: 15 }, (_, i) => ({
   id: String(i + 1),
   name: `GET /api/items/${i + 1}`,
-  status: [200, 201, 404, 500, 200][i % 5],
-  method: ['GET', 'POST', 'GET', 'PUT', 'GET'][i % 5],
+  status: [200, 201, 404, 500, 200][i % 5]!,
+  method: ['GET', 'POST', 'GET', 'PUT', 'GET'][i % 5]!,
   time: `${[12, 45, 8, 230, 3][i % 5]}ms`,
 }))
-const tableColumns: HTableColumn[] = [
+const tableColumns: HTableColumn<DemoRequestLog>[] = [
   { key: 'name', title: '路径', sortable: true },
   { key: 'method', title: '方法', width: 80, align: 'center' },
   { key: 'status', title: '状态码', width: 80, align: 'right', sortable: true },

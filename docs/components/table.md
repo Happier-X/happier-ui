@@ -54,6 +54,46 @@ const data = [
 </template>
 ```
 
+## 泛型行类型
+
+`HTable` 是泛型组件。传入具体行类型 `T`（普通 `interface`，无需索引签名），`data` 标注为 `T[]`、`columns` 标注为 `HTableColumn<T>[]` 后：`column.key` 会约束为 `keyof T`，`#cell` slot 的 `row` 推断为 `T`，无需任何 `as` 断言。
+
+```vue
+<script setup lang="ts">
+import { HTable } from 'happier-ui'
+import type { HTableColumn } from 'happier-ui'
+
+interface RequestLog {
+  id: string
+  name: string
+  status: number
+  method: string
+  time: string
+}
+
+const columns: HTableColumn<RequestLog>[] = [
+  { key: 'name', title: '路径', sortable: true },
+  { key: 'status', title: '状态码', align: 'right', sortable: true },
+]
+
+const data: RequestLog[] = [
+  { id: '1', name: 'GET /api/users', status: 200, method: 'GET', time: '12ms' },
+]
+</script>
+
+<template>
+  <h-table :columns="columns" :data="data">
+    <!-- row 推断为 RequestLog；row.status 是 number，无需断言 -->
+    <template #cell="{ column, row }">
+      <span v-if="column.key === 'status'">{{ row.status >= 400 ? '错误' : '正常' }}</span>
+      <template v-else>{{ row[column.key] }}</template>
+    </template>
+  </h-table>
+</template>
+```
+
+不标注类型参数时（裸 `HTableColumn[]` / `data` 传 `Record<string, unknown>[]`），`T` 默认为 `Record<string, unknown>`，与旧用法完全兼容。
+
 ## 变体
 
 <div class="h-demo h-demo--stack">
@@ -148,8 +188,8 @@ const sortState = ref(null)
 
 | 名称 | 类型 | 默认 | 说明 |
 |------|------|------|------|
-| `columns` | `HTableColumn[]` | `[]` | 列定义 |
-| `data` | `Record<string, unknown>[]` | `[]` | 数据行 |
+| `columns` | `HTableColumn<T>[]` | `[]` | 列定义（`T` 为行类型，默认 `Record<string, unknown>`） |
+| `data` | `T[]` | `[]` | 数据行；标注具体 `interface[]` 即可获得类型推断 |
 | `rowKey` | `string \| ((row) => string)` | `'id'` | 行唯一标识 |
 | `bordered` | `boolean` | `false` | 列间竖线边框 |
 | `striped` | `boolean` | `false` | 斑马纹 |
@@ -160,13 +200,14 @@ const sortState = ref(null)
 ### 类型
 
 ```ts
-interface HTableColumn {
-  key: string
+// 泛型；默认 T = Record<string, unknown>（裸用法兼容）
+interface HTableColumn<T extends object = Record<string, unknown>> {
+  key: keyof T & string      // 约束到行字段名
   title: string
   width?: string | number    // 如 '120px' 或 120
   align?: 'left' | 'center' | 'right'
   sortable?: boolean
-  render?: (row: Record<string, unknown>, index: number) => string | number
+  render?: (row: T, index: number) => string | number
 }
 
 interface HTableSort {

@@ -1,0 +1,85 @@
+@layer components {
+  .h-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    box-sizing: border-box;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: var(--h-radius, 8px);
+    vertical-align: middle;
+    transition:
+      opacity var(--h-duration-press, 120ms) var(--h-ease-standard, ease);
+  }
+
+  /* sizes */
+  .h-tag--sm {
+    padding: 3px 6px;
+    font-size: 11px;
+  }
+
+  .h-tag--md {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  /* disabled */
+  .h-tag--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  /* ========== variants ========== */
+  .h-tag--default {
+    background: var(--h-color-bg-muted, #f4f4f4);
+    color: var(--h-color-ink-muted, #666);
+  }
+
+  .h-tag--primary {
+    background: rgba(var(--h-color-primary-rgb, 0, 111, 238), 0.12);
+    color: var(--h-color-primary, #006fee);
+  }
+
+  .h-tag--success {
+    background: rgba(23, 201, 100, 0.12);
+    color: var(--h-color-success, #17c964);
+  }
+
+  .h-tag--warning {
+    background: rgba(245, 165, 36, 0.12);
+    color: var(--h-color-warning, #f5a524);
+  }
+
+  .h-tag--danger {
+    background: rgba(var(--h-color-danger-rgb, 235, 68, 90), 0.12);
+    color: var(--h-color-danger, #eb445a);
+  }
+
+  /* close button */
+  .h-tag__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    opacity: 0.6;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity var(--h-duration-press, 120ms) var(--h-ease-standard, ease);
+  }
+
+  .h-tag__close:hover {
+    opacity: 1;
+  }
+
+  .h-tag__close:active {
+    opacity: 0.4;
+  }
+}

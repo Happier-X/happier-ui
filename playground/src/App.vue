@@ -492,6 +492,77 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="badge-heading">
+      <h2 id="badge-heading" class="smoke__section-title">HBadge</h2>
+      <div class="smoke__field-stack">
+        <div>
+          <p class="smoke__hint">variants</p>
+          <div class="smoke__row smoke__row--wrap">
+            <h-badge>default</h-badge>
+            <h-badge variant="success">success</h-badge>
+            <h-badge variant="warning">warning</h-badge>
+            <h-badge variant="danger">danger</h-badge>
+            <h-badge variant="info">info</h-badge>
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">sizes</p>
+          <div class="smoke__row smoke__row--wrap">
+            <h-badge size="sm">sm</h-badge>
+            <h-badge size="md">md</h-badge>
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">dot 模式</p>
+          <div class="smoke__row smoke__row--wrap">
+            <h-badge dot variant="success" aria-label="运行中" />
+            <h-badge dot variant="warning" aria-label="警告" />
+            <h-badge dot variant="danger" aria-label="错误" />
+            <h-badge dot variant="info" aria-label="信息" />
+            <span class="smoke__hint" style="font-size:12px">运行中 警告 错误 信息</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="smoke__section" aria-labelledby="tag-heading">
+      <h2 id="tag-heading" class="smoke__section-title">HTag</h2>
+      <div class="smoke__field-stack">
+        <div>
+          <p class="smoke__hint">variants</p>
+          <div class="smoke__row smoke__row--wrap">
+            <h-tag>default</h-tag>
+            <h-tag variant="primary">primary</h-tag>
+            <h-tag variant="success">success</h-tag>
+            <h-tag variant="warning">warning</h-tag>
+            <h-tag variant="danger">danger</h-tag>
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">sizes</p>
+          <div class="smoke__row smoke__row--wrap">
+            <h-tag size="sm">sm</h-tag>
+            <h-tag size="md">md</h-tag>
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">closable</p>
+          <div class="smoke__row smoke__row--wrap">
+            <h-tag closable variant="primary">标签一</h-tag>
+            <h-tag closable variant="success">标签二</h-tag>
+            <h-tag closable variant="danger">标签三</h-tag>
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">disabled</p>
+          <div class="smoke__row smoke__row--wrap">
+            <h-tag disabled>禁用</h-tag>
+            <h-tag disabled closable variant="primary">禁用可关闭</h-tag>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="checkbox-heading">
       <h2 id="checkbox-heading" class="smoke__section-title">HCheckbox</h2>
       <div class="smoke__field-stack">
@@ -838,7 +909,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HToast } from 'happier-ui'
+import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HToast, HTag } from 'happier-ui'
 import type { HSelectOption, HSidebarItem, HTabBarItem, HTableColumn } from 'happier-ui'
 
 const buttonClicks = ref(0)

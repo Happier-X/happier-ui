@@ -74,7 +74,7 @@ export default defineConfig({
     },
     cssCodeSplit: false,
     rollupOptions: {
-      external: ['vue', '@lucide/vue'],
+      external: ['vue', '@lucide/vue', 'dayjs'],
     },
   },
 })

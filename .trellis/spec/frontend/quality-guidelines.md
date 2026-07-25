@@ -8,7 +8,7 @@
 4. **文档**（`docs/components/*.md`）有对应页：简介、可运行示例、props/emits/slots、a11y 要点（与源码 API 一致）。
 5. 视觉对照 **HeroUI Native**（交付面向 Web 与移动端；无 Material 阴影）。
 6. 键盘与焦点：可交互控件有 `:focus-visible`。
-7. 不引入业务、Ionic Vue 或 `@heroui/*` 运行时依赖。
+7. 不引入业务、Ionic Vue 或 `@heroui/*` 运行时依赖。**例外**：日期相关组件可用 `dayjs`（自 HHeatmap 起，`dayjs` 是首个 runtime `dependencies`，非 peer，宿主无需额外安装；须在 `vite.config` 的 `rollupOptions.external` 加 `'dayjs'` 使其不被打进 bundle）。新增此类依赖须经任务评审并记录到 spec。
 
 ## 验证命令
 

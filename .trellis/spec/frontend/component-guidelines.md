@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HBadge` / `HTag` / `HButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HTextarea` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` / `HFloatingBubble` / `HSidebar` / `HSelect` / `HTable` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HBadge` / `HTag` / `HButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HTextarea` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` / `HFloatingBubble` / `HSidebar` / `HSelect` / `HTable` / `HHeatmap` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -43,6 +43,7 @@ export { default as HFloatingBubble } from './components/HFloatingBubble.vue'
 export { default as HSidebar } from './components/HSidebar.vue'
 export { default as HSelect } from './components/HSelect.vue'
 export { default as HTable } from './components/HTable.vue'
+export { default as HHeatmap } from './components/HHeatmap.vue'
 export { default as HTag } from './components/HTag.vue'
 ```
 
@@ -89,6 +90,7 @@ export { default as HTag } from './components/HTag.vue'
 - `src/components/HSelect.vue` — 下拉选择框；options(HSelectOption[])、v-model string|number；label/placeholder/size/disabled/clearable；change emit；#option slot
 - `src/components/HTable.vue` — 数据表格；泛型组件 `<script setup generic="T extends object = Record<string, unknown>">`，`data: T[]`、`HTableColumn<T>` 的 `key: keyof T & string`、`cell` slot `row` 推断为 `T`（消费方传具体 interface[] 无需 as 断言，裸用法默认 `Record<string, unknown>` 兼容）；sortable/striped/bordered/stickyHeader/loading/empty；sort emit；#cell/#empty/#loading slot
 - `src/components/HFloatingBubble.vue` — 浮动气泡（悬浮操作按钮）；v-model:offset、axis x/y/xy/lock、gap、magnetic x/y 磁吸、Teleport(默认 body)、icon/default slot、ariaLabel 必填、Pointer 拖拽 + 抑制误触 click
+- `src/components/HHeatmap.vue` — GitHub 贡献图风格日历热力图；`data: HHeatmapItem[]`（`{timestamp, value}`，同日 value 求和）、时间范围由 data min/max timestamp 推断并向前对齐周首/向后补周末；firstDayOfWeek 0-6、size small/medium/large、colors 覆盖默认主色蓝阶梯、show{Week,Month}Labels/showColorIndicator/loading；每格原生 title、`role="img"`；纯派生只读，无 emits/slots；**依赖 dayjs**（首个 runtime dependency）
 - `src/components/HSidebar.vue` — 常驻式左侧边栏导航；items + v-model(key)、v-model:collapsed 受控折叠、showCollapseToggle 内置折叠按钮、header/footer slot、nav + aria-current、折叠态保留可访问名、无路由/无 overlay
 
 ## API 约定
@@ -120,6 +122,7 @@ export { default as HTag } from './components/HTag.vue'
 | 标签 | `variant` default/primary/success/warning/danger + `size` sm/md + `closable` + `disabled`；`close` emit；default slot | `HTag` |
 | 下拉选择框 | `options`(HSelectOption[]) + `modelValue` string|number；`label`/`placeholder`/`size`/`disabled`/`clearable`；`change` emit；`#option` slot | `HSelect` |
 | 数据表格 | 泛型行类型 `T extends object`：`columns`(`HTableColumn<T>[]`，`key: keyof T & string`) + `data`(`T[]`) + `rowKey`；`cell` slot `row: T`；`sortable`/`striped`/`bordered`/`stickyHeader`/`loading`/`emptyText`；`sort` emit（`HTableSort.key` 保持 string）；`#cell`/`#empty`/`#loading` slot；裸用法默认参数 `Record<string, unknown>` 向后兼容 | `HTable` |
+| 日历热力图 | `data`(`HHeatmapItem[]`，`{timestamp, value}` 同日求和) + `firstDayOfWeek` 0-6 + `size` small/medium/large + `colors` 覆盖默认蓝阶梯 + `showWeekLabels`/`showMonthLabels`/`showColorIndicator`/`loading`；范围由 data min/max timestamp 推断；每格原生 `title`；`role="img"`；只读无 emits/slots；日期计算走 dayjs | `HHeatmap` |
 | 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；Range 无可见标签时传 `ariaLabel`；Progress 用 `role="progressbar"` + `aria-value*`（indeterminate 省 valuenow）且无可见标签时传 `ariaLabel`；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；`HButton isIconOnly` 传 `ariaLabel`；Toast live-region 不抢焦点；Cell 交互行 `role="button"`+`tabindex="0"`+Enter/Space，chevron `aria-hidden`，Group 默认标题 `aria-labelledby` | `HBadge` / `HTextarea` / `HTag` / `HButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCell` / `HCellGroup` / `HSelect` / `HTable` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
@@ -151,6 +154,7 @@ export { default as HTag } from './components/HTag.vue'
 | `HTag` | `HTag.vue` | 可关闭标签；variant+size+closable+disabled；close emit；default slot |
 | `HSelect` | `HSelect.vue` | <select> 下拉选择框；options + v-model(string\|number)；label/placeholder/size/disabled/clearable；change emit；#option slot |
 | `HTable` | `HTable.vue` | 数据表格（泛型 `T extends object`）；`columns: HTableColumn<T>[]` + `data: T[]` + rowKey；`cell` slot `row: T`；sortable/striped/bordered/stickyHeader/loading/emptyText；sort emit；#cell/#empty/#loading slot；默认参数 `Record<string, unknown>` 兼容裸用法 |
+| `HHeatmap` | `HHeatmap.vue` | GitHub 贡献图风格日历热力图；data `{timestamp,value}[]` 同日求和；范围由 data min/max 推断、对齐周首；firstDayOfWeek 0-6；size small/medium/large；colors 覆盖蓝阶梯；show{Week,Month}Labels/showColorIndicator/loading；每格原生 title；只读无 emits/slots；**依赖 dayjs**（首个 runtime dependency） |
 | `styles` | `src/styles/` | 经 `happier-ui/styles` 导出（tokens + theme + components） |
 | `tokens.css` | `src/styles/tokens.css` | 经 `happier-ui/tokens.css` 导出（可选） |
 

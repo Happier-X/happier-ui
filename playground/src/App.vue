@@ -970,6 +970,17 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="heatmap-heading">
+      <h2 id="heatmap-heading" class="smoke__section-title">HHeatmap</h2>
+      <p class="smoke__hint">GitHub 贡献图风格；hover 单元格看原生 title。</p>
+      <div class="smoke__row smoke__row--wrap">
+        <h-button size="sm" variant="outline" @click="heatmapLoading = !heatmapLoading">切换 loading（{{ heatmapLoading }}）</h-button>
+      </div>
+      <h-heatmap :data="heatmapData" :loading="heatmapLoading" />
+      <p class="smoke__lead">自定义色阶（GitHub 绿）+ 周一起始：</p>
+      <h-heatmap :data="heatmapData" :colors="heatmapColors" :first-day-of-week="1" />
+    </section>
+
     <section class="smoke__section" aria-labelledby="sidebar-heading">
       <h2 id="sidebar-heading" class="smoke__section-title">HSidebar</h2>
       <p class="smoke__hint">当前 key：{{ sidebarActive }}；{{ sidebarCollapsed ? '已折叠' : '展开' }}</p>
@@ -1013,7 +1024,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HImage, HInput, HNavBar, HPagination, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag } from 'happier-ui'
+import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HHeatmap, HIcon, HImage, HInput, HNavBar, HPagination, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag } from 'happier-ui'
 import type { HSelectOption, HSidebarItem, HTabBarItem, HTableColumn } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -1112,6 +1123,24 @@ const sidebarItems: HSidebarItem[] = [
   { key: 'library', label: '曲库', icon: Library },
   { key: 'settings', label: '设置', icon: Bell, disabled: true },
 ]
+const heatmapLoading = ref(false)
+const heatmapColors = ['#9be9a8', '#40c463', '#30a14e', '#216e39']
+const heatmapData = (() => {
+  const out: { timestamp: number, value: number }[] = []
+  const today = Date.now()
+  const day = 24 * 60 * 60 * 1000
+  let s = 7
+  const rand = () => {
+    s = (s * 9301 + 49297) % 233280
+    return s / 233280
+  }
+  for (let i = 0; i < 365; i++) {
+    const r = rand()
+    out.push({ timestamp: today - i * day, value: r < 0.4 ? 0 : Math.ceil(r * 12) })
+  }
+  return out
+})()
+
 const checkSm = ref(false)
 const checkMd = ref(true)
 const checkLg = ref(false)

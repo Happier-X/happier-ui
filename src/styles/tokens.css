@@ -264,6 +264,18 @@
   --h-sidebar-item-gap: var(--h-space-xs);
   --h-sidebar-transition: 200ms var(--h-ease-standard);
 
+  /* —— 日历热力图（HHeatmap）—— */
+  --h-heatmap-cell-sm: 10px;
+  --h-heatmap-cell-md: 12px;
+  --h-heatmap-cell-lg: 15px;
+  --h-heatmap-gap: 3px;
+  --h-heatmap-radius: 2px;
+  --h-heatmap-empty: var(--h-color-surface-secondary);
+  --h-heatmap-level-1: rgba(var(--h-color-primary-rgb), 0.25);
+  --h-heatmap-level-2: rgba(var(--h-color-primary-rgb), 0.45);
+  --h-heatmap-level-3: rgba(var(--h-color-primary-rgb), 0.7);
+  --h-heatmap-level-4: rgba(var(--h-color-primary-rgb), 1);
+
   /* —— 兼容：--muses-* → --h-* —— */
   --muses-primary-50: var(--h-primary-50);
   --muses-primary-100: var(--h-primary-100);

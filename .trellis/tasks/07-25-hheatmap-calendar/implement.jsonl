@@ -1,0 +1,4 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "SFC 结构、H*.vue 命名、withDefaults + 对象式 defineEmits、h-* BEM class、样式写 @layer components、src/index.ts 导出约定——HHeatmap 必须遵循"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "--h-* token 权威在 src/styles/tokens.css，包导出 happier-ui/styles；新增 --h-heatmap-* token 需对齐现有前缀与结构"}
+{"file": ".trellis/spec/frontend/directory-structure.md", "reason": "确认 heatmap.css 放 src/styles/components/ 并经 components.css 汇总 @import，组件放 src/components/H*.vue"}
+{"file": ".trellis/spec/frontend/type-safety.md", "reason": "props 用 withDefaults(defineProps<{}>()), 类型导出方式；HHeatmapItem/HHeatmapData 接口导出对齐基线"}

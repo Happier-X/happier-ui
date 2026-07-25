@@ -76,6 +76,7 @@ happier-ui/
 ## 依赖边界
 
 - **peer**：`vue` ^3.5、`@lucide/vue` ^1.25、`tailwindcss` ^4；不打进 dist。
+- **runtime `dependencies`**：`dayjs`（首个 runtime 依赖，随包安装，宿主无需额外装）。日期相关组件（如 HHeatmap）可用 dayjs 做解析/加减/格式化；`vite.config` `rollupOptions.external` 须含 `'dayjs'`，保证不被打进库 bundle、由宿主 node_modules 解析。新增 runtime 依赖属破坏「零运行时依赖」惯例的决策，需经任务评审并记 spec。
 - **不 peer** `@ionic/vue`；不依赖 `@heroui/*`。
 - **playground**：workspace 包 + `@tailwindcss/vite`；开发期 alias 库 styles。
 - **docs**：根 devDependency `vitepress`；Vite alias 同 playground（`happier-ui` → `src`）；theme 内 `@import tailwindcss` + `happier-ui/styles`；**不**进 npm 包。

@@ -1,6 +1,6 @@
 {
   "name": "happier-ui",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "description": "Web 与移动端通用的 Vue 语义 UI；Tailwind v4 + --h-* token / h- utility",
   "license": "MIT",

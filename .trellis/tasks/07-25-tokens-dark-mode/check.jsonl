@@ -1,0 +1,2 @@
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "验收 token 改动是否符合规范：无 --ion-* 残留、明色态观感不变、暗色态触发（media + .dark）、muses 别名不破、spec 已回写约定"}
+{"file": ".trellis/spec/frontend/quality-guidelines.md", "reason": "质量门槛：三个 build 通过、CSS @layer components 结构与 var(--h-*) 用法一致、暗色态可读对比度"}

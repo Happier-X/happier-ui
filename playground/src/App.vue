@@ -22,6 +22,12 @@
         <span class="rounded-h-control bg-h-surface-secondary px-h-md py-h-sm text-h-ink text-h-label">bg-h-surface-secondary</span>
         <span class="rounded-h-control border border-h-border-subtle px-h-md py-h-sm text-h-ink-muted text-h-label">text-h-ink-muted</span>
       </div>
+      <div class="mt-h-md flex flex-wrap items-center gap-h-sm">
+        <span class="text-h-ink-muted text-h-label">主题</span>
+        <HButton :variant="theme === 'system' ? 'primary' : 'ghost'" size="sm" @click="setTheme('system')">跟随系统</HButton>
+        <HButton :variant="theme === 'light' ? 'primary' : 'ghost'" size="sm" @click="setTheme('light')">亮色</HButton>
+        <HButton :variant="theme === 'dark' ? 'primary' : 'ghost'" size="sm" @click="setTheme('dark')">暗色</HButton>
+      </div>
     </header>
 
     <section class="smoke__section" aria-labelledby="navbar-heading">
@@ -1028,6 +1034,15 @@ import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDi
 import type { HSelectOption, HSidebarItem, HTabBarItem, HTableColumn } from 'happier-ui'
 
 const buttonClicks = ref(0)
+
+type ThemeMode = 'system' | 'light' | 'dark'
+const theme = ref<ThemeMode>('system')
+function setTheme(mode: ThemeMode) {
+  theme.value = mode
+  const root = document.documentElement
+  root.classList.remove('light', 'dark')
+  if (mode !== 'system') root.classList.add(mode)
+}
 const iconButtonClicks = ref(0)
 const switchOn = ref(true)
 const switchSm = ref(false)

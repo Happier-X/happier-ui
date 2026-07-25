@@ -1,0 +1,2 @@
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "token 权威文件规范：--h-* 前缀、语义色角色、@theme 桥接、分组约定；本任务改 tokens.css 取值并新增暗色态，须遵循此约定并回写 layer/暗色约定"}
+{"file": ".trellis/spec/frontend/directory-structure.md", "reason": "依赖边界约定：本任务纯 CSS 重构不引入新依赖，须确认 tokens.css / theme.css 的职责边界与产物组装（emitHappierUiStyles）"}

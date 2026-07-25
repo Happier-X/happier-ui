@@ -28,15 +28,15 @@
   --h-color-surface: #ffffff;
   --h-color-surface-secondary: #f4f4f5;
   --h-color-surface-dark: #1f1f1f;
-  --h-color-ink: var(--ion-text-color, #000000);
-  --h-color-ink-muted: var(--ion-color-medium, #92949c);
-  --h-color-border-subtle: var(--ion-color-step-150, #e0e0e0);
+  --h-color-ink: #000000;
+  --h-color-ink-muted: #92949c;
+  --h-color-border-subtle: #e0e0e0;
   --h-color-separator: var(--h-color-border-subtle);
-  --h-color-cover-placeholder: rgba(var(--ion-color-medium-rgb, 146, 148, 156), 0.16);
+  --h-color-cover-placeholder: rgba(146, 148, 156, 0.16);
   --h-color-playing-bg: rgba(var(--h-color-primary-rgb), 0.1);
   --h-color-playing-bg-soft: rgba(var(--h-color-primary-rgb), 0.08);
   --h-color-jump-highlight: rgba(var(--h-color-primary-rgb), 0.22);
-  --h-color-danger: var(--ion-color-danger, #eb445a);
+  --h-color-danger: #eb445a;
   --h-color-danger-rgb: 235, 68, 90;
   --h-color-success: #17c964;
   --h-color-warning: #f5a524;
@@ -350,4 +350,33 @@
   --muses-z-tab: var(--h-z-tab);
   --muses-z-mini-player: var(--h-z-mini-player);
   --muses-z-player: var(--h-z-player);
+}
+
+/* —— 暗色态（方案 C：media 跟随系统 + class 手动覆盖）——
+ * 只覆盖决定明暗观感的中性色；主色阶 / success / warning / danger / 间距 / 圆角不随明暗变。
+ * 派生 token（--h-color-separator、各 --h-*-bg 引用 surface 等）与 --muses-* 别名通过 var() 自动跟随。
+ * --h-color-surface-dark（#1f1f1f，沉浸态专用）保持不动，不参与本主题。
+ */
+
+/* 跟随系统：系统暗色翻暗，但允许宿主挂 .light 强制回浅 */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --h-color-surface: #1c1c1e;
+    --h-color-surface-secondary: #2c2c2e;
+    --h-color-ink: #ffffff;
+    --h-color-ink-muted: #a1a1aa;
+    --h-color-border-subtle: #38383a;
+    --h-color-cover-placeholder: rgba(255, 255, 255, 0.14);
+  }
+}
+
+/* 手动：.dark 类无视系统偏好强制暗色（:root.dark 全局如 VitePress；.dark 局部容器） */
+:root.dark,
+.dark {
+  --h-color-surface: #1c1c1e;
+  --h-color-surface-secondary: #2c2c2e;
+  --h-color-ink: #ffffff;
+  --h-color-ink-muted: #a1a1aa;
+  --h-color-border-subtle: #38383a;
+  --h-color-cover-placeholder: rgba(255, 255, 255, 0.14);
 }

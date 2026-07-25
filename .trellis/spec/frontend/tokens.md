@@ -68,6 +68,20 @@ playground：
 - 组件 CSS 中 `var(--h-…, fallback)` 推荐带 fallback。
 - 禁止在组件里重新定义一套全局 `:root` 色板。
 
+## 明 / 暗两态（库自洽，不依赖宿主）
+
+- 语义中性色为**库内自洽基色**，不 fallback 到 `--ion-*`（历史耦合已移除）。浅色态默认值即原 ion fallback 观感（surface `#ffffff`、ink `#000000` 等）。
+- **暗色触发 = 方案 C（media 跟随系统 + class 手动覆盖）**，三段式：
+  1. base `:root` 定浅色默认值；
+  2. `@media (prefers-color-scheme: dark) { :root:not(.light) { … } }` 跟随系统偏好翻暗；
+  3. `:root.dark, .dark { … }` 手动强制暗色（无视系统偏好）。
+- **class 覆盖 media**：`:root.dark`（0,2,0）赢过 base `:root`；`.light` 类使 media 块 `:not(.light)` 不命中 → 系统暗色下强制回浅。`:root.dark` 供全局（`<html>`，如 VitePress）、`.dark` 供局部容器。
+- 只覆盖**决定明暗观感的中性色**：`--h-color-surface`/`surface-secondary`/`ink`/`ink-muted`/`border-subtle`/`cover-placeholder`。主色阶 / `success` / `warning` / `danger` / 间距 / 圆角**不随明暗变**。
+- 派生 token（`--h-color-separator`、各 `--h-*-bg` 引用 surface）与 `--muses-*` 别名通过 `var()` 自动继承暗色，无需单独覆盖。
+- media 块与 class 块两组暗色值须**逐字一致**，避免漂移。
+- `--h-color-surface-dark`（`#1f1f1f`，沉浸播放态专用）不参与本主题，保持不动。
+- 三段式覆盖块与 base `:root` 均在 unlayered 区（非 `@layer` 内），靠特异性 + 源序决胜，勿放进 `@layer components`。
+
 ## 分组（文件内）
 
 | 组 | 示例 |
@@ -100,7 +114,7 @@ playground：
 
 ## 已知债
 
-- 部分 token 仍 fallback 到 `--ion-*`（历史宿主耦合）；长期应收敛为纯 `--h-*` 默认值。
+- ~~部分 token 仍 fallback 到 `--ion-*`（历史宿主耦合）~~ 已收敛（#11）：5 处 `--ion-*` 反向依赖全部替换为库内基色，全文无 `--ion-`。
 - `--muses-*` 别名仍保留供 Muses 存量字符串过渡；新代码只写 `--h-*`。
 
 ## 反模式
@@ -110,3 +124,5 @@ playground：
 - 新增 elevation shadow token「看起来更立体」。
 - 把无前缀 `bg-primary` 等写成库公共 utility 契约（易与宿主冲突）。
 - 继续文档化 `0.0.1` 的「只引 style.css、无需 Tailwind」路径。
+- 语义色 fallback 到宿主框架变量（`--ion-*` 等）；库 token 须自洽，暗色由库自带 media/class 提供，不「借」宿主。
+- 暗色只在 media 块或只在 class 块写一处；两处须并存且值一致，否则手动切换与系统偏好行为不一致。

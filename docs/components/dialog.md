@@ -1,6 +1,6 @@
 # Dialog
 
-居中对话框。`v-model`；遮罩 / Esc 关闭；title / description / default / actions。MVP **无** Portal / focus trap。
+居中对话框。`v-model`；遮罩 / Esc 关闭；title / description / default / actions。默认 `teleport` 到 `body`。MVP **无** focus trap。
 
 ## 基础
 
@@ -83,6 +83,7 @@ const open = ref(false)
 | `title` | `string` | — | 标题（可被 `#title` 覆盖） |
 | `description` | `string` | — | 描述（可被 `#description` 覆盖） |
 | `ariaLabel` | `string` | — | 无标题时的 dialog 名称 |
+| `teleport` | `string \| HTMLElement \| false` | `'body'` | 挂载目标；`false` 或无效目标/SSR 时原地渲染，用于逃离带 transform/contain 祖先的 fixed 包含块偏移 |
 
 ### Emits
 

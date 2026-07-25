@@ -2,8 +2,8 @@
 
 ## 现状
 
-**本库当前没有** `composables/` 或自定义 `use*` hook。  
-交互逻辑写在各 SFC 的 `<script setup>` 内（见 `HButton` 的 click / disabled 处理）。
+本库已有一个共享 composable：`src/composables/useTeleportTarget.ts`（供 HToast / HDialog / HBottomSheet / HFloatingBubble 四个浮层组件复用 Teleport 目标解析）。
+其余交互逻辑仍写在各 SFC 的 `<script setup>` 内（见 `HButton` 的 click / disabled 处理）。
 
 ## 何时抽取
 
@@ -31,3 +31,4 @@
 ## 参考
 
 - 组件内逻辑范本：`src/components/HButton.vue`
+- Composable 范本：`src/composables/useTeleportTarget.ts`（只依赖 vue；SSR 安全；多组件复用）

@@ -884,6 +884,23 @@
         <h-button variant="ghost" @click="toastPersist = true">不自动关闭</h-button>
         <h-button size="sm" variant="outline" @click="toastPersist = false">隐藏持续提示</h-button>
       </div>
+
+      <p class="smoke__hint">
+        下方容器带 <code>transform: translateZ(0)</code>（会成为 fixed 的包含块）。
+        默认 teleport 到 body，toast 仍固定在视口底部；<code>:teleport="false"</code> 则被容器劫持而错位。
+      </p>
+      <div class="smoke__row smoke__row--wrap" style="transform: translateZ(0); contain: layout; border: 1px dashed var(--h-color-border-subtle); padding: 12px; border-radius: 8px;">
+        <h-button variant="outline" @click="toastTeleport = true">默认 teleport（视口底部）</h-button>
+        <h-button variant="ghost" @click="toastInPlace = true">teleport=false（就地/错位）</h-button>
+
+        <h-toast v-model="toastTeleport" variant="success">
+          已 teleport 到 body，定位不受祖先影响
+        </h-toast>
+
+        <h-toast v-model="toastInPlace" variant="warning" :teleport="false">
+          teleport=false：相对 transform 祖先定位
+        </h-toast>
+      </div>
       <p v-if="toastCloseCount > 0" class="smoke__ping">
         toast close 次数：{{ toastCloseCount }}
       </p>
@@ -1018,6 +1035,8 @@ const toastSuccess = ref(false)
 const toastTop = ref(false)
 const toastDanger = ref(false)
 const toastPersist = ref(false)
+const toastTeleport = ref(false)
+const toastInPlace = ref(false)
 const toastCloseCount = ref(0)
 const simpleName = ref('')
 const tanstackSubmitMsg = ref('')

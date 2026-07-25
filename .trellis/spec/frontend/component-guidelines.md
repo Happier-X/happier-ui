@@ -62,9 +62,9 @@ export { default as HTag } from './components/HTag.vue'
 - `src/components/HSwitch.vue` — `v-model`、size、disabled、`role="switch"`
 - `src/components/HRange.vue` — 单值横向滑块；v-model number；min/max/step；size/disabled；原生 range 语义
 - `src/components/HProgress.vue` — 只读线形进度条；value/max 确定进度、越界夹取；indeterminate 循环动画；size/variant/rounded；progressbar 语义；无 emits/slots
-- `src/components/HBottomSheet.vue` — `v-model`、overlay/Esc 关闭、dialog 语义、标题/内容槽
-- `src/components/HDialog.vue` — 居中 dialog；title/description/actions slots
-- `src/components/HToast.vue` — 声明式单条轻提示；v-model；variant/position/duration；live-region；无队列
+- `src/components/HBottomSheet.vue` — `v-model`、overlay/Esc 关闭、dialog 语义、标题/内容槽；`teleport` 默认 body
+- `src/components/HDialog.vue` — 居中 dialog；title/description/actions slots；`teleport` 默认 body
+- `src/components/HToast.vue` — 声明式单条轻提示；v-model；variant/position/duration；live-region；`teleport` 默认 body；无队列
 - `src/components/HInput.vue` — v-model；label/error；可对接 TanStack Field（不 peer tanstack）
 - `src/components/HCheckbox.vue` — v-model；label；indeterminate 半选（无 group）
 - `src/components/HEmpty.vue` — title/description；icon 与 default 操作槽；无 compact
@@ -91,9 +91,9 @@ export { default as HTag } from './components/HTag.vue'
 | 开关 | `modelValue` + `update:modelValue`；`role="switch"` | `HSwitch` |
 | 滑块 | `modelValue` number + `min`/`max`/`step`；`change`/`drag-start`/`drag-end` emits；单值横向；原生 `input[type=range]` | `HRange` |
 | 进度条 | `value` + `max`（默认 100）；`indeterminate`；`size`/`variant`/`rounded`；`role="progressbar"`；只读无 emits/slots | `HProgress` |
-| 底部面板 | `modelValue` + overlay/Esc 请求关闭；`role="dialog"` | `HBottomSheet` |
-| 居中对话框 | `modelValue` + overlay/Esc；title/description/actions | `HDialog` |
-| 轻提示 | `modelValue` + `duration` 自动关闭；variant/position；live-region；无队列 | `HToast` |
+| 底部面板 | `modelValue` + overlay/Esc 请求关闭；`role="dialog"`；`teleport` 默认 body | `HBottomSheet` |
+| 居中对话框 | `modelValue` + overlay/Esc；title/description/actions；`teleport` 默认 body | `HDialog` |
+| 轻提示 | `modelValue` + `duration` 自动关闭；variant/position；live-region；`teleport` 默认 body；无队列 | `HToast` |
 | 文本输入 | `modelValue` + `update:modelValue` + `blur`；label/error | `HInput` |
 | 复选框 | `modelValue` + `update:modelValue`；`indeterminate`；label | `HCheckbox` |
 | 空状态 | `title`；可选 `description`、`#icon`、default 操作槽；无 compact | `HEmpty` |
@@ -122,9 +122,9 @@ export { default as HTag } from './components/HTag.vue'
 | `HSwitch` | `HSwitch.vue` | v-model；sm/md/lg；disabled；HeroUI Native 观感 |
 | `HRange` | `HRange.vue` | 单值横向滑块；v-model number；min/max/step；sm/md/lg；disabled；原生 range 语义 |
 | `HProgress` | `HProgress.vue` | 只读线形进度条；value/max、越界夹取；indeterminate 循环动画；sm/md/lg；primary/success/warning/danger；rounded；progressbar 语义 |
-| `HBottomSheet` | `HBottomSheet.vue` | v-model；overlay/Esc；title/default slots；非 Portal MVP |
-| `HDialog` | `HDialog.vue` | 居中；title/description/default/actions；非 Portal MVP |
-| `HToast` | `HToast.vue` | 声明式单条轻提示；v-model；default/success/warning/danger；top/bottom；duration 自动关闭；live-region |
+| `HBottomSheet` | `HBottomSheet.vue` | v-model；overlay/Esc；title/default slots；`teleport` 默认 body |
+| `HDialog` | `HDialog.vue` | 居中；title/description/default/actions；`teleport` 默认 body |
+| `HToast` | `HToast.vue` | 声明式单条轻提示；v-model；default/success/warning/danger；top/bottom；duration 自动关闭；live-region；`teleport` 默认 body |
 | `HInput` | `HInput.vue` | v-model；label/description/error；TanStack Field 友好绑定 |
 | `HCheckbox` | `HCheckbox.vue` | v-model；label；indeterminate 半选；宿主清半选 |
 | `HEmpty` | `HEmpty.vue` | title/description；icon 与 default 操作槽；无旧别名 |

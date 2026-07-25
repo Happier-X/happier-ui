@@ -69,15 +69,15 @@ const commit = (next, notify) => {
 
 ## Pattern：Teleport 目标运行期解析（SSR 安全）
 
-**Problem**：需要脱离祖先 `transform`/`overflow` 的浮层（浮动气泡）要 `Teleport` 到 `body`，但字符串选择器解析、`document` 访问在 SSR/无 DOM 时会报错。
+**Problem**：需要脱离祖先 `transform`/`contain`/`overflow` 的浮层（Toast / Dialog / BottomSheet / FloatingBubble）要 `Teleport` 到 `body`，但字符串选择器解析、`document` 访问在 SSR/无 DOM 时会报错。
 
 **Solution**：
 
-- 解析推迟到 `onMounted`；用 `resolvedTarget` ref 保存结果，`teleportDisabled = resolvedTarget === null`。
-- `teleport === false`、`typeof document === 'undefined'`（SSR）、选择器未命中 → `disabled`，原地渲染，不阻塞显示。
+- 统一走 `src/composables/useTeleportTarget.ts`：解析推迟到 `onMounted`；`to` / `disabled` 两个 computed 直接绑 `<Teleport>`。
+- `teleport === false`、`typeof document === 'undefined'`（SSR）、选择器未命中 → `disabled`，原地渲染，不阻塞显示；`teleport` 变化时 `watch` 重解析。
 - 组件视觉全部走全局 `happier-ui/styles`，无 scoped 依赖，teleport 后样式仍生效。
 
-参考：`src/components/HFloatingBubble.vue`。
+参考：`src/composables/useTeleportTarget.ts`；消费方 `HToast` / `HDialog` / `HBottomSheet` / `HFloatingBubble`。
 
 ## Pattern：Pointer 拖拽后抑制误触 click
 

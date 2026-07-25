@@ -1,6 +1,6 @@
 # BottomSheet
 
-底部面板。`v-model`；遮罩关闭、Esc、标题/内容槽。MVP **无** 拖拽 / snap / Teleport / focus trap。
+底部面板。`v-model`；遮罩关闭、Esc、标题/内容槽。默认 `teleport` 到 `body`。MVP **无** 拖拽 / snap / focus trap。
 
 ## 基础
 
@@ -68,6 +68,7 @@ const open = ref(false)
 | `showHandle` | `boolean` | `true` | 顶部拖拽指示条（视觉） |
 | `title` | `string` | — | 标题（可被 `#title` 覆盖） |
 | `ariaLabel` | `string` | — | 无标题时的 dialog 名称 |
+| `teleport` | `string \| HTMLElement \| false` | `'body'` | 挂载目标；`false` 或无效目标/SSR 时原地渲染，用于逃离带 transform/contain 祖先的 fixed 包含块偏移 |
 
 ### Emits
 

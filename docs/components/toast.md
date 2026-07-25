@@ -1,6 +1,6 @@
 # Toast
 
-轻提示。短暂、非阻塞的操作反馈。`v-model` 控制显隐；`default | success | warning | danger` 语义；`top | bottom` 位置；`duration` 自动关闭。声明式单条组件，全局命令式调用、队列与堆叠由宿主负责，MVP **无** Portal / Teleport。
+轻提示。短暂、非阻塞的操作反馈。`v-model` 控制显隐；`default | success | warning | danger` 语义；`top | bottom` 位置；`duration` 自动关闭。声明式单条组件，全局命令式调用、队列与堆叠由宿主负责。默认 `teleport` 到 `body`。
 
 ## 基础
 
@@ -100,6 +100,7 @@ import { HIcon, HToast } from 'happier-ui'
 | `variant` | `'default' \| 'success' \| 'warning' \| 'danger'` | `'default'` | 语义状态 |
 | `position` | `'top' \| 'bottom'` | `'bottom'` | 视口固定位置（含 safe-area） |
 | `duration` | `number` | `3000` | 自动关闭毫秒；`0` 表示不自动关闭 |
+| `teleport` | `string \| HTMLElement \| false` | `'body'` | 挂载目标；`false` 或无效目标/SSR 时原地渲染，用于逃离带 transform/contain 祖先的 fixed 包含块偏移 |
 
 ### Emits
 

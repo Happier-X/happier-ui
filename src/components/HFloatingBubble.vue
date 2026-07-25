@@ -53,6 +53,7 @@ import {
   type CSSProperties,
 } from 'vue'
 import HIcon from './HIcon.vue'
+import { useTeleportTarget } from '../composables/useTeleportTarget'
 
 export type HFloatingBubbleOffset = { x: number, y: number }
 export type HFloatingBubbleAxis = 'x' | 'y' | 'xy' | 'lock'
@@ -106,10 +107,7 @@ const gapXY = computed(() => {
 })
 
 // —— Teleport 目标解析（onMounted 后确定，避免 SSR 报错）——
-const resolvedTarget = ref<string | Element | null>(null)
-
-const teleportDisabled = computed(() => resolvedTarget.value === null)
-const teleportTo = computed(() => resolvedTarget.value ?? 'body')
+const { to: teleportTo, disabled: teleportDisabled } = useTeleportTarget(() => props.teleport)
 
 const rootStyle = computed((): CSSProperties => {
   if (!initialized.value) {
@@ -253,25 +251,7 @@ const onResize = () => {
   commit(state.value, true)
 }
 
-const resolveTeleport = () => {
-  if (props.teleport === false) {
-    resolvedTarget.value = null
-    return
-  }
-  if (typeof document === 'undefined') {
-    resolvedTarget.value = null
-    return
-  }
-  if (typeof props.teleport === 'string') {
-    const el = document.querySelector(props.teleport)
-    resolvedTarget.value = el ?? null
-    return
-  }
-  resolvedTarget.value = props.teleport
-}
-
 onMounted(() => {
-  resolveTeleport()
   // 初始位置：受控优先，否则默认右下角
   const init = props.offset ? clampOffset(props.offset) : defaultOffset()
   state.value = init

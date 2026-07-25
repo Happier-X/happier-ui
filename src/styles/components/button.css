@@ -1,7 +1,6 @@
 /*
- * HButton 视觉规则。
- * 注意：variant 配色与 disabled/focus-visible 状态由 .h-button 与 .h-icon-button 共享，
- * 是两个组件的单一定义源；改配色只改这里，勿在 icon-button.css 另立一份。
+ * HButton 视觉规则（含 isIconOnly 修饰）。
+ * variant 配色、disabled/focus-visible、以及 icon-only 的尺寸/形状全部在此单一定义。
  */
 @layer components {
   .h-button {
@@ -27,14 +26,12 @@
       opacity var(--h-duration-press, 120ms) var(--h-ease-standard, ease);
   }
 
-  .h-button:disabled,
-  .h-icon-button:disabled {
+  .h-button:disabled {
     opacity: 0.45;
     cursor: not-allowed;
   }
 
-  .h-button:focus-visible,
-  .h-icon-button:focus-visible {
+  .h-button:focus-visible {
     outline: 2px solid var(--h-color-focus-ring, var(--h-color-primary, #006fee));
     outline-offset: 2px;
   }
@@ -78,81 +75,111 @@
     min-width: 0;
   }
 
-  .h-button--primary,
-  .h-icon-button--primary {
+  .h-button--primary {
     background: var(--h-color-primary, #006fee);
     color: var(--h-color-primary-contrast, #ffffff);
   }
 
-  .h-button--primary:not(:disabled):active,
-  .h-icon-button--primary:not(:disabled):active {
+  .h-button--primary:not(:disabled):active {
     background: var(--h-primary-600, #005bc4);
   }
 
-  .h-button--secondary,
-  .h-icon-button--secondary {
+  .h-button--secondary {
     background: var(--h-primary-50, #e6f1fe);
     color: var(--h-color-primary, #006fee);
   }
 
-  .h-button--secondary:not(:disabled):active,
-  .h-icon-button--secondary:not(:disabled):active {
+  .h-button--secondary:not(:disabled):active {
     background: var(--h-primary-100, #cce3fd);
   }
 
-  .h-button--tertiary,
-  .h-icon-button--tertiary {
+  .h-button--tertiary {
     background: var(--h-color-surface-secondary, #f4f4f5);
     color: var(--h-color-ink, #000000);
   }
 
-  .h-button--tertiary:not(:disabled):active,
-  .h-icon-button--tertiary:not(:disabled):active {
+  .h-button--tertiary:not(:disabled):active {
     background: var(--h-color-border-subtle, #e0e0e0);
   }
 
-  .h-button--outline,
-  .h-icon-button--outline {
+  .h-button--outline {
     background: transparent;
     border-color: var(--h-color-border-subtle, #e0e0e0);
     color: var(--h-color-ink, #000000);
   }
 
-  .h-button--outline:not(:disabled):active,
-  .h-icon-button--outline:not(:disabled):active {
+  .h-button--outline:not(:disabled):active {
     background: var(--h-color-surface-secondary, #f4f4f5);
   }
 
-  .h-button--ghost,
-  .h-icon-button--ghost {
+  /* ghost：透明底 + 墨色字，对齐 HeroUI Native（非主色柔光） */
+  .h-button--ghost {
     background: transparent;
-    color: var(--h-color-primary, #006fee);
+    color: var(--h-color-ink, #000000);
   }
 
-  .h-button--ghost:not(:disabled):active,
-  .h-icon-button--ghost:not(:disabled):active {
-    background: var(--h-color-playing-bg-soft, rgba(0, 111, 238, 0.08));
+  .h-button--ghost:not(:disabled):active {
+    background: var(--h-color-surface-secondary, #f4f4f5);
   }
 
-  .h-button--danger,
-  .h-icon-button--danger {
+  .h-button--danger {
     background: var(--h-color-danger, #eb445a);
     color: var(--h-color-primary-contrast, #ffffff);
   }
 
-  .h-button--danger:not(:disabled):active,
-  .h-icon-button--danger:not(:disabled):active {
+  .h-button--danger:not(:disabled):active {
     opacity: 0.9;
   }
 
-  .h-button--danger-soft,
-  .h-icon-button--danger-soft {
+  .h-button--danger-soft {
     background: rgba(var(--h-color-danger-rgb, 235, 68, 90), 0.12);
     color: var(--h-color-danger, #eb445a);
   }
 
-  .h-button--danger-soft:not(:disabled):active,
-  .h-icon-button--danger-soft:not(:disabled):active {
+  .h-button--danger-soft:not(:disabled):active {
     background: rgba(var(--h-color-danger-rgb, 235, 68, 90), 0.2);
+  }
+
+  /* isIconOnly：方形/圆形，边长复用 button height token，图标居中无内边距 */
+  .h-button--icon-only {
+    padding: 0;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+  }
+
+  .h-button--icon-only.h-button--sm {
+    width: var(--h-button-height-sm, 32px);
+  }
+
+  .h-button--icon-only.h-button--md {
+    width: var(--h-button-height-md, 40px);
+  }
+
+  .h-button--icon-only.h-button--lg {
+    width: var(--h-button-height-lg, 48px);
+  }
+
+  .h-button--icon-only.h-button--square {
+    border-radius: var(--h-radius-control, 12px);
+  }
+
+  .h-button--icon-only.h-button--circle {
+    border-radius: var(--h-image-radius-full, 999px);
+  }
+
+  /* icon-only 图标经默认 slot 传入，按尺寸给 svg 兜底边长 */
+  .h-button--icon-only.h-button--sm svg {
+    width: var(--h-icon-size-sm, 16px);
+    height: var(--h-icon-size-sm, 16px);
+  }
+
+  .h-button--icon-only.h-button--md svg {
+    width: var(--h-icon-size-md, 20px);
+    height: var(--h-icon-size-md, 20px);
+  }
+
+  .h-button--icon-only.h-button--lg svg {
+    width: var(--h-icon-size-lg, 24px);
+    height: var(--h-icon-size-lg, 24px);
   }
 }

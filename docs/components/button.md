@@ -6,7 +6,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { HButton } from 'happier-ui'
+import { HButton, HIcon } from 'happier-ui'
+import { Star, Heart, X } from '@lucide/vue'
 
 const clicks = ref(0)
 const variants = ['primary', 'secondary', 'tertiary', 'outline', 'ghost', 'danger', 'danger-soft']
@@ -73,6 +74,38 @@ import { HButton } from 'happier-ui'
 </h-button>
 ```
 
+## 纯图标（isIconOnly）
+
+`isIconOnly` 让按钮变为方形（`aspect-ratio: 1`、无内边距），图标通过默认插槽传入。此时应传 `ariaLabel` 提供可访问名，内部图标保持装饰性（`aria-hidden`）。`shape` 控制圆角：`square` 复用 `--h-radius-control`，`circle` 为圆形。
+
+<div class="h-demo h-demo--row">
+  <h-button is-icon-only aria-label="收藏" @click="clicks++">
+    <h-icon :icon="Star" aria-hidden="true" />
+  </h-button>
+  <h-button is-icon-only variant="ghost" aria-label="关闭">
+    <h-icon :icon="X" aria-hidden="true" />
+  </h-button>
+  <h-button is-icon-only shape="circle" variant="danger" aria-label="删除">
+    <h-icon :icon="Heart" aria-hidden="true" />
+  </h-button>
+</div>
+
+```vue
+<script setup lang="ts">
+import { HButton, HIcon } from 'happier-ui'
+import { Star, X } from '@lucide/vue'
+</script>
+
+<template>
+  <h-button is-icon-only aria-label="收藏" @click="onClick">
+    <h-icon :icon="Star" aria-hidden="true" />
+  </h-button>
+  <h-button is-icon-only shape="circle" variant="ghost" aria-label="关闭">
+    <h-icon :icon="X" aria-hidden="true" />
+  </h-button>
+</template>
+```
+
 ## API
 
 ### Props
@@ -81,6 +114,9 @@ import { HButton } from 'happier-ui'
 |------|------|------|------|
 | `variant` | `'primary' \| 'secondary' \| 'tertiary' \| 'outline' \| 'ghost' \| 'danger' \| 'danger-soft'` | `'primary'` | 视觉变体 |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | 尺寸 |
+| `isIconOnly` | `boolean` | `false` | 纯图标模式：方形、`aspect-ratio: 1`、无内边距，图标走默认插槽 |
+| `shape` | `'square' \| 'circle'` | `'square'` | 仅 `isIconOnly` 生效：方形圆角或圆形 |
+| `ariaLabel` | `string` | — | 纯图标时的可访问名，映射原生 `aria-label`。TS 项目用 `ariaLabel` / `:ariaLabel` 传入 |
 | `disabled` | `boolean` | `false` | 禁用 |
 | `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | 原生 type |
 
@@ -94,12 +130,13 @@ import { HButton } from 'happier-ui'
 
 | 名称 | 说明 |
 |------|------|
-| `default` | 按钮文案 |
-| `leading` | 左侧图标区 |
-| `trailing` | 右侧图标区 |
+| `default` | 按钮文案；`isIconOnly` 时放置图标 |
+| `leading` | 左侧图标区（`isIconOnly` 时不渲染） |
+| `trailing` | 右侧图标区（`isIconOnly` 时不渲染） |
 
 ## 无障碍
 
 - 原生 `<button>`；`disabled` 时不可点
-- 装饰 SVG 使用 `aria-hidden`
+- 装饰 SVG / 图标使用 `aria-hidden`
+- 纯图标（`isIconOnly`）传 `ariaLabel` 提供可访问名
 - 保留 `:focus-visible`

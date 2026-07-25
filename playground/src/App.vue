@@ -85,7 +85,7 @@
     </section>
 
     <section class="smoke__section" aria-labelledby="icon-button-heading">
-      <h2 id="icon-button-heading" class="smoke__section-title">HIconButton variants × sizes × shapes</h2>
+      <h2 id="icon-button-heading" class="smoke__section-title">HButton isIconOnly × sizes × shapes</h2>
       <div
         v-for="size in buttonSizes"
         :key="`icon-btn-${size}`"
@@ -93,44 +93,52 @@
       >
         <p class="smoke__hint">size={{ size }} · square</p>
         <div class="smoke__row smoke__row--wrap">
-          <h-icon-button
+          <h-button
             v-for="variant in buttonVariants"
             :key="`icon-square-${size}-${variant}`"
-            :icon="Star"
+            is-icon-only
             :variant="variant"
             :size="size"
             shape="square"
-            :ariaLabel="`${variant} square ${size}`"
+            :aria-label="`${variant} square ${size}`"
             @click="onIconButtonClick"
-          />
-          <h-icon-button
-            :icon="Star"
+          >
+            <h-icon :icon="Star" :size="size" aria-hidden="true" />
+          </h-button>
+          <h-button
+            is-icon-only
             :size="size"
             shape="square"
             disabled
-            ariaLabel="disabled square"
-          />
+            aria-label="disabled square"
+          >
+            <h-icon :icon="Star" :size="size" aria-hidden="true" />
+          </h-button>
         </div>
         <p class="smoke__hint">size={{ size }} · circle</p>
         <div class="smoke__row smoke__row--wrap">
-          <h-icon-button
+          <h-button
             v-for="variant in buttonVariants"
             :key="`icon-circle-${size}-${variant}`"
-            :icon="Heart"
+            is-icon-only
             :variant="variant"
             :size="size"
             shape="circle"
-            :ariaLabel="`${variant} circle ${size}`"
+            :aria-label="`${variant} circle ${size}`"
             @click="onIconButtonClick"
-          />
-          <h-icon-button
-            :icon="X"
+          >
+            <h-icon :icon="Heart" :size="size" aria-hidden="true" />
+          </h-button>
+          <h-button
+            is-icon-only
             :size="size"
             shape="circle"
             variant="ghost"
-            ariaLabel="close"
+            aria-label="close"
             @click="onIconButtonClick"
-          />
+          >
+            <h-icon :icon="X" :size="size" aria-hidden="true" />
+          </h-button>
         </div>
       </div>
       <p v-if="iconButtonClicks > 0" class="smoke__ping">IconButton 点击：{{ iconButtonClicks }}</p>
@@ -957,7 +965,9 @@
             <strong class="smoke__sidebar-brand">happier</strong>
           </template>
           <template #footer>
-            <h-icon-button :icon="User" ariaLabel="账户" variant="ghost" />
+            <h-button is-icon-only aria-label="账户" variant="ghost">
+              <h-icon :icon="User" size="md" aria-hidden="true" />
+            </h-button>
           </template>
         </h-sidebar>
         <div class="smoke__sidebar-body">
@@ -982,7 +992,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HIconButton, HImage, HInput, HNavBar, HPagination, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag } from 'happier-ui'
+import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HIcon, HImage, HInput, HNavBar, HPagination, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag } from 'happier-ui'
 import type { HSelectOption, HSidebarItem, HTabBarItem, HTableColumn } from 'happier-ui'
 
 const buttonClicks = ref(0)

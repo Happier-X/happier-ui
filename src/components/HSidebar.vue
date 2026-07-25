@@ -49,14 +49,20 @@
       class="h-sidebar__footer"
     >
       <slot name="footer" />
-      <h-icon-button
+      <h-button
         v-if="showCollapseToggle"
         class="h-sidebar__toggle"
-        :icon="collapsed ? PanelLeftOpen : PanelLeftClose"
-        :ariaLabel="collapsed ? '展开侧边栏' : '收起侧边栏'"
+        is-icon-only
+        :aria-label="collapsed ? '展开侧边栏' : '收起侧边栏'"
         variant="ghost"
         @click="onToggle"
-      />
+      >
+        <h-icon
+          :icon="collapsed ? PanelLeftOpen : PanelLeftClose"
+          size="md"
+          aria-hidden="true"
+        />
+      </h-button>
     </div>
   </nav>
 </template>
@@ -66,13 +72,13 @@
  * happier-ui：常驻式左侧边栏导航。
  * - items + v-model(modelValue) 为当前选中 key（string）
  * - v-model:collapsed 受控折叠；折叠态缩窄、仅视觉显示图标，label 视觉隐藏但保留可访问名
- * - showCollapseToggle 默认 true，内置折叠按钮（复用 HIconButton）
+ * - showCollapseToggle 默认 true，内置折叠按钮（复用 HButton isIconOnly）
  * - header / footer 具名 slot；不内置路由
  */
 import { watch, type Component } from 'vue'
 import { PanelLeftClose, PanelLeftOpen } from '@lucide/vue'
 import HIcon from './HIcon.vue'
-import HIconButton from './HIconButton.vue'
+import HButton from './HButton.vue'
 
 export type HSidebarItem = {
   key: string

@@ -29,7 +29,7 @@
 /**
  * happier-ui：通用卡片容器。
  * 纯展示容器：无整卡可点击态、无 disabled、无 emit。
- * 可点击场景由宿主在卡内放置交互控件（HButton / HIconButton 等）完成。
+ * 可点击场景由宿主在卡内放置交互控件（HButton 等）完成。
  * 层次靠 border + surface 背景 + 圆角表达，无 elevation / box-shadow。
  * 具名 slot #header / #footer + default(body)；header/footer 缺省不渲染对应容器。
  */

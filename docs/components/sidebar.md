@@ -1,13 +1,13 @@
 # Sidebar
 
-常驻式左侧边栏导航。占据文档流一列宽度（非浮层 Drawer），`items + v-model` 驱动选中；`v-model:collapsed` 控制折叠。内部用 `HIcon` 渲染图标，内置折叠按钮复用 `HIconButton`。**不**内置路由。
+常驻式左侧边栏导航。占据文档流一列宽度（非浮层 Drawer），`items + v-model` 驱动选中；`v-model:collapsed` 控制折叠。内部用 `HIcon` 渲染图标，内置折叠按钮复用 `HButton isIconOnly`。**不**内置路由。
 
 ## 基础
 
 <script setup>
 import { ref } from 'vue'
 import { Home, Search, Library, Bell, User } from '@lucide/vue'
-import { HSidebar, HIconButton } from 'happier-ui'
+import { HSidebar, HButton, HIcon } from 'happier-ui'
 
 const active = ref('home')
 const collapsed = ref(false)
@@ -27,7 +27,9 @@ const items = [
         <strong style="font-size:var(--h-font-title);">happier</strong>
       </template>
       <template #footer>
-        <h-icon-button :icon="User" ariaLabel="账户" variant="ghost" />
+        <h-button is-icon-only aria-label="账户" variant="ghost">
+          <h-icon :icon="User" size="md" aria-hidden="true" />
+        </h-button>
       </template>
     </h-sidebar>
     <div style="flex:1 1 auto;min-width:0;padding:var(--h-space-lg);">
@@ -89,7 +91,9 @@ const items: HSidebarItem[] = [
     <strong>happier</strong>
   </template>
   <template #footer>
-    <h-icon-button :icon="User" ariaLabel="账户" variant="ghost" />
+    <h-button is-icon-only aria-label="账户" variant="ghost">
+      <h-icon :icon="User" size="md" aria-hidden="true" />
+    </h-button>
   </template>
 </h-sidebar>
 ```

@@ -611,3 +611,39 @@
 - Prev npm published: 0.0.2。已准备好发 0.0.3。
 - 提案来自 Muses 项目 `07-24-replace-player-range`。
 - 建议发版后 Muses 可正式从 onChange fallthrough 升级到 emit 绑定。
+
+---
+
+## 2026-07-25 — HButton 合并 isIconOnly + 修正 ghost 配色（07-25-button-icononly-ghost）
+
+**Task**: HButton 合并 isIconOnly 并修正 ghost 配色
+
+### 背景 / 决策
+
+对齐 HeroUI Native：图标按钮不是独立组件，而是 Button 的 `isIconOnly` 能力（`.button__root--is-icon-only`: `padding:0; aspect-ratio:1`，图标作 children）。同时 HeroUI 的 ghost 是「透明底 + `--color-default-foreground` 墨色字」，本库先前做成主色蓝字 + 主色柔光底（偏 light/secondary），视觉不一致。据此删除 HIconButton，能力并入 HButton；ghost 改回透明底 + 墨色字。
+
+### 改动
+
+- `src/components/HButton.vue`：新增 `isIconOnly`(默认 false) / `shape`('square'|'circle', 默认 square) / `ariaLabel`。isIconOnly 时输出 `.h-button--icon-only` + `.h-button--{shape}`，图标走默认 slot（不渲染 label/leading/trailing）；`:aria-label` 直接绑定。
+- `src/styles/components/button.css`：
+  - 共享 selector 从 `.h-button, .h-icon-button` 收敛为仅 `.h-button`（disabled/focus-visible/全部 variant）。
+  - ghost 修正：文字 `--h-color-primary` → `--h-color-ink`；按下态 `--h-color-playing-bg-soft`(主色柔光) → `--h-color-surface-secondary`(中性)。
+  - 并入 icon-only：`padding:0; aspect-ratio:1; flex-shrink:0`；sm/md/lg 宽度复用 `--h-button-height-*`；square=`--h-radius-control`，circle=`--h-image-radius-full`；`.h-button--icon-only svg { width/height: 1.35em }` 让 slot 图标居中。
+- 删除 `src/components/HIconButton.vue` 与 `src/styles/components/icon-button.css`；`components.css` 移除对应 @import。
+- `src/components/HSidebar.vue`：内置折叠按钮改用 `<h-button is-icon-only variant="ghost">` + slot 内 `<h-icon>`；import 从 HIconButton 换成 HButton。
+- `src/index.ts`：移除 HIconButton 导出。
+- `src/components/HCard.vue`：注释去掉 HIconButton 提及。
+- playground `App.vue`：图标段改用 HButton isIconOnly；sidebar footer 同步；import 移除 HIconButton。
+- docs：删除 `components/icon-button.md`；`button.md` 增加 isIconOnly / shape 段与 API；`sidebar.md` 折叠按钮示例改 HButton；`.vitepress/config.ts` 移除 IconButton 侧栏项。
+- spec `component-guidelines.md`：命名表/导出示例/参考实现/API 约定表(图标按钮行)/a11y 行/当前导出表/路线图/反模式 全部从 HIconButton 收敛到「HButton isIconOnly」。
+
+### Build Verification
+
+- `npm run build:lib` ✓（HSidebar 的 `import.meta.env.DEV` 类型告警为既有，非本次引入，不阻塞）
+- `npm run build:playground` ✓（`vue-tsc --noEmit` 通过，确认 isIconOnly/ariaLabel 类型安全）
+- grep 源码无 `HIconButton` / `h-icon-button` 残留（仅 archive 历史任务与本任务 PRD 保留）
+
+### Notes
+
+- ghost 现与 HeroUI Native 一致：静态透明底墨色字，按下中性灰底。
+- 迁移：宿主 `<h-icon-button :icon="X" ariaLabel="…">` → `<h-button is-icon-only aria-label="…"><h-icon :icon="X" /></h-button>`。

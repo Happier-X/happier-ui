@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HBadge` / `HTag` / `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HTextarea` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` / `HFloatingBubble` / `HSidebar` / `HSelect` / `HTable` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HBadge` / `HTag` / `HButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HTextarea` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` / `HFloatingBubble` / `HSidebar` / `HSelect` / `HTable` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -21,7 +21,6 @@
 // src/index.ts
 export { default as HBadge } from './components/HBadge.vue'
 export { default as HButton } from './components/HButton.vue'
-export { default as HIconButton } from './components/HIconButton.vue'
 export { default as HPagination } from './components/HPagination.vue'
 export { default as HSwitch } from './components/HSwitch.vue'
 export { default as HRange } from './components/HRange.vue'
@@ -59,8 +58,7 @@ export { default as HTag } from './components/HTag.vue'
 
 参考实现：
 
-- `src/components/HButton.vue` — 7 variants × sm/md/lg、leading/trailing、disabled、focus-visible
-- `src/components/HIconButton.vue` — 纯图标按钮；7 variants × sm/md/lg、square/circle 形状、ariaLabel 必填、disabled、focus-visible；配色与 token 复用 HButton
+- `src/components/HButton.vue` — 7 variants × sm/md/lg、leading/trailing、disabled、focus-visible；`isIconOnly`(方形/圆形、aspect-ratio:1、图标走默认 slot、ariaLabel 提供可访问名) 覆盖纯图标场景（对齐 HeroUI Native，不再单列组件）
 - `src/components/HSwitch.vue` — `v-model`、size、disabled、`role="switch"`
 - `src/components/HRange.vue` — 单值横向滑块；v-model number；min/max/step；size/disabled；原生 range 语义
 - `src/components/HProgress.vue` — 只读线形进度条；value/max 确定进度、越界夹取；indeterminate 循环动画；size/variant/rounded；progressbar 语义；无 emits/slots
@@ -89,7 +87,7 @@ export { default as HTag } from './components/HTag.vue'
 | 主题 | 约定 | 例子 |
 |------|------|------|
 | 文字按钮 | `variant` + `size` + default slot | `HButton` |
-| 图标按钮 | `icon` + `ariaLabel`(必填) + `variant` + `size` + `shape` square/circle；TS 项目用 `ariaLabel`/`:ariaLabel` 传入（见反模式） | `HIconButton` |
+| 图标按钮 | `HButton` 的 `isIconOnly` + `shape` square/circle + `ariaLabel`；图标走默认 slot；无独立组件（对齐 HeroUI Native） | `HButton` |
 | 开关 | `modelValue` + `update:modelValue`；`role="switch"` | `HSwitch` |
 | 滑块 | `modelValue` number + `min`/`max`/`step`；`change`/`drag-start`/`drag-end` emits；单值横向；原生 `input[type=range]` | `HRange` |
 | 进度条 | `value` + `max`（默认 100）；`indeterminate`；`size`/`variant`/`rounded`；`role="progressbar"`；只读无 emits/slots | `HProgress` |
@@ -113,15 +111,14 @@ export { default as HTag } from './components/HTag.vue'
 | 标签 | `variant` default/primary/success/warning/danger + `size` sm/md + `closable` + `disabled`；`close` emit；default slot | `HTag` |
 | 下拉选择框 | `options`(HSelectOption[]) + `modelValue` string|number；`label`/`placeholder`/`size`/`disabled`/`clearable`；`change` emit；`#option` slot | `HSelect` |
 | 数据表格 | `columns`(HTableColumn[]) + `data`(Record[]) + `rowKey`；`sortable`/`striped`/`bordered`/`stickyHeader`/`loading`/`emptyText`；`sort` emit；`#cell`/`#empty`/`#loading` slot | `HTable` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；Range 无可见标签时传 `ariaLabel`；Progress 用 `role="progressbar"` + `aria-value*`（indeterminate 省 valuenow）且无可见标签时传 `ariaLabel`；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；图标按钮 `ariaLabel` 必填；Toast live-region 不抢焦点；Cell 交互行 `role="button"`+`tabindex="0"`+Enter/Space，chevron `aria-hidden`，Group 默认标题 `aria-labelledby` | `HBadge` / `HTextarea` / `HTag` / `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCell` / `HCellGroup` / `HSelect` / `HTable` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；Range 无可见标签时传 `ariaLabel`；Progress 用 `role="progressbar"` + `aria-value*`（indeterminate 省 valuenow）且无可见标签时传 `ariaLabel`；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；`HButton isIconOnly` 传 `ariaLabel`；Toast live-region 不抢焦点；Cell 交互行 `role="button"`+`tabindex="0"`+Enter/Space，chevron `aria-hidden`，Group 默认标题 `aria-labelledby` | `HBadge` / `HTextarea` / `HTag` / `HButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCell` / `HCellGroup` / `HSelect` / `HTable` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
 
 | 导出 | 文件 | 备注 |
 |------|------|------|
-| `HButton` | `HButton.vue` | primary/secondary/tertiary/outline/ghost/danger/danger-soft；sm/md/lg |
-| `HIconButton` | `HIconButton.vue` | 纯图标按钮；同 HButton 7 variant；sm/md/lg；square/circle；ariaLabel 必填 |
+| `HButton` | `HButton.vue` | primary/secondary/tertiary/outline/ghost/danger/danger-soft；sm/md/lg；`isIconOnly`+`shape` square/circle+`ariaLabel` 覆盖纯图标（无独立 HIconButton） |
 | `HSwitch` | `HSwitch.vue` | v-model；sm/md/lg；disabled；HeroUI Native 观感 |
 | `HRange` | `HRange.vue` | 单值横向滑块；v-model number；min/max/step；sm/md/lg；disabled；原生 range 语义 |
 | `HProgress` | `HProgress.vue` | 只读线形进度条；value/max、越界夹取；indeterminate 循环动画；sm/md/lg；primary/success/warning/danger；rounded；progressbar 语义 |
@@ -154,7 +151,7 @@ export { default as HTag } from './components/HTag.vue'
 
 ## 路线图
 
-以 `HButton` / `HIconButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
+以 `HButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` + tokens 为基线，按需再引入 Form/Notice/Surface 等。历史路线图见 `.trellis/tasks/archive/2026-07/07-22-component-roadmap/prd.md`（其中已删组件条目作废）。
 
 ## 反模式
 
@@ -166,7 +163,7 @@ export { default as HTag } from './components/HTag.vue'
 | 把音乐封面、队列、播放手势做进库 | 领域语义属 Muses |
 | 只写组件不上 playground | 消费方与 AI 无法目视回归 |
 | 在 SFC 大块 scoped 视觉 CSS 与 styles/components 双源 | 与 Tailwind/HeroUI 式分发冲突 |
-| `HIconButton` 示例写 `aria-label` 而不是 `ariaLabel` | `vue-tsc` 会把 `aria-label` 当原生 ARIA 属性，不满足必填 prop；组件内部仍输出原生 `aria-label` |
+| `HButton isIconOnly` 传纯图标却漏 `ariaLabel` | 纯图标无文本可访问名，辅助技术读不出用途 |
 | 恢复已删除的 M* 别名而不经任务评审 | 破坏性 API 需显式决策 |
 
 ## 新组件清单

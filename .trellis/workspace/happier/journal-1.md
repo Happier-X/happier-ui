@@ -746,3 +746,24 @@
 ### Next Steps
 
 - 可选：提交改动
+
+
+## Session 19: feat(tooltip): HTooltip 悬浮提示组件
+
+**Date**: 2026-07-27
+**Task**: feat(tooltip): HTooltip 悬浮提示组件
+**Branch**: `master`
+
+### Summary
+
+实现 HTooltip 组件：hover/focus/tap 触发、四向定位+边缘翻转、5 color+radius+showArrow、aria-describedby、teleport body。新文件：HTooltip.vue、tooltip.css、docs/components/tooltip.md。修改：index.ts 导出、components.css @import、config.ts 侧栏、App.vue 演示段、component-guidelines.md 规范更新。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `8d5f679` | (see git log) |
+
+### Status
+
+[OK] **Completed**

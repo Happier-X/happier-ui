@@ -8,8 +8,8 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 17
-- **Last Active**: 2026-07-25
+- **Total Sessions**: 18
+- **Last Active**: 2026-07-27
 <!-- @@@/auto:current-status -->
 
 ---
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~682 | Active |
+| `journal-1.md` | ~715 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 18 | 2026-07-27 | 修复文档演示区热力图横向溢出 | `c42d1b4` | `master` |
 | 17 | 2026-07-25 | HButton 合并 isIconOnly 并修正 ghost 配色 | `8be6b02` | `master` |
 | 16 | 2026-07-24 | VitePress 组件文档站 + GitHub Pages | `aa6fd18` | `master` |
 | 15 | 2026-07-24 | Tailwind v4 / HeroUI 式样式迁移（0.0.2） | `d996d30` | `master` |

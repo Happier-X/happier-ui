@@ -680,3 +680,36 @@
 ### Next Steps
 
 - None - task complete
+
+
+## Session 18: 修复文档演示区热力图横向溢出
+
+**Date**: 2026-07-27
+**Task**: 修复文档演示区热力图横向溢出
+**Branch**: `master`
+
+### Summary
+
+热力图年视图（约53列，~800px）在 VitePress 正文内容区（~688px）横向溢出。根因是 .h-heatmap 为 inline-flex 固有宽度组件，格子边长是设计 token 不宜压缩。修复：给 .vp-doc .h-demo 加 overflow-x: auto，宽内容容器内横向滚动。沉淀 spec：component-guidelines 新增文档演示区宽度约定（固有宽度组件不压缩 token，容器滚动）。docs:build 通过。
+
+### Main Changes
+
+- Detailed change bullets were not supplied; see the summary above.
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `c42d1b4` | (see git log) |
+
+### Testing
+
+- Validation was not recorded for this session.
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete

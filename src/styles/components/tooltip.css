@@ -1,0 +1,133 @@
+@layer components {
+/**
+ * HTooltip
+ */
+.h-tooltip-wrapper {
+  display: inline-block;
+}
+
+.h-tooltip__trigger {
+  display: inherit;
+}
+
+.h-tooltip {
+  box-sizing: border-box;
+  position: fixed;
+  padding: 4px 8px;
+  font-size: var(--h-font-xs);
+  line-height: 1.4;
+  color: var(--h-tooltip-color, var(--h-color-surface));
+  background-color: var(--h-tooltip-bg, var(--h-color-ink));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  word-break: break-word;
+  white-space: pre-wrap;
+  max-width: 250px;
+  /* 允许鼠标回到 trigger，防止闪烁 */
+  pointer-events: auto;
+  opacity: 0;
+  animation: h-tooltip-fade-in 0.15s ease-out forwards;
+}
+
+/* 反色默认值。也可以使用 default=surface, 类似于 HSelect popover */
+.h-tooltip--default {
+  --h-tooltip-bg: var(--h-color-surface);
+  --h-tooltip-color: var(--h-color-ink);
+  border: 1px solid var(--h-color-border-subtle);
+}
+
+.h-tooltip--primary {
+  --h-tooltip-bg: var(--h-color-primary);
+  --h-tooltip-color: #ffffff;
+}
+
+.h-tooltip--success {
+  --h-tooltip-bg: var(--h-color-success);
+  --h-tooltip-color: #ffffff;
+}
+
+.h-tooltip--warning {
+  --h-tooltip-bg: var(--h-color-warning);
+  --h-tooltip-color: #ffffff;
+}
+
+.h-tooltip--danger {
+  --h-tooltip-bg: var(--h-color-danger);
+  --h-tooltip-color: #ffffff;
+}
+
+.h-tooltip--radius-none {
+  border-radius: var(--h-radius-none);
+}
+
+.h-tooltip--radius-sm {
+  border-radius: var(--h-radius-sm);
+}
+
+.h-tooltip--radius-md {
+  border-radius: var(--h-radius-md);
+}
+
+.h-tooltip--radius-lg {
+  border-radius: var(--h-radius-lg);
+}
+
+.h-tooltip--radius-full {
+  border-radius: var(--h-radius-full);
+}
+
+@keyframes h-tooltip-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 箭头：旋转 45 度正方形，用背景色 + 可选边框替代传统 border triangle，兼容带 border 的 default variant */
+.h-tooltip__arrow {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: var(--h-tooltip-bg);
+  transform: rotate(45deg);
+}
+
+.h-tooltip--default .h-tooltip__arrow {
+  border: 1px solid var(--h-color-border-subtle);
+}
+
+.h-tooltip--placement-top .h-tooltip__arrow {
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  border-top-color: transparent;
+  border-left-color: transparent;
+}
+
+.h-tooltip--placement-bottom .h-tooltip__arrow {
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+}
+
+.h-tooltip--placement-left .h-tooltip__arrow {
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+
+.h-tooltip--placement-right .h-tooltip__arrow {
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  border-top-color: transparent;
+  border-right-color: transparent;
+}
+}

@@ -72,6 +72,7 @@ export default defineConfig({
             { text: 'FloatingBubble 浮动气泡', link: '/components/floating-bubble' },
             { text: 'Table 表格', link: '/components/table' },
             { text: 'Heatmap 热力图', link: '/components/heatmap' },
+            { text: 'Tooltip 工具提示', link: '/components/tooltip' },
           ],
         },
       ],

@@ -1041,6 +1041,43 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="tooltip-heading">
+      <h2 id="tooltip-heading" class="smoke__section-title">HTooltip</h2>
+      <p class="smoke__hint">hover / focus / tap 触发；接近视口边缘自动翻转。</p>
+      <div class="smoke__row smoke__row--wrap">
+        <h-tooltip content="默认 top 方向">
+          <h-button variant="outline">top</h-button>
+        </h-tooltip>
+        <h-tooltip content="bottom 方向" placement="bottom">
+          <h-button variant="outline">bottom</h-button>
+        </h-tooltip>
+        <h-tooltip content="left 方向" placement="left">
+          <h-button variant="outline">left</h-button>
+        </h-tooltip>
+        <h-tooltip content="right 方向" placement="right">
+          <h-button variant="outline">right</h-button>
+        </h-tooltip>
+        <h-tooltip content="带箭头" placement="top" show-arrow>
+          <h-button variant="outline">showArrow</h-button>
+        </h-tooltip>
+        <h-tooltip content="primary 色" color="primary" placement="top">
+          <h-button variant="outline">primary</h-button>
+        </h-tooltip>
+        <h-tooltip content="success 色" color="success" placement="top" show-arrow>
+          <h-button variant="outline">success</h-button>
+        </h-tooltip>
+        <h-tooltip content="禁用态不会弹出" :disabled="true">
+          <h-button variant="outline">disabled</h-button>
+        </h-tooltip>
+        <h-tooltip placement="top" show-arrow>
+          <h-button variant="outline">slot content</h-button>
+          <template #content>
+            <strong>支持 slot</strong> · 可放富文本
+          </template>
+        </h-tooltip>
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="heatmap-heading">
       <h2 id="heatmap-heading" class="smoke__section-title">HHeatmap</h2>
       <p class="smoke__hint">GitHub 贡献图风格；hover 单元格看原生 title。</p>
@@ -1095,7 +1132,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HHeatmap, HIcon, HImage, HInput, HNavBar, HPagination, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag } from 'happier-ui'
+import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HHeatmap, HIcon, HImage, HInput, HNavBar, HPagination, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag, HTooltip } from 'happier-ui'
 import type { HSelectOption, HSidebarItem, HTabBarItem, HTableColumn } from 'happier-ui'
 
 const buttonClicks = ref(0)

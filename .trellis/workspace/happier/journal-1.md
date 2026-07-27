@@ -713,3 +713,36 @@
 ### Next Steps
 
 - None - task complete
+
+## Session 19: HButton 补齐 PC 端 hover 交互态
+
+**Date**: 2026-07-27
+**Task**: 为所有 button variant 补齐桌面 hover 效果
+**Branch**: `master`
+
+### Summary
+
+用户反馈所有 HButton 在桌面端悬停无反馈。根因：button.css 此前只定义了 `:active`（按压）态，没有任何 `:hover` 规则。修复：为每个 variant 新增 `@media (hover: hover) and (pointer: fine)` 包裹的 `:hover` 规则（避免触屏 hover 粘连），形成「hover 浅一档 → active 深一档」层次。icon-only 共用 variant 配色，一并生效。同步在文档新增「交互状态」小节。构建通过（HSidebar 的 import.meta.env 为既有无关告警）。
+
+### Main Changes
+
+- `src/styles/components/button.css`：primary/secondary/tertiary/outline/ghost/danger/danger-soft 各加一段 media-query 包裹的 `:hover`；secondary/tertiary/outline/ghost/danger-soft active 值相应加深；danger 用 opacity（hover 0.8 / active 0.9）。
+- `docs/components/button.md`：无障碍上方新增「交互状态」小节，说明 hover 仅精确指针设备生效、hover→active 渐深、disabled 禁用交互态。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| (uncommitted) | 待提交 |
+
+### Testing
+
+- `npm run build:lib` 通过（dts 正常生成；HSidebar import.meta.env 为既有告警）。
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- 可选：提交改动

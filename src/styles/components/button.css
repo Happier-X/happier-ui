@@ -80,6 +80,13 @@
     color: var(--h-color-primary-contrast, #ffffff);
   }
 
+  /* pc hover */
+  @media (hover: hover) and (pointer: fine) {
+    .h-button--primary:not(:disabled):hover {
+      background: var(--h-primary-400, #338ef7);
+    }
+  }
+
   .h-button--primary:not(:disabled):active {
     background: var(--h-primary-600, #005bc4);
   }
@@ -89,8 +96,15 @@
     color: var(--h-color-primary, #006fee);
   }
 
+  /* pc hover */
+  @media (hover: hover) and (pointer: fine) {
+    .h-button--secondary:not(:disabled):hover {
+      background: var(--h-primary-100, #cce3fd);
+    }
+  }
+
   .h-button--secondary:not(:disabled):active {
-    background: var(--h-primary-100, #cce3fd);
+    background: var(--h-primary-200, #99c7fb);
   }
 
   .h-button--tertiary {
@@ -98,8 +112,15 @@
     color: var(--h-color-ink, #000000);
   }
 
+  /* pc hover */
+  @media (hover: hover) and (pointer: fine) {
+    .h-button--tertiary:not(:disabled):hover {
+      background: var(--h-color-border-subtle, #e0e0e0);
+    }
+  }
+
   .h-button--tertiary:not(:disabled):active {
-    background: var(--h-color-border-subtle, #e0e0e0);
+    background: #d4d4d8;
   }
 
   .h-button--outline {
@@ -108,8 +129,15 @@
     color: var(--h-color-ink, #000000);
   }
 
+  /* pc hover */
+  @media (hover: hover) and (pointer: fine) {
+    .h-button--outline:not(:disabled):hover {
+      background: var(--h-color-surface-secondary, #f4f4f5);
+    }
+  }
+
   .h-button--outline:not(:disabled):active {
-    background: var(--h-color-surface-secondary, #f4f4f5);
+    background: var(--h-color-border-subtle, #e0e0e0);
   }
 
   /* ghost：透明底 + 墨色字，对齐 HeroUI Native（非主色柔光） */
@@ -118,13 +146,27 @@
     color: var(--h-color-ink, #000000);
   }
 
+  /* pc hover */
+  @media (hover: hover) and (pointer: fine) {
+    .h-button--ghost:not(:disabled):hover {
+      background: var(--h-color-surface-secondary, #f4f4f5);
+    }
+  }
+
   .h-button--ghost:not(:disabled):active {
-    background: var(--h-color-surface-secondary, #f4f4f5);
+    background: var(--h-color-border-subtle, #e0e0e0);
   }
 
   .h-button--danger {
     background: var(--h-color-danger, #eb445a);
     color: var(--h-color-primary-contrast, #ffffff);
+  }
+
+  /* pc hover */
+  @media (hover: hover) and (pointer: fine) {
+    .h-button--danger:not(:disabled):hover {
+      opacity: 0.8;
+    }
   }
 
   .h-button--danger:not(:disabled):active {
@@ -136,8 +178,15 @@
     color: var(--h-color-danger, #eb445a);
   }
 
+  /* pc hover */
+  @media (hover: hover) and (pointer: fine) {
+    .h-button--danger-soft:not(:disabled):hover {
+      background: rgba(var(--h-color-danger-rgb, 235, 68, 90), 0.2);
+    }
+  }
+
   .h-button--danger-soft:not(:disabled):active {
-    background: rgba(var(--h-color-danger-rgb, 235, 68, 90), 0.2);
+    background: rgba(var(--h-color-danger-rgb, 235, 68, 90), 0.3);
   }
 
   /* isIconOnly：方形/圆形，边长复用 button height token，图标居中无内边距 */

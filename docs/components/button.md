@@ -134,6 +134,22 @@ import { Star, X } from '@lucide/vue'
 | `leading` | 左侧图标区（`isIconOnly` 时不渲染） |
 | `trailing` | 右侧图标区（`isIconOnly` 时不渲染） |
 
+## 交互状态
+
+每个 variant 都有 hover（悬停）与 pressed（按压）两级反馈，遵循「hover 浅一档、pressed 深一档」的层次。hover 仅在支持精确指针的桌面端生效（`@media (hover: hover) and (pointer: fine)`），触屏设备不会出现 hover 粘连。
+
+| variant | hover | pressed（`:active`） |
+|---------|-------|----------------------|
+| `primary` | `--h-primary-400` | `--h-primary-600` |
+| `secondary` | `--h-primary-100` | `--h-primary-200` |
+| `tertiary` | `--h-color-border-subtle` | 更深灰（`#d4d4d8`） |
+| `outline` | `--h-color-surface-secondary` | `--h-color-border-subtle` |
+| `ghost` | `--h-color-surface-secondary` | `--h-color-border-subtle` |
+| `danger` | `opacity: 0.8` | `opacity: 0.9` |
+| `danger-soft` | 底色 alpha `0.2` | 底色 alpha `0.3` |
+
+`isIconOnly` 只叠加尺寸/形状修饰，配色沿用对应 variant，因此图标按钮拥有一致的 hover/pressed 反馈。
+
 ## 无障碍
 
 - 原生 `<button>`；`disabled` 时不可点

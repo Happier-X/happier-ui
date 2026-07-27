@@ -8,6 +8,8 @@
   border: 1px solid var(--h-color-border-subtle, #e0e0e0);
   border-radius: var(--h-radius-control, 12px);
   background: var(--h-color-surface, #fff);
+  /* 宽内容（如年视图热力图）横向滚动，避免撑破正文内容区 */
+  overflow-x: auto;
 }
 
 .vp-doc .h-demo--stack {

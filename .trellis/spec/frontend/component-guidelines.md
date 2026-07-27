@@ -66,6 +66,8 @@ export { default as HTag } from './components/HTag.vue'
 
 文档：每个公共 `H*` 在 `docs/components/` 有对应页（示例 + API 表）；指南在 `docs/guide/`。文档主路径为 TW4 + `happier-ui/styles`。
 
+文档演示区宽度约定：`.vp-doc .h-demo`（`docs/.vitepress/theme/custom.css`）带 `overflow-x: auto`。固有宽度组件（如 HHeatmap 年视图 ≈53 列、宽 HTable）天然比 VitePress 正文区（≈688px）宽，**不**为迁就容器压缩格子/列宽 token，由演示容器横向滚动；写新组件文档时无需额外处理。
+
 参考实现：
 
 - `src/components/HButton.vue` — 7 variants × sm/md/lg、leading/trailing、disabled、focus-visible；`isIconOnly`(方形/圆形、aspect-ratio:1、图标走默认 slot、ariaLabel 提供可访问名) 覆盖纯图标场景（对齐 HeroUI Native，不再单列组件）

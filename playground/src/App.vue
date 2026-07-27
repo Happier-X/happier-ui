@@ -424,12 +424,52 @@
             v-model="selectValue"
             :options="selectOptions"
             label="水果"
+            description="自定义 popover 面板，键盘可导航"
             placeholder="请选择水果"
+            clearable
             @change="selectLabel = String($event)"
           />
         </div>
         <div>
-          <p class="smoke__hint smoke__hint--inline">change: {{ selectLabel }}</p>
+          <p class="smoke__hint smoke__hint--inline">change: {{ selectLabel || '（未触发）' }}</p>
+        </div>
+        <div>
+          <p class="smoke__hint">labelPlacement=inside</p>
+          <h-select
+            v-model="selectInside"
+            :options="selectOptions"
+            label="城市"
+            label-placement="inside"
+            placeholder="选择城市"
+          />
+        </div>
+        <div>
+          <p class="smoke__hint">variants（flat / bordered / faded / underlined）</p>
+          <div class="smoke__field-stack">
+            <h-select :options="selectOptions" variant="flat" placeholder="flat" aria-label="flat" />
+            <h-select :options="selectOptions" variant="bordered" placeholder="bordered" aria-label="bordered" />
+            <h-select :options="selectOptions" variant="faded" placeholder="faded" aria-label="faded" />
+            <h-select :options="selectOptions" variant="underlined" placeholder="underlined" aria-label="underlined" />
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">colors</p>
+          <div class="smoke__field-stack">
+            <h-select :options="selectOptions" variant="bordered" color="primary" placeholder="primary" aria-label="primary" />
+            <h-select :options="selectOptions" variant="bordered" color="success" placeholder="success" aria-label="success" />
+            <h-select :options="selectOptions" variant="bordered" color="warning" placeholder="warning" aria-label="warning" />
+            <h-select :options="selectOptions" variant="bordered" color="danger" placeholder="danger" aria-label="danger" />
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">radius（none / sm / md / lg / full）</p>
+          <div class="smoke__field-stack">
+            <h-select :options="selectOptions" variant="bordered" radius="none" placeholder="none" aria-label="radius none" />
+            <h-select :options="selectOptions" variant="bordered" radius="sm" placeholder="sm" aria-label="radius sm" />
+            <h-select :options="selectOptions" variant="bordered" radius="md" placeholder="md" aria-label="radius md" />
+            <h-select :options="selectOptions" variant="bordered" radius="lg" placeholder="lg" aria-label="radius lg" />
+            <h-select :options="selectOptions" variant="bordered" radius="full" placeholder="full" aria-label="radius full" />
+          </div>
         </div>
         <div>
           <p class="smoke__hint">sizes</p>
@@ -444,21 +484,46 @@
           <h-select :options="selectOptions" disabled placeholder="禁用" aria-label="禁用" />
         </div>
         <div>
-          <p class="smoke__hint">clearable</p>
+          <p class="smoke__hint">invalid + error</p>
           <h-select
             :options="selectOptions"
-            clearable
-            placeholder="可选清除"
-            aria-label="可选清除"
+            label="必选项"
+            error="请选择一个选项"
+            placeholder="选择"
+          />
+        </div>
+        <div>
+          <p class="smoke__hint">带 description 的选项 + 长列表滚动</p>
+          <h-select
+            :options="selectLongOptions"
+            placeholder="选择时区"
+            aria-label="时区"
           />
         </div>
         <div>
           <p class="smoke__hint">自定义 option slot</p>
           <h-select :options="selectOptions" placeholder="选择水果" aria-label="自定义选项">
             <template #option="{ option }">
-              <option :value="option.value" :disabled="option.disabled">
-                🍉 {{ option.label }}
-              </option>
+              <span>🍉 {{ option.label }}</span>
+            </template>
+          </h-select>
+        </div>
+        <div>
+          <p class="smoke__hint">#start / #end / #value 自定义</p>
+          <h-select
+            v-model="selectValue"
+            :options="selectOptions"
+            placeholder="选择水果"
+            aria-label="自定义 start end"
+          >
+            <template #start>
+              <h-icon :icon="Search" size="sm" aria-hidden="true" />
+            </template>
+            <template #value="{ option, placeholder }">
+              <span>{{ option ? `已选：${option.label}` : placeholder }}</span>
+            </template>
+            <template #end>
+              <span class="smoke__hint" style="margin:0;font-size:12px">⭐</span>
             </template>
           </h-select>
         </div>
@@ -1071,13 +1136,20 @@ const toastCloseCount = ref(0)
 const simpleName = ref('')
 const tanstackSubmitMsg = ref('')
 const selectValue = ref('')
+const selectInside = ref('')
 const selectLabel = ref('')
 const selectOptions: HSelectOption[] = [
-  { value: 'apple', label: '苹果' },
-  { value: 'banana', label: '香蕉' },
-  { value: 'cherry', label: '樱桃', disabled: true },
-  { value: 'durian', label: '榴莲' },
+  { value: 'apple', label: '苹果', description: 'Apple - 水果之王' },
+  { value: 'banana', label: '香蕉', description: 'Banana' },
+  { value: 'cherry', label: '樱桃', disabled: true, description: 'Cherry - 缺货中' },
+  { value: 'durian', label: '榴莲', description: 'Durian - 气味独特' },
 ]
+const selectLongOptions: HSelectOption[] = Array.from({ length: 50 }, (_, i) => ({
+  value: `tz-${i}`,
+  label: `Timezone Option ${i + 1}`,
+  description: i % 2 === 0 ? 'Even offset' : 'Odd offset',
+  disabled: i === 5 || i === 8,
+}))
 const tableSort = ref<{ key: string; order: 'asc' | 'desc' } | null>(null)
 /** 演示用具体行类型：普通 interface（无索引签），验证 HTable 泛型推断无需 as 断言 */
 interface DemoRequestLog {

@@ -162,6 +162,32 @@
   --h-input-border-invalid: var(--h-color-danger);
   --h-input-placeholder: var(--h-color-ink-muted);
 
+  /* 下拉选择（HSelect） */
+  --h-select-height-sm: var(--h-input-height-sm);
+  --h-select-height-md: var(--h-input-height-md);
+  --h-select-height-lg: var(--h-input-height-lg);
+  --h-select-pad-x-sm: var(--h-input-pad-x-sm);
+  --h-select-pad-x-md: var(--h-input-pad-x-md);
+  --h-select-pad-x-lg: var(--h-input-pad-x-lg);
+  --h-select-font-sm: var(--h-input-font-sm);
+  --h-select-font-md: var(--h-input-font-md);
+  --h-select-font-lg: var(--h-input-font-lg);
+  --h-select-radius: var(--h-radius-control);
+  --h-select-bg: var(--h-color-surface);
+  --h-select-bg-flat: var(--h-color-surface-secondary);
+  --h-select-bg-flat-hover: var(--h-color-bg-hover);
+  --h-select-border: var(--h-color-border-subtle);
+  --h-select-placeholder: var(--h-color-ink-muted);
+  --h-select-gap: 4px;
+  --h-select-max-height: 280px;
+  --h-select-popover-pad: 4px;
+  --h-select-option-pad-y: 8px;
+  --h-select-option-pad-x: 12px;
+  --h-select-check-size: 16px;
+  --h-select-popover-bg: var(--h-color-surface);
+  --h-select-popover-border: var(--h-color-border-subtle);
+  --h-select-option-active-bg: var(--h-color-bg-hover);
+
   /* 复选框（HCheckbox） */
   --h-checkbox-size-sm: 16px;
   --h-checkbox-size-md: 20px;
@@ -237,11 +263,12 @@
   --h-list-row-height-comfortable: var(--h-song-row-height);
   --h-list-row-height-compact: 56px;
 
-  /* 层级：顶栏/底栏 < MiniPlayer < 沉浸页 < BottomSheet < Dialog < Toast */
+  /* 层级：顶栏/底栏 < MiniPlayer < 沉浸页 < Select < BottomSheet < Dialog < Toast */
   --h-z-nav: 30;
   --h-z-tab: 30;
   --h-z-mini-player: 1000;
   --h-z-player: 1100;
+  --h-z-select: 1150;
   --h-z-bottom-sheet: var(--h-bottom-sheet-z);
   --h-z-dialog: var(--h-dialog-z);
   --h-z-toast: var(--h-toast-z);

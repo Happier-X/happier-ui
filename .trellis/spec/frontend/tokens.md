@@ -96,6 +96,7 @@ playground：
 | 进度条 | `--h-progress-height-*`、`--h-progress-track-bg`、`--h-progress-fill`、`--h-progress-transition-duration`、`--h-progress-indeterminate-duration` |
 | 底部面板 | `--h-bottom-sheet-z`、`--h-bottom-sheet-overlay-bg`、`--h-bottom-sheet-radius`、`--h-bottom-sheet-duration` |
 | 对话框 | `--h-dialog-z`、`--h-dialog-overlay-bg`、`--h-dialog-radius`、`--h-dialog-max-width`、`--h-dialog-duration` |
+| 弹层（基础件） | `--h-popup-z`、`--h-popup-z-center`、`--h-popup-z-relative`、`--h-popup-overlay-bg`、`--h-popup-radius`、`--h-popup-max-width-center`、`--h-popup-max-width-side`、`--h-popup-duration`、`--h-popup-duration-overlay`、`--h-popup-close-gap`、`--h-popup-close-size`（HBottomSheet/HDialog 内部基于 HPopup 渲染，旧 token 继续生效） |
 | 轻提示 | `--h-toast-z`、`--h-toast-max-width`、`--h-toast-pad-x/y`、`--h-toast-radius`、`--h-toast-offset`、`--h-toast-duration` |
 | 输入框 | `--h-input-height-*`、`--h-input-pad-x-*`、`--h-input-border`、`--h-input-border-invalid` |
 | 复选框 | `--h-checkbox-size-*`、`--h-checkbox-radius`、`--h-checkbox-border`、`--h-checkbox-bg-checked` |

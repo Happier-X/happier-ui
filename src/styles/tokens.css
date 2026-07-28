@@ -146,6 +146,19 @@
   --h-dialog-max-width: 420px;
   --h-dialog-duration: 180ms;
 
+  /* 通用浮层（HPopup） */
+  --h-popup-z: 1200;
+  --h-popup-z-center: 1210;
+  --h-popup-z-relative: 1160;
+  --h-popup-overlay-bg: var(--h-bottom-sheet-overlay-bg, rgba(0, 0, 0, 0.36));
+  --h-popup-radius: 20px;
+  --h-popup-max-width-center: var(--h-dialog-max-width, 420px);
+  --h-popup-max-width-side: 320px;
+  --h-popup-duration: 220ms;
+  --h-popup-duration-overlay: var(--h-duration-overlay, 220ms);
+  --h-popup-close-gap: 12px;
+  --h-popup-close-size: 24px;
+
   /* 输入框（HInput） */
   --h-input-height-sm: 32px;
   --h-input-height-md: 40px;
@@ -263,12 +276,16 @@
   --h-list-row-height-comfortable: var(--h-song-row-height);
   --h-list-row-height-compact: 56px;
 
-  /* 层级：顶栏/底栏 < MiniPlayer < 沉浸页 < Select < BottomSheet < Dialog < Toast */
+  /* 层级：顶栏/底栏 < MiniPlayer < 沉浸页 < FloatingBubble < Select < Popup relative < Popup 贴边/居中 < Toast */
   --h-z-nav: 30;
   --h-z-tab: 30;
   --h-z-mini-player: 1000;
   --h-z-player: 1100;
+  --h-z-floating-bubble: 999;
   --h-z-select: 1150;
+  --h-z-popup: var(--h-popup-z);
+  --h-z-popup-center: var(--h-popup-z-center);
+  --h-z-popup-relative: var(--h-popup-z-relative);
   --h-z-bottom-sheet: var(--h-bottom-sheet-z);
   --h-z-dialog: var(--h-dialog-z);
   --h-z-toast: var(--h-toast-z);

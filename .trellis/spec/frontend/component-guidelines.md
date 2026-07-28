@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HBadge` / `HTag` / `HButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HTextarea` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` / `HFloatingBubble` / `HSidebar` / `HSelect` / `HTable` / `HHeatmap` / `HTooltip` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HBadge` / `HTag` / `HButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HPopup` / `HToast` / `HInput` / `HTextarea` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` / `HFloatingBubble` / `HSidebar` / `HSelect` / `HTable` / `HHeatmap` / `HTooltip` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -27,6 +27,7 @@ export { default as HRange } from './components/HRange.vue'
 export { default as HProgress } from './components/HProgress.vue'
 export { default as HBottomSheet } from './components/HBottomSheet.vue'
 export { default as HDialog } from './components/HDialog.vue'
+export { default as HPopup } from './components/HPopup.vue'
 export { default as HToast } from './components/HToast.vue'
 export { default as HInput } from './components/HInput.vue'
 export { default as HTextarea } from './components/HTextarea.vue'
@@ -75,8 +76,9 @@ export { default as HTag } from './components/HTag.vue'
 - `src/components/HSwitch.vue` — `v-model`、size、disabled、`role="switch"`
 - `src/components/HRange.vue` — 单值横向滑块；v-model number；min/max/step；size/disabled；原生 range 语义
 - `src/components/HProgress.vue` — 只读线形进度条；value/max 确定进度、越界夹取；indeterminate 循环动画；size/variant/rounded；progressbar 语义；无 emits/slots
-- `src/components/HBottomSheet.vue` — `v-model`、overlay/Esc 关闭、dialog 语义、标题/内容槽；`teleport` 默认 body
-- `src/components/HDialog.vue` — 居中 dialog；title/description/actions slots；`teleport` 默认 body
+- `src/components/HBottomSheet.vue` — 基于 `HPopup(position="bottom")` 的薄包装；`showHandle` 映射 HPopup `handle`；公共 API 完全保持向后兼容
+- `src/components/HDialog.vue` — 基于 `HPopup(position="center")` 的薄包装；`#actions` → `#footer`，`#description` 并入 `#title`；公共 API 完全保持向后兼容
+- `src/components/HPopup.vue` — 通用浮层基础件，`position` 统摄 bottom/top/left/right/center/relative 六种形态；内置 `useScrollLock`（引用计数）+ `useTeleportTarget`；无 before-close；`closeable` + Lucide X 关闭按钮（默认隐藏）；relative 形态用 JS 计算坐标 + 边缘翻转 + resize/scroll 重算
 - `src/components/HToast.vue` — 声明式单条轻提示；v-model；variant/position/duration；live-region；`teleport` 默认 body；无队列
 - `src/components/HInput.vue` — v-model；label/error；可对接 TanStack Field（不 peer tanstack）
 - `src/components/HCheckbox.vue` — v-model；label；indeterminate 半选（无 group）
@@ -106,8 +108,8 @@ export { default as HTag } from './components/HTag.vue'
 | 开关 | `modelValue` + `update:modelValue`；`role="switch"` | `HSwitch` |
 | 滑块 | `modelValue` number + `min`/`max`/`step`；`change`/`drag-start`/`drag-end` emits；单值横向；原生 `input[type=range]` | `HRange` |
 | 进度条 | `value` + `max`（默认 100）；`indeterminate`；`size`/`variant`/`rounded`；`role="progressbar"`；只读无 emits/slots | `HProgress` |
-| 底部面板 | `modelValue` + overlay/Esc 请求关闭；`role="dialog"`；`teleport` 默认 body | `HBottomSheet` |
-| 居中对话框 | `modelValue` + overlay/Esc；title/description/actions；`teleport` 默认 body | `HDialog` |
+| 底部面板 | 基础件见 `HPopup(position=bottom)`；旧 wrapper `HBottomSheet` 保持 modelValue + overlay/Esc + showHandle API；`role="dialog"`；`teleport` 默认 body | `HBottomSheet` / `HPopup` |
+| 居中对话框 | 基础件见 `HPopup(position=center)`；旧 wrapper `HDialog` 保持 modelValue + overlay/Esc + title/description/actions API；`role="dialog"`；`teleport` 默认 body | `HDialog` / `HPopup` |
 | 轻提示 | `modelValue` + `duration` 自动关闭；variant/position；live-region；`teleport` 默认 body；无队列 | `HToast` |
 | 文本输入 | `modelValue` + `update:modelValue` + `blur`；label/error | `HInput` |
 | 复选框 | `modelValue` + `update:modelValue`；`indeterminate`；label | `HCheckbox` |
@@ -139,8 +141,9 @@ export { default as HTag } from './components/HTag.vue'
 | `HSwitch` | `HSwitch.vue` | v-model；sm/md/lg；disabled；HeroUI Native 观感 |
 | `HRange` | `HRange.vue` | 单值横向滑块；v-model number；min/max/step；sm/md/lg；disabled；原生 range 语义 |
 | `HProgress` | `HProgress.vue` | 只读线形进度条；value/max、越界夹取；indeterminate 循环动画；sm/md/lg；primary/success/warning/danger；rounded；progressbar 语义 |
-| `HBottomSheet` | `HBottomSheet.vue` | v-model；overlay/Esc；title/default slots；`teleport` 默认 body |
-| `HDialog` | `HDialog.vue` | 居中；title/description/default/actions；`teleport` 默认 body |
+| `HBottomSheet` | `HBottomSheet.vue` | HPopup(position=bottom) 薄包装；v-model；overlay/Esc；showHandle 映射 HPopup `handle`；title/default slots；`teleport` 默认 body（旧 API 不变） |
+| `HDialog` | `HDialog.vue` | HPopup(position=center) 薄包装；v-model；overlay/Esc；title/description/default/actions(#actions→#footer)；`teleport` 默认 body（旧 API 不变） |
+| `HPopup` | `HPopup.vue` | 通用浮层基础件；position bottom/top/left/right/center/relative；modelValue；closeOnOverlay/Esc；lockScroll（useScrollLock）；title/ariaLabel；closeable + closeIconPosition；radius；handle；teleport 默认 body；无 before-close；emits close/open/after-leave/click-overlay/click-close-icon |
 | `HToast` | `HToast.vue` | 声明式单条轻提示；v-model；default/success/warning/danger；top/bottom；duration 自动关闭；live-region；`teleport` 默认 body |
 | `HInput` | `HInput.vue` | v-model；label/description/error；TanStack Field 友好绑定 |
 | `HCheckbox` | `HCheckbox.vue` | v-model；label；indeterminate 半选；宿主清半选 |

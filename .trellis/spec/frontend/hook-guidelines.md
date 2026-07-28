@@ -2,7 +2,7 @@
 
 ## 现状
 
-本库已有一个共享 composable：`src/composables/useTeleportTarget.ts`（供 HToast / HDialog / HBottomSheet / HFloatingBubble 四个浮层组件复用 Teleport 目标解析）。
+本库共享 composable：`src/composables/useTeleportTarget.ts`（供 HToast / HDialog / HBottomSheet / HPopup / HFloatingBubble 等浮层组件复用 Teleport 目标解析）；`src/composables/useScrollLock.ts`（引用计数式 body 滚动锁定，SSR 安全，`HPopup` 默认 `lockScroll: true` 会启用）。
 其余交互逻辑仍写在各 SFC 的 `<script setup>` 内（见 `HButton` 的 click / disabled 处理）。
 
 ## 何时抽取
@@ -31,4 +31,4 @@
 ## 参考
 
 - 组件内逻辑范本：`src/components/HButton.vue`
-- Composable 范本：`src/composables/useTeleportTarget.ts`（只依赖 vue；SSR 安全；多组件复用）
+- Composable 范本：`src/composables/useTeleportTarget.ts`（只依赖 vue；SSR 安全；多组件复用）、`src/composables/useScrollLock.ts`（模块级引用计数 + onBeforeUnmount 自动还原）

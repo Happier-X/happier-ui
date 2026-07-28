@@ -74,6 +74,7 @@ export default defineConfig({
             { text: 'Heatmap 热力图', link: '/components/heatmap' },
             { text: 'Tooltip 工具提示', link: '/components/tooltip' },
             { text: 'Scrollbar 滚动条', link: '/components/scrollbar' },
+            { text: 'Popup 弹层', link: '/components/popup' },
           ],
         },
       ],

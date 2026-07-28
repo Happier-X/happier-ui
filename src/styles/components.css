@@ -16,6 +16,7 @@
 @import "./components/nav-bar.css";
 @import "./components/tab-bar.css";
 @import "./components/dialog.css";
+@import "./components/popup.css";
 @import "./components/bottom-sheet.css";
 @import "./components/toast.css";
 @import "./components/floating-bubble.css";

@@ -319,6 +319,98 @@
       </h-dialog>
     </section>
 
+    <section class="smoke__section" aria-labelledby="popup-heading">
+      <h2 id="popup-heading" class="smoke__section-title">HPopup</h2>
+      <p class="smoke__hint smoke__hint--spaced">通用浮层基础件；position 统摄 bottom/top/left/right/center/relative。下面是 4 个用例。</p>
+      <p class="smoke__hint smoke__hint--spaced"><strong>bottom（带 handle + closeable）</strong></p>
+      <div class="smoke__row">
+        <h-button @click="popupBottom = true">底部弹层</h-button>
+      </div>
+      <h-popup
+        v-model="popupBottom"
+        position="bottom"
+        title="底部弹层"
+        :handle="true"
+        closeable
+        @close="popupCloseCount++"
+      >
+        <p class="smoke__hint">position="bottom"，自带拖拽手柄与右上角 X。</p>
+        <h-button size="sm" @click="popupBottom = false">关闭</h-button>
+      </h-popup>
+
+      <p class="smoke__hint smoke__hint--spaced"><strong>center（带 footer）</strong></p>
+      <div class="smoke__row">
+        <h-button @click="popupCenter = true">居中弹层</h-button>
+      </div>
+      <h-popup
+        v-model="popupCenter"
+        position="center"
+        title="居中弹层"
+        closeable
+        @close="popupCloseCount++"
+      >
+        <p class="smoke__hint">position="center"，全屏遮罩居中卡片。</p>
+        <template #footer>
+          <h-button size="sm" variant="ghost" @click="popupCenter = false">取消</h-button>
+          <h-button size="sm" @click="popupCenter = false">确认</h-button>
+        </template>
+      </h-popup>
+
+      <p class="smoke__hint smoke__hint--spaced"><strong>left（侧边抽屉）</strong></p>
+      <div class="smoke__row">
+        <h-button @click="popupLeft = true">左侧抽屉</h-button>
+      </div>
+      <h-popup
+        v-model="popupLeft"
+        position="left"
+        title="左侧面板"
+        closeable
+        @close="popupCloseCount++"
+      >
+        <p class="smoke__hint">position="left"，面板从左侧滑入。</p>
+        <h-button size="sm" @click="popupLeft = false">关闭</h-button>
+      </h-popup>
+
+      <p class="smoke__hint smoke__hint--spaced"><strong>right（右侧面板）</strong></p>
+      <div class="smoke__row">
+        <h-button @click="popupRight = true">右侧抽屉</h-button>
+      </div>
+      <h-popup
+        v-model="popupRight"
+        position="right"
+        title="右侧面板"
+        closeable
+        @close="popupCloseCount++"
+      >
+        <p class="smoke__hint">position="right"，面板从右侧滑入。</p>
+        <h-button size="sm" @click="popupRight = false">关闭</h-button>
+      </h-popup>
+
+      <p class="smoke__hint smoke__hint--spaced"><strong>relative（相对 trigger 定位 + closeable）</strong></p>
+      <div class="smoke__row">
+        <h-button
+          ref="popupRelTrigger"
+          variant="outline"
+          @click="popupRelative = !popupRelative"
+        >
+          {{ popupRelative ? '关闭相对弹层' : '打开相对弹层' }}
+        </h-button>
+      </div>
+      <h-popup
+        v-model="popupRelative"
+        position="relative"
+        :trigger-ref="popupRelTrigger"
+        title="相对弹层"
+        closeable
+        :close-on-overlay="false"
+        radius="sm"
+        @close="popupCloseCount++"
+      >
+        <p class="smoke__hint">position="relative"：无遮罩 · JS 计算坐标 · resize/scroll 重算 · 边缘翻转。</p>
+        <h-button size="sm" @click="popupRelative = false">关闭</h-button>
+      </h-popup>
+    </section>
+
     <section class="smoke__section" aria-labelledby="input-heading">
       <h2 id="input-heading" class="smoke__section-title">HInput</h2>
       <div class="smoke__field-stack">
@@ -1195,7 +1287,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HHeatmap, HIcon, HImage, HInput, HNavBar, HPagination, HProgress, HRange, HScrollbar, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag, HTooltip } from 'happier-ui'
+import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HHeatmap, HIcon, HImage, HInput, HNavBar, HPagination, HPopup, HProgress, HRange, HScrollbar, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag, HTooltip } from 'happier-ui'
 import type { HSelectOption, HSidebarItem, HTabBarItem, HTableColumn } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -1226,6 +1318,13 @@ const sheetCloseCount = ref(0)
 const dialogOpen = ref(false)
 const dialogNoOverlayClose = ref(false)
 const dialogCloseCount = ref(0)
+const popupBottom = ref(false)
+const popupCenter = ref(false)
+const popupLeft = ref(false)
+const popupRight = ref(false)
+const popupRelative = ref(false)
+const popupRelTrigger = ref(null)
+const popupCloseCount = ref(0)
 const toastSuccess = ref(false)
 const toastTop = ref(false)
 const toastDanger = ref(false)

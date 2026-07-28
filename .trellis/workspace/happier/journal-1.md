@@ -849,3 +849,25 @@
 ### Status
 
 [OK] **Completed** — 待 finish-work 归档
+
+
+## Session 20: HPopup 通用浮层基础件 + HBottomSheet/HDialog 薄包装重构 + useScrollLock
+
+**Date**: 2026-07-28
+**Task**: HPopup 通用浮层基础件 + HBottomSheet/HDialog 薄包装重构 + useScrollLock
+**Branch**: `master`
+
+### Summary
+
+新增 HPopup 通用浮层（6 形态 position + relative JS 定位 + closeable + handle + 内置 useScrollLock）作为浮层基础件；HBottomSheet/HDialog 重构为基于 HPopup 的薄包装（公共 API 完全不变，新增 panelLabelledBy/panelDescribedBy 透传 aria）；bottom-sheet.css/dialog.css 减化为兼容 stub；tokens.css 新增 --h-popup-* token 组；docs/components/popup.md 中文文档 + 侧栏入口；spec 同步更新；playground 演示段 bottom/center/left/right/relative + closeable。修复 3 个 bug：useScrollLock TDZ、HDialog 双重 h2 渲染、relative 定位空间计算。build:lib/build:playground/docs:build 全绿。AC 覆盖 18 项。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `cda7abc` | (see git log) |
+| `66daea5` | (see git log) |
+
+### Status
+
+[OK] **Completed**

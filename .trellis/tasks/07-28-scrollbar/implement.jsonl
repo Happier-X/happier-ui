@@ -1,0 +1,6 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "H* 命名/导出/SFC 结构/API 约定与参考实现清单，实现与 check 必须对齐"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "新增 --h-scrollbar-* 时遵循 token 权威前缀与 fallback 约定"}
+{"file": ".trellis/spec/frontend/directory-structure.md", "reason": "组件/样式/文档/导出文件落点"}
+{"file": ".trellis/spec/frontend/type-safety.md", "reason": "Props 接口导出与 withDefaults 类型约定"}
+{"file": ".trellis/tasks/07-28-scrollbar/design.md", "reason": "CSS-only 架构、props 合约、选择器与移动端回退设计"}
+{"file": ".trellis/tasks/07-28-scrollbar/prd.md", "reason": "需求与 AC1–AC8 验收标准"}

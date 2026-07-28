@@ -767,3 +767,40 @@
 ### Status
 
 [OK] **Completed**
+
+## Session 20: feat(scrollbar): HScrollbar CSS-only 滚动条组件
+
+**Date**: 2026-07-28
+**Task**: feat(scrollbar): HScrollbar CSS-only 滚动条组件
+**Branch**: `master`
+
+### Summary
+
+实现 HScrollbar 组件：CSS-only 细窄主题滚动容器，对齐 HeroUI v3 的 `data-scrollbar` 模式 + `--scrollbar-*` token 思路。mode(thin/default/none) + axis(x/y/both) + size(sm/md/lg=4/6/8px) + color(default/primary/success/warning/danger) + ariaLabel；default slot；无 emits；高度由宿主控制。web 端 `::-webkit-scrollbar` 伪元素 + Firefox `scrollbar-width`/`scrollbar-color`；移动端 (`pointer: coarse`) 媒体查询自动回退原生滚动。无 JS thumb、无 ResizeObserver、无 SSR guard。
+
+新文件：HScrollbar.vue、scrollbar.css、docs/components/scrollbar.md。修改：index.ts 导出 HScrollbar + HScrollbarProps、components.css @import、tokens.css 新增 `--h-scrollbar-*`、config.ts 侧栏、App.vue 演示段、component-guidelines.md / tokens.md spec 同步。
+
+### Key Decisions
+
+| 决策 | 理由 |
+|------|------|
+| CSS-only（不 JS thumb） | 对齐 HeroUI；移动端自动原生惯性；零 SSR |
+| `mode` prop → DOM `data-scrollbar` | 与项目 prop 风格一致，DOM 可调试 |
+| `color-mix` + rgba 同声明 fallback | 现代优先，旧浏览器退化半透明灰 |
+| 高度由宿主控制 | 容器无固定 height，文档/playground 示例明示 |
+
+### Validation
+
+- `vue-tsc --noEmit`（playground）exit 0
+- `npm run docs:build` exit 0
+- `npm run build:lib` exit 0；`dist/components/HScrollbar.vue.d.ts` props 类型完整、default slot 保留；`dist/styles.css` 合并 scrollbar CSS（64 处 `h-scrollbar`）
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `d26eeea` | feat(scrollbar): HScrollbar CSS-only 滚动条组件 |
+
+### Status
+
+[OK] **Completed**

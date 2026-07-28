@@ -29,6 +29,8 @@ export { default as HTable } from './components/HTable.vue'
 export type { HTableColumn, HTableSort } from './components/HTable.vue'
 export { default as HHeatmap } from './components/HHeatmap.vue'
 export type { HHeatmapItem, HHeatmapData } from './components/HHeatmap.vue'
+export { default as HScrollbar } from './components/HScrollbar.vue'
+export type { HScrollbarProps } from './components/HScrollbar.vue'
 export type { HTabBarItem } from './components/HTabBar.vue'
 export type { HSidebarItem } from './components/HSidebar.vue'
 export type {

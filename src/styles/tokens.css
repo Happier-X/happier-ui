@@ -305,6 +305,18 @@
   --h-heatmap-level-3: rgba(var(--h-color-primary-rgb), 0.7);
   --h-heatmap-level-4: rgba(var(--h-color-primary-rgb), 1);
 
+  /* —— 滚动条（HScrollbar）—— */
+  --h-scrollbar-size-sm: 4px;
+  --h-scrollbar-size-md: 6px;
+  --h-scrollbar-size-lg: 8px;
+  /* color-mix 不支持时退化半透明灰；现代浏览器用 ink 半透明 */
+  --h-scrollbar-thumb: rgba(0, 0, 0, 0.18);
+  --h-scrollbar-thumb: color-mix(in srgb, var(--h-color-ink, #000000) 18%, transparent);
+  --h-scrollbar-thumb-hover: rgba(0, 0, 0, 0.32);
+  --h-scrollbar-thumb-hover: color-mix(in srgb, var(--h-color-ink, #000000) 32%, transparent);
+  --h-scrollbar-track: transparent;
+  --h-scrollbar-size: var(--h-scrollbar-size-md);
+
   /* —— 兼容：--muses-* → --h-* —— */
   --muses-primary-50: var(--h-primary-50);
   --muses-primary-100: var(--h-primary-100);

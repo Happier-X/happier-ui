@@ -110,6 +110,7 @@ playground：
 | 浮动气泡 | `--h-floating-bubble-size`、`--h-floating-bubble-icon-size`、`--h-floating-bubble-gap`、`--h-floating-bubble-bg/color`、`--h-floating-bubble-radius`、`--h-floating-bubble-transition`、`--h-z-floating-bubble` |
 | 侧边栏 | `--h-sidebar-width`（展开 240px，布局分组已有）、`--h-sidebar-collapsed-width`、`--h-sidebar-bg`、`--h-sidebar-border`、`--h-sidebar-item-radius`、`--h-sidebar-item-gap`、`--h-sidebar-transition`（HSidebar） |
 | 热力图 | `--h-heatmap-cell-{sm,md,lg}`、`--h-heatmap-gap`、`--h-heatmap-radius`、`--h-heatmap-empty`（空日/0 值底色，回退 surface-secondary）、`--h-heatmap-level-{1..4}`（基于 `rgba(var(--h-color-primary-rgb), a)` 的蓝阶梯，随主题走）（HHeatmap） |
+| 滚动条 | `--h-scrollbar-size-{sm,md,lg}`（4/6/8px）、`--h-scrollbar-size`（当前尺寸，由 size 修饰符写入）、`--h-scrollbar-thumb`/`--h-scrollbar-thumb-hover`/`--h-scrollbar-track`（color-mix over `--h-color-*`，rgba fallback）（HScrollbar） |
 | 层级 | `--h-z-nav`、`--h-z-tab`、`--h-z-mini-player`、`--h-z-player`、`--h-z-floating-bubble` |
 
 ## 已知债

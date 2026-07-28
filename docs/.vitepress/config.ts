@@ -73,6 +73,7 @@ export default defineConfig({
             { text: 'Table 表格', link: '/components/table' },
             { text: 'Heatmap 热力图', link: '/components/heatmap' },
             { text: 'Tooltip 工具提示', link: '/components/tooltip' },
+            { text: 'Scrollbar 滚动条', link: '/components/scrollbar' },
           ],
         },
       ],

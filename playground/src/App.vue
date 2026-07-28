@@ -1078,6 +1078,69 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="scrollbar-heading">
+      <h2 id="scrollbar-heading" class="smoke__section-title">HScrollbar</h2>
+      <p class="smoke__hint">CSS-only 细窄滚动条；thin / default / none 三种模式，可调方向、宽度、主题色。移动端自动回退原生。</p>
+
+      <p class="smoke__lead">mode：thin（默认）· default · none</p>
+      <div class="smoke__row smoke__row--wrap">
+        <h-scrollbar style="height: 100px; width: 14rem">
+          <p v-for="n in 10" class="smoke__scrollbar-item">{{ n }} — thin 细窄主题 thumb</p>
+        </h-scrollbar>
+        <h-scrollbar mode="default" style="height: 100px; width: 14rem">
+          <p v-for="n in 10" class="smoke__scrollbar-item">{{ n }} — default 原生</p>
+        </h-scrollbar>
+        <h-scrollbar mode="none" style="height: 100px; width: 14rem">
+          <p v-for="n in 10" class="smoke__scrollbar-item">{{ n }} — none 隐藏 thumb</p>
+        </h-scrollbar>
+      </div>
+
+      <p class="smoke__lead">axis：y（纵向）· x（横向）· both（双向）</p>
+      <div class="smoke__row smoke__row--wrap">
+        <h-scrollbar style="height: 100px; width: 14rem">
+          <p v-for="n in 8" class="smoke__scrollbar-item">{{ n }} — axis y</p>
+        </h-scrollbar>
+        <h-scrollbar axis="x" style="width: 14rem; white-space: nowrap">
+          <span v-for="n in 15" class="smoke__scrollbar-item" style="display: inline-block; padding: 4px">列{{ n }}</span>
+        </h-scrollbar>
+        <h-scrollbar axis="both" style="height: 100px; width: 14rem">
+          <p v-for="n in 8" class="smoke__scrollbar-item smoke__scrollbar-item--wide">{{ n }} — both</p>
+        </h-scrollbar>
+      </div>
+
+      <p class="smoke__lead">size：sm 4px · md 6px · lg 8px</p>
+      <div class="smoke__row smoke__row--wrap">
+        <h-scrollbar size="sm" style="height: 100px; width: 14rem">
+          <p v-for="n in 8" class="smoke__scrollbar-item">{{ n }} — sm 4px</p>
+        </h-scrollbar>
+        <h-scrollbar size="md" style="height: 100px; width: 14rem">
+          <p v-for="n in 8" class="smoke__scrollbar-item">{{ n }} — md 6px</p>
+        </h-scrollbar>
+        <h-scrollbar size="lg" style="height: 100px; width: 14rem">
+          <p v-for="n in 8" class="smoke__scrollbar-item">{{ n }} — lg 8px</p>
+        </h-scrollbar>
+      </div>
+
+      <p class="smoke__lead">color：default · primary · success · warning · danger</p>
+      <div class="smoke__row smoke__row--wrap">
+        <h-scrollbar style="height: 100px; width: 14rem">
+          <p v-for="n in 8" class="smoke__scrollbar-item">{{ n }} — default</p>
+        </h-scrollbar>
+        <h-scrollbar color="primary" style="height: 100px; width: 14rem">
+          <p v-for="n in 8" class="smoke__scrollbar-item">{{ n }} — primary</p>
+        </h-scrollbar>
+        <h-scrollbar color="success" style="height: 100px; width: 14rem">
+          <p v-for="n in 8" class="smoke__scrollbar-item">{{ n }} — success</p>
+        </h-scrollbar>
+        <h-scrollbar color="warning" style="height: 100px; width: 14rem">
+          <p v-for="n in 8" class="smoke__scrollbar-item">{{ n }} — warning</p>
+        </h-scrollbar>
+        <h-scrollbar color="danger" style="height: 100px; width: 14rem">
+          <p v-for="n in 8" class="smoke__scrollbar-item">{{ n }} — danger</p>
+        </h-scrollbar>
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="heatmap-heading">
       <h2 id="heatmap-heading" class="smoke__section-title">HHeatmap</h2>
       <p class="smoke__hint">GitHub 贡献图风格；hover 单元格看原生 title。</p>
@@ -1132,7 +1195,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HHeatmap, HIcon, HImage, HInput, HNavBar, HPagination, HProgress, HRange, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag, HTooltip } from 'happier-ui'
+import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HHeatmap, HIcon, HImage, HInput, HNavBar, HPagination, HProgress, HRange, HScrollbar, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag, HTooltip } from 'happier-ui'
 import type { HSelectOption, HSidebarItem, HTabBarItem, HTableColumn } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -1592,5 +1655,17 @@ const onToastClose = () => {
   align-items: center;
   gap: var(--h-space-md, 12px);
   color: var(--h-color-ink, #000000);
+}
+
+.smoke__scrollbar-item {
+  margin: 0;
+  padding: var(--h-space-xs, 4px) var(--h-space-sm, 8px);
+  border-bottom: 1px solid var(--h-color-border-subtle, #ececee);
+  font-size: var(--h-font-body-sm, 13px);
+}
+
+.smoke__scrollbar-item--wide {
+  width: 220%;
+  white-space: nowrap;
 }
 </style>

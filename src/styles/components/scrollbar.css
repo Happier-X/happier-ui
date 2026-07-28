@@ -1,0 +1,133 @@
+@layer components {
+  .h-scrollbar {
+    box-sizing: border-box;
+    /* 默认纵向滚动（由 axis 修饰符覆盖） */
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Firefox：细窄主题 thumb */
+    scrollbar-width: thin;
+    scrollbar-color: var(--h-scrollbar-thumb, rgba(0, 0, 0, 0.18)) var(--h-scrollbar-track, transparent);
+  }
+
+  /* —— 模式：thin ——
+   * WebKit 自定义细窄 thumb；Firefox 走上面声明。
+   */
+  .h-scrollbar[data-scrollbar="thin"]::-webkit-scrollbar {
+    width: var(--h-scrollbar-size, var(--h-scrollbar-size-md, 6px));
+    height: var(--h-scrollbar-size, var(--h-scrollbar-size-md, 6px));
+  }
+  .h-scrollbar[data-scrollbar="thin"]::-webkit-scrollbar-thumb {
+    background: var(--h-scrollbar-thumb, rgba(0, 0, 0, 0.18));
+    border-radius: var(--h-radius-pill, 999px);
+  }
+  .h-scrollbar[data-scrollbar="thin"]::-webkit-scrollbar-thumb:hover {
+    background: var(--h-scrollbar-thumb-hover, rgba(0, 0, 0, 0.32));
+  }
+  .h-scrollbar[data-scrollbar="thin"]::-webkit-scrollbar-track {
+    background: var(--h-scrollbar-track, transparent);
+  }
+
+  /* —— 模式：default ——
+   * 浏览器原生滚动条；不覆盖 webkit 伪元素。
+   */
+  .h-scrollbar[data-scrollbar="default"] {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+  .h-scrollbar[data-scrollbar="default"]::-webkit-scrollbar {
+    width: auto;
+    height: auto;
+  }
+  .h-scrollbar[data-scrollbar="default"]::-webkit-scrollbar-thumb,
+  .h-scrollbar[data-scrollbar="default"]::-webkit-scrollbar-track {
+    background: auto;
+    border-radius: auto;
+  }
+
+  /* —— 模式：none ——
+   * 隐藏 thumb，内容仍可滚动。
+   */
+  .h-scrollbar[data-scrollbar="none"] {
+    scrollbar-width: none;
+  }
+  .h-scrollbar[data-scrollbar="none"]::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  /* —— 方向（axis） —— */
+  .h-scrollbar--axis-x {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .h-scrollbar--axis-y {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .h-scrollbar--axis-both {
+    overflow: auto;
+  }
+
+  /* —— 尺寸（size） —— */
+  .h-scrollbar--sm {
+    --h-scrollbar-size: var(--h-scrollbar-size-sm, 4px);
+  }
+  .h-scrollbar--md {
+    --h-scrollbar-size: var(--h-scrollbar-size-md, 6px);
+  }
+  .h-scrollbar--lg {
+    --h-scrollbar-size: var(--h-scrollbar-size-lg, 8px);
+  }
+
+  /* —— 主题色（color） ——
+   * 覆盖 --h-scrollbar-thumb；各档先写 rgba 数值 fallback，再写 color-mix 优先。
+   */
+  .h-scrollbar--color-default {
+    --h-scrollbar-thumb: rgba(0, 0, 0, 0.18);
+    --h-scrollbar-thumb: color-mix(in srgb, var(--h-color-ink, #000000) 18%, transparent);
+    --h-scrollbar-thumb-hover: rgba(0, 0, 0, 0.32);
+    --h-scrollbar-thumb-hover: color-mix(in srgb, var(--h-color-ink, #000000) 32%, transparent);
+  }
+  .h-scrollbar--color-primary {
+    --h-scrollbar-thumb: rgba(0, 111, 238, 0.45);
+    --h-scrollbar-thumb: color-mix(in srgb, var(--h-color-primary, #006fee) 45%, transparent);
+    --h-scrollbar-thumb-hover: rgba(0, 111, 238, 0.65);
+    --h-scrollbar-thumb-hover: color-mix(in srgb, var(--h-color-primary, #006fee) 65%, transparent);
+  }
+  .h-scrollbar--color-success {
+    --h-scrollbar-thumb: rgba(23, 201, 100, 0.45);
+    --h-scrollbar-thumb: color-mix(in srgb, var(--h-color-success, #17c964) 45%, transparent);
+    --h-scrollbar-thumb-hover: rgba(23, 201, 100, 0.65);
+    --h-scrollbar-thumb-hover: color-mix(in srgb, var(--h-color-success, #17c964) 65%, transparent);
+  }
+  .h-scrollbar--color-warning {
+    --h-scrollbar-thumb: rgba(245, 165, 36, 0.45);
+    --h-scrollbar-thumb: color-mix(in srgb, var(--h-color-warning, #f5a524) 45%, transparent);
+    --h-scrollbar-thumb-hover: rgba(245, 165, 36, 0.65);
+    --h-scrollbar-thumb-hover: color-mix(in srgb, var(--h-color-warning, #f5a524) 65%, transparent);
+  }
+  .h-scrollbar--color-danger {
+    --h-scrollbar-thumb: rgba(var(--h-color-danger-rgb, 235, 68, 90), 0.45);
+    --h-scrollbar-thumb: color-mix(in srgb, var(--h-color-danger, #eb445a) 45%, transparent);
+    --h-scrollbar-thumb-hover: rgba(var(--h-color-danger-rgb, 235, 68, 90), 0.65);
+    --h-scrollbar-thumb-hover: color-mix(in srgb, var(--h-color-danger, #eb445a) 65%, transparent);
+  }
+
+  /* —— 移动端：coarse pointer → 回退原生（不强制自定义 thumb） —— */
+  @media (hover: none) and (pointer: coarse) {
+    .h-scrollbar[data-scrollbar="thin"] {
+      scrollbar-width: auto;
+      scrollbar-color: auto;
+    }
+    .h-scrollbar[data-scrollbar="thin"]::-webkit-scrollbar {
+      width: auto;
+      height: auto;
+    }
+    .h-scrollbar[data-scrollbar="thin"]::-webkit-scrollbar-thumb,
+    .h-scrollbar[data-scrollbar="thin"]::-webkit-scrollbar-track {
+      background: auto;
+      border-radius: auto;
+    }
+  }
+}

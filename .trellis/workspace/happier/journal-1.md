@@ -804,3 +804,48 @@
 ### Status
 
 [OK] **Completed**
+
+---
+
+## 2026-07-28 · Popup 任务（07-28-popup）完成
+
+### Deliverables
+
+- `src/composables/useScrollLock.ts`（新增，引用计数式 SSR 安全）
+- `src/components/HPopup.vue`（新增，6 形态 position + relative JS 定位 + closeable + handle）
+- `src/styles/components/popup.css`（新增，BEM + 6 position modifiers + keyframes + safe-area）
+- `src/styles/tokens.css` 新增 `--h-popup-*` token 组 + z-index 层级更新
+- `src/components/HBottomSheet.vue` 重构为 HPopup(position=bottom) 薄包装（旧 API 不变）
+- `src/components/HDialog.vue` 重构为 HPopup(position=center) 薄包装（旧 API 不变；新增 `panelLabelledBy` / `panelDescribedBy` prop 透传保留 aria 关联）
+- `src/styles/components/{bottom-sheet,dialog}.css` 减化为向后兼容 stub（规则迁至 popup.css）
+- `src/index.ts` 导出 HPopup
+- `docs/components/popup.md`（中文 API + 4 用例）+ 侧栏入口
+- `.trellis/spec/frontend/{component-guidelines,hook-guidelines,tokens}.md` 更新
+- playground `App.vue` 新增 HPopup 演示段（bottom/center/left/right/relative + closeable）
+
+### Key Decisions
+
+| 决策 | 理由 |
+|------|------|
+| wrapper 常驻（visibility:hidden 关闭态）非 v-if 全根 | 保留 rootEl ref、可捕获 `<Transition @after-leave>` |
+| HDialog 自渲 title + description 于 #title slot，不透传 title prop 给 HPopup | 避免 HPopup 内部 `<h2>` 与 wrapper 重复渲染；通过新增 `panelLabelledBy` / `panelDescribedBy` 注入 aria |
+| TDZ 修复：useScrollLock 的 enabled 在 visible ref 声明后调用 | arrow function 闭包延迟访问 visible，但 useScrollLock 内 watch 会立即求值 |
+| bottom-sheet.css / dialog.css 保留 stub 不删 | 保证消费方 `@import` 路径不炸 |
+| 不实现 before-close hook | 受控 v-model 天然拦截，符合规范「不造引擎」 |
+
+### Validation
+
+- `npm run build:lib` exit 0；`dist/styles.css` 含 `--h-popup-*` 全部 token；`dist/index.js` 导出 HPopup；`dist/components/HPopup.vue.d.ts` 生成
+- `npm pack --dry-run` tarball 不含 src/playground/docs/.trellis（仅 `dist/HPopup.vue.d.ts`）
+- `npm run build:playground` exit 0；新演示段编译通过
+- `npm run docs:build` exit 0；`docs/.vitepress/dist/components/popup.html` 中 `aria-labelledby` / `aria-describedby` / `h-popup--position-*` 正确输出
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `cda7abc` | feat(popup): HPopup 通用浮层 + HBottomSheet/HDialog 薄包装重构 + useScrollLock |
+
+### Status
+
+[OK] **Completed** — 待 finish-work 归档

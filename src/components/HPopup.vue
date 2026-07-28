@@ -293,8 +293,8 @@ function positionRelative() {
 
   const spaceBelow = vh - rect.bottom - gap
   const spaceAbove = rect.top - gap
-  const spaceLeft = rect.right + gap
-  const spaceRight = vw - rect.left + gap
+  const spaceLeft = rect.left - gap
+  const spaceRight = vw - rect.right - gap
 
   let targetPlacement: 'bottom' | 'top' | 'left' | 'right' = 'bottom'
 

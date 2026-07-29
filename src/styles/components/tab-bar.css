@@ -17,7 +17,7 @@
 
   .h-tab-bar--safe-area {
     padding-bottom: constant(safe-area-inset-bottom); /* iOS < 11.2 */
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px));
   }
 
   .h-tab-bar__inner {

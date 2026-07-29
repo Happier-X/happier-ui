@@ -892,3 +892,24 @@
 ### Status
 
 [OK] **Completed**
+
+
+## Session 22: HNavBar/HTabBar safe-area fallback to Capacitor 8 --safe-area-inset-*
+
+**Date**: 2026-07-29
+**Task**: HNavBar/HTabBar safe-area fallback to Capacitor 8 --safe-area-inset-*
+**Branch**: `master`
+
+### Summary
+
+为HNavBar和HTabBar的safe-area样式增加Capacitor 8 --safe-area-inset-*自定义属性三阶回退（var()→constant()→env()→0px），解决Android 15+ Edge-to-Edge模式下env()返回0导致内容与系统栏重叠的问题。Closes #12。仅改src/styles/components/nav-bar.css和tab-bar.css两个文件，build:lib和build:playground通过。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `c468411` | (see git log) |
+
+### Status
+
+[OK] **Completed**

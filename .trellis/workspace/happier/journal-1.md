@@ -913,3 +913,24 @@
 ### Status
 
 [OK] **Completed**
+
+
+## Session 23: 发布 v0.0.7
+
+**Date**: 2026-07-29
+**Task**: 发布 v0.0.7
+**Branch**: `master`
+
+### Summary
+
+发布happier-ui@0.0.7到npm，包含HNavBar/HTabBar safe-area Capacitor 8回退修复。版本号0.0.6→0.0.7(patch)。构建验证通过后提交bump、打v0.0.7 tag推送，触发GitHub Actions release workflow自动构建并发布到npm registry。npm view确认0.0.7已可用。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `69d00d0` | (see git log) |
+
+### Status
+
+[OK] **Completed**

@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 22
+- **Total Sessions**: 23
 - **Last Active**: 2026-07-29
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~915 | Active |
+| `journal-1.md` | ~936 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 23 | 2026-07-29 | 发布 v0.0.7 | `69d00d0` | `master` |
 | 22 | 2026-07-29 | HNavBar/HTabBar safe-area fallback to Capacitor 8 --safe-area-inset-* | `c468411` | `master` |
 | 21 | 2026-07-29 | Popup fullscreen 形态（含下滑关闭） | `04055aa` | `master` |
 | 20 | 2026-07-28 | HPopup 通用浮层基础件 + HBottomSheet/HDialog 薄包装重构 + useScrollLock | `cda7abc`, `66daea5` | `master` |

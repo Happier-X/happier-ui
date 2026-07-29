@@ -8,8 +8,8 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 20
-- **Last Active**: 2026-07-28
+- **Total Sessions**: 21
+- **Last Active**: 2026-07-29
 <!-- @@@/auto:current-status -->
 
 ---
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~873 | Active |
+| `journal-1.md` | ~894 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 21 | 2026-07-29 | Popup fullscreen 形态（含下滑关闭） | `04055aa` | `master` |
 | 20 | 2026-07-28 | HPopup 通用浮层基础件 + HBottomSheet/HDialog 薄包装重构 + useScrollLock | `cda7abc`, `66daea5` | `master` |
 | 19 | 2026-07-27 | feat(tooltip): HTooltip 悬浮提示组件 | `8d5f679` | `master` |
 | 18 | 2026-07-27 | 修复文档演示区热力图横向溢出 | `c42d1b4` | `master` |

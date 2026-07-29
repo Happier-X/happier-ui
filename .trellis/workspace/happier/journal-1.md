@@ -871,3 +871,24 @@
 ### Status
 
 [OK] **Completed**
+
+
+## Session 21: Popup fullscreen 形态（含下滑关闭）
+
+**Date**: 2026-07-29
+**Task**: Popup fullscreen 形态（含下滑关闭）
+**Branch**: `master`
+
+### Summary
+
+为 HPopup 新增 position="fullscreen" 全屏形态：面板 inset:0 占满视口、无圆角/header/safe-area padding、touch 下滑关闭（>=80px 或 >=0.3px/ms，否则 250ms 回弹）、overlay 透明度随拖动衰减、手势期 touch-action:none 锁面板滚动。更新文档、playground 演示段和组件规范。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `04055aa` | (see git log) |
+
+### Status
+
+[OK] **Completed**

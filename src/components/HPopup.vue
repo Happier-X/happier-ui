@@ -6,10 +6,14 @@
     <div
       ref="rootEl"
       class="h-popup"
-      :class="positionClass"
+      :class="rootClasses"
       :style="rootStyle"
       tabindex="-1"
       @keydown.esc.prevent="onEsc"
+      @touchstart="onTouchStart"
+      @touchmove="onTouchMove"
+      @touchend="onTouchEnd"
+      @touchcancel="resetSwipe"
     >
       <Transition
         :name="transitionName"
@@ -20,6 +24,7 @@
           <div
             v-if="position !== 'relative'"
             class="h-popup__overlay"
+            :style="gestureOverlayStyle"
             aria-hidden="true"
             @click="onOverlayClick"
           />
@@ -29,7 +34,7 @@
             ref="panelEl"
             class="h-popup__panel"
             :class="panelClasses"
-            :style="panelStyle"
+            :style="[panelStyle, gesturePanelStyle]"
             role="dialog"
             :aria-modal="position !== 'relative' ? true : undefined"
             :aria-labelledby="labelledBy"
@@ -62,7 +67,7 @@
 
             <!-- 标题 -->
             <header
-              v-if="title || $slots.title"
+              v-if="(title || $slots.title) && position !== 'fullscreen'"
               class="h-popup__header"
             >
               <slot name="title">
@@ -97,8 +102,9 @@
 <script setup lang="ts">
 /**
  * happier-ui：HPopup 通用浮层基础组件。
- * position 统摄 bottom / top / left / right / center / relative（相对 trigger 定位）。
- * 居中/贴边形态带 overlay；relative 无 overlay、JS 定位 + 边缘翻转 + scroll/resize 重算。
+ * position 统摄 bottom / top / left / right / center / relative / fullscreen。
+ * 居中/贴边/fullscreen 形态带 overlay；relative 无 overlay、JS 定位 + 边缘翻转 + scroll/resize 重算。
+ * fullscreen 面板占满视口，并支持在内容滚动到顶部时下滑关闭。
  *
  * 后记：底部面板 handle、关闭按钮 closeable、标题 title/#title、footer #footer、
  * scroll lock（useScrollLock）、teleport（useTeleportTarget）。
@@ -125,7 +131,7 @@ const XIcon: Component = X
 /* ---------- props ---------- */
 const props = withDefaults(defineProps<{
   modelValue?: boolean
-  position?: 'bottom' | 'top' | 'left' | 'right' | 'center' | 'relative'
+  position?: 'bottom' | 'top' | 'left' | 'right' | 'center' | 'relative' | 'fullscreen'
   triggerRef?: HTMLElement | null
   closeOnOverlay?: boolean
   closeOnEsc?: boolean
@@ -178,6 +184,15 @@ const panelEl = ref<HTMLElement | null>(null)
 /* ---------- state ---------- */
 const visible = ref(props.modelValue)
 const transitionKey = ref(0)
+const swipeDragging = ref(false)
+const swipeSnapping = ref(false)
+const swipeDeltaY = ref(0)
+
+let swipeTracking = false
+let swipeStartX = 0
+let swipeStartY = 0
+let swipeStartTime = 0
+let swipeResetTimer: ReturnType<typeof setTimeout> | undefined
 
 /* ---------- ids ---------- */
 const titleId = useId()
@@ -191,13 +206,20 @@ const { lockCount } = useScrollLock({
 /* ---------- computed ---------- */
 const labelledBy = computed(() => {
   if (props.panelLabelledBy) return props.panelLabelledBy
+  if (props.position === 'fullscreen') return undefined
   if ((props.title || slots.title) && !slots.title) return titleId
   return undefined
 })
 
 const describedBy = computed(() => props.panelDescribedBy || undefined)
 
-const positionClass = computed(() => `h-popup--position-${props.position}`)
+const rootClasses = computed(() => [
+  `h-popup--position-${props.position}`,
+  {
+    'h-popup--dragging': swipeDragging.value,
+    'h-popup--snapping': swipeSnapping.value,
+  },
+])
 
 const rootStyle = computed((): CSSProperties => {
   if (visible.value) return {}
@@ -213,14 +235,27 @@ const panelClasses = computed(() => {
   return c
 })
 
-/** overlay 用淡入淡出，panel 用位移动画（无 CSSTransition name 冲突因全在 keyframes 内用 both） */
-const transitionName = computed(() => {
-  if (props.position === 'center') return 'h-popup-fade'
-  if (props.position === 'relative') return 'h-popup-fade'
-  return 'h-popup-fade'
-})
+/** fullscreen 需要独立 leave class；其他形态沿用既有 fade transition 名。 */
+const transitionName = computed(() => (
+  props.position === 'fullscreen' ? 'h-popup-fullscreen' : 'h-popup-fade'
+))
 
 const panelStyle = ref<CSSProperties>({})
+
+const gesturePanelStyle = computed((): CSSProperties => {
+  if (props.position !== 'fullscreen' || (!swipeDragging.value && !swipeSnapping.value)) return {}
+  return {
+    transform: `translateY(${swipeDeltaY.value}px)`,
+  }
+})
+
+const gestureOverlayStyle = computed((): CSSProperties => {
+  if (props.position !== 'fullscreen' || (!swipeDragging.value && !swipeSnapping.value)) return {}
+  const viewportHeight = typeof window === 'undefined' ? 1 : Math.max(window.innerHeight, 1)
+  return {
+    opacity: Math.max(0, 1 - swipeDeltaY.value / viewportHeight),
+  }
+})
 
 /* ---------- close flow ---------- */
 function requestClose() {
@@ -265,6 +300,7 @@ watch(
       }
     } else {
       visible.value = false
+      resetSwipe()
       removeWindowListeners()
     }
   },
@@ -272,6 +308,99 @@ watch(
 
 function focusRoot() {
   rootEl.value?.focus()
+}
+
+/* ---------- fullscreen swipe-down ---------- */
+const SWIPE_DISTANCE_THRESHOLD = 80
+const SWIPE_VELOCITY_THRESHOLD = 0.3
+const SWIPE_SNAP_DURATION = 250
+
+function onTouchStart(event: TouchEvent) {
+  if (props.position !== 'fullscreen' || !visible.value || event.touches.length !== 1) return
+  const touch = event.touches[0]
+  const panel = panelEl.value
+  if (!touch || !panel || panel.scrollTop > 0) return
+
+  clearSwipeResetTimer()
+  swipeTracking = true
+  swipeDragging.value = false
+  swipeSnapping.value = false
+  swipeDeltaY.value = 0
+  swipeStartX = touch.clientX
+  swipeStartY = touch.clientY
+  swipeStartTime = Date.now()
+}
+
+function onTouchMove(event: TouchEvent) {
+  if (!swipeTracking || event.touches.length !== 1) return
+  const touch = event.touches[0]
+  if (!touch) return
+
+  const deltaX = touch.clientX - swipeStartX
+  const deltaY = touch.clientY - swipeStartY
+
+  // 向上或横向手势交还给内容区；仅在顶部向下拖动时接管。
+  if (!swipeDragging.value && (deltaY <= 0 || Math.abs(deltaX) >= Math.abs(deltaY))) {
+    swipeTracking = false
+    return
+  }
+  if (panelEl.value && panelEl.value.scrollTop > 0) {
+    swipeTracking = false
+    return
+  }
+
+  swipeDragging.value = true
+  swipeDeltaY.value = Math.max(0, deltaY)
+  event.preventDefault()
+}
+
+function onTouchEnd() {
+  if (!swipeTracking) return
+  swipeTracking = false
+  if (!swipeDragging.value) return
+
+  const elapsed = Math.max(Date.now() - swipeStartTime, 1)
+  const velocity = swipeDeltaY.value / elapsed
+  const shouldClose = swipeDeltaY.value >= SWIPE_DISTANCE_THRESHOLD
+    || velocity >= SWIPE_VELOCITY_THRESHOLD
+
+  if (shouldClose) {
+    swipeDragging.value = false
+    swipeSnapping.value = false
+    swipeDeltaY.value = 0
+    requestClose()
+    return
+  }
+
+  // 先进入 snapping 保留当前 delta，DOM 落稳后再归零以触发 CSS 回弹 transition。
+  swipeDragging.value = false
+  swipeSnapping.value = true
+  void nextTick(() => {
+    requestAnimationFrame(() => {
+      if (!swipeSnapping.value) return
+      swipeDeltaY.value = 0
+    })
+  })
+  swipeResetTimer = setTimeout(() => {
+    swipeSnapping.value = false
+    swipeDeltaY.value = 0
+    swipeResetTimer = undefined
+  }, SWIPE_SNAP_DURATION)
+}
+
+function clearSwipeResetTimer() {
+  if (swipeResetTimer !== undefined) {
+    clearTimeout(swipeResetTimer)
+    swipeResetTimer = undefined
+  }
+}
+
+function resetSwipe() {
+  clearSwipeResetTimer()
+  swipeTracking = false
+  swipeDragging.value = false
+  swipeSnapping.value = false
+  swipeDeltaY.value = 0
 }
 
 /* ---------- relative positioning ---------- */
@@ -374,6 +503,7 @@ function removeWindowListeners() {
 }
 
 onBeforeUnmount(() => {
+  resetSwipe()
   removeWindowListeners()
 })
 </script>

@@ -321,7 +321,7 @@
 
     <section class="smoke__section" aria-labelledby="popup-heading">
       <h2 id="popup-heading" class="smoke__section-title">HPopup</h2>
-      <p class="smoke__hint smoke__hint--spaced">通用浮层基础件；position 统摄 bottom/top/left/right/center/relative。下面是 4 个用例。</p>
+      <p class="smoke__hint smoke__hint--spaced">通用浮层基础件；position 统摄 bottom/top/left/right/center/relative/fullscreen。</p>
       <p class="smoke__hint smoke__hint--spaced"><strong>bottom（带 handle + closeable）</strong></p>
       <div class="smoke__row">
         <h-button @click="popupBottom = true">底部弹层</h-button>
@@ -408,6 +408,26 @@
       >
         <p class="smoke__hint">position="relative"：无遮罩 · JS 计算坐标 · resize/scroll 重算 · 边缘翻转。</p>
         <h-button size="sm" @click="popupRelative = false">关闭</h-button>
+      </h-popup>
+
+      <p class="smoke__hint smoke__hint--spaced"><strong>fullscreen（全屏 + 下滑关闭）</strong></p>
+      <div class="smoke__row">
+        <h-button @click="popupFullscreen = true">全屏弹层</h-button>
+      </div>
+      <h-popup
+        v-model="popupFullscreen"
+        position="fullscreen"
+        title="不会渲染的内置标题"
+        aria-label="全屏演示弹层"
+        closeable
+        @close="popupCloseCount++"
+      >
+        <div style="min-height: 120vh; padding: 24px; background: var(--h-color-surface, #fff)">
+          <h2 style="margin: 0 0 12px">宿主自管全屏头部</h2>
+          <p class="smoke__hint">内容滚动到顶部后向下滑：位移 ≥ 80px 或速度 ≥ 0.3px/ms 时关闭；短距离会回弹。</p>
+          <p class="smoke__hint">右上角 X 与 Esc 仍可作为备用关闭方式。</p>
+          <h-button size="sm" @click="popupFullscreen = false">关闭</h-button>
+        </div>
       </h-popup>
     </section>
 
@@ -1323,6 +1343,7 @@ const popupCenter = ref(false)
 const popupLeft = ref(false)
 const popupRight = ref(false)
 const popupRelative = ref(false)
+const popupFullscreen = ref(false)
 const popupRelTrigger = ref(null)
 const popupCloseCount = ref(0)
 const toastSuccess = ref(false)

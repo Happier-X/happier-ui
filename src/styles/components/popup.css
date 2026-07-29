@@ -1,7 +1,7 @@
 /**
  * HPopup
  * 通用浮层基础组件 BEM。@layer components。
- * position 六形态：bottom / top / left / right / center / relative
+ * position 七形态：bottom / top / left / right / center / relative / fullscreen
  */
 @layer components {
   /* ---------- wrapper ---------- */
@@ -279,6 +279,63 @@
     animation: h-popup-fade-scale-in 0.15s var(--h-ease-standard, ease) both;
   }
 
+  /* --- fullscreen (inset: 0; no header; no radius; swipe-down to close) --- */
+  .h-popup--position-fullscreen {
+    z-index: var(--h-popup-z, 1200);
+    /* panel 即 inset:0 占满，不需 flex 居中 */
+  }
+
+  .h-popup--position-fullscreen .h-popup__overlay {
+    animation: h-popup-overlay-in var(--h-popup-duration-overlay, 220ms)
+      var(--h-ease-standard, ease) both;
+  }
+
+  .h-popup--position-fullscreen .h-popup__panel {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    /* 无圆角、无 safe-area 内边距（R1: inset:0 覆盖安全区）*/
+    border-radius: 0;
+    padding: 0;
+    /* 手势期间拖动跟随；非手势出场动画由 Transition leave class 覆盖 */
+    animation: h-popup-fullscreen-in 330ms var(--h-ease-standard, ease) both;
+    /* 默认允许内容纵向滚动；仅 scrollTop=0 且向下时由 JS preventDefault 接管 */
+    touch-action: pan-y;
+    overscroll-behavior-y: contain;
+  }
+
+  /* 拖动期：锁面板滚动 + 禁用入场 animation，transform 直接跟随手指。 */
+  .h-popup--position-fullscreen.h-popup--dragging .h-popup__panel {
+    animation: none;
+    transition: none;
+    touch-action: none;
+  }
+
+  /* 未达阈值时回弹到 0，最长 250ms。 */
+  .h-popup--position-fullscreen.h-popup--snapping .h-popup__panel {
+    animation: none;
+    transition: transform 250ms var(--h-ease-standard, ease-out);
+  }
+
+  .h-popup--position-fullscreen.h-popup--snapping .h-popup__overlay {
+    transition: opacity 250ms var(--h-ease-standard, ease-out);
+  }
+
+  /* Vue Transition 将 class 加在 slot-anchor；根动画确保 @after-leave 延后触发。 */
+  .h-popup-fullscreen-leave-active {
+    animation: h-popup-fullscreen-out 330ms var(--h-ease-standard, ease) both;
+  }
+
+  .h-popup-fullscreen-leave-active .h-popup__panel {
+    animation: none;
+  }
+
+  .h-popup-fullscreen-leave-active .h-popup__overlay {
+    animation: none;
+  }
+
   /* ============================================================
      keyframes
      ============================================================ */
@@ -347,6 +404,28 @@
     to {
       opacity: 1;
       transform: scale(1);
+    }
+  }
+
+  @keyframes h-popup-fullscreen-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes h-popup-fullscreen-out {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(100%);
     }
   }
 }

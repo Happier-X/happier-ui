@@ -137,6 +137,9 @@ const btn = ref(null)
 
 全屏内容可正常纵向滚动；**仅在 `scrollTop === 0` 且向下拖**时接管手势关闭：位移 ≥ 80px 或速度 ≥ 0.3px/ms 即关闭，未达阈值会在 250ms 内回弹。拖动过程中遮罩透明度同步降低，并临时 `touch-action: none` 锁住面板滚动以免手势与内容滚动打架。`handle` 在 fullscreen 无效。`closeable`、Esc 和遮罩点击仍然可用。
 
+- **`:swipe-close="false"`**：关闭内置下滑手势。touch 监听不再生效（不 `preventDefault`），面板 `touch-action` 从 `pan-y` 复位为 `auto`，手势完全交还宿主（宿主用自己的手势调 `update:modelValue(false)` 关闭）。适用于面板内含多个独立滚动容器、内置手势会与其打架的场景。
+- **`:keep-alive="true"`**：关闭时仅隐藏（`display:none`）不卸载 slot 内容，再打开时内容不重建、入场动画照常重放。适合内容初始化昂贵（如 WebGL 背景）的场景。
+
 <div class="h-demo h-demo--stack">
   <h-button @click="fullscreen = true">打开全屏弹层</h-button>
   <h-popup
@@ -169,10 +172,12 @@ const show = ref(false)
     position="fullscreen"
     aria-label="全屏设置"
     closeable
+    :swipe-close="false"
+    :keep-alive="true"
   >
     <div class="fullscreen-page">
       <h2>宿主自管头部</h2>
-      <p>向下滑动即可关闭。</p>
+      <p>内置下滑手势已禁用；关闭由宿主自控。</p>
     </div>
   </h-popup>
 </template>
@@ -197,6 +202,8 @@ const show = ref(false)
 | `closeIconPosition` | `'top-left' \| 'top-right' \| 'bottom-left' \| 'bottom-right'` | `'top-right'` | X 按钮位置 |
 | `radius` | `'none' \| 'sm' \| 'md' \| 'lg'` | — | 面板圆角粒度 |
 | `handle` | `boolean` | `false` | position="bottom" 时显示拖拽手柄 |
+| `keepAlive` | `boolean` | `false` | 关闭时保活 slot 内容（隐藏不卸载，重开重放入场动画）；默认关闭即卸载、重开重挂载 |
+| `swipeClose` | `boolean` | `true` | fullscreen 下滑关闭手势开关；`false` 时内置手势不生效、面板 `touch-action` 复位为 `auto`（其他 position 无作用） |
 
 ### Emits
 
@@ -221,7 +228,8 @@ const show = ref(false)
 
 - **滚动锁定**：默认 `lockScroll: true`，打开时通过 `useScrollLock`（引用计数，模块级安全）禁止 body 滚动，关闭自动还原。
 - **遮罩**：除 `position="relative"` 外均渲染遮罩层。遮罩点击关闭受 `closeOnOverlay` 控制。
-- **Fullscreen 手势**：内容位于顶部时向下拖动；位移 ≥ 80px 或速度 ≥ 0.3px/ms 关闭，未达阈值则回弹。全屏不渲染内置 header，需由 default slot 自管。
+- **Fullscreen 手势**：内容位于顶部时向下拖动；位移 ≥ 80px 或速度 ≥ 0.3px/ms 关闭，未达阈值则回弹。全屏不渲染内置 header，需由 default slot 自管。`swipeClose=false` 时内置手势禁用，手势交由宿主处理（面板 `touch-action: auto`），转场动画、滚动锁、overlay/Esc/closeable 关闭通道不受影响。
+- **keepAlive 保活**：`keepAlive=true` 时 slot 内容首渲即挂载、关闭仅隐藏不卸载，重开内容不重建且入场动画重放；隐藏态不响应任何交互（overlay/Esc/X/手势），滚动锁仍随 `visible` 释放/恢复。
 - **Esc**：Esc 键触发关闭（`closeOnEsc`）。
 - **关闭按钮**：`closeable` 显示 X 图标按钮（Heroicons ×，通过 Lucide `X`）；默认隐藏。
 - **Title 无障碍**：`title` prop 无 #title slot 时渲染 VS `ariaLabelledBy`（`HLabel` 不带 `aria-describedby`）。

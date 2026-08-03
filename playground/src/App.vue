@@ -429,6 +429,46 @@
           <h-button size="sm" @click="popupFullscreen = false">关闭</h-button>
         </div>
       </h-popup>
+
+      <p class="smoke__hint smoke__hint--spaced"><strong>keepAlive（内容保活：关闭仅隐藏不卸载）</strong></p>
+      <div class="smoke__row">
+        <h-button @click="popupKeepAlive = true">打开保活弹层</h-button>
+      </div>
+      <h-popup
+        v-model="popupKeepAlive"
+        position="bottom"
+        title="保活弹层"
+        :handle="true"
+        :keep-alive="true"
+        @close="popupCloseCount++"
+      >
+        <p class="smoke__hint">keepAlive=true：关闭再打开内容不重建，计数不重置；入场动画照常重放。</p>
+        <p class="smoke__hint">点击次数：{{ popupKeepAliveCount }}</p>
+        <div class="smoke__row">
+          <h-button size="sm" @click="popupKeepAliveCount++">+1</h-button>
+          <h-button size="sm" @click="popupKeepAlive = false">关闭</h-button>
+        </div>
+      </h-popup>
+
+      <p class="smoke__hint smoke__hint--spaced"><strong>fullscreen + swipeClose=false（内置下滑手势禁用，交还宿主）</strong></p>
+      <div class="smoke__row">
+        <h-button @click="popupSwipeDisabled = true">全屏弹层（禁手势）</h-button>
+      </div>
+      <h-popup
+        v-model="popupSwipeDisabled"
+        position="fullscreen"
+        aria-label="全屏演示弹层（禁下滑手势）"
+        closeable
+        :swipe-close="false"
+        @close="popupCloseCount++"
+      >
+        <div style="min-height: 120vh; padding: 24px; background: var(--h-color-surface, #fff)">
+          <h2 style="margin: 0 0 12px">宿主自管全屏头部（swipeClose=false）</h2>
+          <p class="smoke__hint">内置下滑手势已禁用：拖动不会关闭、不 preventDefault，面板 touch-action: auto，手势由宿主全权控制。</p>
+          <p class="smoke__hint">右上角 X 与 Esc 仍可作为备用关闭方式。</p>
+          <h-button size="sm" @click="popupSwipeDisabled = false">关闭</h-button>
+        </div>
+      </h-popup>
     </section>
 
     <section class="smoke__section" aria-labelledby="input-heading">
@@ -1346,6 +1386,9 @@ const popupRelative = ref(false)
 const popupFullscreen = ref(false)
 const popupRelTrigger = ref(null)
 const popupCloseCount = ref(0)
+const popupKeepAlive = ref(false)
+const popupKeepAliveCount = ref(0)
+const popupSwipeDisabled = ref(false)
 const toastSuccess = ref(false)
 const toastTop = ref(false)
 const toastDanger = ref(false)

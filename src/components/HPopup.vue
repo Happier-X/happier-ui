@@ -19,7 +19,19 @@
         :name="transitionName"
         @after-leave="emitAfterLeave"
       >
-        <div v-if="visible" :key="transitionKey" class="h-popup__slot-anchor">
+        <!--
+          保活锚点：keepAlive 为 false（默认）时走 v-if 卸载路径，与 0.0.7 行为逐字节一致；
+          keepAlive 为 true 时元素首渲即挂载、仅用 v-show 隐藏，内容不重建。
+          关键约束：同一渲染周期内 v-if 与 v-show 永不同时翻转——
+          默认路径 v-if 跟随 visible、v-show 恒 true；保活路径 v-if 恒 true、v-show 跟随 visible。
+          若两者同时翻转，v-show 的 display:none 会提前杀死 Transition 离场动画。
+        -->
+        <div
+          v-if="visible || keepAlive"
+          v-show="keepAlive ? visible : true"
+          :key="keepAlive ? undefined : transitionKey"
+          class="h-popup__slot-anchor"
+        >
           <!-- overlay（除 relative 外） -->
           <div
             v-if="position !== 'relative'"
@@ -108,6 +120,8 @@
  *
  * 后记：底部面板 handle、关闭按钮 closeable、标题 title/#title、footer #footer、
  * scroll lock（useScrollLock）、teleport（useTeleportTarget）。
+ * keepAlive：关闭时隐藏而非卸载 slot 内容（默认 false，关闭即卸载、重开重挂载重放动画）。
+ * swipeClose：fullscreen 内置下滑关闭手势开关（默认 true；false 时手势交还宿主，touch-action 复位为 auto）。
  * 不内置 before-close（宿主 v-model 自控拦截），不造引擎。
  */
 import {
@@ -146,6 +160,10 @@ const props = withDefaults(defineProps<{
   radius?: 'none' | 'sm' | 'md' | 'lg'
   /** 底部面板手柄 */
   handle?: boolean
+  /** 关闭时保活 slot 内容（隐藏不卸载，重开重放入场动画）；默认 false 与旧行为一致 */
+  keepAlive?: boolean
+  /** fullscreen 下滑关闭手势开关；false 时禁用内置手势并交还宿主 touch-action */
+  swipeClose?: boolean
 }>(), {
   modelValue: false,
   position: 'bottom',
@@ -162,6 +180,8 @@ const props = withDefaults(defineProps<{
   closeIconPosition: 'top-right',
   radius: undefined,
   handle: false,
+  keepAlive: false,
+  swipeClose: true,
 })
 
 /* ---------- emits ---------- */
@@ -218,6 +238,8 @@ const rootClasses = computed(() => [
   {
     'h-popup--dragging': swipeDragging.value,
     'h-popup--snapping': swipeSnapping.value,
+    // 手势禁用仅在 fullscreen 有意义（其他 position 无 touch-action 声明）
+    'h-popup--swipe-disabled': !props.swipeClose && props.position === 'fullscreen',
   },
 ])
 
@@ -290,7 +312,8 @@ watch(
   async (open) => {
     if (open) {
       visible.value = true
-      transitionKey.value++
+      // keepAlive 下递增 key 会强制重挂载、销毁保活内容，违背保活本意
+      if (!props.keepAlive) transitionKey.value++
       await nextTick()
       focusRoot()
       emit('open')
@@ -316,6 +339,8 @@ const SWIPE_VELOCITY_THRESHOLD = 0.3
 const SWIPE_SNAP_DURATION = 250
 
 function onTouchStart(event: TouchEvent) {
+  // 手势禁用开关：早退后 touch 监听不再产生任何 preventDefault，手势完全交还宿主
+  if (!props.swipeClose) return
   if (props.position !== 'fullscreen' || !visible.value || event.touches.length !== 1) return
   const touch = event.touches[0]
   const panel = panelEl.value

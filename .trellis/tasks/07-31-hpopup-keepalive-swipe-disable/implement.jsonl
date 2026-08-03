@@ -1,0 +1,4 @@
+{"_example": "Fill with {\"file\": \"<path>\", \"reason\": \"<why>\"}. Put spec/research files only — no code paths. Run `python .trellis/scripts/get_context.py --mode packages` to list available specs. Delete this line once real entries are added."}
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "SFC 结构/命名/Props+withDefaults 约定；HPopup 组件行为基线（keepAlive/swipeClose 参照现有 closeOnEsc/lockScroll 模式）"}
+{"file": ".trellis/spec/frontend/hook-guidelines.md", "reason": "useScrollLock/useTeleportTarget 组合式函数约定，keepAlive 改动不破坏 scroll lock 契约"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "--h-* token 约定，popup.css 新规则须遵循 token+fallback 写法"}

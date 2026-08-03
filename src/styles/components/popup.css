@@ -313,6 +313,12 @@
     touch-action: none;
   }
 
+  /* 手势禁用（swipeClose=false）：touch-action 交还宿主，由宿主 JS + CSS 全权控制手势。
+     dragging 态在本修饰类下不可达（onTouchStart 已早退），故两者不冲突。 */
+  .h-popup--position-fullscreen.h-popup--swipe-disabled .h-popup__panel {
+    touch-action: auto;
+  }
+
   /* 未达阈值时回弹到 0，最长 250ms。 */
   .h-popup--position-fullscreen.h-popup--snapping .h-popup__panel {
     animation: none;

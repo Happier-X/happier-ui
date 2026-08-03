@@ -972,3 +972,31 @@
 
 ### Status
 [OK] **Completed**
+
+
+## Session 24: 配色对齐 HeroUI Native + oklch + 语义自洽
+
+**Date**: 2026-08-03
+**Task**: 配色对齐 HeroUI Native + oklch + 语义自洽
+**Branch**: `master`
+
+### Summary
+
+把 `--h-*` 配色值对齐 HeroUI Native（v3）oklch 默认色板，并做语义 token 自洽。主色=accent `oklch(0.6 0.2 230)`，success/warning/danger 对齐 HeroUI 默认；中性色（surface/ink/bg-muted/bg-hover/border-subtle）改 oklch，亮/暗两套；保留派生主色阶 50..900 与 `-rgb` 三元组（rgba 组件零改动）；`bg-muted` 收敛为 `surface-secondary` 别名。补 `--muses-color-*` 别名。spec/docs 更新 v2->v3 口径。
+
+### Main Changes
+
+- `src/styles/tokens.css`：基础色 hex→oklch；新增规范名 `--h-color-accent`（=`--h-primary-500`）、`--h-color-primary` 兼容别名；`-rgb` 三元组更新（primary=`0,144,223`，danger=`242,96,116`）；暗色 media/class 两组逐字一致。
+- `docs/guide/tokens.md` + `.trellis/spec/frontend/tokens.md`：口径改为 HeroUI Native oklch 默认色板，去掉 v2/#006fee 提法。
+- `theme.css`：零改动（accent 映射已存在，`--color-h-*` 经 var 自动跟随）。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `f604f5c` | feat(tokens): 配色对齐 HeroUI Native + oklch + 语义自洽 |
+| `e255c4f` | chore(task): archive 08-03-tokens-align-heroui-native |
+
+### Status
+
+[OK] **Completed**

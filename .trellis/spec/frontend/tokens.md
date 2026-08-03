@@ -46,8 +46,8 @@ playground：
 
 ## 视觉源
 
-- 对齐 **HeroUI Native** 的角色语义（surface / accent / muted / separator、soft radius、状态观感）；token 同时服务 Web 与移动端。
-- Primary 色阶对齐 HeroUI common.blue（`--h-primary-50` … `--h-primary-900`，主色 `--h-color-primary`）。
+- 对齐 **HeroUI Native** 的角色语义（surface / accent / muted / separator、soft radius、状态观感）与 **oklch 默认色板**；token 同时服务 Web 与移动端。
+- 主色为 HeroUI Native 默认 accent `oklch(0.6 0.2 230)`；保留派生色阶 `--h-primary-50 … --h-primary-900`（`--h-color-primary` = `var(--h-color-accent)`）。
 - **禁止** Material elevation / 重阴影。
 
 ## 使用方式
@@ -86,8 +86,8 @@ playground：
 
 | 组 | 示例 |
 |----|------|
-| 主色阶 | `--h-primary-500` |
-| 语义色 | `--h-color-primary`、`--h-color-surface`、`--h-color-danger`、`--h-color-success` / `warning`、`--h-color-focus-ring`、`--h-color-bg-muted` / `bg-hover`（组件灰底/悬停底；明 `#f4f4f5`/`#f0f0f0`，暗 `#2a2a2a`/`#333333`） |
+| 主色阶 | `--h-primary-500`（=accent）… 派生 |
+| 语义色 | `--h-color-accent` / `--h-color-primary`、`--h-color-surface`、`--h-color-danger`、`--h-color-success` / `warning`、`--h-color-focus-ring`、`--h-color-bg-muted` / `bg-hover`（组件灰底/悬停底） |
 | 沉浸播放 | `--h-immersive-*`（播放器宿主可用，库组件按需） |
 | 间距 / 圆角 / 字号 | `--h-space-*`、`--h-radius-*`、`--h-font-*` |
 | 按钮 | `--h-button-height-*`、`--h-button-pad-x-*`、`--h-button-font-*` |
@@ -122,7 +122,7 @@ playground：
 ## 反模式
 
 - 在 Muses 与本库各维护一份分叉色板且不别名。
-- 组件内写死 `#006fee` 而不走 `--h-color-primary`。
+- 组件内写死某色（如 `#006fee`）而不走 `--h-color-primary`。
 - 新增 elevation shadow token「看起来更立体」。
 - 把无前缀 `bg-primary` 等写成库公共 utility 契约（易与宿主冲突）。
 - 继续文档化 `0.0.1` 的「只引 style.css、无需 Tailwind」路径。

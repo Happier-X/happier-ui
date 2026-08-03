@@ -2,46 +2,46 @@
  * happier-ui / Muses 设计 token
  * 权威前缀：--h-*（跨项目可抽取）
  * 兼容别名：--muses-* → var(--h-*)（存量视图无需改字符串）
- * 视觉参照：HeroUI Native 语义色角色 + HeroUI blue primary；禁止 Material elevation
+ * 视觉参照：HeroUI Native 语义色角色（oklch 默认色板，accent hue 230）；禁止 Material elevation
  */
 :root {
   /* —— 权威：--h-* —— */
 
-  /* HeroUI common.blue 主色色阶 */
-  --h-primary-50: #e6f1fe;
-  --h-primary-100: #cce3fd;
-  --h-primary-200: #99c7fb;
-  --h-primary-300: #66aaf9;
-  --h-primary-400: #338ef7;
-  --h-primary-500: #006fee;
-  --h-primary-600: #005bc4;
-  --h-primary-700: #004493;
-  --h-primary-800: #002e62;
-  --h-primary-900: #001731;
+  /* HeroUI accent 主色阶（oklch, hue 230；500 = HeroUI Native 默认 accent） */
+  --h-primary-50: oklch(0.96 0.05 230);
+  --h-primary-100: oklch(0.90 0.10 230);
+  --h-primary-200: oklch(0.80 0.15 230);
+  --h-primary-300: oklch(0.70 0.18 230);
+  --h-primary-400: oklch(0.65 0.19 230);
+  --h-primary-500: oklch(0.60 0.20 230);
+  --h-primary-600: oklch(0.52 0.19 230);
+  --h-primary-700: oklch(0.44 0.17 230);
+  --h-primary-800: oklch(0.34 0.14 230);
+  --h-primary-900: oklch(0.24 0.11 230);
 
-  /* 语义颜色（对齐 HeroUI Native：accent / surface / muted / separator 角色） */
-  --h-color-primary: var(--h-primary-500);
-  --h-color-primary-rgb: 0, 111, 238;
+  /* 语义颜色（值对齐 HeroUI Native 默认：accent / success / warning / danger + 中性；oklch） */
+  --h-color-accent: var(--h-primary-500);
+  --h-color-primary: var(--h-color-accent);
+  --h-color-primary-rgb: 0, 144, 223; /* accent oklch(0.6 0.2 230) 的 sRGB 三元组，供 rgba 半透明 */
   --h-color-primary-contrast: #ffffff;
   --h-color-primary-contrast-rgb: 255, 255, 255;
-  --h-color-accent: var(--h-color-primary);
-  --h-color-surface: #ffffff;
-  --h-color-surface-secondary: #f4f4f5;
+  --h-color-surface: oklch(1 0 0);
+  --h-color-surface-secondary: oklch(0.94 0.018 230);
   --h-color-surface-dark: #1f1f1f;
-  --h-color-ink: #000000;
-  --h-color-ink-muted: #92949c;
-  --h-color-border-subtle: #e0e0e0;
+  --h-color-ink: oklch(0.20 0.01 230);
+  --h-color-ink-muted: oklch(0.50 0.03 230);
+  --h-color-border-subtle: oklch(0.91 0.015 230);
   --h-color-separator: var(--h-color-border-subtle);
   --h-color-cover-placeholder: rgba(146, 148, 156, 0.16);
-  --h-color-bg-muted: #f4f4f5;
-  --h-color-bg-hover: #f0f0f0;
+  --h-color-bg-muted: var(--h-color-surface-secondary);
+  --h-color-bg-hover: oklch(0.92 0.014 230);
   --h-color-playing-bg: rgba(var(--h-color-primary-rgb), 0.1);
   --h-color-playing-bg-soft: rgba(var(--h-color-primary-rgb), 0.08);
   --h-color-jump-highlight: rgba(var(--h-color-primary-rgb), 0.22);
-  --h-color-danger: #eb445a;
-  --h-color-danger-rgb: 235, 68, 90;
-  --h-color-success: #17c964;
-  --h-color-warning: #f5a524;
+  --h-color-danger: oklch(0.68 0.18 15);
+  --h-color-danger-rgb: 242, 96, 116; /* danger 的 sRGB 三元组，供 rgba 半透明 */
+  --h-color-success: oklch(0.72 0.14 165);
+  --h-color-warning: oklch(0.78 0.12 85);
   --h-color-focus-ring: var(--h-color-primary);
   --h-color-selected-bg: var(--h-color-playing-bg-soft);
 
@@ -347,6 +347,10 @@
   --muses-primary-900: var(--h-primary-900);
 
   --muses-color-primary: var(--h-color-primary);
+  --muses-color-accent: var(--h-color-accent);
+  --muses-color-success: var(--h-color-success);
+  --muses-color-warning: var(--h-color-warning);
+  --muses-color-danger: var(--h-color-danger);
   --muses-color-primary-rgb: var(--h-color-primary-rgb);
   --muses-color-primary-contrast: var(--h-color-primary-contrast);
   --muses-color-primary-contrast-rgb: var(--h-color-primary-contrast-rgb);
@@ -419,26 +423,26 @@
 /* 跟随系统：系统暗色翻暗，但允许宿主挂 .light 强制回浅 */
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --h-color-surface: #1c1c1e;
-    --h-color-surface-secondary: #2c2c2e;
-    --h-color-ink: #ffffff;
-    --h-color-ink-muted: #a1a1aa;
-    --h-color-border-subtle: #38383a;
+    --h-color-surface: oklch(0.20 0.01 230);
+    --h-color-surface-secondary: oklch(0.25 0.012 230);
+    --h-color-ink: oklch(0.95 0.005 230);
+    --h-color-ink-muted: oklch(0.70 0.01 230);
+    --h-color-border-subtle: oklch(0.35 0.008 230);
     --h-color-cover-placeholder: rgba(255, 255, 255, 0.14);
-    --h-color-bg-muted: #2a2a2a;
-    --h-color-bg-hover: #333333;
+    --h-color-bg-muted: var(--h-color-surface-secondary);
+    --h-color-bg-hover: oklch(0.30 0.01 230);
   }
 }
 
 /* 手动：.dark 类无视系统偏好强制暗色（:root.dark 全局如 VitePress；.dark 局部容器） */
 :root.dark,
 .dark {
-  --h-color-surface: #1c1c1e;
-  --h-color-surface-secondary: #2c2c2e;
-  --h-color-ink: #ffffff;
-  --h-color-ink-muted: #a1a1aa;
-  --h-color-border-subtle: #38383a;
+  --h-color-surface: oklch(0.20 0.01 230);
+  --h-color-surface-secondary: oklch(0.25 0.012 230);
+  --h-color-ink: oklch(0.95 0.005 230);
+  --h-color-ink-muted: oklch(0.70 0.01 230);
+  --h-color-border-subtle: oklch(0.35 0.008 230);
   --h-color-cover-placeholder: rgba(255, 255, 255, 0.14);
-  --h-color-bg-muted: #2a2a2a;
-  --h-color-bg-hover: #333333;
+  --h-color-bg-muted: var(--h-color-surface-secondary);
+  --h-color-bg-hover: oklch(0.30 0.01 230);
 }

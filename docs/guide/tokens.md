@@ -4,7 +4,7 @@
 
 - 文件：`src/styles/tokens.css`（包内：`happier-ui/tokens.css` / styles 内嵌）
 - 前缀：**`--h-*`**
-- 视觉：HeroUI Native 角色语义 + HeroUI blue primary；**禁止** Material elevation
+- 视觉：HeroUI Native 语义角色（oklch 默认色板，accent `oklch(0.6 0.2 230)` 为主色）；**禁止** Material elevation
 
 ## 宿主接入
 
@@ -62,8 +62,8 @@
 
 | 组 | 示例 |
 |----|------|
-| 主色阶 | `--h-primary-50` … `--h-primary-900` |
-| 语义色 | `--h-color-primary`、`--h-color-surface`、`--h-color-danger`、`--h-color-focus-ring` |
+| 主色阶 | `--h-primary-50` … `--h-primary-900`（由 accent 派生） |
+| 语义色 | `--h-color-accent` / `--h-color-primary`、`--h-color-surface`、`--h-color-danger`、`--h-color-focus-ring` |
 | 间距 / 圆角 / 字号 | `--h-space-*`、`--h-radius-*`、`--h-font-*` |
 | 控件专用 | `--h-button-*`、`--h-input-*`、`--h-switch-*`、`--h-dialog-*` … |
 | 触控 / 层级 | `--h-touch-target`、`--h-z-nav`、`--h-z-tab` |
@@ -76,7 +76,7 @@ styles 内保留 `--muses-* → var(--h-*)`，供 Muses 存量字符串过渡。
 
 ## 反模式
 
-- 组件内写死 `#006fee` 而不走 `--h-color-primary`
+- 组件内写死某色（如 `#006fee`）而不走 `--h-color-primary`
 - 新增 elevation shadow「看起来更立体」
 - 把无前缀 `bg-primary` 写成库公共 utility
 - 继续文档化 0.0.1「只引 style.css、无需 Tailwind」路径

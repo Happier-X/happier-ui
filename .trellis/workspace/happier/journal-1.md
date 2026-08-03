@@ -934,3 +934,22 @@
 ### Status
 
 [OK] **Completed**
+
+
+## Session 24: HPopup keepAlive 保活选项 + swipeClose 下滑手势禁用开关
+
+**Date**: 2026-07-31
+**Task**: 07-31-hpopup-keepalive-swipe-disable
+**Branch**: `master`
+
+### Summary
+
+实现 GitHub issue #13（Muses PlayerPage 迁移 HPopup fullscreen 的能力缺口）。为 HPopup 新增两个增强 prop：`keepAlive`（默认 false）与 `swipeClose`（默认 true）。keepAlive=true 时 slot 锚点首渲即挂载、关闭仅 v-show 隐藏不卸载、重开内容不重建且入场动画重放；swipeClose=false 时禁用 fullscreen 内置下滑手势（onTouchStart 早退，无 preventDefault）+ 面板 touch-action 复位 auto，交还宿主手势，其余关闭通道/转场/useScrollLock/z-index 不变。关键实现点：slot 锚点 `v-if` 与 `v-show` 互斥切换（同渲染周期永不同时翻转，防 display:none 杀死 Transition 离场动画）；`transitionKey++` 仅非 keepAlive 时执行；`.h-popup--swipe-disabled` 修饰类仅 fullscreen。修改 HPopup.vue / popup.css / docs/components/popup.md / playground App.vue + spec(component-guidelines) 同步。sub-agent implement/check 派发，build:lib/build:playground/docs:build 全绿，dist 产物含新 prop 类型与 swipe-disabled 规则。Commit closes #13。
+
+### Git Commits
+| Hash | Message |
+|------|---------|
+| `1401eec` | feat(popup): HPopup keepAlive 保活选项 + swipeClose 下滑手势禁用开关 |
+
+### Status
+[OK] **Completed**

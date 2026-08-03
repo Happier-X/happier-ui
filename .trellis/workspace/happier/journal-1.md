@@ -953,3 +953,22 @@
 
 ### Status
 [OK] **Completed**
+
+
+## Session 25: 发布 v0.0.8
+
+**Date**: 2026-08-03
+**Task**: 08-03-publish-hpopup-keepalive-swipeclose
+**Branch**: `master`
+
+### Summary
+
+发布happier-ui@0.0.8到npm，包含HPopup keepAlive/swipeClose新功能（issue #13，来源commit 1401eec）。版本0.0.7→0.0.8(patch，用户确认沿用0.0.x线)。本地build:lib exit 0 + npm pack --dry-run校验产物（38文件，不含src/playground/docs/.trellis，HPopup.d.ts含新prop类型）；提交bump(19bb355)、打v0.0.8 tag推送，触发GitHub Actions Release workflow自动构建并发布（run成功25s）。npm view确认0.0.8为latest。
+
+### Git Commits
+| Hash | Message |
+|------|---------|
+| `19bb355` | chore: bump version to 0.0.8 |
+
+### Status
+[OK] **Completed**

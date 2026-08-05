@@ -58,6 +58,7 @@ npm pack --dry-run
 ## Code review 关注点
 
 - 是否用了 token 而非魔法数。
+- 状态是否一律 `ref`（**禁止 `reactive`**）。
 - slot 是否足够。
 - class 前缀是否为 `h-*`。
 - 是否误把领域组件放进库。

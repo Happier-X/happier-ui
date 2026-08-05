@@ -56,6 +56,7 @@ export { default as HTag } from './components/HTag.vue'
 3. 事件：`defineEmits<{ click: [event: MouseEvent] }>()` 对象形式。
 4. 组合：用 **具名 slot**，不把业务子树写死进库。
 5. 样式：模板使用 **`h-*` BEM**；视觉规则写在 `src/styles/components/*.css` 的 `@layer components` 中，用 `var(--h-…, fallback)`（或 token utility）。
+6. **状态：一律 `ref`，禁止 `reactive`**（唯一响应式原语；`reactive` 深层代理在解构/展开时丢失响应性，`ref` 语义更明确）。
 6. 泛型 SFC（仅在需要按业务行/项类型参数化 props/slots 时使用）：
    - 声明：`<script setup lang="ts" generic="T extends object = Record<string, unknown>">`。
    - **约束用 `T extends object`，不要用 `T extends Record<string, unknown>`**——后者要求索引签名，会把普通 `interface`（无 `[key: string]: unknown`）挡在外面，消费方被迫双重断言，失去泛型意义。
@@ -184,6 +185,7 @@ export { default as HTag } from './components/HTag.vue'
 | 不要 | 原因 |
 |------|------|
 | 在组件内 `import` `@ionic/vue` | 无 Ionic 宿主会挂 |
+| 用 `reactive()` 声明组件状态 | 深层代理解构/展开易丢响应性；统一 `ref`（唯一响应式原语） |
 | 新魔法数颜色 / px 间距 | 破坏 token 一致性 |
 | Material 阴影 elevation | 与 HeroUI Native / 项目定位冲突 |
 | 把音乐封面、队列、播放手势做进库 | 领域语义属 Muses |

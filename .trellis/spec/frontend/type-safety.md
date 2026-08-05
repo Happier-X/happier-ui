@@ -32,6 +32,7 @@ const emit = defineEmits<{
 |----|------|
 | 可选 prop | `?` + `withDefaults` |
 | 联合字面量 | 变体/尺寸用字面量联合，避免宽 `string` |
+| 响应式原语 | 一律 `ref`；**禁止 `reactive`**（深层代理解构/展开丢响应性，`ref` 语义明确且统一） |
 | 插槽 | 运行时槽位；不为每个 slot 强行写复杂类型除非公共 API 需要 |
 | 外部类型文件 | 暂无 `src/types/`；跨组件类型出现 ≥2 次再抽 |
 | `any` | 禁止在公共 props/emits 使用 |

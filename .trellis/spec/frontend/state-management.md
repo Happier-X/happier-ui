@@ -8,7 +8,7 @@
 
 | 类型 | 是否允许 | 例子 |
 |------|----------|------|
-| 纯 UI 瞬态 | 是 | 可选内部 hover 等不暴露的 `ref` |
+| 纯 UI 瞬态 | 是 | 可选内部 hover 等不暴露的 `ref`（**唯一响应式原语，禁止 `reactive`**） |
 | Props 驱动展示 | 是（主路径） | `disabled`、`variant`、`size` |
 | 全局 Pinia / Vuex | **否** | 不进依赖、不建 store |
 | 服务端缓存 / 请求 | **否** | 无 API 层 |
@@ -92,3 +92,4 @@ const commit = (next, notify) => {
 - 在 `happier-ui` 内建播放队列、音源连接状态。
 - 组件静默读写 `localStorage` 做业务偏好。
 - 为库引入 pinia 作为 peer。
+- 用 `reactive()` 声明组件状态（深层代理在解构/展开时丢响应性；一律 `ref`）。

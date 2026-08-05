@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@lucide/vue": "^1.25.0",
-    "@tanstack/vue-form": "^1.33.2",
+    "@lucide/vue": "^1.28.0",
+    "@tanstack/vue-form": "^1.33.3",
     "happier-ui": "file:..",
     "vue": "^3.5.40"
   },
@@ -19,7 +19,7 @@
     "@vitejs/plugin-vue": "^6.0.8",
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3",
-    "vite": "^8.1.5",
-    "vue-tsc": "^2.2.12"
+    "vite": "^8.2.0",
+    "vue-tsc": "^3.3.9"
   }
 }

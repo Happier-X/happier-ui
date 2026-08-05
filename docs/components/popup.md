@@ -204,6 +204,7 @@ const show = ref(false)
 | `handle` | `boolean` | `false` | position="bottom" 时显示拖拽手柄 |
 | `keepAlive` | `boolean` | `false` | 关闭时保活 slot 内容（隐藏不卸载，重开重放入场动画）；默认关闭即卸载、重开重挂载 |
 | `swipeClose` | `boolean` | `true` | fullscreen 下滑关闭手势开关；`false` 时内置手势不生效、面板 `touch-action` 复位为 `auto`（其他 position 无作用） |
+| `maxWidth` | `string \| number` | — | bottom/top 形态面板最大宽度；number 按 px，string 原样（如 `'640px'` / `'none'` / `'100%'`）。写入 inline CSS 变量 `--h-bottom-sheet-max-width`，per-instance 覆盖 token；不传默认全宽（edge-to-edge） |
 
 ### Emits
 
@@ -226,6 +227,7 @@ const show = ref(false)
 
 ## 行为说明
 
+- **宽度**：bottom/top 面板默认全宽贴底（`--h-bottom-sheet-max-width` 默认 `100%`，edge-to-edge）。宽屏需桌面居中卡片感时，传 `maxWidth`（如 `:max-width="640"`）或全局覆盖 `--h-bottom-sheet-max-width` 限宽；限宽后面板仍水平居中（`margin: 0 auto`）。`maxWidth` 仅影响引用该变量的 bottom/top 形态，left/right/center/relative/fullscreen 不受影响。
 - **滚动锁定**：默认 `lockScroll: true`，打开时通过 `useScrollLock`（引用计数，模块级安全）禁止 body 滚动，关闭自动还原。
 - **遮罩**：除 `position="relative"` 外均渲染遮罩层。遮罩点击关闭受 `closeOnOverlay` 控制。
 - **Fullscreen 手势**：内容位于顶部时向下拖动；位移 ≥ 80px 或速度 ≥ 0.3px/ms 关闭，未达阈值则回弹。全屏不渲染内置 header，需由 default slot 自管。`swipeClose=false` 时内置手势禁用，手势交由宿主处理（面板 `touch-action: auto`），转场动画、滚动锁、overlay/Esc/closeable 关闭通道不受影响。

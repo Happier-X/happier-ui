@@ -130,11 +130,12 @@
   --h-switch-thumb-lg: 28px;
   --h-switch-duration: 180ms;
 
-  /* 底部面板（HBottomSheet） */
+  /* 底部面板（HBottomSheet）：默认全宽（edge-to-edge）；宽屏需桌面居中卡片时覆盖
+     本 token（或传 HPopup/HBottomSheet 的 maxWidth prop）限宽。 */
   --h-bottom-sheet-z: 1200;
   --h-bottom-sheet-overlay-bg: rgba(0, 0, 0, 0.36);
   --h-bottom-sheet-radius: 24px;
-  --h-bottom-sheet-max-width: 640px;
+  --h-bottom-sheet-max-width: 100%;
   --h-bottom-sheet-duration: 220ms;
   --h-bottom-sheet-handle-w: 36px;
   --h-bottom-sheet-handle-h: 4px;

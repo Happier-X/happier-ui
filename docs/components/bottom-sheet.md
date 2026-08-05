@@ -2,6 +2,11 @@
 
 底部面板。`v-model`；遮罩关闭、Esc、标题/内容槽。默认 `teleport` 到 `body`。MVP **无** 拖拽 / snap / focus trap。
 
+## 宽度行为
+
+- **默认全宽（edge-to-edge）**：面板贴底通栏，`--h-bottom-sheet-max-width` 默认 `100%`；手机竖屏与宽屏预览均为通栏，无两侧遮罩露出。
+- **桌面居中卡片感**：宽屏想限宽时传 `max-width`（如 `:max-width="640"`，number 按 px），或全局覆盖 token `--h-bottom-sheet-max-width`；限宽后面板仍水平居中。
+
 ## 基础
 
 <script setup>
@@ -10,6 +15,7 @@ import { HButton, HBottomSheet } from 'happier-ui'
 
 const open = ref(false)
 const noOverlay = ref(false)
+const limited = ref(false)
 const closes = ref(0)
 const onClose = () => { closes.value++ }
 </script>
@@ -17,7 +23,8 @@ const onClose = () => { closes.value++ }
 <div class="h-demo h-demo--stack">
   <div class="h-demo--row">
     <h-button @click="open = true">打开底部面板</h-button>
-    <h-button variant="outline" @click="noOverlay = true">打开（遮罩不关）</h-button>
+    <h-button variant="outline" @click="limited = true">打开（限宽 640px）</h-button>
+    <h-button variant="ghost" @click="noOverlay = true">打开（遮罩不关）</h-button>
   </div>
   <p v-if="closes" class="h-demo__hint">close 次数：{{ closes }}</p>
 
@@ -26,6 +33,18 @@ const onClose = () => { closes.value++ }
     <div class="h-demo--row" style="margin-top: 0.75rem">
       <h-button size="sm" @click="open = false">完成</h-button>
       <h-button size="sm" variant="ghost" @click="open = false">取消</h-button>
+    </div>
+  </h-bottom-sheet>
+
+  <h-bottom-sheet
+    v-model="limited"
+    title="限宽 640px"
+    :max-width="640"
+    @close="onClose"
+  >
+    <p class="h-demo__hint">宽屏下 `max-width="640"` 使面板居中最宽 640px（桌面卡片感）；不传则通栏。</p>
+    <div class="h-demo--row" style="margin-top: 0.75rem">
+      <h-button size="sm" @click="limited = false">完成</h-button>
     </div>
   </h-bottom-sheet>
 
@@ -69,6 +88,7 @@ const open = ref(false)
 | `title` | `string` | — | 标题（可被 `#title` 覆盖） |
 | `ariaLabel` | `string` | — | 无标题时的 dialog 名称 |
 | `teleport` | `string \| HTMLElement \| false` | `'body'` | 挂载目标；`false` 或无效目标/SSR 时原地渲染，用于逃离带 transform/contain 祖先的 fixed 包含块偏移 |
+| `maxWidth` | `string \| number` | — | 面板最大宽度；number 按 px，string 原样（`'640px'` / `'none'` / `'100%'`）。不传默认全宽（edge-to-edge）；宽屏想保留桌面居中卡片感时传此值（如 `:max-width="640"`），或全局覆盖 `--h-bottom-sheet-max-width` |
 
 ### Emits
 

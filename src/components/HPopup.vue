@@ -46,7 +46,7 @@
             ref="panelEl"
             class="h-popup__panel"
             :class="panelClasses"
-            :style="[panelStyle, gesturePanelStyle]"
+            :style="[panelStyle, panelWidthStyle, gesturePanelStyle]"
             role="dialog"
             :aria-modal="position !== 'relative' ? true : undefined"
             :aria-labelledby="labelledBy"
@@ -164,6 +164,10 @@ const props = withDefaults(defineProps<{
   keepAlive?: boolean
   /** fullscreen 下滑关闭手势开关；false 时禁用内置手势并交还宿主 touch-action */
   swipeClose?: boolean
+  /** bottom/top 形态面板最大宽度；string 原样（'640px' / 'none' / '100%'），number 按 px。
+      写入 inline CSS 变量 --h-bottom-sheet-max-width，per-instance 覆盖 token；
+      不传时默认全宽（edge-to-edge）。 */
+  maxWidth?: string | number
 }>(), {
   modelValue: false,
   position: 'bottom',
@@ -182,6 +186,7 @@ const props = withDefaults(defineProps<{
   handle: false,
   keepAlive: false,
   swipeClose: true,
+  maxWidth: undefined,
 })
 
 /* ---------- emits ---------- */
@@ -255,6 +260,20 @@ const panelClasses = computed(() => {
   const c: string[] = []
   if (props.radius) c.push(`h-popup--radius-${props.radius}`)
   return c
+})
+
+/* ---------- maxWidth → inline CSS 变量 ---------- */
+type WidthStyle = CSSProperties & { '--h-bottom-sheet-max-width': string }
+
+/** number → px；string 原样透传。 */
+function toCssLength(value: string | number): string {
+  return typeof value === 'number' ? `${value}px` : value
+}
+
+const panelWidthStyle = computed((): CSSProperties => {
+  if (!props.maxWidth) return {}
+  const style: WidthStyle = { '--h-bottom-sheet-max-width': toCssLength(props.maxWidth) }
+  return style
 })
 
 /** fullscreen 需要独立 leave class；其他形态沿用既有 fade transition 名。 */

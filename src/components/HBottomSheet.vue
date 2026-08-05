@@ -9,6 +9,7 @@
     :title="title"
     :aria-label="ariaLabel"
     :teleport="teleport"
+    :max-width="maxWidth"
     @update:model-value="emit('update:modelValue', $event)"
     @close="emit('close')"
   >
@@ -24,6 +25,7 @@
  * happier-ui：底部面板。基于 HPopup(position="bottom")。
  * API 完全保持与旧版一致（modelValue / closeOnOverlay / showHandle / title / ariaLabel / teleport）。
  * 新增滚动锁定（HPopup 默认 lockScroll），填补历史缺口。
+ * maxWidth：默认全宽（edge-to-edge）；传值则 per-instance 限宽（string 原样 / number 按 px）。
  */
 import HPopup from './HPopup.vue'
 
@@ -34,6 +36,8 @@ const props = withDefaults(defineProps<{
   title?: string
   ariaLabel?: string
   teleport?: string | HTMLElement | false
+  /** 面板最大宽度；number 按 px。不传默认全宽，桌面居中卡片感可传如 640 */
+  maxWidth?: string | number
 }>(), {
   modelValue: false,
   closeOnOverlay: true,
@@ -41,6 +45,7 @@ const props = withDefaults(defineProps<{
   title: undefined,
   ariaLabel: undefined,
   teleport: 'body',
+  maxWidth: undefined,
 })
 
 const emit = defineEmits<{

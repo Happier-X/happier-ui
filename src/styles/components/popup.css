@@ -127,9 +127,11 @@
       var(--h-ease-standard, ease) both;
   }
 
+  /* 默认全宽（edge-to-edge，贴底通栏）；宽屏需桌面居中卡片时，
+     覆盖 --h-bottom-sheet-max-width 或传 HPopup/HBottomSheet maxWidth prop 限宽。 */
   .h-popup--position-bottom .h-popup__panel {
     width: 100%;
-    max-width: var(--h-bottom-sheet-max-width, 640px);
+    max-width: var(--h-bottom-sheet-max-width, 100%);
     max-height: min(88vh, 100%);
     margin: 0 auto;
     padding:
@@ -160,7 +162,7 @@
 
   .h-popup--position-top .h-popup__panel {
     width: 100%;
-    max-width: var(--h-bottom-sheet-max-width, 640px);
+    max-width: var(--h-bottom-sheet-max-width, 100%);
     max-height: min(88vh, 100%);
     margin: 0 auto;
     padding:

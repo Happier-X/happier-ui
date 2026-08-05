@@ -249,6 +249,9 @@
         <h-button variant="outline" @click="openSheetNoOverlayClose">
           打开（遮罩不关）
         </h-button>
+        <h-button variant="ghost" @click="sheetLimited = true">
+          打开（限宽 640px）
+        </h-button>
       </div>
       <p v-if="sheetCloseCount > 0" class="smoke__ping">
         close 次数：{{ sheetCloseCount }}
@@ -278,6 +281,18 @@
           点击遮罩不会关闭；请用 Esc 或下方按钮。
         </p>
         <h-button size="sm" @click="sheetNoOverlayClose = false">关闭</h-button>
+      </h-bottom-sheet>
+
+      <h-bottom-sheet
+        v-model="sheetLimited"
+        title="限宽 640px"
+        :max-width="640"
+        @close="onSheetClose"
+      >
+        <p class="smoke__sheet-copy">
+          宽屏下 max-width="640" 使面板居中最宽 640px（桌面卡片感）；不传则全宽通栏。
+        </p>
+        <h-button size="sm" @click="sheetLimited = false">关闭</h-button>
       </h-bottom-sheet>
     </section>
 
@@ -1374,6 +1389,7 @@ const rangeLg = ref(70)
 const progressValue = ref(40)
 const sheetOpen = ref(false)
 const sheetNoOverlayClose = ref(false)
+const sheetLimited = ref(false)
 const sheetCloseCount = ref(0)
 const dialogOpen = ref(false)
 const dialogNoOverlayClose = ref(false)

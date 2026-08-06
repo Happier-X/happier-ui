@@ -8,8 +8,8 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 24
-- **Last Active**: 2026-08-03
+- **Total Sessions**: 25
+- **Last Active**: 2026-08-06
 <!-- @@@/auto:current-status -->
 
 ---
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~995 | Active |
+| `journal-1.md` | ~1024 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 25 | 2026-08-06 | HToast 重构为深色 HUD 风格（对齐 wanchun/mini w-toast） | `488294b`, `e827400` | `master` |
 | 24 | 2026-08-03 | 配色对齐 HeroUI Native + oklch + 语义自洽 | `f604f5c` | `master` |
 | 23 | 2026-07-29 | 发布 v0.0.7 | `69d00d0` | `master` |
 | 22 | 2026-07-29 | HNavBar/HTabBar safe-area fallback to Capacitor 8 --safe-area-inset-* | `c468411` | `master` |

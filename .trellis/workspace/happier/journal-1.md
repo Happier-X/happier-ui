@@ -1000,3 +1000,25 @@
 ### Status
 
 [OK] **Completed**
+
+
+## Session 25: HToast 重构为深色 HUD 风格（对齐 wanchun/mini w-toast）
+
+**Date**: 2026-08-06
+**Task**: HToast 重构为深色 HUD 风格（对齐 wanchun/mini w-toast）
+**Branch**: `master`
+
+### Summary
+
+HToast 视觉重构：深色半透明 HUD 卡片（对齐 wanchun/mini w-toast）、默认屏幕居中（保留 top/bottom）、内置语义图标（✓/!/✕，icon prop 控制 + #icon 插槽优先）、缩放淡入动画；token 化（--h-toast-bg/ink/shadow/icon-*，新增 --h-color-surface-dark-rgb）；playground/docs/spec 同步；不做 loading 变体（后续独立 HLoading 组件）
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `488294b` | (see git log) |
+| `e827400` | (see git log) |
+
+### Status
+
+[OK] **Completed**

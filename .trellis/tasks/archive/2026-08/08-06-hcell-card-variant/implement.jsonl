@@ -1,0 +1,3 @@
+{"file": ".trellis/spec/frontend/component-guidelines.md", "reason": "HCellGroup API/样式规范（variant 枚举、token 消费、docs 要求）"}
+{"file": ".trellis/spec/frontend/tokens.md", "reason": "token 命名与落位规范（--h-cell-group-margin-x 加入方式）"}
+{"file": ".trellis/spec/frontend/quality-guidelines.md", "reason": "完成定义与验证命令（vue-tsc/build/docs）"}

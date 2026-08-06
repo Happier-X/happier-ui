@@ -13,7 +13,7 @@
 
 | 规则 | 现状 |
 |------|------|
-| 组件名 / 文件名 | `HBadge` / `HTag` / `HButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HPopup` / `HToast` / `HInput` / `HTextarea` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` / `HFloatingBubble` / `HSidebar` / `HSelect` / `HTable` / `HHeatmap` / `HTooltip` → `src/components/H*.vue` |
+| 组件名 / 文件名 | `HBadge` / `HTag` / `HButton` / `HSwitch` / `HRange` / `HProgress` / `HLoading` / `HBottomSheet` / `HDialog` / `HPopup` / `HToast` / `HInput` / `HTextarea` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCard` / `HCell` / `HCellGroup` / `HFloatingBubble` / `HSidebar` / `HSelect` / `HTable` / `HHeatmap` / `HTooltip` → `src/components/H*.vue` |
 | 公共 API | `src/index.ts` 导出 `H*` |
 | CSS 类前缀 | **一律 `h-*`** |
 
@@ -25,6 +25,7 @@ export { default as HPagination } from './components/HPagination.vue'
 export { default as HSwitch } from './components/HSwitch.vue'
 export { default as HRange } from './components/HRange.vue'
 export { default as HProgress } from './components/HProgress.vue'
+export { default as HLoading } from './components/HLoading.vue'
 export { default as HBottomSheet } from './components/HBottomSheet.vue'
 export { default as HDialog } from './components/HDialog.vue'
 export { default as HPopup } from './components/HPopup.vue'
@@ -77,6 +78,7 @@ export { default as HTag } from './components/HTag.vue'
 - `src/components/HSwitch.vue` — `v-model`、size、disabled、`role="switch"`
 - `src/components/HRange.vue` — 单值横向滑块；v-model number；min/max/step；size/disabled；原生 range 语义
 - `src/components/HProgress.vue` — 只读线形进度条；value/max 确定进度、越界夹取；indeterminate 循环动画；size/variant/rounded；progressbar 语义；无 emits/slots
+- `src/components/HLoading.vue` — 加载指示；mode local/global（默认 local）；size sm/md/lg；label + default slot（slot 优先）；无 color prop；role=status；global Teleport + 深色 HUD；无 emits
 - `src/components/HBottomSheet.vue` — 基于 `HPopup(position="bottom")` 的薄包装；`showHandle` 映射 HPopup `handle`；`maxWidth` 透传（默认全宽 edge-to-edge，per-instance 限宽）；公共 API 完全保持向后兼容
 - `src/components/HDialog.vue` — 基于 `HPopup(position="center")` 的薄包装；`#actions` → `#footer`，`#description` 并入 `#title`；公共 API 完全保持向后兼容
 - `src/components/HPopup.vue` — 通用浮层基础件，`position` 统摄 bottom/top/left/right/center/relative/fullscreen 七种形态；内置 `useScrollLock`（引用计数）+ `useTeleportTarget`；无 before-close；`closeable` + Lucide X 关闭按钮（默认隐藏）；`keepAlive`（默认 false，true 时 slot 首渲即挂载、关闭仅隐藏不卸载、重开重放入场动画）；`swipeClose`（默认 true，false 时禁用 fullscreen 内置下滑手势，`touch-action` 复位 `auto` 交还宿主、其余关闭通道/转场/滚动锁不变）；relative 形态用 JS 计算坐标 + 边缘翻转 + resize/scroll 重算；fullscreen 占满（`inset:0`、无圆角/无 safe-area padding/无 header/`handle` 无效），内容顶部（`scrollTop===0`）支持 touch 下滑关闭（≥80px 或 ≥0.3px/ms；否则 250ms 回弹；拖动期 `touch-action:none` + overlay 透明度随 delta 衰减）
@@ -109,6 +111,7 @@ export { default as HTag } from './components/HTag.vue'
 | 开关 | `modelValue` + `update:modelValue`；`role="switch"` | `HSwitch` |
 | 滑块 | `modelValue` number + `min`/`max`/`step`；`change`/`drag-start`/`drag-end` emits；单值横向；原生 `input[type=range]` | `HRange` |
 | 进度条 | `value` + `max`（默认 100）；`indeterminate`；`size`/`variant`/`rounded`；`role="progressbar"`；只读无 emits/slots | `HProgress` |
+| 加载指示 | `mode` local/global（默认 local）+ `size` sm/md/lg（默认 md）+ `label`/`ariaLabel`；default slot 优先于 label；无 color prop；local 覆盖父容器（需 relative）、global Teleport 全屏 HUD；`role="status"`；纯展示无 emits | `HLoading` |
 | 底部面板 | 基础件见 `HPopup(position=bottom)`；旧 wrapper `HBottomSheet` 保持 modelValue + overlay/Esc + showHandle API；`maxWidth`（string/number，per-instance 限宽，默认全宽 edge-to-edge）；`role="dialog"`；`teleport` 默认 body | `HBottomSheet` / `HPopup` |
 | 居中对话框 | 基础件见 `HPopup(position=center)`；旧 wrapper `HDialog` 保持 modelValue + overlay/Esc + title/description/actions API；`role="dialog"`；`teleport` 默认 body | `HDialog` / `HPopup` |
 | 轻提示 | `modelValue` + `duration` 自动关闭；深色 HUD；variant + position(center/top/bottom，默认 center) + icon；内置语义图标/`#icon`；live-region；`teleport` 默认 body；无队列 | `HToast` |
@@ -131,7 +134,7 @@ export { default as HTag } from './components/HTag.vue'
 | 数据表格 | 泛型行类型 `T extends object`：`columns`(`HTableColumn<T>[]`，`key: keyof T & string`) + `data`(`T[]`) + `rowKey`；`cell` slot `row: T`；`sortable`/`striped`/`bordered`/`stickyHeader`/`loading`/`emptyText`；`sort` emit（`HTableSort.key` 保持 string）；`#cell`/`#empty`/`#loading` slot；裸用法默认参数 `Record<string, unknown>` 向后兼容 | `HTable` |
 | 悬浮提示 | `content` + `placement` top/bottom/left/right + `color` default/primary/success/warning/danger + `radius` none/sm/md/lg/full + `showArrow` + `delay`(默认 200ms) + `disabled`；`role="tooltip"` + `aria-describedby`；`teleport` 默认 body；hover/focus/tap 触发、边缘翻转、滚动/resize 关闭；`#content` slot；无 emits | `HTooltip` |
 | 日历热力图 | `data`(`HHeatmapItem[]`，`{timestamp, value}` 同日求和) + `firstDayOfWeek` 0-6 + `size` small/medium/large + `colors` 覆盖默认蓝阶梯 + `showWeekLabels`/`showMonthLabels`/`showColorIndicator`/`loading`；范围由 data min/max timestamp 推断；每格原生 `title`；`role="img"`；只读无 emits/slots；日期计算走 dayjs | `HHeatmap` |
-| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；Range 无可见标签时传 `ariaLabel`；Progress 用 `role="progressbar"` + `aria-value*`（indeterminate 省 valuenow）且无可见标签时传 `ariaLabel`；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；`HButton isIconOnly` 传 `ariaLabel`；Toast live-region 不抢焦点；Cell 交互行 `role="button"`+`tabindex="0"`+Enter/Space，chevron `aria-hidden`，Group 默认标题 `aria-labelledby`；Select 触发器 `role="combobox"`+`aria-expanded/controls/haspopup/activedescendant`，面板 `role="listbox"`，选项 `role="option"`+`aria-selected/disabled` | `HBadge` / `HTextarea` / `HTag` / `HButton` / `HSwitch` / `HRange` / `HProgress` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCell` / `HCellGroup` / `HSelect` / `HTable` |
+| 无障碍 | 可聚焦控件 `:focus-visible`；输入/复选关联 label；Range 无可见标签时传 `ariaLabel`；Progress 用 `role="progressbar"` + `aria-value*`（indeterminate 省 valuenow）且无可见标签时传 `ariaLabel`；Loading 用 `role="status"` + aria-label 三级回退（ariaLabel \|\| label \|\| 「加载中」，空串视为未提供），spinner `aria-hidden`；空状态标题语义；图片需 `alt`；装饰图标默认 hidden；底栏 nav + `aria-current`；顶栏 header + 返回 `aria-label`；面板/对话框需标题或 `ariaLabel`；`HButton isIconOnly` 传 `ariaLabel`；Toast live-region 不抢焦点；Cell 交互行 `role="button"`+`tabindex="0"`+Enter/Space，chevron `aria-hidden`，Group 默认标题 `aria-labelledby`；Select 触发器 `role="combobox"`+`aria-expanded/controls/haspopup/activedescendant`，面板 `role="listbox"`，选项 `role="option"`+`aria-selected/disabled` | `HBadge` / `HTextarea` / `HTag` / `HButton` / `HSwitch` / `HRange` / `HProgress` / `HLoading` / `HBottomSheet` / `HDialog` / `HToast` / `HInput` / `HCheckbox` / `HEmpty` / `HImage` / `HIcon` / `HTabBar` / `HNavBar` / `HCell` / `HCellGroup` / `HSelect` / `HTable` |
 | 领域 UI | **不进库** | 封面、播放器、WebDAV 逻辑 |
 
 ## 当前导出
@@ -142,6 +145,7 @@ export { default as HTag } from './components/HTag.vue'
 | `HSwitch` | `HSwitch.vue` | v-model；sm/md/lg；disabled；HeroUI Native 观感 |
 | `HRange` | `HRange.vue` | 单值横向滑块；v-model number；min/max/step；sm/md/lg；disabled；原生 range 语义 |
 | `HProgress` | `HProgress.vue` | 只读线形进度条；value/max、越界夹取；indeterminate 循环动画；sm/md/lg；primary/success/warning/danger；rounded；progressbar 语义 |
+| `HLoading` | `HLoading.vue` | 加载指示；mode local/global（默认 local）；size sm/md/lg；label + default slot（slot 优先）；无 color；local 覆盖父容器、global Teleport 全屏 HUD；role=status；无 emits |
 | `HBottomSheet` | `HBottomSheet.vue` | HPopup(position=bottom) 薄包装；v-model；overlay/Esc；showHandle 映射 HPopup `handle`；`maxWidth` 透传（默认全宽，宽屏限宽走 prop/token）；title/default slots；`teleport` 默认 body（旧 API 不变） |
 | `HDialog` | `HDialog.vue` | HPopup(position=center) 薄包装；v-model；overlay/Esc；title/description/default/actions(#actions→#footer)；`teleport` 默认 body（旧 API 不变） |
 | `HPopup` | `HPopup.vue` | 通用浮层基础件；position bottom/top/left/right/center/relative/fullscreen；fullscreen=`inset:0`、无 header/圆角/safe-area、`handle` 无效、内容顶部 touch 下滑关闭（80px / 0.3px/ms，拖动期 lock 面板滚动）；`keepAlive`（默认 false，true 保活仅隐藏）+ `swipeClose`（默认 true，false 禁 fullscreen 下滑手势+touch-action 复位 auto）+ `maxWidth`（默认全宽，bottom/top 限宽）；modelValue；closeOnOverlay/Esc；lockScroll（useScrollLock）；title/ariaLabel；closeable + closeIconPosition；radius；handle（仅 bottom）；teleport 默认 body；无 before-close；emits close/open/after-leave/click-overlay/click-close-icon |

@@ -94,6 +94,7 @@ playground：
 | 开关 | `--h-switch-track-*-w/h`、`--h-switch-thumb-*`、`--h-switch-pad` |
 | 滑块 | `--h-range-track-*-h`、`--h-range-thumb-*`、`--h-range-fill`、`--h-range-track-bg`、`--h-range-thumb-bg/border`、`--h-range-duration` |
 | 进度条 | `--h-progress-height-*`、`--h-progress-track-bg`、`--h-progress-fill`、`--h-progress-transition-duration`、`--h-progress-indeterminate-duration` |
+| 加载指示 | `--h-loading-size-{sm,md,lg}`、`--h-loading-border-{sm,md,lg}`、`--h-loading-z`、`--h-loading-overlay-bg`、`--h-loading-card-bg/radius/shadow/pad`（HLoading；track/thumb 为组件局部覆盖变量，非全局 token） |
 | 底部面板 | `--h-bottom-sheet-z`、`--h-bottom-sheet-overlay-bg`、`--h-bottom-sheet-radius`、`--h-bottom-sheet-max-width`（默认 `100%`，通栏；宽屏需桌面居中卡片时覆盖限宽，或传 `HPopup/HBottomSheet maxWidth` prop）、`--h-bottom-sheet-duration`、`--h-bottom-sheet-handle-w/h` |
 | 对话框 | `--h-dialog-z`、`--h-dialog-overlay-bg`、`--h-dialog-radius`、`--h-dialog-max-width`、`--h-dialog-duration` |
 | 弹层（基础件） | `--h-popup-z`、`--h-popup-z-center`、`--h-popup-z-relative`、`--h-popup-overlay-bg`、`--h-popup-radius`、`--h-popup-max-width-center`、`--h-popup-max-width-side`、`--h-popup-duration`、`--h-popup-duration-overlay`、`--h-popup-close-gap`、`--h-popup-close-size`（HBottomSheet/HDialog 内部基于 HPopup 渲染，旧 token 继续生效） |

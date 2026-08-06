@@ -32,6 +32,7 @@ npm pack --dry-run
 | `HSwitch` | `role="switch"` + `aria-checked`；建议 `ariaLabel`；disabled 不切换 |
 | `HRange` | 原生 `input[type=range]`（内建 slider role + 键盘）；`aria-valuemin/max/now` 同步；无可见标签时 `ariaLabel`；`:focus-visible` 焦点环 |
 | `HProgress` | `role="progressbar"` + `aria-valuemin/max`；确定进度输出 `aria-valuenow`，indeterminate 省略；无可见标签时 `ariaLabel`；不聚焦不响应键盘；`prefers-reduced-motion` 关闭循环动画 |
+| `HLoading` | `role="status"` + aria-label 三级回退（`ariaLabel` \|\| `label` \|\| 「加载中」，空串视为未提供）；spinner `aria-hidden`；不抢占焦点；`prefers-reduced-motion` 关闭旋转 |
 | `HBottomSheet` | `role="dialog"` + `aria-modal`；标题关联或 `ariaLabel`；Esc 可关闭 |
 | `HDialog` | `role="dialog"` + `aria-modal`；title/description 关联或 `ariaLabel`；Esc 可关闭 |
 | `HToast` | live-region：default/success 用 `role="status"`+`aria-live="polite"`，warning/danger 用 `role="alert"`+`aria-live="assertive"`；`aria-atomic`；不抢占焦点；icon 槽装饰 `aria-hidden` |

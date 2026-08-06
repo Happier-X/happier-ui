@@ -79,7 +79,7 @@ playground：
 - 只覆盖**决定明暗观感的中性色**：`--h-color-surface`/`surface-secondary`/`ink`/`ink-muted`/`border-subtle`/`cover-placeholder`/`bg-muted`/`bg-hover`。主色阶 / `success` / `warning` / `danger` / 间距 / 圆角**不随明暗变**。
 - 派生 token（`--h-color-separator`、各 `--h-*-bg` 引用 surface）与 `--muses-*` 别名通过 `var()` 自动继承暗色，无需单独覆盖。
 - media 块与 class 块两组暗色值须**逐字一致**，避免漂移。
-- `--h-color-surface-dark`（`#1f1f1f`，沉浸播放态专用）不参与本主题，保持不动。
+- `--h-color-surface-dark`（`#1f1f1f`，沉浸播放态专用）与其 rgb 拆分 `--h-color-surface-dark-rgb`（`31, 31, 31`，供 `rgba()` 半透明引用，如 HToast HUD 底）不参与本主题，保持不动。
 - 三段式覆盖块与 base `:root` 均在 unlayered 区（非 `@layer` 内），靠特异性 + 源序决胜，勿放进 `@layer components`。
 
 ## 分组（文件内）
@@ -87,7 +87,7 @@ playground：
 | 组 | 示例 |
 |----|------|
 | 主色阶 | `--h-primary-500` |
-| 语义色 | `--h-color-primary`、`--h-color-surface`、`--h-color-danger`、`--h-color-success` / `warning`、`--h-color-focus-ring`、`--h-color-bg-muted` / `bg-hover`（组件灰底/悬停底；明 `#f4f4f5`/`#f0f0f0`，暗 `#2a2a2a`/`#333333`） |
+| 语义色 | `--h-color-primary`、`--h-color-surface`、`--h-color-surface-dark` / `surface-dark-rgb`（沉浸/HUD 半透明底）、`--h-color-danger`、`--h-color-success` / `warning`、`--h-color-focus-ring`、`--h-color-bg-muted` / `bg-hover`（组件灰底/悬停底；明 `#f4f4f5`/`#f0f0f0`，暗 `#2a2a2a`/`#333333`） |
 | 沉浸播放 | `--h-immersive-*`（播放器宿主可用，库组件按需） |
 | 间距 / 圆角 / 字号 | `--h-space-*`、`--h-radius-*`、`--h-font-*` |
 | 按钮 | `--h-button-height-*`、`--h-button-pad-x-*`、`--h-button-font-*` |
@@ -97,7 +97,7 @@ playground：
 | 底部面板 | `--h-bottom-sheet-z`、`--h-bottom-sheet-overlay-bg`、`--h-bottom-sheet-radius`、`--h-bottom-sheet-max-width`（默认 `100%`，通栏；宽屏需桌面居中卡片时覆盖限宽，或传 `HPopup/HBottomSheet maxWidth` prop）、`--h-bottom-sheet-duration`、`--h-bottom-sheet-handle-w/h` |
 | 对话框 | `--h-dialog-z`、`--h-dialog-overlay-bg`、`--h-dialog-radius`、`--h-dialog-max-width`、`--h-dialog-duration` |
 | 弹层（基础件） | `--h-popup-z`、`--h-popup-z-center`、`--h-popup-z-relative`、`--h-popup-overlay-bg`、`--h-popup-radius`、`--h-popup-max-width-center`、`--h-popup-max-width-side`、`--h-popup-duration`、`--h-popup-duration-overlay`、`--h-popup-close-gap`、`--h-popup-close-size`（HBottomSheet/HDialog 内部基于 HPopup 渲染，旧 token 继续生效） |
-| 轻提示 | `--h-toast-z`、`--h-toast-max-width`、`--h-toast-pad-x/y`、`--h-toast-radius`、`--h-toast-offset`、`--h-toast-duration` |
+| 轻提示 | `--h-toast-z`、`--h-toast-max-width`、`--h-toast-pad-x/y`、`--h-toast-radius`、`--h-toast-offset`、`--h-toast-duration`、`--h-toast-bg`/`ink`/`shadow`、`--h-toast-icon-size`、`--h-toast-icon-{default,success,warning,danger}`（深色 HUD；半透明底依赖 `--h-color-surface-dark-rgb`） |
 | 输入框 | `--h-input-height-*`、`--h-input-pad-x-*`、`--h-input-border`、`--h-input-border-invalid` |
 | 复选框 | `--h-checkbox-size-*`、`--h-checkbox-radius`、`--h-checkbox-border`、`--h-checkbox-bg-checked` |
 | 空状态 | `--h-empty-min-height`、`--h-empty-max-width`、`--h-empty-pad` |

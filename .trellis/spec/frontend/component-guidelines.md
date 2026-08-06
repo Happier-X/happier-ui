@@ -80,7 +80,7 @@ export { default as HTag } from './components/HTag.vue'
 - `src/components/HBottomSheet.vue` — 基于 `HPopup(position="bottom")` 的薄包装；`showHandle` 映射 HPopup `handle`；`maxWidth` 透传（默认全宽 edge-to-edge，per-instance 限宽）；公共 API 完全保持向后兼容
 - `src/components/HDialog.vue` — 基于 `HPopup(position="center")` 的薄包装；`#actions` → `#footer`，`#description` 并入 `#title`；公共 API 完全保持向后兼容
 - `src/components/HPopup.vue` — 通用浮层基础件，`position` 统摄 bottom/top/left/right/center/relative/fullscreen 七种形态；内置 `useScrollLock`（引用计数）+ `useTeleportTarget`；无 before-close；`closeable` + Lucide X 关闭按钮（默认隐藏）；`keepAlive`（默认 false，true 时 slot 首渲即挂载、关闭仅隐藏不卸载、重开重放入场动画）；`swipeClose`（默认 true，false 时禁用 fullscreen 内置下滑手势，`touch-action` 复位 `auto` 交还宿主、其余关闭通道/转场/滚动锁不变）；relative 形态用 JS 计算坐标 + 边缘翻转 + resize/scroll 重算；fullscreen 占满（`inset:0`、无圆角/无 safe-area padding/无 header/`handle` 无效），内容顶部（`scrollTop===0`）支持 touch 下滑关闭（≥80px 或 ≥0.3px/ms；否则 250ms 回弹；拖动期 `touch-action:none` + overlay 透明度随 delta 衰减）
-- `src/components/HToast.vue` — 声明式单条轻提示；v-model；variant/position/duration；live-region；`teleport` 默认 body；无队列
+- `src/components/HToast.vue` — 声明式单条轻提示；深色 HUD；v-model；variant/position(center 默认)/duration/icon；内置语义图标 + `#icon` 插槽；live-region；`teleport` 默认 body；无队列
 - `src/components/HInput.vue` — v-model；label/error；可对接 TanStack Field（不 peer tanstack）
 - `src/components/HCheckbox.vue` — v-model；label；indeterminate 半选（无 group）
 - `src/components/HEmpty.vue` — title/description；icon 与 default 操作槽；无 compact
@@ -111,7 +111,7 @@ export { default as HTag } from './components/HTag.vue'
 | 进度条 | `value` + `max`（默认 100）；`indeterminate`；`size`/`variant`/`rounded`；`role="progressbar"`；只读无 emits/slots | `HProgress` |
 | 底部面板 | 基础件见 `HPopup(position=bottom)`；旧 wrapper `HBottomSheet` 保持 modelValue + overlay/Esc + showHandle API；`maxWidth`（string/number，per-instance 限宽，默认全宽 edge-to-edge）；`role="dialog"`；`teleport` 默认 body | `HBottomSheet` / `HPopup` |
 | 居中对话框 | 基础件见 `HPopup(position=center)`；旧 wrapper `HDialog` 保持 modelValue + overlay/Esc + title/description/actions API；`role="dialog"`；`teleport` 默认 body | `HDialog` / `HPopup` |
-| 轻提示 | `modelValue` + `duration` 自动关闭；variant/position；live-region；`teleport` 默认 body；无队列 | `HToast` |
+| 轻提示 | `modelValue` + `duration` 自动关闭；深色 HUD；variant + position(center/top/bottom，默认 center) + icon；内置语义图标/`#icon`；live-region；`teleport` 默认 body；无队列 | `HToast` |
 | 文本输入 | `modelValue` + `update:modelValue` + `blur`；label/error | `HInput` |
 | 复选框 | `modelValue` + `update:modelValue`；`indeterminate`；label | `HCheckbox` |
 | 空状态 | `title`；可选 `description`、`#icon`、default 操作槽；无 compact | `HEmpty` |
@@ -145,7 +145,7 @@ export { default as HTag } from './components/HTag.vue'
 | `HBottomSheet` | `HBottomSheet.vue` | HPopup(position=bottom) 薄包装；v-model；overlay/Esc；showHandle 映射 HPopup `handle`；`maxWidth` 透传（默认全宽，宽屏限宽走 prop/token）；title/default slots；`teleport` 默认 body（旧 API 不变） |
 | `HDialog` | `HDialog.vue` | HPopup(position=center) 薄包装；v-model；overlay/Esc；title/description/default/actions(#actions→#footer)；`teleport` 默认 body（旧 API 不变） |
 | `HPopup` | `HPopup.vue` | 通用浮层基础件；position bottom/top/left/right/center/relative/fullscreen；fullscreen=`inset:0`、无 header/圆角/safe-area、`handle` 无效、内容顶部 touch 下滑关闭（80px / 0.3px/ms，拖动期 lock 面板滚动）；`keepAlive`（默认 false，true 保活仅隐藏）+ `swipeClose`（默认 true，false 禁 fullscreen 下滑手势+touch-action 复位 auto）+ `maxWidth`（默认全宽，bottom/top 限宽）；modelValue；closeOnOverlay/Esc；lockScroll（useScrollLock）；title/ariaLabel；closeable + closeIconPosition；radius；handle（仅 bottom）；teleport 默认 body；无 before-close；emits close/open/after-leave/click-overlay/click-close-icon |
-| `HToast` | `HToast.vue` | 声明式单条轻提示；v-model；default/success/warning/danger；top/bottom；duration 自动关闭；live-region；`teleport` 默认 body |
+| `HToast` | `HToast.vue` | 声明式单条轻提示；深色 HUD；v-model；default/success/warning/danger；center/top/bottom（默认 center）；内置语义图标 + icon prop + `#icon`；duration 自动关闭；live-region；`teleport` 默认 body |
 | `HInput` | `HInput.vue` | v-model；label/description/error；TanStack Field 友好绑定 |
 | `HCheckbox` | `HCheckbox.vue` | v-model；label；indeterminate 半选；宿主清半选 |
 | `HEmpty` | `HEmpty.vue` | title/description；icon 与 default 操作槽；无旧别名 |

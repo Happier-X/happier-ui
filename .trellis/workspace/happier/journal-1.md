@@ -1178,3 +1178,36 @@ bump 0.1.0→0.1.1（package.json + package-lock.json 同步，lock 根版本此
 ### Next Steps
 
 - release.yml 的 actions/checkout@v4 + setup-node@v4 报 Node 20 弃用警告（跑在 Node 24），后续可升级 actions 版本
+
+
+## Session 30: 升级 GitHub Actions 消除 Node 20 弃用警告
+
+**Date**: 2026-08-06
+**Task**: 升级 GitHub Actions 消除 Node 20 弃用警告
+**Branch**: `master`
+
+### Summary
+
+release.yml/docs.yml 升级 checkout@v4→v5、setup-node@v4→v5；docs 真实运行逐层暴露 upload-pages-artifact@v3（内部 upload-artifact@v4）与 deploy-pages@v4 的 Node 20 弃用警告，依次升 v5。最终 docs workflow build+deploy 全绿且无警告；release.yml 仅结构校验未触发（避免真发布）。
+
+### Main Changes
+
+- docs.yml：checkout/setup-node/upload-pages-artifact/deploy-pages 全部 →v5
+- release.yml：checkout/setup-node →v5（workflow_dispatch 会真发布，未触发）
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `11aafc1` | (see git log) |
+| `3ce55e2` | (see git log) |
+| `08eca8a` | (see git log) |
+
+### Testing
+
+- [OK] docs workflow 三次实跑：最终无 'Node.js 20 is deprecated' 警告，build+deploy 成功
+- [OK] 两 workflow yaml 解析合法；git diff 仅 actions 版本行
+
+### Status
+
+[OK] **Completed**

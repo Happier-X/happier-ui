@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 29
+- **Total Sessions**: 30
 - **Last Active**: 2026-08-06
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~1180 | Active |
+| `journal-1.md` | ~1213 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 30 | 2026-08-06 | 升级 GitHub Actions 消除 Node 20 弃用警告 | `11aafc1`, `3ce55e2`, `08eca8a` | `master` |
 | 29 | 2026-08-06 | 发布 happier-ui 0.1.1（tag 触发 CI 发布） | `9cec317` | `master` |
 | 28 | 2026-08-06 | HCellGroup 卡片形态 variant="card"（对齐 riceui cell 卡片风格） | `759808a` | `master` |
 | 27 | 2026-08-06 | 修复 HSidebar import.meta.env 类型错误（tsconfig.lib.json 引入 vite/client） | `9d5d12f` | `master` |

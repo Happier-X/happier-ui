@@ -282,6 +282,20 @@
   --h-toast-icon-warning: #f0d48a;
   --h-toast-icon-danger: #f0a5a5;
 
+  /* Loading（HLoading） */
+  --h-loading-size-sm: 16px;
+  --h-loading-size-md: 24px;
+  --h-loading-size-lg: 32px;
+  --h-loading-border-sm: 1.5px;
+  --h-loading-border-md: 2px;
+  --h-loading-border-lg: 3px;
+  --h-loading-z: var(--h-toast-z);
+  --h-loading-overlay-bg: rgba(0, 0, 0, 0.08);
+  --h-loading-card-bg: rgba(var(--h-color-surface-dark-rgb), 0.82);
+  --h-loading-card-radius: 16px;
+  --h-loading-card-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  --h-loading-card-pad: 24px 32px;
+
   /* 列表行密度 */
   --h-list-row-height-comfortable: var(--h-song-row-height);
   --h-list-row-height-compact: 56px;
@@ -299,6 +313,7 @@
   --h-z-bottom-sheet: var(--h-bottom-sheet-z);
   --h-z-dialog: var(--h-dialog-z);
   --h-z-toast: var(--h-toast-z);
+  --h-z-loading: var(--h-loading-z);
 
   /* 浮动气泡（HFloatingBubble） */
   --h-floating-bubble-size: 48px;

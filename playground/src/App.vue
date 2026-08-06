@@ -242,6 +242,52 @@
       </div>
     </section>
 
+    <section class="smoke__section" aria-labelledby="loading-heading">
+      <h2 id="loading-heading" class="smoke__section-title">HLoading</h2>
+      <div class="smoke__field-stack">
+        <div>
+          <p class="smoke__hint">local 默认：父容器 relative，绝对覆盖居中；三档尺寸</p>
+          <div class="smoke__row smoke__row--wrap" style="align-items: stretch;">
+            <div
+              v-for="size in (['sm', 'md', 'lg'] as const)"
+              :key="size"
+              style="position: relative; width: 120px; height: 96px; border: 1px dashed var(--h-color-border-subtle, #e0e0e0); border-radius: 12px;"
+            >
+              <h-loading :size="size" :label="size" />
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">local + label prop / default slot</p>
+          <div class="smoke__row smoke__row--wrap" style="align-items: stretch;">
+            <div style="position: relative; width: 160px; height: 120px; border: 1px dashed var(--h-color-border-subtle, #e0e0e0); border-radius: 12px;">
+              <h-loading label="加载中…" />
+            </div>
+            <div style="position: relative; width: 160px; height: 120px; border: 1px dashed var(--h-color-border-subtle, #e0e0e0); border-radius: 12px;">
+              <h-loading>插槽文案</h-loading>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">深色变量覆盖（--h-loading-track / --h-loading-thumb）</p>
+          <div
+            style="position: relative; width: 160px; height: 120px; border-radius: 12px; background: #1f1f1f; color: #fff; --h-loading-track: rgba(255,255,255,0.22); --h-loading-thumb: #ffffff;"
+          >
+            <h-loading label="深色场景" />
+          </div>
+        </div>
+        <div>
+          <p class="smoke__hint">global：全屏微遮罩 + 深色 HUD 卡片（约 2s 自动关闭）</p>
+          <div class="smoke__row smoke__row--wrap">
+            <h-button @click="openLoadingGlobal(false)">打开全局 Loading</h-button>
+            <h-button variant="outline" @click="openLoadingGlobal(true)">打开（带文案）</h-button>
+          </div>
+          <h-loading v-if="loadingGlobal" mode="global" />
+          <h-loading v-if="loadingGlobalLabel" mode="global" label="正在同步…" />
+        </div>
+      </div>
+    </section>
+
     <section class="smoke__section" aria-labelledby="sheet-heading">
       <h2 id="sheet-heading" class="smoke__section-title">HBottomSheet</h2>
       <div class="smoke__row smoke__row--wrap">
@@ -1373,7 +1419,7 @@
 import { computed, ref } from 'vue'
 import { useForm } from '@tanstack/vue-form'
 import { Bell, Heart, Home, Languages, Library, MessageCircle, Play, Search, Star, User, X } from '@lucide/vue'
-import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HHeatmap, HIcon, HImage, HInput, HNavBar, HPagination, HPopup, HProgress, HRange, HScrollbar, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag, HTooltip } from 'happier-ui'
+import { HBadge, HBottomSheet, HButton, HCard, HCell, HCellGroup, HCheckbox, HDialog, HEmpty, HFloatingBubble, HHeatmap, HIcon, HImage, HInput, HLoading, HNavBar, HPagination, HPopup, HProgress, HRange, HScrollbar, HSelect, HSidebar, HSwitch, HTabBar, HTable, HTextarea, HToast, HTag, HTooltip } from 'happier-ui'
 import type { HSelectOption, HSidebarItem, HTabBarItem, HTableColumn } from 'happier-ui'
 
 const buttonClicks = ref(0)
@@ -1398,6 +1444,22 @@ const rangeSm = ref(30)
 const rangeMd = ref(50)
 const rangeLg = ref(70)
 const progressValue = ref(40)
+const loadingGlobal = ref(false)
+const loadingGlobalLabel = ref(false)
+let loadingGlobalTimer: ReturnType<typeof setTimeout> | null = null
+const openLoadingGlobal = (withLabel: boolean) => {
+  if (loadingGlobalTimer !== null) {
+    clearTimeout(loadingGlobalTimer)
+    loadingGlobalTimer = null
+  }
+  loadingGlobal.value = !withLabel
+  loadingGlobalLabel.value = withLabel
+  loadingGlobalTimer = setTimeout(() => {
+    loadingGlobal.value = false
+    loadingGlobalLabel.value = false
+    loadingGlobalTimer = null
+  }, 2000)
+}
 const sheetOpen = ref(false)
 const sheetNoOverlayClose = ref(false)
 const sheetLimited = ref(false)

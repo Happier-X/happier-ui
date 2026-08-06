@@ -1,0 +1,99 @@
+@layer components {
+  .h-loading {
+    --h-loading-track: rgba(var(--h-color-primary-rgb), 0.22);
+    --h-loading-thumb: var(--h-color-primary);
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--h-color-ink-muted, #92949c);
+    font-size: var(--h-font-body-sm, 13px);
+    line-height: 1.4;
+  }
+
+  /* spinner + label 公共垂直排列（local / global 共用） */
+  .h-loading__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--h-space-sm, 8px);
+  }
+
+  .h-loading__spinner {
+    box-sizing: border-box;
+    flex: none;
+    width: var(--h-loading-size-md, 24px);
+    height: var(--h-loading-size-md, 24px);
+    border: var(--h-loading-border-md, 2px) solid var(--h-loading-track);
+    border-top-color: var(--h-loading-thumb);
+    border-radius: 50%;
+    animation: h-loading-spin 0.7s linear infinite;
+  }
+
+  .h-loading__label {
+    text-align: center;
+    word-break: break-word;
+  }
+
+  /* —— local：覆盖父容器居中（父容器需 position: relative）—— */
+  .h-loading--local {
+    position: absolute;
+    inset: 0;
+    z-index: var(--h-loading-z-local, 1);
+  }
+
+  /* —— global：全屏遮罩 + HUD 卡片 —— */
+  .h-loading--global {
+    position: fixed;
+    inset: 0;
+    z-index: var(--h-loading-z, var(--h-z-toast, 1220));
+    background: var(--h-loading-overlay-bg, rgba(0, 0, 0, 0.08));
+  }
+
+  .h-loading--global .h-loading__card {
+    --h-loading-track: rgba(255, 255, 255, 0.22);
+    --h-loading-thumb: #ffffff;
+    --h-loading-ink: #ffffff;
+
+    box-sizing: border-box;
+    padding: var(--h-loading-card-pad, 24px 32px);
+    border-radius: var(--h-loading-card-radius, 16px);
+    background: var(--h-loading-card-bg, rgba(var(--h-color-surface-dark-rgb), 0.82));
+    box-shadow: var(--h-loading-card-shadow, 0 8px 32px rgba(0, 0, 0, 0.18));
+    color: var(--h-loading-ink, #ffffff);
+    max-width: 80%;
+  }
+
+  /* —— 尺寸 —— */
+  .h-loading--sm .h-loading__spinner {
+    width: var(--h-loading-size-sm, 16px);
+    height: var(--h-loading-size-sm, 16px);
+    border-width: var(--h-loading-border-sm, 1.5px);
+  }
+
+  .h-loading--md .h-loading__spinner {
+    width: var(--h-loading-size-md, 24px);
+    height: var(--h-loading-size-md, 24px);
+    border-width: var(--h-loading-border-md, 2px);
+  }
+
+  .h-loading--lg .h-loading__spinner {
+    width: var(--h-loading-size-lg, 32px);
+    height: var(--h-loading-size-lg, 32px);
+    border-width: var(--h-loading-border-lg, 3px);
+  }
+
+  @keyframes h-loading-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .h-loading__spinner {
+      animation: none;
+    }
+  }
+}

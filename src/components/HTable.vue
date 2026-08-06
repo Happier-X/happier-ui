@@ -86,7 +86,7 @@
       class="h-table__overlay"
     >
       <slot name="loading">
-        <div class="h-table__spinner" aria-label="加载中" />
+        <h-loading mode="local" size="md" />
       </slot>
     </div>
 
@@ -113,6 +113,7 @@
  */
 import { ref } from 'vue'
 import HEmpty from './HEmpty.vue'
+import HLoading from './HLoading.vue'
 
 export interface HTableColumn<T extends object = Record<string, unknown>> {
   key: keyof T & string

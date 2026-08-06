@@ -19,6 +19,7 @@
 @import "./components/popup.css";
 @import "./components/bottom-sheet.css";
 @import "./components/toast.css";
+@import "./components/loading.css";
 @import "./components/floating-bubble.css";
 @import "./components/sidebar.css";
 @import "./components/select.css";

@@ -62,6 +62,7 @@ export default defineConfig({
             { text: 'Range 滑块', link: '/components/range' },
             { text: 'Select 选择器', link: '/components/select' },
             { text: 'Progress 进度条', link: '/components/progress' },
+            { text: 'Loading 加载', link: '/components/loading' },
             { text: 'Pagination 分页', link: '/components/pagination' },
             { text: 'NavBar 导航栏', link: '/components/nav-bar' },
             { text: 'TabBar 标签栏', link: '/components/tab-bar' },

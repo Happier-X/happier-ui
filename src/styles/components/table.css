@@ -118,25 +118,13 @@
 
   /* ========== overlay (loading) ========== */
   .h-table__overlay {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 120px;
     padding: 24px;
     color: var(--h-color-ink-muted, #92949c);
-  }
-
-  .h-table__spinner {
-    width: 24px;
-    height: 24px;
-    border: 2px solid var(--h-color-border-subtle, #e0e0e0);
-    border-top-color: var(--h-color-primary, #006fee);
-    border-radius: 50%;
-    animation: h-spin 0.6s linear infinite;
-  }
-
-  @keyframes h-spin {
-    to { transform: rotate(360deg); }
   }
 
   /* ========== empty ========== */

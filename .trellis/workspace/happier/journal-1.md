@@ -1110,3 +1110,36 @@ HToast 视觉重构：深色半透明 HUD 卡片（对齐 wanchun/mini w-toast�
 ### Status
 
 [OK] **Completed**
+
+
+## Session 28: HCellGroup 卡片形态 variant="card"（对齐 riceui cell 卡片风格）
+
+**Date**: 2026-08-06
+**Task**: HCellGroup 卡片形态 variant="card"（对齐 riceui cell 卡片风格）
+**Branch**: `master`
+
+### Summary
+
+HCellGroup 新增 variant 三态（card/inset/flat），card=圆角+左右留白（--h-cell-group-margin-x 16px）+组内分隔线，悬浮感靠留白与背景对比、无阴影；inset 布尔 prop 保留做兼容映射（variant 优先）。playground 灰底容器三态演示；docs 卡片章节+API/token 表；spec 同步。trellis-check 通过，无阻塞问题。
+
+### Main Changes
+
+- HCellGroup.vue：variant?: 'card'|'inset'|'flat'；resolvedVariant = variant ?? (inset ? 'inset' : 'flat')；模板类名三态
+- cell.css：.h-cell-group--card 仅加 body 左右 margin，圆角/背景/分隔线复用现有规则
+- tokens.css：新增 --h-cell-group-margin-x: 16px（设置行/分组组）
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `759808a` | (see git log) |
+
+### Testing
+
+- [OK] vue-tsc --noEmit 零错误；build:lib / build:playground / docs:build 全通过
+- [OK] trellis-check 核验：默认用法/inset=false/variant 优先/margin 覆盖/标题在外/无阴影/HCell 零改动 全部 PASS
+- [OK] dist 产物：HCellGroup.d.ts 含 variant 三态；styles.css 含 --card 规则
+
+### Status
+
+[OK] **Completed**

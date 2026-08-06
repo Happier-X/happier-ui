@@ -24,6 +24,8 @@ npm pack --dry-run
 
 本库根脚本目前 **无** `lint` / `test` / `typecheck` 独立入口；以 playground build + 目视为准。发版前额外：`build:lib` 产物齐全（`index.js` / `index.d.ts` / `styles.css` / `tokens.css`），`npm pack --dry-run` 不含 `src` / `playground` / `docs` / `.trellis`。
 
+全库类型检查（零错误基线）：`npx vue-tsc --noEmit -p tsconfig.lib.json`。`tsconfig.lib.json` 必须保留 `"types": ["vite/client"]`——组件代码用 `import.meta.env.*`（如 HSidebar dev-only 校验）依赖 `ImportMeta.env` 类型，缺了会报 `TS2339`；不要用「src 加 `vite-env.d.ts`」替代（`vite-plugin-dts` 会把它拷贝进 dist，消费方无 vite 时 `vite/client` 引用解析失败）。
+
 ## 无障碍最低线
 
 | 控件 | 要求 |

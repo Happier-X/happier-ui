@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 28
+- **Total Sessions**: 29
 - **Last Active**: 2026-08-06
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~1145 | Active |
+| `journal-1.md` | ~1180 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 29 | 2026-08-06 | 发布 happier-ui 0.1.1（tag 触发 CI 发布） | `9cec317` | `master` |
 | 28 | 2026-08-06 | HCellGroup 卡片形态 variant="card"（对齐 riceui cell 卡片风格） | `759808a` | `master` |
 | 27 | 2026-08-06 | 修复 HSidebar import.meta.env 类型错误（tsconfig.lib.json 引入 vite/client） | `9d5d12f` | `master` |
 | 26 | 2026-08-06 | HLoading 加载指示组件（local/global 两形态）+ HTable 复用 | `d327179`, `7369937` | `master` |

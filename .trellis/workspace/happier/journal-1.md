@@ -1143,3 +1143,38 @@ HCellGroup 新增 variant 三态（card/inset/flat），card=圆角+左右留白
 ### Status
 
 [OK] **Completed**
+
+
+## Session 29: 发布 happier-ui 0.1.1（tag 触发 CI 发布）
+
+**Date**: 2026-08-06
+**Task**: 发布 happier-ui 0.1.1（tag 触发 CI 发布）
+**Branch**: `master`
+
+### Summary
+
+bump 0.1.0→0.1.1（package.json + package-lock.json 同步，lock 根版本此前停在 0.0.10 一并修正）；本地 npm publish 被 2FA 拦截，改用项目既有 tag 触发流程：git push v0.1.1 → GitHub Actions release.yml（NPM_TOKEN bypass 2FA）构建并发布成功；npm view 确认 0.1.1 上线，临时目录安装验证 dist 四产物齐全。
+
+### Main Changes
+
+- package.json / package-lock.json：version → 0.1.1（lock 根版本 0.0.10 → 0.1.1 修正）
+- tag v0.1.1 推送触发 release.yml（历史 v0.1.0/v0.0.10 均同流程）
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `9cec317` | (see git log) |
+
+### Testing
+
+- [OK] npm view happier-ui@0.1.1：version/tarball/unpackedSize 正常
+- [OK] 临时目录 npm i happier-ui@0.1.1：安装成功、dist 四产物齐全、无漏洞
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- release.yml 的 actions/checkout@v4 + setup-node@v4 报 Node 20 弃用警告（跑在 Node 24），后续可升级 actions 版本

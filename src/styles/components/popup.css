@@ -122,6 +122,14 @@
     justify-content: center;
   }
 
+  /* slot-anchor 无布局样式时作为 flex item 宽度=内容宽，panel 的
+     width:100% 会相对它解析为内容宽（而非容器宽），导致面板不占满。
+     修复 #15：bottom/top 的 slot-anchor 占满容器宽。 */
+  .h-popup--position-bottom .h-popup__slot-anchor,
+  .h-popup--position-top .h-popup__slot-anchor {
+    width: 100%;
+  }
+
   .h-popup--position-bottom .h-popup__overlay {
     animation: h-popup-overlay-in var(--h-popup-duration-overlay, 220ms)
       var(--h-ease-standard, ease) both;

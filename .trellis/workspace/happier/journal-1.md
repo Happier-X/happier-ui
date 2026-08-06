@@ -1022,3 +1022,37 @@ HToast 视觉重构：深色半透明 HUD 卡片（对齐 wanchun/mini w-toast�
 ### Status
 
 [OK] **Completed**
+
+---
+
+## 08-06-hloading — HLoading 加载指示组件（两形态）
+
+### Summary
+
+新增独立 HLoading 组件，内置 local / global 两种展示形态，对齐 wanchun/mini w-toast loading spinner 观感；HTable 内部复用（保留 overlay 与 #loading slot）。
+
+### Key Decisions
+
+- **两形态**：`mode: 'local' | 'global'`，默认 local（绝对定位覆盖父容器，父需 relative，无遮罩）；global（Teleport body + fixed 全屏 + rgba(0,0,0,0.08) 微遮罩 + 深色 HUD 卡片 + 白色系 spinner/文字）
+- **尺寸**：size sm/md/lg（16/24/32px，边框 1.5/2/3px 随比例），token `--h-loading-size-*` / `--h-loading-border-*`
+- **单色**：无 color prop；local 默认 primary 同色系（track primary 22% + thumb primary）；global 卡片内覆盖白色系；宿主可覆写 `--h-loading-track/thumb`
+- **无障碍**：role=status + aria-label 三级回退（ariaLabel || label || 加载中，空串视为未提供）；spinner aria-hidden
+- **动画**：0.7s linear 旋转；prefers-reduced-motion 关闭
+- **HTable**：保留 `.h-table__overlay` 与 `#loading` slot，默认内容换 h-loading local md；删除私有 spinner 样式（轨道色 border-subtle → primary 22% 统一化）
+- 组件 API：mode/size/label/ariaLabel + default slot（slot 优先）；无 emits
+
+### 检查结果
+
+- trellis-check：12 条验收标准全过；修复模板冗余（__body 公共层）、global 遮罩/padding token 化、aria 空串回退、quality-guidelines 补行
+- build:lib ✅ / docs:build ✅
+
+### Commits
+
+| hash | desc |
+|------|------|
+| `d327179` | feat(loading): HLoading 两形态组件 + HTable 复用 + docs/playground |
+| `7369937` | chore(spec): HLoading 规范与 token 说明同步 |
+
+### Status
+
+[OK] **Completed**

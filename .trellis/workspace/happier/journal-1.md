@@ -1056,3 +1056,25 @@ HToast 视觉重构：深色半透明 HUD 卡片（对齐 wanchun/mini w-toast�
 ### Status
 
 [OK] **Completed**
+
+
+## Session 26: HLoading 加载指示组件（local/global 两形态）+ HTable 复用
+
+**Date**: 2026-08-06
+**Task**: HLoading 加载指示组件（local/global 两形态）+ HTable 复用
+**Branch**: `master`
+
+### Summary
+
+新增 HLoading：mode local（容器内居中，父需 relative）与 global（Teleport 全屏 + 微遮罩 + 深色 HUD 卡片，白色系 spinner）；size sm/md/lg；单色无 color prop（track/thumb 可覆写）；label+default slot（slot 优先）；role=status + aria 三级回退；0.7s 旋转 respect reduced-motion；HTable 保留 overlay/#loading slot 并复用 h-loading local md。trellis-check 12 条 AC 全过，build:lib/docs:build 通过。规划阶段 4 问（global 观感/local 布局/mode 命名/HTable 复用）逐一确认。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `d327179` | (see git log) |
+| `7369937` | (see git log) |
+
+### Status
+
+[OK] **Completed**

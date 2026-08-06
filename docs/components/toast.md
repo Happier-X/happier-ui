@@ -1,6 +1,6 @@
 # Toast
 
-轻提示。短暂、非阻塞的操作反馈。`v-model` 控制显隐；`default | success | warning | danger` 语义；`top | bottom` 位置；`duration` 自动关闭。声明式单条组件，全局命令式调用、队列与堆叠由宿主负责。默认 `teleport` 到 `body`。
+轻提示。深色 HUD / iOS 原生 toast 风格：深色半透明圆角卡片、默认屏幕居中、内置语义图标。`v-model` 控制显隐；`default | success | warning | danger` 语义；`center | top | bottom` 位置；`duration` 自动关闭。声明式单条组件，全局命令式调用、队列与堆叠由宿主负责。默认 `teleport` 到 `body`。无遮罩层，完全非阻塞。
 
 ## 基础
 
@@ -11,14 +11,18 @@ import { HButton, HToast } from 'happier-ui'
 const open = ref(false)
 const persist = ref(false)
 const topOpen = ref(false)
+const bottomOpen = ref(false)
+const textOnly = ref(false)
 const closes = ref(0)
 const onClose = () => { closes.value++ }
 </script>
 
 <div class="h-demo h-demo--stack">
   <div class="h-demo--row">
-    <h-button @click="open = true">显示 Toast</h-button>
+    <h-button @click="open = true">显示 Toast（居中）</h-button>
     <h-button variant="outline" @click="topOpen = true">顶部</h-button>
+    <h-button variant="secondary" @click="bottomOpen = true">底部</h-button>
+    <h-button variant="ghost" @click="textOnly = true">纯文字</h-button>
     <h-button variant="ghost" @click="persist = true">不自动关闭</h-button>
     <h-button size="sm" variant="outline" @click="persist = false">隐藏持续提示</h-button>
   </div>
@@ -30,6 +34,14 @@ const onClose = () => { closes.value++ }
 
   <h-toast v-model="topOpen" position="top" variant="default" @close="onClose">
     顶部提示
+  </h-toast>
+
+  <h-toast v-model="bottomOpen" position="bottom" variant="success" @close="onClose">
+    底部提示
+  </h-toast>
+
+  <h-toast v-model="textOnly" :icon="false" @close="onClose">
+    纯文字 toast
   </h-toast>
 
   <h-toast v-model="persist" variant="warning" :duration="0">
@@ -55,9 +67,7 @@ const open = ref(false)
 
 ## 语义状态
 
-<div class="h-demo h-demo--stack">
-  <p class="h-demo__hint">四种 <code>variant</code>：default / success / warning / danger（左侧强调条与图标色区分）。</p>
-</div>
+四种 `variant` 卡片观感一致为深色 HUD；success / warning / danger 默认显示内置语义图标（✓ / ! / ✕，浅色系），default 无内置图标。
 
 ```vue
 <h-toast v-model="a" variant="default">默认提示</h-toast>
@@ -68,7 +78,10 @@ const open = ref(false)
 
 ## 图标
 
-通过 `#icon` 具名插槽提供前置图标（装饰性，默认 `aria-hidden`）。
+- success / warning / danger 默认显示内置 Unicode 图标（✓ / ! / ✕）
+- `#icon` 具名插槽可覆盖内置图标（插槽优先）
+- `:icon="false"` 时整个图标区（含插槽）不渲染，用于纯文字 toast
+- 图标装饰性，默认 `aria-hidden`
 
 ```vue
 <script setup lang="ts">
@@ -77,13 +90,30 @@ import { HIcon, HToast } from 'happier-ui'
 </script>
 
 <template>
-  <h-toast v-model="open" variant="success">
+  <!-- 内置图标（success → ✓） -->
+  <h-toast v-model="a" variant="success">已保存</h-toast>
+
+  <!-- 插槽覆盖内置图标 -->
+  <h-toast v-model="b" variant="success">
     <template #icon>
       <h-icon :icon="CheckCircle" size="sm" />
     </template>
     已保存更改
   </h-toast>
+
+  <!-- 纯文字 -->
+  <h-toast v-model="c" :icon="false">纯文字提示</h-toast>
 </template>
+```
+
+## 位置
+
+默认 `center`（屏幕居中）；可选 `top` / `bottom`（含 safe-area 偏移）保持向后兼容。
+
+```vue
+<h-toast v-model="a">居中（默认）</h-toast>
+<h-toast v-model="b" position="top">顶部</h-toast>
+<h-toast v-model="c" position="bottom">底部</h-toast>
 ```
 
 ## 自动关闭
@@ -97,9 +127,10 @@ import { HIcon, HToast } from 'happier-ui'
 | 名称 | 类型 | 默认 | 说明 |
 |------|------|------|------|
 | `modelValue` | `boolean` | `false` | 是否显示 |
-| `variant` | `'default' \| 'success' \| 'warning' \| 'danger'` | `'default'` | 语义状态 |
-| `position` | `'top' \| 'bottom'` | `'bottom'` | 视口固定位置（含 safe-area） |
+| `variant` | `'default' \| 'success' \| 'warning' \| 'danger'` | `'default'` | 语义状态；success/warning/danger 默认带内置图标 |
+| `position` | `'center' \| 'top' \| 'bottom'` | `'center'` | 视口固定位置（top/bottom 含 safe-area） |
 | `duration` | `number` | `3000` | 自动关闭毫秒；`0` 表示不自动关闭 |
+| `icon` | `boolean` | `true` | 是否显示图标区；`false` 时隐藏内置图标与 `#icon` 插槽 |
 | `teleport` | `string \| HTMLElement \| false` | `'body'` | 挂载目标；`false` 或无效目标/SSR 时原地渲染，用于逃离带 transform/contain 祖先的 fixed 包含块偏移 |
 
 ### Emits
@@ -114,12 +145,18 @@ import { HIcon, HToast } from 'happier-ui'
 | 名称 | 说明 |
 |------|------|
 | `default` | 提示内容 |
-| `icon` | 前置图标（装饰性，`aria-hidden`） |
+| `icon` | 前置图标（优先于内置图标；装饰性，`aria-hidden`） |
 
 ## 无障碍
 
 - `default` / `success`：`role="status"` + `aria-live="polite"`
 - `warning` / `danger`：`role="alert"` + `aria-live="assertive"`
 - `aria-atomic="true"`；不主动获取焦点，不抢占键盘
-- 图标插槽默认 `aria-hidden`
+- 内置图标与 `#icon` 插槽默认 `aria-hidden`
 - 尊重 `prefers-reduced-motion`（关闭进场动画）
+- 无遮罩层，点击穿透，完全非阻塞
+
+## 破坏性变更（相对旧版）
+
+- `position` 默认值由 `bottom` 改为 `center`
+- 视觉由浅色卡片 + 左侧语义竖条改为深色 HUD；旧 token `--h-toast-accent` 已移除，请改用 `--h-toast-icon-*` / `--h-toast-bg` 等新 token

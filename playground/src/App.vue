@@ -1120,19 +1120,22 @@
     <section class="smoke__section" aria-labelledby="toast-heading">
       <h2 id="toast-heading" class="smoke__section-title">HToast</h2>
       <div class="smoke__row smoke__row--wrap">
-        <h-button @click="toastSuccess = true">成功（底部）</h-button>
+        <h-button @click="toastSuccess = true">成功（居中）</h-button>
         <h-button variant="outline" @click="toastTop = true">默认（顶部）</h-button>
+        <h-button variant="secondary" @click="toastBottom = true">底部</h-button>
         <h-button variant="danger-soft" @click="toastDanger = true">错误</h-button>
+        <h-button variant="ghost" @click="toastTextOnly = true">纯文字（icon=false）</h-button>
         <h-button variant="ghost" @click="toastPersist = true">不自动关闭</h-button>
         <h-button size="sm" variant="outline" @click="toastPersist = false">隐藏持续提示</h-button>
       </div>
 
       <p class="smoke__hint">
+        深色 HUD 风格：默认屏幕居中；内置语义图标（✓ / ! / ✕）；#icon 插槽可覆盖；icon=false 纯文字。
         下方容器带 <code>transform: translateZ(0)</code>（会成为 fixed 的包含块）。
-        默认 teleport 到 body，toast 仍固定在视口底部；<code>:teleport="false"</code> 则被容器劫持而错位。
+        默认 teleport 到 body，toast 仍固定在视口；<code>:teleport="false"</code> 则被容器劫持而错位。
       </p>
       <div class="smoke__row smoke__row--wrap" style="transform: translateZ(0); contain: layout; border: 1px dashed var(--h-color-border-subtle); padding: 12px; border-radius: 8px;">
-        <h-button variant="outline" @click="toastTeleport = true">默认 teleport（视口底部）</h-button>
+        <h-button variant="outline" @click="toastTeleport = true">默认 teleport（视口居中）</h-button>
         <h-button variant="ghost" @click="toastInPlace = true">teleport=false（就地/错位）</h-button>
 
         <h-toast v-model="toastTeleport" variant="success">
@@ -1151,15 +1154,23 @@
         <template #icon>
           <h-icon :icon="Star" size="sm" />
         </template>
-        已保存更改
+        已保存更改（#icon 插槽覆盖内置 ✓）
       </h-toast>
 
       <h-toast v-model="toastTop" position="top" @close="onToastClose">
         顶部提示，3 秒后自动关闭
       </h-toast>
 
+      <h-toast v-model="toastBottom" position="bottom" variant="success" @close="onToastClose">
+        底部提示（内置 ✓）
+      </h-toast>
+
       <h-toast v-model="toastDanger" variant="danger" @close="onToastClose">
         操作失败，请重试
+      </h-toast>
+
+      <h-toast v-model="toastTextOnly" :icon="false" @close="onToastClose">
+        纯文字 toast（无图标）
       </h-toast>
 
       <h-toast v-model="toastPersist" variant="warning" :duration="0">
@@ -1407,7 +1418,9 @@ const popupKeepAliveCount = ref(0)
 const popupSwipeDisabled = ref(false)
 const toastSuccess = ref(false)
 const toastTop = ref(false)
+const toastBottom = ref(false)
 const toastDanger = ref(false)
+const toastTextOnly = ref(false)
 const toastPersist = ref(false)
 const toastTeleport = ref(false)
 const toastInPlace = ref(false)

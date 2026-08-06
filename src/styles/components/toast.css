@@ -1,9 +1,6 @@
 @layer components {
   .h-toast {
-    --h-toast-bg: var(--h-color-surface);
-    --h-toast-ink: var(--h-color-ink);
-    --h-toast-border: var(--h-color-border-subtle);
-    --h-toast-accent: var(--h-color-ink-muted);
+    --h-toast-icon-color: var(--h-toast-icon-default, #aeaeb2);
 
     position: fixed;
     left: 50%;
@@ -13,48 +10,52 @@
     align-items: center;
     gap: var(--h-space-sm, 8px);
     width: max-content;
-    max-width: min(
-      var(--h-toast-max-width, 480px),
-      calc(100vw - 2 * var(--h-space-lg, 16px))
-    );
-    padding: var(--h-toast-pad-y, 10px) var(--h-toast-pad-x, 16px);
-    border: 1px solid var(--h-toast-border);
-    border-radius: var(--h-toast-radius, 12px);
-    background: var(--h-toast-bg);
-    color: var(--h-toast-ink);
-    font-size: var(--h-font-body-sm, 13px);
+    max-width: min(var(--h-toast-max-width, 480px), 80vw);
+    padding: var(--h-toast-pad-y, 12px) var(--h-toast-pad-x, 20px);
+    border-radius: var(--h-toast-radius, 16px);
+    background: var(--h-toast-bg, rgba(31, 31, 31, 0.82));
+    color: var(--h-toast-ink, #ffffff);
+    box-shadow: var(--h-toast-shadow, 0 8px 32px rgba(0, 0, 0, 0.18));
+    font-size: var(--h-font-title, 15px);
+    font-weight: 500;
     line-height: 1.4;
-    border-left: 3px solid var(--h-toast-accent);
+    pointer-events: none;
   }
 
   /* —— position —— */
+  .h-toast--center {
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: h-toast-in-center var(--h-toast-duration, 220ms) ease-out both;
+  }
+
   .h-toast--top {
     top: calc(var(--h-toast-offset, var(--h-space-lg, 16px)) + env(safe-area-inset-top, 0px));
     transform: translateX(-50%);
-    animation: h-toast-in-top var(--h-toast-duration, 200ms) var(--h-ease-standard, ease) both;
+    animation: h-toast-in-top var(--h-toast-duration, 220ms) ease-out both;
   }
 
   .h-toast--bottom {
     bottom: calc(var(--h-toast-offset, var(--h-space-lg, 16px)) + env(safe-area-inset-bottom, 0px));
     transform: translateX(-50%);
-    animation: h-toast-in-bottom var(--h-toast-duration, 200ms) var(--h-ease-standard, ease) both;
+    animation: h-toast-in-bottom var(--h-toast-duration, 220ms) ease-out both;
   }
 
-  /* —— variant —— */
+  /* —— variant icon colors —— */
   .h-toast--default {
-    --h-toast-accent: var(--h-color-ink-muted);
+    --h-toast-icon-color: var(--h-toast-icon-default, #aeaeb2);
   }
 
   .h-toast--success {
-    --h-toast-accent: var(--h-color-success);
+    --h-toast-icon-color: var(--h-toast-icon-success, #a3e4bc);
   }
 
   .h-toast--warning {
-    --h-toast-accent: var(--h-color-warning);
+    --h-toast-icon-color: var(--h-toast-icon-warning, #f0d48a);
   }
 
   .h-toast--danger {
-    --h-toast-accent: var(--h-color-danger);
+    --h-toast-icon-color: var(--h-toast-icon-danger, #f0a5a5);
   }
 
   .h-toast__icon {
@@ -62,7 +63,14 @@
     flex: none;
     align-items: center;
     justify-content: center;
-    color: var(--h-toast-accent);
+    color: var(--h-toast-icon-color);
+    font-size: var(--h-toast-icon-size, 20px);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .h-toast__icon--builtin {
+    display: block;
   }
 
   .h-toast__body {
@@ -71,29 +79,41 @@
     text-wrap: pretty;
   }
 
-  @keyframes h-toast-in-top {
+  @keyframes h-toast-in-center {
     from {
       opacity: 0;
-      transform: translateX(-50%) translateY(-8px);
+      transform: translate(-50%, -50%) scale(0.92) translateY(8px);
     }
     to {
       opacity: 1;
-      transform: translateX(-50%) translateY(0);
+      transform: translate(-50%, -50%) scale(1) translateY(0);
+    }
+  }
+
+  @keyframes h-toast-in-top {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.92) translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) scale(1) translateY(0);
     }
   }
 
   @keyframes h-toast-in-bottom {
     from {
       opacity: 0;
-      transform: translateX(-50%) translateY(8px);
+      transform: translateX(-50%) scale(0.92) translateY(8px);
     }
     to {
       opacity: 1;
-      transform: translateX(-50%) translateY(0);
+      transform: translateX(-50%) scale(1) translateY(0);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .h-toast--center,
     .h-toast--top,
     .h-toast--bottom {
       animation: none;

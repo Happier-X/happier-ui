@@ -28,6 +28,7 @@
   --h-color-surface: #ffffff;
   --h-color-surface-secondary: #f4f4f5;
   --h-color-surface-dark: #1f1f1f;
+  --h-color-surface-dark-rgb: 31, 31, 31;
   --h-color-ink: #000000;
   --h-color-ink-muted: #92949c;
   --h-color-border-subtle: #e0e0e0;
@@ -264,14 +265,22 @@
   --h-progress-transition-duration: 200ms;
   --h-progress-indeterminate-duration: 1.4s;
 
-  /* Toast（HToast） */
+  /* Toast（HToast）— 深色 HUD 风格 */
   --h-toast-z: 1220;
   --h-toast-max-width: 480px;
-  --h-toast-pad-x: 16px;
-  --h-toast-pad-y: 10px;
-  --h-toast-radius: var(--h-radius-md);
+  --h-toast-pad-x: 20px;
+  --h-toast-pad-y: 12px;
+  --h-toast-radius: 16px;
   --h-toast-offset: var(--h-space-lg);
-  --h-toast-duration: 200ms;
+  --h-toast-duration: 220ms;
+  --h-toast-bg: rgba(var(--h-color-surface-dark-rgb), 0.82);
+  --h-toast-ink: #ffffff;
+  --h-toast-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  --h-toast-icon-size: 20px;
+  --h-toast-icon-default: #aeaeb2;
+  --h-toast-icon-success: #a3e4bc;
+  --h-toast-icon-warning: #f0d48a;
+  --h-toast-icon-danger: #f0a5a5;
 
   /* 列表行密度 */
   --h-list-row-height-comfortable: var(--h-song-row-height);

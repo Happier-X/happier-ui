@@ -91,7 +91,7 @@ export { default as HTag } from './components/HTag.vue'
 - `src/components/HTabBar.vue` — items + v-model key；内部 HIcon；safe-area
 - `src/components/HNavBar.vue` — header 标题栏；左右/标题插槽；默认返回按钮；无路由
 - `src/components/HCard.vue` — 内容分组容器；outlined/filled/flat variant、padding none/sm/md/lg、radius sm/md；header/body/footer 具名 slot；无 elevation、无整卡交互
-- `src/components/HCell.vue` / `HCellGroup.vue` — 设置行与分组；title/description、prefix/suffix、clickable 键盘激活、默认 chevron、Surface/flat 分组与直接子 Cell 分隔线
+- `src/components/HCell.vue` / `HCellGroup.vue` — 设置行与分组；title/description、prefix/suffix、clickable 键盘激活、默认 chevron、Surface/card/flat 分组（`variant` 三态，`inset` 布尔兼容映射）与直接子 Cell 分隔线
 - `src/components/HBadge.vue` — 状态徽章；variant/default/success/warning/danger/info、size sm/md、dot 模式
 - `src/components/HTextarea.vue` — 多行文本输入；v-model string；label/error/description、size sm/md/lg、rows、resize auto/none/vertical/both、maxLength+showCount、mono 等宽字体（var(--h-font-mono)）
 - `src/components/HTag.vue` — 可关闭标签；variant/default/primary/success/warning/danger、size sm/md、closable、disabled；close emit
@@ -124,7 +124,7 @@ export { default as HTag } from './components/HTag.vue'
 | 顶部标题栏 | `title` / `#title`；`#left` / `#right`；`showBack`；左右点击事件；`fixed` / `safeArea` 默认 true；无路由 | `HNavBar` |
 | 卡片容器 | `variant` outlined/filled/flat + `padding` none/sm/md/lg + `radius` sm/md；`#header` / default / `#footer` 具名 slot；纯展示无整卡可点击；无 Emits | `HCard` |
 | 设置行 | `title` 必填、可选 `description`；`#prefix` / `#suffix`；`clickable` 默认 false；`showChevron` 默认跟随 clickable；click emit 原始 MouseEvent/KeyboardEvent | `HCell` |
-| 设置分组 | `title` 可选；`inset` 默认 true；`#header` 覆盖默认标题，default 直接放 `HCell`；相邻直接子 Cell 自动分隔 | `HCellGroup` |
+| 设置分组 | `title` 可选；`variant` card/inset/flat（默认 inset，card=圆角+左右留白对齐 riceui 卡片）；`inset` 布尔保留兼容映射（variant 优先）；`#header` 覆盖默认标题，default 直接放 `HCell`；相邻直接子 Cell 自动分隔 | `HCellGroup` |
 | 浮动气泡 | `v-model:offset`(`{x,y}`) + `axis` x/y/xy/lock + `gap` number/{x,y} + `magnetic` x/y；`icon` 或 default slot；`ariaLabel` 必填；`teleport` 默认 body；`click`/`offset-change`/`drag-start`/`drag-end` | `HFloatingBubble` |
 | 侧边栏 | `items`(必填) + `modelValue`(string key) + `v-model:collapsed`；`showCollapseToggle` 默认 true；`#header` / `#footer` slot；`update:modelValue`/`update:collapsed`；常驻占位、无路由、无 overlay | `HSidebar` |
 | 状态徽章 | `variant` default/success/warning/danger/info + `size` sm/md + `dot` 纯圆点模式；default slot | `HBadge` |
@@ -159,7 +159,7 @@ export { default as HTag } from './components/HTag.vue'
 | `HNavBar` | `HNavBar.vue` | header；title/left/right slots；showBack；fixed/safeArea；无路由 |
 | `HCard` | `HCard.vue` | 内容分组容器；outlined/filled/flat；padding none/sm/md/lg；radius sm/md；header/body/footer slot；无 elevation |
 | `HCell` | `HCell.vue` | 设置行；title/description；prefix/suffix；clickable 与 Enter/Space；默认 chevron |
-| `HCellGroup` | `HCellGroup.vue` | section 分组；默认标题 aria-labelledby；inset/flat；直接子 Cell 分隔线 |
+| `HCellGroup` | `HCellGroup.vue` | section 分组；默认标题 aria-labelledby；variant card/inset/flat（`inset` 布尔兼容映射）；直接子 Cell 分隔线 |
 | `HFloatingBubble` | `HFloatingBubble.vue` | 浮动气泡；v-model:offset；axis x/y/xy/lock；gap；magnetic x/y 磁吸；Teleport 默认 body；icon/default slot；ariaLabel 必填；Pointer 拖拽 |
 | `HSidebar` | `HSidebar.vue` | 常驻式左侧边栏；items + v-model(key)；v-model:collapsed 受控折叠；showCollapseToggle 内置折叠按钮；header/footer slot；nav + aria-current；无路由/无 overlay |
 | `HBadge` | `HBadge.vue` | 状态徽章；variant+size+dot；default slot |

@@ -31,6 +31,12 @@
     border-radius: 0;
   }
 
+  /* card：圆角 + 左右留白，呈悬浮卡片（无阴影，靠留白/背景对比） */
+  .h-cell-group--card .h-cell-group__body {
+    margin: 0 var(--h-cell-group-margin-x, 16px);
+    border-radius: var(--h-cell-group-radius, var(--h-radius-control, 12px));
+  }
+
   .h-cell {
     position: relative;
     box-sizing: border-box;

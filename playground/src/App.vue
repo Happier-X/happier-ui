@@ -1018,6 +1018,22 @@
         <h-cell title="关于" clickable :show-chevron="false" @click="onCellClick('关于')" />
         <h-cell title="装饰导航指示" show-chevron />
       </h-cell-group>
+
+      <p class="smoke__hint smoke__hint--spaced">card 卡片形态（灰底容器凸显悬浮感）</p>
+      <div style="padding: 4px 0; background: var(--h-color-bg-muted, #f4f4f5); border-radius: 12px;">
+        <h-cell-group variant="card" title="账户">
+          <h-cell title="头像" description="修改你的头像">
+            <template #suffix>去设置</template>
+          </h-cell>
+          <h-cell title="昵称" description="对外展示的名称" clickable @click="onCellClick('昵称')" />
+          <h-cell title="会员" description="有效期至 2027-01-01">
+            <template #prefix>
+              <h-icon :icon="Star" />
+            </template>
+          </h-cell>
+        </h-cell-group>
+      </div>
+      <p class="smoke__hint">card 与 inset/flat 并排：仅 group 层面留白，cell 交互契约不变</p>
     </section>
 
     <section class="smoke__section" aria-labelledby="card-heading">

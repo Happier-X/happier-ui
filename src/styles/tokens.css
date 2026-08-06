@@ -242,6 +242,7 @@
   --h-cell-chevron-color: var(--h-color-ink-muted);
   --h-cell-group-radius: var(--h-radius-control);
   --h-cell-group-header-gap: 8px;
+  --h-cell-group-margin-x: 16px;
 
   /* 滑块（HRange） */
   --h-range-track-sm-h: 4px;

@@ -107,7 +107,7 @@ playground：
 | 底部导航 | `--h-tab-bar-height`、`--h-tab-bar-bg`、`--h-tab-bar-border`、`--h-tab-bar-label-font`、`--h-z-tab` |
 | 顶部标题栏 | `--h-nav-bar-height`（内容高度 56px）、`--h-nav-bar-bg`、`--h-nav-bar-border`、`--h-z-nav`；顶部 safe-area 额外叠加 |
 | 触控 / 列表 | `--h-touch-target`、`--h-song-row-height`、`--h-list-row-height-compact`、`--h-cover-size-sm` |
-| 设置行 / 分组 | `--h-cell-min-height`、`--h-cell-pad-x/y`、`--h-cell-gap`、`--h-cell-bg`、`--h-cell-pressed-bg`、`--h-cell-chevron-color`、`--h-cell-group-radius`、`--h-cell-group-header-gap`（HCell / HCellGroup） |
+| 设置行 / 分组 | `--h-cell-min-height`、`--h-cell-pad-x/y`、`--h-cell-gap`、`--h-cell-bg`、`--h-cell-pressed-bg`、`--h-cell-chevron-color`、`--h-cell-group-radius`、`--h-cell-group-header-gap`、`--h-cell-group-margin-x`（card 形态左右留白）（HCell / HCellGroup） |
 | 动效 | `--h-duration-press`、`--h-ease-standard` |
 | 浮动气泡 | `--h-floating-bubble-size`、`--h-floating-bubble-icon-size`、`--h-floating-bubble-gap`、`--h-floating-bubble-bg/color`、`--h-floating-bubble-radius`、`--h-floating-bubble-transition`、`--h-z-floating-bubble` |
 | 侧边栏 | `--h-sidebar-width`（展开 240px，布局分组已有）、`--h-sidebar-collapsed-width`、`--h-sidebar-bg`、`--h-sidebar-border`、`--h-sidebar-item-radius`、`--h-sidebar-item-gap`、`--h-sidebar-transition`（HSidebar） |

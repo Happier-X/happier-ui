@@ -6,7 +6,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { Bell, Languages } from '@lucide/vue'
+import { Bell, Languages, Star } from '@lucide/vue'
 import { HCell, HCellGroup, HIcon, HSwitch } from 'happier-ui'
 
 const notifications = ref(true)
@@ -82,6 +82,35 @@ const notifications = ref(true)
 
 为了自动绘制分隔线，`HCell` 必须是 `HCellGroup` default slot 的直接子元素。分隔线只出现在相邻 Cell 之间，最后一行不显示。
 
+## 卡片（card）
+
+`variant="card"`：整组形如一张**悬浮卡片**——圆角 + 左右留白（`--h-cell-group-margin-x`，默认 16px）+ 组内分隔线。悬浮感靠留白与背景对比实现，**无阴影**（遵守项目无 elevation 原则）；把容器/页面背景设灰（如 `--h-color-bg-muted`）即可看到对比效果。
+
+<div class="h-demo h-demo--stack">
+  <div style="padding: 4px 0; background: var(--h-color-bg-muted, #f4f4f5); border-radius: 12px;">
+    <h-cell-group variant="card" title="账户">
+      <h-cell title="头像" description="修改你的头像">
+        <template #suffix>去设置</template>
+      </h-cell>
+      <h-cell title="昵称" description="对外展示的名称" clickable />
+      <h-cell title="会员" description="有效期至 2027-01-01">
+        <template #prefix><h-icon :icon="Star" /></template>
+      </h-cell>
+    </h-cell-group>
+  </div>
+</div>
+
+```vue
+<div style="padding: 4px 0; background: var(--h-color-bg-muted);">
+  <h-cell-group variant="card" title="账户">
+    <h-cell title="头像" description="修改你的头像" />
+    <h-cell title="昵称" description="对外展示的名称" clickable />
+  </h-cell-group>
+</div>
+```
+
+`variant` 与旧的 `inset` 布尔 prop 的关系：`variant` 显式传入时**优先**；未传时按 `inset` 映射（`true`→`inset`、`false`→`flat`）。分组标题（`title`/`#header`）始终位于卡片外。
+
 ## HCell API
 
 ### Props
@@ -116,7 +145,8 @@ const notifications = ref(true)
 | 名称 | 类型 | 默认 | 说明 |
 |------|------|------|------|
 | `title` | `string` | — | 默认分组标题 |
-| `inset` | `boolean` | `true` | 圆角 Surface；`false` 为全宽 flat 分组 |
+| `inset` | `boolean` | `true` | 圆角 Surface；`false` 为全宽 flat 分组（`variant` 优先时忽略） |
+| `variant` | `'card' \| 'inset' \| 'flat'` | 未传（解析为 `'inset'`） | 形态：`card` 卡片（圆角+左右留白）、`inset` 内嵌（默认）、`flat` 通栏；显式传入时优先于 `inset` |
 
 ### Slots
 
@@ -136,3 +166,9 @@ const notifications = ref(true)
 - chevron 是装饰元素并设置 `aria-hidden="true"`。
 - 有默认 `title` 的 Group 使用 `section`，并通过稳定 id 建立 `aria-labelledby`。自定义 `header` 时不猜测内部 id。
 - 不要在 clickable Cell 内放置开关、复选框或 button 等交互控件。
+
+## Token
+
+| Token | 默认 | 说明 |
+|-------|------|------|
+| `--h-cell-group-margin-x` | `16px` | `card` 形态左右留白 |

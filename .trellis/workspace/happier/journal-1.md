@@ -1078,3 +1078,35 @@ HToast 视觉重构：深色半透明 HUD 卡片（对齐 wanchun/mini w-toast�
 ### Status
 
 [OK] **Completed**
+
+
+## Session 27: 修复 HSidebar import.meta.env 类型错误（tsconfig.lib.json 引入 vite/client）
+
+**Date**: 2026-08-06
+**Task**: 修复 HSidebar import.meta.env 类型错误（tsconfig.lib.json 引入 vite/client）
+**Branch**: `master`
+
+### Summary
+
+修复库构建唯一的 TS 类型错误：HSidebar.vue:119 的 import.meta.env.DEV 报 TS2339。根因是 tsconfig.lib.json 未引入 vite/client 类型；加 "types": ["vite/client"] 后 vue-tsc 零错误、build:lib/docs:build 通过、dist 声明无污染。spec 记录构建约定（勿用 vite-env.d.ts 替代，会污染发布产物）。
+
+### Main Changes
+
+- tsconfig.lib.json：compilerOptions 增加 "types": ["vite/client"]（仅一行）
+- quality-guidelines.md：验证命令区补充全库类型检查基线 + vite/client 类型约定
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `9d5d12f` | (see git log) |
+
+### Testing
+
+- [OK] npx vue-tsc --noEmit -p tsconfig.lib.json 零错误
+- [OK] npm run build:lib / docs:build 通过；dist 声明文件无 vite/client 引用污染
+- [OK] git diff 确认仅新增 types 一行
+
+### Status
+
+[OK] **Completed**

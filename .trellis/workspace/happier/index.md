@@ -8,7 +8,7 @@
 
 <!-- @@@auto:current-status -->
 - **Active File**: `journal-1.md`
-- **Total Sessions**: 26
+- **Total Sessions**: 27
 - **Last Active**: 2026-08-06
 <!-- @@@/auto:current-status -->
 
@@ -19,7 +19,7 @@
 <!-- @@@auto:active-documents -->
 | File | Lines | Status |
 |------|-------|--------|
-| `journal-1.md` | ~1080 | Active |
+| `journal-1.md` | ~1112 | Active |
 <!-- @@@/auto:active-documents -->
 
 ---
@@ -29,6 +29,7 @@
 <!-- @@@auto:session-history -->
 | # | Date | Title | Commits | Branch |
 |---|------|-------|---------|--------|
+| 27 | 2026-08-06 | 修复 HSidebar import.meta.env 类型错误（tsconfig.lib.json 引入 vite/client） | `9d5d12f` | `master` |
 | 26 | 2026-08-06 | HLoading 加载指示组件（local/global 两形态）+ HTable 复用 | `d327179`, `7369937` | `master` |
 | 25 | 2026-08-06 | HToast 重构为深色 HUD 风格（对齐 wanchun/mini w-toast） | `488294b`, `e827400` | `master` |
 | 24 | 2026-08-03 | 配色对齐 HeroUI Native + oklch + 语义自洽 | `f604f5c` | `master` |

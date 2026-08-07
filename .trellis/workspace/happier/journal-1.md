@@ -1251,3 +1251,33 @@ HPopup position="bottom" 支持原生式拖拽关闭（原先仅 fullscreen 有�
 
 - fullscreen 拖拽时遮罩不渐隐（既有 bug）：给 `.h-popup--position-fullscreen.h-popup--dragging/snapping .h-popup__overlay` 加 `animation: none`
 - top 形态上滑关闭手势（另一套方向逻辑）
+
+## Session 32: fullscreen 拖拽遮罩渐隐修复
+
+**Date**: 2026-08-07
+**Task**: 08-07-popup-fullscreen-overlay-fade
+**Branch**: `master`
+
+### Summary
+
+修复 HPopup fullscreen 拖拽期遮罩不随位移渐隐的既有 bug：`.h-popup__overlay` 入场动画 `h-popup-overlay-in 220ms both` 的 fill 终值优先级高于手势 inline opacity，压掉 `gestureOverlayStyle` 渐隐。修复 = 给 `.h-popup--position-fullscreen` 的 dragging/snapping 态 overlay 加 `animation: none`（镜像 bottom 修复）。spec 已知问题标记撤销。
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `f1016e6` | fix(popup): fullscreen 拖拽期遮罩渐隐失效（入场动画 fill 压过 inline opacity） |
+| `d197142` | docs(spec): fullscreen 遮罩渐隐已修复（撤销已知问题标记） |
+
+### Testing
+
+- [OK] vue-tsc 零错误；build:lib / build:playground / docs:build 全通过
+- [OK] trellis-check 核验：AC1–AC5 全 PASS，零发现；dist/styles.css 含新规则
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- top 形态上滑关闭手势（另一套方向逻辑）

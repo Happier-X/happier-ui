@@ -355,6 +355,13 @@
     touch-action: none;
   }
 
+  /* 拖动/回弹期：入场动画 fill（both）会压住手势 inline opacity，遮罩渐隐失效——
+     与 bottom 修复一致，手势态给 overlay 禁用入场动画。 */
+  .h-popup--position-fullscreen.h-popup--dragging .h-popup__overlay,
+  .h-popup--position-fullscreen.h-popup--snapping .h-popup__overlay {
+    animation: none;
+  }
+
   /* 手势禁用（swipeClose=false）：touch-action 交还宿主，由宿主 JS + CSS 全权控制手势。
      dragging 态在本修饰类下不可达（onTouchStart 已早退），故两者不冲突。 */
   .h-popup--position-fullscreen.h-popup--swipe-disabled .h-popup__panel {

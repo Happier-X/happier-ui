@@ -6,6 +6,8 @@
 
 ## 基础 · bottom（底部面板）
 
+`position="bottom"` 为底部面板（bottom sheet），支持 **拖拽关闭**：在面板内（scrollTop=0 时，含手柄区域）向下拖动，面板跟随位移、遮罩渐隐；位移 ≥ 80px 或快速下滑松手即先滑出视口再关闭，短距离松手 250ms 内回弹。内容滚动后（scrollTop > 0）向下拖动只滚动内容、不接管手势。
+
 <script setup>
 import { ref } from 'vue'
 import { HButton, HPopup } from 'happier-ui'
@@ -26,7 +28,10 @@ const relTrigger = ref(null)
   </div>
 
   <h-popup v-model="bottom" position="bottom" title="底部弹层" :handle="true">
-    <p class="h-demo__hint">position="bottom"，自带拖拽手柄（:handle="true"）。</p>
+    <p class="h-demo__hint">position="bottom"，自带拖拽手柄（:handle="true"）。列表滚动到顶部后向下拖（≥ 80px 或快速下滑）滑出关闭；短距离松手回弹；列表未到顶时拖动仅滚动列表。</p>
+    <ul class="h-demo__list">
+      <li v-for="i in 12" :key="i">可滚动列表项 {{ i }}</li>
+    </ul>
     <h-button size="sm" @click="bottom = false">关闭</h-button>
   </h-popup>
 
@@ -54,7 +59,7 @@ const show = ref(false)
 <template>
   <h-button @click="show = true">打开弹层</h-button>
 
-  <!-- 底部面板 -->
+  <!-- 底部面板：支持拖拽关闭（scrollTop=0 时向下拖） -->
   <h-popup v-model="show" position="bottom" title="底部弹层" :handle="true">
     <p>position="bottom"</p>
     <h-button @click="show = false">关闭</h-button>
@@ -203,7 +208,7 @@ const show = ref(false)
 | `radius` | `'none' \| 'sm' \| 'md' \| 'lg'` | — | 面板圆角粒度 |
 | `handle` | `boolean` | `false` | position="bottom" 时显示拖拽手柄 |
 | `keepAlive` | `boolean` | `false` | 关闭时保活 slot 内容（隐藏不卸载，重开重放入场动画）；默认关闭即卸载、重开重挂载 |
-| `swipeClose` | `boolean` | `true` | fullscreen 下滑关闭手势开关；`false` 时内置手势不生效、面板 `touch-action` 复位为 `auto`（其他 position 无作用） |
+| `swipeClose` | `boolean` | `true` | bottom / fullscreen 下滑关闭手势开关；`false` 时内置手势不生效、面板 `touch-action` 复位为 `auto`（其他 position 无作用） |
 | `maxWidth` | `string \| number` | — | bottom/top 形态面板最大宽度；number 按 px，string 原样（如 `'640px'` / `'none'` / `'100%'`）。写入 inline CSS 变量 `--h-bottom-sheet-max-width`，per-instance 覆盖 token；不传默认全宽（edge-to-edge） |
 
 ### Emits
@@ -230,6 +235,7 @@ const show = ref(false)
 - **宽度**：bottom/top 面板默认全宽贴底（`--h-bottom-sheet-max-width` 默认 `100%`，edge-to-edge）。宽屏需桌面居中卡片感时，传 `maxWidth`（如 `:max-width="640"`）或全局覆盖 `--h-bottom-sheet-max-width` 限宽；限宽后面板仍水平居中（`margin: 0 auto`）。`maxWidth` 仅影响引用该变量的 bottom/top 形态，left/right/center/relative/fullscreen 不受影响。
 - **滚动锁定**：默认 `lockScroll: true`，打开时通过 `useScrollLock`（引用计数，模块级安全）禁止 body 滚动，关闭自动还原。
 - **遮罩**：除 `position="relative"` 外均渲染遮罩层。遮罩点击关闭受 `closeOnOverlay` 控制。
+- **Bottom 拖拽手势**：bottom 面板（含 handle）在 `scrollTop === 0` 时向下拖动，面板跟随位移、遮罩透明度同步降低；位移 ≥ 80px 或速度 ≥ 0.3px/ms 松手先平滑滑出视口（250ms）再关闭，未达阈值 250ms 内回弹。内容滚动后（scrollTop > 0）不接管，交还内容滚动；从遮罩区域起拖不触发。`swipeClose=false` 时手势禁用、面板 `touch-action` 复位 `auto`，由宿主全权控制。
 - **Fullscreen 手势**：内容位于顶部时向下拖动；位移 ≥ 80px 或速度 ≥ 0.3px/ms 关闭，未达阈值则回弹。全屏不渲染内置 header，需由 default slot 自管。`swipeClose=false` 时内置手势禁用，手势交由宿主处理（面板 `touch-action: auto`），转场动画、滚动锁、overlay/Esc/closeable 关闭通道不受影响。
 - **keepAlive 保活**：`keepAlive=true` 时 slot 内容首渲即挂载、关闭仅隐藏不卸载，重开内容不重建且入场动画重放；隐藏态不响应任何交互（overlay/Esc/X/手势），滚动锁仍随 `visible` 释放/恢复。
 - **Esc**：Esc 键触发关闭（`closeOnEsc`）。
@@ -244,6 +250,21 @@ const show = ref(false)
   line-height: var(--h-line-height-body, 1.4);
   color: var(--h-color-ink-muted, #6b6b6b);
   margin-bottom: var(--h-space-xs, 8px);
+}
+
+/* bottom 拖拽演示：限高滚动列表，验证「滚动 vs 拖拽」对照 */
+.h-demo__list {
+  max-height: 36vh;
+  overflow: auto;
+  margin: 0 0 var(--h-space-sm, 8px);
+  padding: 0;
+  list-style: none;
+}
+
+.h-demo__list li {
+  padding: var(--h-space-sm, 8px) 0;
+  border-bottom: 1px solid var(--h-color-border-subtle, #eee);
+  font-size: var(--h-font-body-sm, 13px);
 }
 
 .h-popup--radius-sm {

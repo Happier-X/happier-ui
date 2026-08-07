@@ -153,6 +153,38 @@
       0;
     animation: h-popup-slide-up var(--h-popup-duration, 220ms)
       var(--h-ease-standard, ease) both;
+    /* 手势基础：纵向滚动原生处理 + 过度滚动不冒泡（镜像 fullscreen，避免下拉刷新） */
+    touch-action: pan-y;
+    overscroll-behavior-y: contain;
+  }
+
+  /* 拖动期：锁面板滚动 + 禁用入场动画，transform 直接跟随手指。 */
+  .h-popup--position-bottom.h-popup--dragging .h-popup__panel {
+    animation: none;
+    transition: none;
+    touch-action: none;
+  }
+
+  /* 遮罩同步移除入场 animation（其 fill 保持 opacity:1，会压过手势 inline opacity），
+     否则拖动/滑出/回弹期间遮罩透明度变化全部失效。 */
+  .h-popup--position-bottom.h-popup--dragging .h-popup__overlay,
+  .h-popup--position-bottom.h-popup--snapping .h-popup__overlay {
+    animation: none;
+  }
+
+  /* 未达阈值回弹 / 滑出离场：最长 250ms。 */
+  .h-popup--position-bottom.h-popup--snapping .h-popup__panel {
+    animation: none;
+    transition: transform 250ms var(--h-ease-standard, ease-out);
+  }
+
+  .h-popup--position-bottom.h-popup--snapping .h-popup__overlay {
+    transition: opacity 250ms var(--h-ease-standard, ease-out);
+  }
+
+  /* 手势禁用（swipeClose=false）：touch-action 交还宿主，由宿主 JS + CSS 全权控制。 */
+  .h-popup--position-bottom.h-popup--swipe-disabled .h-popup__panel {
+    touch-action: auto;
   }
 
   /* --- top --- */

@@ -395,8 +395,29 @@
         closeable
         @close="popupCloseCount++"
       >
-        <p class="smoke__hint">position="bottom"，自带拖拽手柄与右上角 X。</p>
-        <h-button size="sm" @click="popupBottom = false">关闭</h-button>
+        <p class="smoke__hint">position="bottom"，自带拖拽手柄与右上角 X。列表滚动到顶部后向下拖（≥ 80px 或快速下滑）滑出关闭；短距离松手回弹；列表未到顶时拖动仅滚动列表。</p>
+        <ul class="smoke__popup-list">
+          <li v-for="i in 14" :key="i">可滚动队列项 {{ i }}</li>
+        </ul>
+        <div class="smoke__row">
+          <h-button size="sm" @click="popupBottom = false">关闭</h-button>
+        </div>
+      </h-popup>
+
+      <p class="smoke__hint smoke__hint--spaced"><strong>bottom + swipeClose=false（拖拽手势禁用）</strong></p>
+      <div class="smoke__row">
+        <h-button @click="popupSwipeDisabledBottom = true">底部弹层（禁手势）</h-button>
+      </div>
+      <h-popup
+        v-model="popupSwipeDisabledBottom"
+        position="bottom"
+        title="禁手势底部弹层"
+        :handle="true"
+        :swipe-close="false"
+        @close="popupCloseCount++"
+      >
+        <p class="smoke__hint">swipeClose=false：拖动面板无任何反应、不 preventDefault，面板 touch-action 复位 auto，手势完全交还宿主。</p>
+        <h-button size="sm" @click="popupSwipeDisabledBottom = false">关闭</h-button>
       </h-popup>
 
       <p class="smoke__hint smoke__hint--spaced"><strong>center（带 footer）</strong></p>
@@ -1494,6 +1515,7 @@ const popupCloseCount = ref(0)
 const popupKeepAlive = ref(false)
 const popupKeepAliveCount = ref(0)
 const popupSwipeDisabled = ref(false)
+const popupSwipeDisabledBottom = ref(false)
 const toastSuccess = ref(false)
 const toastTop = ref(false)
 const toastBottom = ref(false)
@@ -1861,6 +1883,23 @@ const onToastClose = () => {
   font-size: var(--h-font-body-sm, 13px);
   color: var(--h-color-ink-muted, #666);
   text-wrap: pretty;
+}
+
+/* popup bottom 拖拽演示：限高滚动列表，验证「滚动 vs 拖拽」 */
+.smoke__popup-list {
+  max-height: 40vh;
+  overflow: auto;
+  margin: 0 0 var(--h-space-md, 12px);
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--h-color-border-subtle, #eee);
+}
+
+.smoke__popup-list li {
+  padding: var(--h-space-sm, 8px) 0;
+  border-bottom: 1px solid var(--h-color-border-subtle, #eee);
+  font-size: var(--h-font-body-sm, 13px);
+  color: var(--h-color-ink, #111);
 }
 
 .smoke__field-stack {

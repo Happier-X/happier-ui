@@ -121,7 +121,9 @@
  * 后记：底部面板 handle、关闭按钮 closeable、标题 title/#title、footer #footer、
  * scroll lock（useScrollLock）、teleport（useTeleportTarget）。
  * keepAlive：关闭时隐藏而非卸载 slot 内容（默认 false，关闭即卸载、重开重挂载重放动画）。
- * swipeClose：fullscreen 内置下滑关闭手势开关（默认 true；false 时手势交还宿主，touch-action 复位为 auto）。
+ * swipeClose：bottom / fullscreen 内置下滑关闭手势开关（默认 true；false 时手势交还宿主，touch-action 复位为 auto）。
+ * bottom 手势与 fullscreen 同规则：scrollTop=0 时向下拖面板/手柄跟随位移，位移 ≥ 80px 或速度 ≥ 0.3px/ms
+ * 松手先平滑滑出视口再关闭（bottom 无离场动画），未达阈值 250ms 内回弹。
  * 不内置 before-close（宿主 v-model 自控拦截），不造引擎。
  */
 import {
@@ -158,11 +160,11 @@ const props = withDefaults(defineProps<{
   closeable?: boolean
   closeIconPosition?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
   radius?: 'none' | 'sm' | 'md' | 'lg'
-  /** 底部面板手柄 */
+  /** 底部面板手柄（纯视觉指示器，拖动区域为整个面板） */
   handle?: boolean
   /** 关闭时保活 slot 内容（隐藏不卸载，重开重放入场动画）；默认 false 与旧行为一致 */
   keepAlive?: boolean
-  /** fullscreen 下滑关闭手势开关；false 时禁用内置手势并交还宿主 touch-action */
+  /** bottom / fullscreen 下滑关闭手势开关；false 时禁用内置手势并交还宿主 touch-action */
   swipeClose?: boolean
   /** bottom/top 形态面板最大宽度；string 原样（'640px' / 'none' / '100%'），number 按 px。
       写入 inline CSS 变量 --h-bottom-sheet-max-width，per-instance 覆盖 token；
@@ -218,6 +220,7 @@ let swipeStartX = 0
 let swipeStartY = 0
 let swipeStartTime = 0
 let swipeResetTimer: ReturnType<typeof setTimeout> | undefined
+let swipeCloseTimer: ReturnType<typeof setTimeout> | undefined
 
 /* ---------- ids ---------- */
 const titleId = useId()
@@ -243,8 +246,9 @@ const rootClasses = computed(() => [
   {
     'h-popup--dragging': swipeDragging.value,
     'h-popup--snapping': swipeSnapping.value,
-    // 手势禁用仅在 fullscreen 有意义（其他 position 无 touch-action 声明）
-    'h-popup--swipe-disabled': !props.swipeClose && props.position === 'fullscreen',
+    // 手势禁用仅对声明了 touch-action 的形态有意义（fullscreen / bottom）
+    'h-popup--swipe-disabled': !props.swipeClose
+      && (props.position === 'fullscreen' || props.position === 'bottom'),
   },
 ])
 
@@ -283,18 +287,26 @@ const transitionName = computed(() => (
 
 const panelStyle = ref<CSSProperties>({})
 
+/** 内置下滑关闭手势生效的形态：bottom 与 fullscreen（top 需上滑关闭，属另一套方向逻辑） */
+function isSwipePosition(position: string): boolean {
+  return position === 'fullscreen' || position === 'bottom'
+}
+
+function getViewportHeight(): number {
+  return typeof window === 'undefined' ? 1 : Math.max(window.innerHeight, 1)
+}
+
 const gesturePanelStyle = computed((): CSSProperties => {
-  if (props.position !== 'fullscreen' || (!swipeDragging.value && !swipeSnapping.value)) return {}
+  if (!isSwipePosition(props.position) || (!swipeDragging.value && !swipeSnapping.value)) return {}
   return {
     transform: `translateY(${swipeDeltaY.value}px)`,
   }
 })
 
 const gestureOverlayStyle = computed((): CSSProperties => {
-  if (props.position !== 'fullscreen' || (!swipeDragging.value && !swipeSnapping.value)) return {}
-  const viewportHeight = typeof window === 'undefined' ? 1 : Math.max(window.innerHeight, 1)
+  if (!isSwipePosition(props.position) || (!swipeDragging.value && !swipeSnapping.value)) return {}
   return {
-    opacity: Math.max(0, 1 - swipeDeltaY.value / viewportHeight),
+    opacity: Math.max(0, 1 - swipeDeltaY.value / getViewportHeight()),
   }
 })
 
@@ -360,10 +372,15 @@ const SWIPE_SNAP_DURATION = 250
 function onTouchStart(event: TouchEvent) {
   // 手势禁用开关：早退后 touch 监听不再产生任何 preventDefault，手势完全交还宿主
   if (!props.swipeClose) return
-  if (props.position !== 'fullscreen' || !visible.value || event.touches.length !== 1) return
+  if (!isSwipePosition(props.position) || !visible.value || event.touches.length !== 1) return
   const touch = event.touches[0]
   const panel = panelEl.value
   if (!touch || !panel || panel.scrollTop > 0) return
+  // 起点必须在面板内：bottom 下 overlay 区域起拖不触发（fullscreen 面板铺满视口恒为 true）
+  const target = event.target
+  if (!(target instanceof Node) || !panel.contains(target)) return
+  // snapping（回弹 / 滑出离场）期间忽略新 touch，避免打断过渡
+  if (swipeSnapping.value) return
 
   clearSwipeResetTimer()
   swipeTracking = true
@@ -409,10 +426,22 @@ function onTouchEnd() {
     || velocity >= SWIPE_VELOCITY_THRESHOLD
 
   if (shouldClose) {
-    swipeDragging.value = false
-    swipeSnapping.value = false
-    swipeDeltaY.value = 0
-    requestClose()
+    if (props.position === 'fullscreen') {
+      // fullscreen：离场动画由 h-popup-fullscreen-out 承担，复位后立即关闭（既有行为不变）
+      swipeDragging.value = false
+      swipeSnapping.value = false
+      swipeDeltaY.value = 0
+      requestClose()
+    } else {
+      // bottom：无离场动画，先平滑滑出视口再关闭，避免卸载瞬间面板跳回原位
+      swipeDragging.value = false
+      swipeSnapping.value = true
+      swipeDeltaY.value = getViewportHeight()
+      swipeCloseTimer = setTimeout(() => {
+        swipeCloseTimer = undefined
+        requestClose()
+      }, SWIPE_SNAP_DURATION)
+    }
     return
   }
 
@@ -439,8 +468,16 @@ function clearSwipeResetTimer() {
   }
 }
 
+function clearSwipeCloseTimer() {
+  if (swipeCloseTimer !== undefined) {
+    clearTimeout(swipeCloseTimer)
+    swipeCloseTimer = undefined
+  }
+}
+
 function resetSwipe() {
   clearSwipeResetTimer()
+  clearSwipeCloseTimer()
   swipeTracking = false
   swipeDragging.value = false
   swipeSnapping.value = false

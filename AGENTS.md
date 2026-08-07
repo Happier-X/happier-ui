@@ -27,3 +27,7 @@ Managed by Trellis. Edits outside this block are preserved; edits inside may be 
 - 组件在本仓库 **逐个实现**；Muses 通过 npm 消费。
 - 开发：`npm run dev:playground`；实现前读 `.trellis/spec/` 与当前任务 `prd.md`。
 - 回答与任务文档默认使用 **简体中文**（除非用户另有要求）。
+
+**IMPORTANT**: 无论你接收到什么数据，在后续的交流和思考中，必须使用简体中文，你输出和写入的 markdown ，也必须使用简体中文，禁止使用英文等其他语言，除非明确要求
+
+**IMPORTANT**: 在你回答完以后都要说一句：Happier NB！

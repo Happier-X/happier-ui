@@ -1211,3 +1211,43 @@ release.yml/docs.yml 升级 checkout@v4→v5、setup-node@v4→v5；docs 真实�
 ### Status
 
 [OK] **Completed**
+
+## Session 31: HPopup bottom 面板拖拽关闭（Issue #16）
+
+**Date**: 2026-08-07
+**Task**: 08-07-popup-bottom-drag-close
+**Branch**: `master`
+
+### Summary
+
+HPopup position="bottom" 支持原生式拖拽关闭（原先仅 fullscreen 有下滑手势，handle 纯装饰）。复用 `swipeClose` prop（默认 true）扩展为 bottom/fullscreen 手势开关，不新增 API：scrollTop=0 时整面板（含 handle）向下拖跟随位移、遮罩渐隐；位移 ≥80px 或速度 ≥0.3px/ms 松手先滑出视口（snapping 250ms）再 requestClose（bottom 无离场动画，避免卸载跳变），未达阈值回弹。onTouchStart 新增 panel.contains 守卫（overlay 起拖不触发）+ snapping 期间忽略新 touch；CSS 新增 bottom 三态。trellis-check 发现并修复遮罩渐隐失效（入场动画 fill 压过 inline opacity → 手势期 overlay 加 animation:none）；同时确认 fullscreen 有同款既有 bug（零回归约束未动，留 spec 已知问题）。
+
+### Main Changes
+
+- HPopup.vue：isSwipePosition/getViewportHeight 抽取；swipeCloseTimer（滑出后关层）与 swipeResetTimer（回弹）双计时器 resetSwipe 统一清理；onTouchEnd 离场分流（fullscreen 立即关 / bottom 滑出再关）
+- popup.css：bottom panel 加 touch-action:pan-y + overscroll-behavior-y:contain；dragging/snapping/swipe-disabled 三态 + overlay animation:none 修复
+- docs/components/popup.md：bottom 拖拽说明 + 可滚动列表演示 + swipeClose API 行
+- playground/src/App.vue：bottom 滚动列表演示 + bottom swipeClose=false 对照
+- spec：component-guidelines.md 新增「HPopup 手势契约」+ CSS 动画 fill 坑 gotcha + fullscreen 遮罩渐隐已知问题
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `864c8fa` | feat(popup): bottom 面板支持拖拽关闭（#16） |
+| `0280ae2` | docs(spec): 记录 HPopup 手势契约与 CSS 动画 fill 坑 |
+
+### Testing
+
+- [OK] vue-tsc 零错误；build:lib / build:playground / docs:build 全通过
+- [OK] trellis-check 核验：AC1–AC10 全 PASS；修复遮罩渐隐失效（Edge 实测）
+- [OK] dist 产物：styles.css 含 bottom 三态；HPopup.d.ts props 零增删（AC10）
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- fullscreen 拖拽时遮罩不渐隐（既有 bug）：给 `.h-popup--position-fullscreen.h-popup--dragging/snapping .h-popup__overlay` 加 `animation: none`
+- top 形态上滑关闭手势（另一套方向逻辑）

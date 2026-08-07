@@ -195,7 +195,7 @@ export { default as HTag } from './components/HTag.vue'
 ## 反模式
 
 > **Gotcha（CSS 动画 fill 压过 inline style）**：带 `animation-fill-mode: both/forwards` 的入场动画结束后仍持续生效，其动画终值优先级高于普通声明与 inline style。HPopup 遮罩渐隐因此失效——`.h-popup__overlay` 的 `h-popup-overlay-in 220ms both` 把 `gestureOverlayStyle` 的 inline `opacity` 压成 `1`。守则：任何形态做拖拽/手势遮罩渐隐时，须在手势态（dragging/snapping）给 overlay 加 `animation: none`。
-> **已知问题（未修）**：fullscreen 拖拽时遮罩同样不渐隐（既有 bug，AC 零回归约束下未动）；后续修复 = 给 `.h-popup--position-fullscreen.h-popup--dragging/snapping .h-popup__overlay` 加 `animation: none`。
+> **已修复**：fullscreen 拖拽时遮罩渐隐（此前为既有 bug，`864c8fa` 后 bottom 已修、fullscreen 于 `08-07-popup-fullscreen-overlay-fade` 补齐）；修复 = 给 `.h-popup--position-fullscreen.h-popup--dragging/snapping .h-popup__overlay` 加 `animation: none`。
 >
 > **Gotcha（keepAlive/v-show 保活）**：`<Transition>` 子元素在「保活」与「卸载」两种模式间切换时，同一元素上的 `v-if` 与 `v-show` **永不能在同一个渲染周期内同时翻转**——v-show 的 `display:none` 会提前杀死 Transition 离场动画（实现在 `HPopup.vue` 的 slot 锚点上）。守则：非保活时 `v-if` 跟随 `visible`、`v-show` 恒 `true`；保活时 `v-if` 恒 `true`（首渲即挂载）、`v-show` 跟随 `visible`；且保活路径不可再递增 `transitionKey`（否则强制重挂载、销毁保活内容）。
 
